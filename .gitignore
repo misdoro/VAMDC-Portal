@@ -1,4 +1,7 @@
 .*
 build/*
 target/*
+portal/target/*
+portal/build/*
+portal-test/bin/*
 !.gitignore
