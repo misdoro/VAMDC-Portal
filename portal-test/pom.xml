@@ -6,9 +6,7 @@
     <version>3.0.0-SNAPSHOT</version>
     <relativePath>../portal-parent</relativePath>
   </parent>
-  <groupId>org.vamdc</groupId>
   <artifactId>portal-test</artifactId>
-  <version>3.0.0-SNAPSHOT</version>
   <name>portal - test</name>
   <description>VAMDC Portal (r)evolution</description>
   <dependencies>

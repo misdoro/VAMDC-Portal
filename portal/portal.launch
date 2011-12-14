@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- Hibernate Console launch configuration -->
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.hibernate.eclipse.launch.ConsoleConfigurationLaunchConfigurationType">
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
 <listEntry value="/portal"/>
