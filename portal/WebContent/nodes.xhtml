@@ -1,0 +1,54 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a="http://richfaces.org/a4j" template="layout/template.xhtml">
+
+	<ui:define name="body">
+
+		<rich:dataTable id="queryListAll" value="#{nodes.list}" var="node">
+			<f:facet name="header">
+				<rich:columnGroup>
+					<h:column>
+						<h:outputText styleClass="headerText" value="Name" />
+					</h:column>
+					<h:column>
+						<h:outputText styleClass="headerText" value="Description" />
+					</h:column>
+					<h:column>
+						<h:outputText styleClass="headerText" value="Maintainer" />
+					</h:column>
+					<h:column>
+						<h:outputText styleClass="headerText" value="Status" />
+					</h:column>
+
+				</rich:columnGroup>
+			</f:facet>
+
+			<h:column>
+				<h:outputText value="#{node.name}" />
+			</h:column>
+
+			<h:column>
+				<h:outputText value="#{node.description}" />
+			</h:column>
+			
+			<h:column>
+				<h:outputText value="#{node.maintainer}" />
+			</h:column>
+			
+			
+			<h:column>
+				<h:outputText value="#{node.status}" />
+			</h:column>
+
+		</rich:dataTable>
+
+
+	</ui:define>
+
+</ui:composition>
