@@ -6,10 +6,11 @@
     xmlns:s="http://jboss.com/products/seam/taglib"
     xmlns:rich="http://richfaces.org/rich">
     <rich:toolBarGroup>
-        <h:outputText value="VAMDC Portal"/>
         <s:link id="menuHomeId" view="/home.xhtml" value="Home" propagation="none"/>
-        <s:link id="menuBuilderId" view="/unimplemented.xhtml" value="Query Builder" propagation="none"/>
-        <s:link id="menuLogId" view="/unimplemented.xhtml" value="Query Log" propagation="none"/> 
+        <s:link id="menuNodes" view="/nodes.xhtml" value="VANDC nodes" propagation="none"/>
+        <s:link id="menuBuilderId" view="/unimplemented.xhtml" value="Query" propagation="none"/>
+        <s:link id="menuLogId" view="/unimplemented.xhtml" value="Saved queries" propagation="none"/>
+        <s:link id="menuHelp" view="/unimplemented.xhtml" value="Help" propagation="none"/> 
     </rich:toolBarGroup>
    
 </rich:toolBar>

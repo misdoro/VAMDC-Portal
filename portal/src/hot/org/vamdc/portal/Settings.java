@@ -13,7 +13,7 @@ public enum Settings {
 	STATIC_ACCESS_URL("fileStorageURL","http://localhost/"),
 	DISPLAY_URL("displayURL","http://localhost/"),
 	REGISTRY_URL("registryURL","http://casx019-zone1.ast.cam.ac.uk/registry/services/RegistryQueryv1_0"),
-	REGISTRY_UPDATE_INTERVAL("registryUpdateInterval","60000"),
+	REGISTRY_UPDATE_INTERVAL("registryUpdateInterval","300000"),
 			
 	;
 	
