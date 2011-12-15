@@ -1,6 +1,7 @@
 package org.vamdc.portal.registry;
 
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.Destroy;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.Startup;
@@ -32,6 +33,11 @@ public class RegistryFacade
   		if (Client.INSTANCE.get()!=null)
   			System.out.println(Client.INSTANCE.get());
 		
+  	}
+  	
+  	@Destroy
+  	public void stop(){
+  		Client.INSTANCE.stopUpdates();
   	}
     
 }

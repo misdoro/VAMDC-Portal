@@ -14,11 +14,12 @@ public enum Client {
 	;
 	
 	private Registry registry;
+	private RegistryThread thread;
 	
 	Client(){	
-		System.out.println("Starting the registry client thread");
 		Executor exec = Executors.newSingleThreadExecutor();
-		exec.execute(new RegistryThread());
+		thread = new RegistryThread();
+		exec.execute(thread);
 	}
 
 	public Registry get(){
@@ -31,23 +32,38 @@ public enum Client {
 	
 	private class RegistryThread implements Runnable{
 
+		private transient boolean running=true;
+		
 		public void run() {
-			System.out.println("Started the registry client thread");
-			while(!Thread.interrupted()){
+			while(running){
 				try {
-					System.out.println("Updating the registry");
-					Registry newInstance = RegistryFactory.getClient(Settings.REGISTRY_URL.get());
-					if (newInstance!=null && newInstance.getIVOAIDs(Service.VAMDC_TAP).size()>0)
-						Client.INSTANCE.set(newInstance);
+					reloadRegistry();
 					Thread.sleep(Settings.REGISTRY_UPDATE_INTERVAL.getInt());
 				} catch (RegistryCommunicationException e) {
 				} catch (InterruptedException e) {
 				}
-				
 			}
 			System.out.println("registry client thread interrupted");
 		}
+
+		public void stop(){
+			running=false;
+		}
+		
+		private void reloadRegistry() throws RegistryCommunicationException {
+			System.out.println("Updating the registry");
+			Registry newInstance = RegistryFactory.getClient(Settings.REGISTRY_URL.get());
+			if (newInstance!=null && newInstance.getIVOAIDs(Service.VAMDC_TAP).size()>0)
+				Client.INSTANCE.set(newInstance);
+		}
 		
 	}
+	
+	void stopUpdates(){
+		thread.stop();
+	}
+	
+	
+	
 	
 }
