@@ -4,7 +4,7 @@
 <jboss-web>  
     <class-loading java2ClassLoadingCompliance="false">
         <loader-repository>
-            seam.jboss.org:loader=portal
+            seam.jboss.org:loader=${app.context}
             <loader-repository-config>java2ParentDelegation=false</loader-repository-config>
         </loader-repository>
     </class-loading>

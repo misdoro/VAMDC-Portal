@@ -7,10 +7,8 @@ import java.util.List;
 import net.ivoa.xml.voresource.v1.Resource;
 
 import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
-import org.jboss.seam.log.Log;
 import org.vamdc.portal.registry.Client;
 import org.vamdc.registry.client.Registry;
 import org.vamdc.registry.client.Registry.Service;
