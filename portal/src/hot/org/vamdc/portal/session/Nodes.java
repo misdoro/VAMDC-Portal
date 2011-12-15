@@ -20,7 +20,6 @@ import org.vamdc.registry.client.RegistryCommunicationException;
 @Scope(ScopeType.STATELESS)
 public class Nodes
 {
-    @Logger private Log log;
 
     private Registry registry;
 
@@ -46,6 +45,13 @@ public class Nodes
 				return node.getTitle();
     		return ivoaID;
     	}
+    	
+    	public String getSite(){
+    		if (node!=null && node.getContent()!=null)
+    			return node.getContent().getReferenceURL();
+    		return ivoaID;
+    	}
+    	
     	public String getDescription(){
     		if (node!=null && node.getContent()!=null)
 				return node.getContent().getDescription();

@@ -30,7 +30,9 @@
 			</f:facet>
 
 			<h:column>
-				<h:outputText value="#{node.name}" />
+				<h:outputLink value="#{node.site}" target="_blank">
+					<h:outputText value="#{node.name}" />
+				</h:outputLink>
 			</h:column>
 
 			<h:column>
