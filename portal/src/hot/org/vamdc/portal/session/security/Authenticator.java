@@ -11,7 +11,7 @@ import org.jboss.seam.security.Credentials;
 import org.jboss.seam.security.Identity;
 import org.vamdc.portal.entity.security.User;
 
-@Name("authenticator")
+//@Name("authenticator")
 public class Authenticator
 {
     @Logger private Log log;

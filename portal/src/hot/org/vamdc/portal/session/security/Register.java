@@ -31,27 +31,31 @@ public class Register
 
 	public void register()
 	{
+
 		try {
 			new RunAsOperation() {
 				public void execute() {
-					identityManager.createUser(username,password);
+					if (!identityManager.userExists(username)){
+						identityManager.createUser(username,password);
+					};
 				}
 			}.addRole("admin").run();
 			statusMessages.add("User #0 registered successfully with the password #1.",
-				username, password);
+					username, password);
 		} catch (IdentityManagementException e) {
 			statusMessages.add(e.getMessage());
 		}
-		// implement your business logic here
-		log.info("Register.register() action called with: #{Register.value}");
-		statusMessages.add("register #{Register.value}");
+		//implement your business logic here
+		log.info("Register.register() action called with: #{Register.username}");
+		statusMessages.add("register #{Register.username}");
+
 	}
 
 
 	@Observer(JpaIdentityStore.EVENT_PRE_PERSIST_USER)
 	public void onPrePersist(User user) {
 		log.info("***** Pre-persist observer called. Setting user properties *****");
-		user.setEmail("test");
+		user.setEmail(email);
 		log.info("***** User properties set *****");
 	}
 
