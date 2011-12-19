@@ -1,5 +1,6 @@
 package org.vamdc.portal.entity.security;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -14,41 +15,40 @@ import org.jboss.seam.annotations.security.management.UserPrincipal;
 import org.jboss.seam.annotations.security.management.UserRoles;
 
 @Entity
-public class User {
+public class User implements Serializable{
 
-  private Integer userId;
-  private String username;
-  private String passwordHash;
-  private Set<Role> roles;
+	private static final long serialVersionUID = -7576699084782852262L;
+	
+	private Integer userId;
+	private String username;
+	private String passwordHash;
+	private String email;
+	private Set<Role> roles;
+	
 
-  
+	@Id @GeneratedValue
+	public Integer getUserId() { return userId; }
+	public void setUserId(Integer userId) { this.userId = userId; }
 
-  @Id @GeneratedValue
+	@UserPrincipal
+	public String getUsername() { return username; }
+	public void setUsername(String username) { this.username = username; }
 
-  public Integer getUserId() { return userId; }
+	@UserPassword(hash = "sha")
+	public String getPasswordHash() { return passwordHash; }
+	public void setPasswordHash(String passwordHash) { this.passwordHash = passwordHash; }
 
-  public void setUserId(Integer userId) { this.userId = userId; }
+	
+	public String getEmail(){ return this.email; }
+	public void setEmail(String email){ this.email = email;};
 
-  
-
-  @UserPrincipal
-  public String getUsername() { return username; }
-  public void setUsername(String username) { this.username = username; }
-
-  
-
-  @UserPassword(hash = "md5")
-  public String getPasswordHash() { return passwordHash; }
-  public void setPasswordHash(String passwordHash) { this.passwordHash = passwordHash; }
-
-  
-
-  @UserRoles
-  @ManyToMany(targetEntity = Role.class)
-  @JoinTable(name = "UserRoles", 
-    joinColumns = @JoinColumn(name = "UserId"),
-    inverseJoinColumns = @JoinColumn(name = "RoleId"))
-  public Set<Role> getRoles() { return roles; }
-  public void setRoles(Set<Role> roles) { this.roles = roles; }
+	
+	@UserRoles
+	@ManyToMany(targetEntity = Role.class)
+	@JoinTable(name = "UserRoles", 
+	joinColumns = @JoinColumn(name = "UserId"),
+	inverseJoinColumns = @JoinColumn(name = "RoleId"))
+	public Set<Role> getRoles() { return roles; }
+	public void setRoles(Set<Role> roles) { this.roles = roles; }
 
 }
