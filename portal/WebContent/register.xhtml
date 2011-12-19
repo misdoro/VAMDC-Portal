@@ -13,40 +13,48 @@
 
     <h:form id="RegisterForm">
 
+			<p>
+              <b>Registration is not required.</b> 
+              <br>Once registered you are getting an advantage of persistent query history
+              and email alerts on major updates.</br>
+            </p>
+
         <rich:panel>
             <f:facet name="header">register</f:facet>
 
             <s:decorate id="usernameDecorate" template="layout/edit.xhtml">
                 <ui:define name="label">Username</ui:define>
                 <h:inputText id="usernameField" required="true"
-                             value="#{Register.username}"/>
+                             value="#{register.username}"/>
             </s:decorate>
             
             <s:decorate id="emailDecorate" template="layout/edit.xhtml">
                 <ui:define name="label">Email</ui:define>
                 <h:inputText id="emailField" required="true"
-                             value="#{Register.email}"/>
+                             value="#{register.email}"/>
             </s:decorate>
             
             <s:decorate id="passwordDecorate" template="layout/edit.xhtml">
                 <ui:define name="label">Password</ui:define>
                 <h:inputSecret id="passwordField" required="true"
-                             value="#{Register.password}"/>
+                             value="#{register.password}"/>
             </s:decorate>
             
             <s:decorate id="verifyPasswordDecorate" template="layout/edit.xhtml">
                 <ui:define name="label">Verify password</ui:define>
                 <h:inputSecret id="value" required="true"
-                             value="#{Register.verifyPassword}"/>
+                             value="#{register.verifyPassword}"/>
             </s:decorate>
 
             <div style="clear:both"/>
+
+
 
         </rich:panel>
 
         <div class="actionButtons">
             <h:commandButton id="register" value="register"
-                    action="#{Register.register}"/>
+                    action="#{register.register}"/>
         </div>
 
     </h:form>

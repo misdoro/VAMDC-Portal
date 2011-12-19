@@ -13,7 +13,7 @@ import org.jboss.seam.international.StatusMessage.Severity;
 import org.jboss.seam.international.StatusMessages;
 import org.vamdc.portal.entity.security.User;
 
-@Name("Register")
+@Name("register")
 public class Register
 {
 	@Logger private Log log;
@@ -37,12 +37,12 @@ public class Register
 					if (!identityManager.userExists(username)){
 						identityManager.createUser(username,password);
 					}else{
-						throw new IdentityManagementException("User #{Register.username} already exists!");
+						throw new IdentityManagementException("User #{register.username} already exists!");
 					}
 				}
 			}.addRole("admin").run();
-			statusMessages.add(Severity.INFO,"User #0 registered successfully with the password #1.",
-					username, password);
+			statusMessages.add(Severity.INFO,"User #0 registered successfully. You may login now.", username);
+			log.info("Registered new user ",username);
 			registered=true;
 		} catch (IdentityManagementException e) {
 			statusMessages.add(Severity.ERROR,e.getMessage());
@@ -53,9 +53,7 @@ public class Register
 
 	@Observer(JpaIdentityStore.EVENT_PRE_PERSIST_USER)
 	public void onPrePersist(User user) {
-		log.info("***** Pre-persist observer called. Setting user properties *****");
 		user.setEmail(email);
-		log.info("***** User properties set *****");
 	}
 
 
