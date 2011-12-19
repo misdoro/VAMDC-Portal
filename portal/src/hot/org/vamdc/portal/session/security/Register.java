@@ -1,7 +1,5 @@
 package org.vamdc.portal.session.security;
 
-import javax.persistence.EntityManager;
-
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
@@ -11,6 +9,7 @@ import org.jboss.seam.security.RunAsOperation;
 import org.jboss.seam.security.management.IdentityManagementException;
 import org.jboss.seam.security.management.IdentityManager;
 import org.jboss.seam.security.management.JpaIdentityStore;
+import org.jboss.seam.international.StatusMessage.Severity;
 import org.jboss.seam.international.StatusMessages;
 import org.vamdc.portal.entity.security.User;
 
@@ -21,33 +20,33 @@ public class Register
 
 	@In private StatusMessages statusMessages;
 	@In private IdentityManager identityManager;
-	@In private EntityManager entityManager;
 
 
 	private String username;
 	private String password;
 	private String verifyPassword;
 	private String email;
-
+	private boolean registered=false;
+	
 	public void register()
 	{
-
+		registered=false;
 		try {
 			new RunAsOperation() {
 				public void execute() {
 					if (!identityManager.userExists(username)){
 						identityManager.createUser(username,password);
-					};
+					}else{
+						throw new IdentityManagementException("User #{Register.username} already exists!");
+					}
 				}
 			}.addRole("admin").run();
-			statusMessages.add("User #0 registered successfully with the password #1.",
+			statusMessages.add(Severity.INFO,"User #0 registered successfully with the password #1.",
 					username, password);
+			registered=true;
 		} catch (IdentityManagementException e) {
-			statusMessages.add(e.getMessage());
+			statusMessages.add(Severity.ERROR,e.getMessage());
 		}
-		//implement your business logic here
-		log.info("Register.register() action called with: #{Register.username}");
-		statusMessages.add("register #{Register.username}");
 
 	}
 
@@ -97,6 +96,11 @@ public class Register
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+
+	public boolean isRegistered() {
+		return registered;
 	}
 
 }
