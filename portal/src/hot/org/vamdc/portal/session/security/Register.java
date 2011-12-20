@@ -1,9 +1,11 @@
 package org.vamdc.portal.session.security;
 
+import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Observer;
+import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.security.RunAsOperation;
 import org.jboss.seam.security.management.IdentityManagementException;
@@ -14,6 +16,7 @@ import org.jboss.seam.international.StatusMessages;
 import org.vamdc.portal.entity.security.User;
 
 @Name("register")
+@Scope(ScopeType.EVENT)
 public class Register
 {
 	@Logger private Log log;
