@@ -8,10 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
-
-import org.vamdc.portal.registry.Client;
-import org.vamdc.registry.client.RegistryCommunicationException;
 
 @Entity
 public class RespondedNode implements Serializable{
