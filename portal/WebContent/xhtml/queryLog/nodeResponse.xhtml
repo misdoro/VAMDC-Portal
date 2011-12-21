@@ -1,41 +1,29 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-	<rich:dataTable xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:s="http://jboss.com/products/seam/taglib"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:s="http://jboss.com/products/seam/taglib"
 	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a="http://richfaces.org/a4j"
-	 id="nodeResponse" value="#{query.responses}"
-		var="response">
-		<f:facet name="header">
-			<rich:columnGroup>
-				<h:column>
-					<h:outputText styleClass="headerText" value="node" />
-				</h:column>
-				<h:column>
-					<h:outputText styleClass="headerText" value="results" />
-				</h:column>
-				<h:column>
-					<h:outputText styleClass="headerText" value="download" />
-				</h:column>
-
-			</rich:columnGroup>
-		</f:facet>
-
-		<h:column>
-
-			<h:outputText value="#{response.nodeIvoaID}" />
-		</h:column>
-
-		<h:column>
-			<h:outputText value="#{response.nodeIvoaID}" />
-		</h:column>
-
-		<h:column>
-			<h:outputText value="#{response.nodeIvoaID}" />
-		</h:column>
-
+	xmlns:a4j="http://richfaces.org/a4j">
+	
+	<rich:dataTable value="#{query.responses}"
+			var="response">
+			<h:column>
+				<h:outputText value="#{response.node}" />
+			</h:column>
+			
+			<h:column>
+				<h:outputText value="#{response.stats}"/>
+			</h:column>
+			
+			<h:column>
+				<h:outputLink value="#{response.xsamsURL}">
+					<h:outputText value="XSAMS"/>
+				</h:outputLink>
+			</h:column>
+			
 	</rich:dataTable>
 
+</ui:composition>

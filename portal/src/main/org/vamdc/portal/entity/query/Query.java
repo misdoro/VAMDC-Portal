@@ -23,6 +23,7 @@ public class Query implements Serializable{
 
 	private Integer queryID;
 	private String queryString;
+	private String queryUrlPart;
 	private String comments;
 	private User user;
 	private List<RespondedNode> responses;
@@ -41,6 +42,8 @@ public class Query implements Serializable{
 	public String getQueryString() { return queryString; }
 	public void setQueryString(String queryString) { this.queryString = queryString; }
 	
+	public String getQueryUrlPart() { return queryUrlPart; }
+	public void setQueryUrlPart(String queryUrlPart) { this.queryUrlPart = queryUrlPart; }
 	
 	public String getComments() { return comments; }
 	public void setComments(String comments) { this.comments = comments; }
@@ -50,6 +53,6 @@ public class Query implements Serializable{
 	public List<RespondedNode> getResponses() { return responses; }
 	public void setResponses(List<RespondedNode> responses) { this.responses = responses; }
 	
-	
+
 	
 }

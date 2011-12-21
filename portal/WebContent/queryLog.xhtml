@@ -6,11 +6,12 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a="http://richfaces.org/a4j" template="layout/template.xhtml">
+	xmlns:a4j="http://richfaces.org/a4j" template="/layout/template.xhtml">
 
 	<ui:define name="body">
 
-		<rich:dataTable id="queryListAll" value="#{queryLog.queries}" var="query">
+		<rich:dataTable id="queryListAll" value="#{queryLog.queries}"
+			var="query">
 			<f:facet name="header">
 				<rich:columnGroup>
 					<h:column>
@@ -27,18 +28,17 @@
 			</f:facet>
 
 			<h:column>
-				
 				<h:outputText value="#{query.queryString}" />
 			</h:column>
 
 			<h:column>
 				<h:outputText value="#{query.comments}" />
 			</h:column>
-			
+
 			<h:column>
-				<ui:include src="/xhtml/queryLog/nodeResponse.xhtml" />
+				<a4j:include viewId="/xhtml/queryLog/nodeResponse.xhtml"></a4j:include>
 			</h:column>
-			
+
 		</rich:dataTable>
 
 
