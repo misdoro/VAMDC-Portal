@@ -1,4 +1,4 @@
-package org.vamdc.portal.session.query;
+package org.vamdc.portal.session.queryLog;
 
 import org.vamdc.portal.entity.query.Query;
 import org.vamdc.portal.entity.query.RespondedNode;
@@ -30,7 +30,7 @@ public class ResponseFacade {
 	public String getXsamsURL(){
 		try {
 			String result = Client.INSTANCE.get().getVamdcTapURL(response.getNodeIvoaID()).toString();
-			result += query.getQueryString();
+			result += query.getQueryUrlPart();
 			return result;
 		} catch (RegistryCommunicationException e) {
 			return "";

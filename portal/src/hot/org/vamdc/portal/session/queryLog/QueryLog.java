@@ -1,4 +1,4 @@
-package org.vamdc.portal.session.query;
+package org.vamdc.portal.session.queryLog;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,7 +13,7 @@ import org.jboss.seam.log.Log;
 import org.vamdc.portal.entity.query.Query;
 
 @Name("queryLog")
-@Scope(ScopeType.STATELESS)
+@Scope(ScopeType.EVENT)
 public class QueryLog {
 
 	@In(create=true) PersistentQueryLog persistentQueryLog;

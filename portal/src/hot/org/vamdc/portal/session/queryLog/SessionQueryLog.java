@@ -1,4 +1,4 @@
-package org.vamdc.portal.session.query;
+package org.vamdc.portal.session.queryLog;
 
 import java.io.Serializable;
 import java.util.ArrayList;
