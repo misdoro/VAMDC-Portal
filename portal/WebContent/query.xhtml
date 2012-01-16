@@ -11,21 +11,27 @@
 	<ui:define name="body">
 		<table>
 			<tr>
-				<td><ui:include src="/xhtml/query/formMenu.xhtml"/>
-					<rich:spacer width="140" /></td>
+				<td><ui:include src="/xhtml/query/formMenu.xhtml" /> <rich:spacer
+						width="140" /></td>
 
 				<td style="vertical-align: top; horizontal-align: left"><h:panelGrid
 						id="panel1">
+						<rich:spacer width="400" />
 						<h:outputText value="counter #{query.count}" />
 						<a4j:form ajaxSubmit="true">
 							<a4j:commandButton value="test" action="#{query.action()}"
 								styleClass="roundButton" reRender="panel1" />
 						</a4j:form>
+						<rich:dataTable id="queryListAll" value="#{query.keywords}"
+							var="keyword">
+							<h:column>
+								<h:outputText value="#{keyword}" />
+							</h:column>
+						</rich:dataTable>
 					</h:panelGrid></td>
-				<td style="vertical-align: top">
-					<ui:include src="/xhtml/query/actionButtons.xhtml"/>
-					<ui:include src="/xhtml/query/nodesTable.xhtml"/>				
-				</td>
+				<td style="vertical-align: top"><ui:include
+						src="/xhtml/query/actionButtons.xhtml" /> <ui:include
+						src="/xhtml/query/nodesTable.xhtml" /></td>
 			</tr>
 		</table>
 	</ui:define>

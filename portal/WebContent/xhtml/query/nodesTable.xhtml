@@ -7,19 +7,10 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j">
 
-
-	<style>
-.panelClass {
-	top: 190px;
-	position: fixed;
-	valign: top;
-}
-.roundButton {
-			-moz-border-radius: 10px;
-			border-radius: 10px;
-			} 
-</style>
-
-	<h:outputText value="nodesTable" />
-
+	<h:panelGrid>
+		<h:outputText value="nodesTable" />
+		<rich:tree value="#{nodeFilter.tree}" var="node">
+		
+		</rich:tree>
+	</h:panelGrid>
 </ui:composition>
