@@ -32,16 +32,23 @@ public class Query {
 	
 	@End
 	public String saveQuery(){
-		conversation.endAndRedirect();
-		return "queryLog";
+		
+		if (this.isValid()){
+			conversation.endAndRedirect();
+			log.info("Save action");
+			return "queryLog";
+		}else{
+			return "query";
+		}
+			
 	}
 	
-	
 	public String preview(){
-		log.info("preview action");
-		if (this.isValid())
+		
+		if (this.isValid()){
+			log.info("Preview action");
 			return "preview";
-		else 
+		}else 
 			return "query";
 	}
 	
@@ -51,7 +58,6 @@ public class Query {
 	}
 	
 	public void action(){
-		log.info(conversation.isLongRunning());
 		log.info(counter++);
 	}
 	

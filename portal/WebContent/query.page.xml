@@ -8,6 +8,9 @@
 		<rule if-outcome="preview">
 			<redirect view-id="/preview.xhtml" />
 		</rule>
+		<rule if-outcome="queryLog">
+			<redirect view-id="/queryLog.xhtml" />
+		</rule>
 	</navigation>
 
 </page>

@@ -9,19 +9,26 @@
 	xmlns:a4j="http://richfaces.org/a4j" template="layout/template.xhtml">
 
 	<ui:define name="body">
-	<h:panelGrid id="panel1">
-		<h:outputText value="counter #{query.count}" />
-		<a4j:form ajaxSubmit="true">
-			<a4j:commandButton value="test" action="#{query.action()}" 
-			styleClass="roundButton" reRender="panel1"/>
-			
-			<a4j:commandButton value="end" action="#{query.saveQuery()}" 
-			styleClass="roundButton" reRender="panel1"/>
-			
-			<h:commandButton value="preview" action="#{query.preview()}" 
-			styleClass="roundButton"/>
-		</a4j:form>
-		</h:panelGrid>
+		<table>
+			<tr>
+				<td><ui:include src="/xhtml/query/formMenu.xhtml"/>
+					<rich:spacer width="140" /></td>
+
+				<td style="vertical-align: top; horizontal-align: left"><h:panelGrid
+						id="panel1">
+						<h:outputText value="counter #{query.count}" />
+						<a4j:form ajaxSubmit="true">
+							<a4j:commandButton value="test" action="#{query.action()}"
+								styleClass="roundButton" reRender="panel1" />
+						</a4j:form>
+					</h:panelGrid></td>
+				<td style="vertical-align: top">
+					<ui:include src="/xhtml/query/actionButtons.xhtml"/>
+					<ui:include src="/xhtml/query/nodesTable.xhtml"/>				
+				</td>
+			</tr>
+		</table>
 	</ui:define>
+
 
 </ui:composition>
