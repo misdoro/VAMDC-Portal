@@ -7,7 +7,7 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:rich="http://richfaces.org/rich"
     xmlns:a="http://richfaces.org/a4j"
-    template="layout/template.xhtml">
+    template="/layout/template.xhtml">
 
 <ui:define name="body">
 
@@ -22,25 +22,25 @@
         <rich:panel>
             <f:facet name="header">register</f:facet>
 
-            <s:decorate id="usernameDecorate" template="layout/edit.xhtml">
+            <s:decorate id="usernameDecorate" template="/layout/edit.xhtml">
                 <ui:define name="label">Username</ui:define>
                 <h:inputText id="usernameField" required="true"
                              value="#{register.username}"/>
             </s:decorate>
             
-            <s:decorate id="emailDecorate" template="layout/edit.xhtml">
+            <s:decorate id="emailDecorate" template="/layout/edit.xhtml">
                 <ui:define name="label">Email</ui:define>
                 <h:inputText id="emailField" required="true"
                              value="#{register.email}"/>
             </s:decorate>
             
-            <s:decorate id="passwordDecorate" template="layout/edit.xhtml">
+            <s:decorate id="passwordDecorate" template="/layout/edit.xhtml">
                 <ui:define name="label">Password</ui:define>
                 <h:inputSecret id="passwordField" required="true"
                              value="#{register.password}"/>
             </s:decorate>
             
-            <s:decorate id="verifyPasswordDecorate" template="layout/edit.xhtml">
+            <s:decorate id="verifyPasswordDecorate" template="/layout/edit.xhtml">
                 <ui:define name="label">Verify password</ui:define>
                 <h:inputSecret id="value" required="true"
                              value="#{register.verifyPassword}"/>
