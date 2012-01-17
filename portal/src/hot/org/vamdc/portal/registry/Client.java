@@ -24,12 +24,10 @@ public enum Client {
 	}
 
 	public Registry get(){
-		System.out.println(registry);
 		return registry;
 	}
 	
 	void set(Registry newInstance){
-		System.out.println("Setting the registry"+newInstance);
 		this.registry=newInstance;
 	}
 	
@@ -54,7 +52,6 @@ public enum Client {
 		}
 		
 		private void reloadRegistry() throws RegistryCommunicationException {
-			System.out.println("Updating the registry");
 			Registry newInstance = RegistryFactory.getClient(Settings.REGISTRY_URL.get());
 			if (newInstance!=null && newInstance.getIVOAIDs(Service.VAMDC_TAP).size()>0)
 				Client.INSTANCE.set(newInstance);

@@ -7,12 +7,28 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j">
 
-	<h:panelGrid>
-		<h:outputText value="nodesTable" />
+	<style>
+.toolTip {
+	width: 300px;
+	background-color: #B5DAFF;
+	text-color:	#000000;
+	color: #000000;
+	border: 1px solid #000000;
+	white-space: pre-wrap; /* css-3 */
+	word-wrap: break-word; /* IE 5.5+ */
+	white-space: -moz-pre-wrap; /* Mozilla */
+	white-space: -pre-wrap; /* Opera */
+	white-space: -o-pre-wrap; /* Opera 7 */
+}
+</style>
+
+	<h:panelGrid id="nodeTree">
 		<a4j:form ajaxSubmit="true">
-			<rich:tree value="#{nodeFilter.root}" var="item">
+			<rich:tree value="#{nodeTree.root}" var="item">
 				<rich:treeNode>
-					<h:outputText value="#{item}" />
+					<h:outputText value="#{item.name}" />
+					<rich:toolTip value="#{item.description}" styleClass="toolTip"
+						direction="top-left" />
 				</rich:treeNode>
 			</rich:tree>
 		</a4j:form>

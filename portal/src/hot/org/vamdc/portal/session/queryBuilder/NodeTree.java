@@ -1,5 +1,8 @@
 package org.vamdc.portal.session.queryBuilder;
 
+import java.util.Collection;
+import java.util.Collections;
+
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
@@ -9,12 +12,13 @@ import org.jboss.seam.international.StatusMessages;
 import org.jboss.seam.log.Log;
 import org.richfaces.model.TreeNode;
 import org.richfaces.model.TreeNodeImpl;
+import org.vamdc.dictionary.Restrictable;
 import org.vamdc.portal.registry.Client;
+import org.vamdc.portal.session.queryBuilder.nodeTree.TreeNodeElement;
 import org.vamdc.portal.session.queryBuilder.nodeTree.VamdcNode;
 import org.vamdc.registry.client.Registry;
 import org.vamdc.registry.client.Registry.Service;
 import org.vamdc.registry.client.RegistryCommunicationException;
-
 /**
  * Class implementing logic for node keywords 
  * node filtering by query keywords
@@ -22,23 +26,38 @@ import org.vamdc.registry.client.RegistryCommunicationException;
  * @author doronin
  *
  */
-@Scope(ScopeType.STATELESS)
-@Name("nodeFilter")
-public class NodeFilter {
+
+@Name("nodeTree")
+@Scope(ScopeType.CONVERSATION)
+public class NodeTree{
 
 	@In private StatusMessages statusMessages;
 	
-	private TreeNodeImpl<String> root;
+	@In private QueryData queryData;
+	
+	@Logger
+	private Log log;
+	
+	private TreeNodeImpl<TreeNodeElement> root;
 	
 	private Registry registry;
 
-	public NodeFilter(){
+	private Collection<Restrictable> activeKeys;
+
+	public NodeTree(){
 		
 		registry = Client.INSTANCE.get();
-		root = new TreeNodeImpl<String>();
-		root.setData("name1");
+		root = new TreeNodeImpl<TreeNodeElement>();
+
+		activeKeys = Collections.emptyList();
+		
+		if (queryData!=null)
+			activeKeys=queryData.getKeywords();
+		
+
 		try {
 			for (String ivoaID:registry.getIVOAIDs(Service.VAMDC_TAP)){
+				
 				root.addChild(ivoaID, new VamdcNode(root,registry,ivoaID));
 			}
 		} catch (RegistryCommunicationException e) {
@@ -46,9 +65,14 @@ public class NodeFilter {
 		}
 	}
 	
-	public TreeNode<String> getRoot(){
-		
+	public TreeNode<TreeNodeElement> getRoot(){
+		if (queryData!=null)
+			activeKeys=queryData.getKeywords();
+		log.info("keys so far: "+activeKeys.size());
 		return root;
+		
 	}
+	
+	
 	
 }

@@ -10,7 +10,7 @@
 
 	<ui:define name="body">
 	<h:panelGrid id="panel1">
-		<h:outputText value="counter #{query.count}" />
+		<h:outputText value="counter #{queryData.count}" />
 		<a4j:form ajaxSubmit="true">
 			<a4j:commandButton value="Modify query" action="#{query.refine()}" 
 			styleClass="roundButton" reRender="panel1"/>
