@@ -13,20 +13,23 @@ public enum Client {
 	INSTANCE,
 	;
 	
-	private Registry registry;
+	private volatile Registry registry;
 	private RegistryThread thread;
 	
-	Client(){	
+	Client(){
+		registry = new EmptyRegistry();
 		Executor exec = Executors.newSingleThreadExecutor();
 		thread = new RegistryThread();
 		exec.execute(thread);
 	}
 
 	public Registry get(){
+		System.out.println(registry);
 		return registry;
 	}
 	
 	void set(Registry newInstance){
+		System.out.println("Setting the registry"+newInstance);
 		this.registry=newInstance;
 	}
 	
