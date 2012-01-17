@@ -78,10 +78,6 @@
 					<artifactId>servlet-api</artifactId>
 					<groupId>javax.servlet</groupId>
 				</exclusion>
-				<exclusion>
-					<groupId>org.jboss.seam</groupId>
-					<artifactId>jboss-seam-jul</artifactId>
-				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
@@ -91,6 +87,10 @@
 				<exclusion>
 					<artifactId>jboss-seam</artifactId>
 					<groupId>org.jboss.seam</groupId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.jboss.seam</groupId>
+					<artifactId>jboss-seam-jul</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>

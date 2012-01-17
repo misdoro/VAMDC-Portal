@@ -22,6 +22,8 @@ import org.vamdc.dictionary.Restrictable;
 @Scope(ScopeType.CONVERSATION)
 public class Query {
 	
+	//TODO: verify serialization
+	
 	@Logger
 	Log log;
 	

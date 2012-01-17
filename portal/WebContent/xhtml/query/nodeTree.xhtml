@@ -9,8 +9,12 @@
 
 	<h:panelGrid>
 		<h:outputText value="nodesTable" />
-		<rich:tree value="#{nodeFilter.tree}" var="node">
-		
-		</rich:tree>
+		<a4j:form ajaxSubmit="true">
+			<rich:tree value="#{nodeFilter.root}" var="item">
+				<rich:treeNode>
+					<h:outputText value="#{item}" />
+				</rich:treeNode>
+			</rich:tree>
+		</a4j:form>
 	</h:panelGrid>
 </ui:composition>
