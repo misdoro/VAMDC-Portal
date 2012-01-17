@@ -52,4 +52,9 @@ public class RestrictableNode implements TreeNode<TreeNodeElement>,TreeNodeEleme
 		return false;
 	}
 
+
+	public boolean hasDescription() {
+		return (getDescription()!=null && getDescription().trim().length()>0);
+	}
+
 }

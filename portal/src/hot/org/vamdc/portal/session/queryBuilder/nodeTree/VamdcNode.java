@@ -67,5 +67,7 @@ public class VamdcNode implements TreeNode<TreeNodeElement>,TreeNodeElement{
 		return false;
 	}
 
-
+	public boolean hasDescription() {
+		return (getDescription()!=null && getDescription().trim().length()>0);
+	}
 }

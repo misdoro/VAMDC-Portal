@@ -28,7 +28,7 @@
 				<rich:treeNode>
 					<h:outputText value="#{item.name}" />
 					<rich:toolTip value="#{item.description}" styleClass="toolTip"
-						direction="top-left" />
+						direction="top-left" rendered="#{item.hasDescription()}"/>
 				</rich:treeNode>
 			</rich:tree>
 		</a4j:form>
