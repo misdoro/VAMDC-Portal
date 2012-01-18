@@ -28,48 +28,32 @@ import org.vamdc.registry.client.RegistryCommunicationException;
  */
 
 @Name("nodeTree")
-@Scope(ScopeType.CONVERSATION)
+@Scope(ScopeType.STATELESS)
 public class NodeTree{
 
 	@In private StatusMessages statusMessages;
 	
 	@In private QueryData queryData;
-	
-	@Logger
-	private Log log;
-	
-	private TreeNodeImpl<TreeNodeElement> root;
-	
-	private Registry registry;
 
-	private Collection<Restrictable> activeKeys;
-
-	public NodeTree(){
-		
-		registry = Client.INSTANCE.get();
+	private TreeNodeImpl<TreeNodeElement> setupTree() {
+		TreeNodeImpl<TreeNodeElement> root;
+		Registry registry = Client.INSTANCE.get();
 		root = new TreeNodeImpl<TreeNodeElement>();
-
-		activeKeys = Collections.emptyList();
-		
-		if (queryData!=null)
-			activeKeys=queryData.getKeywords();
-		
-
 		try {
 			for (String ivoaID:registry.getIVOAIDs(Service.VAMDC_TAP)){
 				
-				root.addChild(ivoaID, new VamdcNode(root,registry,ivoaID));
+				root.addChild(ivoaID, new VamdcNode(root,registry,ivoaID,queryData));
 			}
 		} catch (RegistryCommunicationException e) {
 			statusMessages.add("Node filter is unable to communicate with the registry!"+e.getMessage());
 		}
+		return root;
 	}
 	
 	public TreeNode<TreeNodeElement> getRoot(){
-		if (queryData!=null)
-			activeKeys=queryData.getKeywords();
-		log.info("keys so far: "+activeKeys.size());
-		return root;
+		
+		
+		return setupTree();
 		
 	}
 	

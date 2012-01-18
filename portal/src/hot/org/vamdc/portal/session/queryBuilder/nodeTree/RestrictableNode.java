@@ -3,19 +3,36 @@ package org.vamdc.portal.session.queryBuilder.nodeTree;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
+import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.Scope;
 import org.richfaces.model.TreeNode;
 import org.vamdc.dictionary.Restrictable;
+import org.vamdc.portal.session.queryBuilder.QueryData;
 
+/**
+ * 
+ * @author doronin
+ * 
+ */
+@Scope(ScopeType.STATELESS)
 public class RestrictableNode implements TreeNode<TreeNodeElement>,TreeNodeElement {
 
 	private static final long serialVersionUID = 8930608280461610995L;
 
 	private final Restrictable key;
 	private final VamdcNode parent;
+	private final QueryData queryData;
 	
-	public RestrictableNode(Restrictable key,VamdcNode parent) {
+	/**
+	 * 
+	 * @param key
+	 * @param parent
+	 * @param queryData null means that this keyword is actually missing from the node but is expected by the query
+	 */
+	public RestrictableNode(Restrictable key,VamdcNode parent, QueryData queryData) {
 		this.key = key;
 		this.parent = parent;
+		this.queryData = queryData;
 	}
 	
 
@@ -24,7 +41,7 @@ public class RestrictableNode implements TreeNode<TreeNodeElement>,TreeNodeEleme
 	public TreeNode<TreeNodeElement> getParent() { return parent; }
 	public boolean isLeaf() { return true; }
 	public String getType(){
-		return "restrictable";
+		return "keyword";
 	}
 	
 	public String getName(){
@@ -43,13 +60,12 @@ public class RestrictableNode implements TreeNode<TreeNodeElement>,TreeNodeEleme
 
 
 	public boolean isActive() {
-		return false;
+		return queryData!=null && queryData.getKeywords().contains(key);
 	}
 
 
 	public boolean isMissing() {
-		// TODO Auto-generated method stub
-		return false;
+		return queryData==null;
 	}
 
 

@@ -11,7 +11,6 @@
 .toolTip {
 	width: 300px;
 	background-color: #B5DAFF;
-	text-color:	#000000;
 	color: #000000;
 	border: 1px solid #000000;
 	white-space: pre-wrap; /* css-3 */
@@ -20,13 +19,20 @@
 	white-space: -pre-wrap; /* Opera */
 	white-space: -o-pre-wrap; /* Opera 7 */
 }
+.activeRow{
+	color: green;
+}
+.missingRow{
+	color: red;
+}
+
 </style>
 
 	<h:panelGrid id="nodeTree">
 		<a4j:form ajaxSubmit="true">
 			<rich:tree value="#{nodeTree.root}" var="item">
 				<rich:treeNode>
-					<h:outputText value="#{item.name}" />
+					<h:outputText value="#{item.name}" styleClass="#{item.isActive() ? 'activeRow' : (item.isMissing() ? 'missingRow':'')}"/>
 					<rich:toolTip value="#{item.description}" styleClass="toolTip"
 						direction="top-left" rendered="#{item.hasDescription()}"/>
 				</rich:treeNode>

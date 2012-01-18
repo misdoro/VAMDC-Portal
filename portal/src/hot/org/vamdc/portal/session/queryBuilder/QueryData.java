@@ -16,8 +16,8 @@ public class QueryData {
 	
 	public Collection<Restrictable> getKeywords(){
 		ArrayList<Restrictable> result = new ArrayList<Restrictable>();
-		result.add(Restrictable.InchiKey);
-		result.add(Restrictable.ParticleName);
+		result.add(Restrictable.MoleculeChemicalName);
+		result.add(Restrictable.MoleculeStoichiometricFormula);
 		return result;
 	}
 	
