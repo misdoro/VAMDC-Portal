@@ -15,12 +15,12 @@
 						width="140" /></td>
 
 				<td style="vertical-align: top; horizontal-align: left"><h:panelGrid
-						id="panel1">
+						id="formPanel">
 						<rich:spacer width="400" />
 						<h:outputText value="counter #{queryData.count}" />
 						<a4j:form ajaxSubmit="true">
 							<a4j:commandButton value="test" action="#{query.action}"
-								styleClass="roundButton" reRender="panel1" />
+								styleClass="roundButton" reRender="formPanel ,nodeTree" />
 						</a4j:form>
 						<rich:dataTable id="queryListAll" value="#{queryData.keywords}"
 							var="keyword">

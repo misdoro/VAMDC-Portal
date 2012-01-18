@@ -61,7 +61,6 @@ public class QueryController {
 	
 	public void action(){
 		queryData.count();
-		log.info(queryData.getCount());
 	}
 	
 	

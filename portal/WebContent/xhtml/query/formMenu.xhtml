@@ -30,11 +30,11 @@
 			<a4j:form ajaxSubmit="true">
 				<rich:dropDownMenu style="background-color:#B5DAFF" value="Species"
 					submitMode="ajax" direction="bottom-right" jointPoint="tr">
-					<rich:menuItem value="Atom" reRender="formPanel"
+					<rich:menuItem value="Atom" reRender="formPanel,nodeTree"
 						action="#{query.action}" />
-					<rich:menuItem value="Molecule" reRender="formPanel"
+					<rich:menuItem value="Molecule" reRender="formPanel,nodeTree"
 						action="#{query.action}" />
-					<rich:menuItem value="Particle" reRender="formPanel"
+					<rich:menuItem value="Particle" reRender="formPanel,nodeTree"
 						action="#{query.action}" />
 				</rich:dropDownMenu>
 
@@ -43,23 +43,23 @@
 				<rich:dropDownMenu style="background-color:#B5DAFF"
 					value="Processes" submitMode="ajax" direction="bottom-right"
 					jointPoint="tr">
-					<rich:menuItem value="Transition" reRender="formPanel"
+					<rich:menuItem value="Transition" reRender="formPanel,nodeTree"
 						action="#{query.action}" />
-					<rich:menuItem value="Collision" reRender="formPanel"
+					<rich:menuItem value="Collision" reRender="formPanel,nodeTree"
 						action="#{query.action}" />
 				</rich:dropDownMenu>
 
 				<a4j:commandButton value="Environment" action="#{query.action}"
-					style="background-color:#B5DAFF; color:black" styleClass="roundButton" reRender="formPanel" />
+					style="background-color:#B5DAFF; color:black" styleClass="roundButton" reRender="formPanel,nodeTree" />
 				
 				<br/>
 				<rich:spacer height="5" />
 				
 				<rich:dropDownMenu style="background-color:#B5DAFF" value="Advanced"
 					submitMode="ajax" direction="bottom-right" jointPoint="tr">
-					<rich:menuItem value="Query editor" reRender="formPanel"
+					<rich:menuItem value="Query editor" reRender="formPanel,nodeTree"
 						action="#{query.action}" />
-					<rich:menuItem value="Request" reRender="formPanel"
+					<rich:menuItem value="Request" reRender="formPanel,nodeTree"
 						action="#{query.action}" />
 				</rich:dropDownMenu>
 				

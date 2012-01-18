@@ -7,9 +7,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Scope;
 import org.richfaces.model.TreeNode;
 import org.vamdc.dictionary.Restrictable;
 import org.vamdc.portal.session.queryBuilder.QueryData;
@@ -33,7 +30,12 @@ public class VamdcNode implements TreeNode<TreeNodeElement>,TreeNodeElement{
 		this.registry=registry;
 		this.queryData = queryData;
 		
-		EnumSet<Restrictable> missingKeywords = EnumSet.copyOf(queryData.getKeywords());
+		EnumSet<Restrictable> missingKeywords;
+		if (queryData.getKeywords().size()>0){
+			missingKeywords = EnumSet.copyOf(queryData.getKeywords());
+		}else{
+			missingKeywords = EnumSet.noneOf(Restrictable.class);
+		}
 		
 		try {
 			for (Restrictable key:registry.getRestrictables(ivoaID)){
@@ -83,7 +85,7 @@ public class VamdcNode implements TreeNode<TreeNodeElement>,TreeNodeElement{
 	public boolean isActive() {
 		try {
 			Collection<Restrictable> keywords = queryData.getKeywords();
-			return registry.getRestrictables(ivoaID).containsAll(keywords);
+			return (keywords.size()>0 && registry.getRestrictables(ivoaID).containsAll(keywords));
 		} catch (RegistryCommunicationException e) {
 			return false;
 		}

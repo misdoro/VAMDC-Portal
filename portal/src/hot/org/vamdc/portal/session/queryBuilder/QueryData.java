@@ -2,6 +2,7 @@ package org.vamdc.portal.session.queryBuilder;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Random;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
@@ -13,12 +14,12 @@ import org.vamdc.dictionary.Restrictable;
 public class QueryData {
 	
 	private Integer counter=0;
+	private final ArrayList<Restrictable> usedKeywords= new ArrayList<Restrictable>();
+	
 	
 	public Collection<Restrictable> getKeywords(){
-		ArrayList<Restrictable> result = new ArrayList<Restrictable>();
-		result.add(Restrictable.MoleculeChemicalName);
-		result.add(Restrictable.MoleculeStoichiometricFormula);
-		return result;
+		
+		return usedKeywords;
 	}
 	
 	public String getQueryString(){
@@ -30,6 +31,9 @@ public class QueryData {
 	}
 	
 	public void count(){
+		Random val = new Random();
+		Integer index = val.nextInt(Restrictable.values().length);
+		usedKeywords.add(Restrictable.values()[index]);
 		counter++;
 	}
 	
