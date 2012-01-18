@@ -18,7 +18,7 @@ import org.jboss.seam.log.Log;
  *
  */
 @Name("query")
-@Scope(ScopeType.CONVERSATION)
+@Scope(ScopeType.EVENT)
 public class QueryController {
 	
 	//TODO: verify serialization

@@ -28,6 +28,9 @@
 
 </style>
 
+	<br/><h:outputText value="available, can answer" styleClass="activeRow" />
+	<br/><h:outputText value="available, don't support query" styleClass="" />
+	<br/><rich:spacer width="10"/><h:outputText value="unsupported keyword" styleClass="missingRow" />
 	<h:panelGrid id="nodeTree">
 		<a4j:form ajaxSubmit="true">
 			<rich:tree value="#{nodeTree.root}" var="item">

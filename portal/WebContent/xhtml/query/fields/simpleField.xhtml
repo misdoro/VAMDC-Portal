@@ -6,22 +6,5 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j">
-
-
-	<style>
-.roundButton {
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-}
-</style>
-
-	<h:panelGrid id="buttonArea">
-		<a4j:form ajaxSubmit="true">
-			<h:commandButton value="Find data" action="#{query.preview}"
-				styleClass="roundButton" disabled="#{!queryData.valid}"/>
-			<h:commandButton value="Save query" action="#{query.saveQuery}"
-				styleClass="roundButton" />
-		</a4j:form>
-	</h:panelGrid>
-
+	
 </ui:composition>

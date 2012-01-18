@@ -1,7 +1,7 @@
 package org.vamdc.portal.session.queryBuilder;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.EnumSet;
 import java.util.Random;
 
 import org.jboss.seam.ScopeType;
@@ -14,7 +14,7 @@ import org.vamdc.dictionary.Restrictable;
 public class QueryData {
 	
 	private Integer counter=0;
-	private final ArrayList<Restrictable> usedKeywords= new ArrayList<Restrictable>();
+	private final EnumSet<Restrictable> usedKeywords= EnumSet.noneOf(Restrictable.class);
 	
 	
 	public Collection<Restrictable> getKeywords(){
