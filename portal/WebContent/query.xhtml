@@ -6,7 +6,9 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j" template="/layout/template.xhtml">
+	xmlns:a4j="http://richfaces.org/a4j" 
+	xmlns:c="http://java.sun.com/jstl/core"
+	template="/layout/template.xhtml">
 
 	<ui:define name="body">
 		<table>
@@ -16,6 +18,9 @@
 
 				<td style="vertical-align: top; horizontal-align: left"><h:panelGrid
 						id="formPanel">
+						<c:forEach items="#{queryData.forms}" var="form" >
+							<a4j:include viewId="#{form.view}"/>
+						</c:forEach>
 						<rich:spacer width="400" />
 						<h:outputText value="counter #{queryData.count}" />
 						<a4j:form ajaxSubmit="true">

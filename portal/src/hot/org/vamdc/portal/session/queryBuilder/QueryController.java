@@ -11,6 +11,7 @@ import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.core.Conversation;
 import org.jboss.seam.log.Log;
+import org.vamdc.portal.session.queryBuilder.forms.AtomsForm;
 
 /**
  * Main class of a query page
@@ -63,6 +64,8 @@ public class QueryController {
 		queryData.count();
 	}
 	
-	
+	public void addFormAtoms(){
+		queryData.addForm(new AtomsForm());
+	}
 	
 }

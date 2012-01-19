@@ -1,4 +1,4 @@
-package org.vamdc.portal.session.queryBuilder.forms;
+package org.vamdc.portal.session.queryBuilder.fields;
 
 import org.vamdc.dictionary.Restrictable;
 
@@ -11,8 +11,9 @@ public abstract class AbstractField {
 	private Restrictable keyword;
 	private String title;
 	
-	public AbstractField(Restrictable keyword){
+	public AbstractField(Restrictable keyword, String title){
 		this.keyword = keyword;
+		this.title = title;
 	}
 	
 	public String getValue(){
@@ -45,10 +46,14 @@ public abstract class AbstractField {
 		return result.toString();
 	}
 	
+	public boolean hasValue(){
+		return this.value!=null && this.value.length()>0;
+	}
+	
 	/**
 	 * Get a face suitable for the form field display
 	 */
-	public abstract String getFace();
+	public abstract String getView();
 	
 	public String getTitle(){
 		return this.title;

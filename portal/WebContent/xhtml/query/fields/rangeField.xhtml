@@ -8,10 +8,14 @@
 	xmlns:a4j="http://richfaces.org/a4j">
 
 
-	<h:panelGrid columns="3">
+	<h:panelGrid columns="5">
 		<h:outputText value="#{field.title}" style="font-weight:bold" />
 		<rich:spacer width="18" />
-		<h:inputText value="#{field.value}" style="width: 351px;">
+		<h:inputText value="#{field.loValue}" style="width: 150px;">
+			<a4j:support event="oncomplete" reRender="nodeTree" />
+		</h:inputText>
+		<h:outputText value="to"/>
+		<h:inputText value="#{field.hiValue}" style="width: 150px;">
 			<a4j:support event="oncomplete" reRender="nodeTree" />
 		</h:inputText>
 	</h:panelGrid>

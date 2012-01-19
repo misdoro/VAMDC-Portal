@@ -5,14 +5,17 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core">
 
+	<rich:simpleTogglePanel id="form#{form.id}" switchType="client">
 
-	<h:panelGrid columns="3">
-		<h:outputText value="#{field.title}" style="font-weight:bold" />
-		<rich:spacer width="18" />
-		<h:inputText value="#{field.value}" style="width: 351px;">
-			<a4j:support event="oncomplete" reRender="nodeTree" />
-		</h:inputText>
-	</h:panelGrid>
+		<ui:include src="/xhtml/query/forms/formTitle.xhtml" />
+
+		<c:forEach items="#{form.fields}" var="field" >
+			<a4j:include viewId="#{field.view}"/>
+		</c:forEach>
+
+	</rich:simpleTogglePanel>
+
 </ui:composition>
