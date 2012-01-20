@@ -12,9 +12,11 @@
 
 		<ui:include src="/xhtml/query/forms/formTitle.xhtml" />
 
-		<c:forEach items="#{form.fields}" var="field" >
-			<a4j:include viewId="#{field.view}"/>
-		</c:forEach>
+		<a4j:form ajaxSubmit="true">
+			<c:forEach items="#{form.fields}" var="field">
+				<a4j:include viewId="#{field.view}" />
+			</c:forEach>
+		</a4j:form>
 
 	</rich:simpleTogglePanel>
 

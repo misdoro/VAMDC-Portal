@@ -29,7 +29,22 @@ public class QueryData {
 	}
 
 	public String getQueryString(){
-		return "select * where inchikey=\"blahblah\" or inchikey=\"fooBar\" or ParticleName=\"electron\""; 
+		
+		return "select * where "+getFormsQuery(); 
+	}
+	
+	private String getFormsQuery(){
+		String result = "";
+		for (QueryForm form:forms){
+			String queryPart = form.getQueryPart();
+			if (queryPart.length()>0){
+				if (result.length()>0)
+					result+=" AND "+queryPart;
+				else
+					result=queryPart;
+			}
+		}
+		return result;
 	}
 
 	public int getCount(){
