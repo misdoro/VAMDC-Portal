@@ -7,6 +7,8 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.TreeSet;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -30,23 +32,23 @@ public class PreviewManager {
 
 	@Logger
 	Log log;
-	
+
 	@In(create=true) NodeTree nodeTree;
 	@In QueryData queryData;
-	
+
 	private Collection<Future<HttpHeadResponse>> nodeFutureResponses = new ArrayList<Future<HttpHeadResponse>>();
-	
+
 	public String initiate(){
 		if (!queryData.isValid())
 			return RedirectPage.QUERY;
-		
+
 		if (nodeFutureResponses.size()>0)
 			return RedirectPage.PREVIEW;
-		
+
 		Collection<String> activeNodes = nodeTree.getActiveNodes();
-		
+
 		ExecutorService executor = Executors.newFixedThreadPool(activeNodes.size());
-		
+
 		for (String ivoaID:activeNodes){
 			try{
 				nodeFutureResponses.add(executor.submit(new PreviewThread(ivoaID,getQuery(ivoaID))));
@@ -54,17 +56,17 @@ public class PreviewManager {
 			}catch (IllegalArgumentException e){
 			}
 		}
-		
+
 		log.info(""+nodeFutureResponses.size()+"head requests queued to be submitted for nodes");
-		
+
 		if (nodeFutureResponses.size()>0)
 			return RedirectPage.PREVIEW;
-		
+
 		return RedirectPage.QUERY;
 	}
 
-	
-	
+
+
 	private URL getQuery(String ivoaID) {
 		String query = queryData.getQueryString();
 		URL baseURL;
@@ -72,18 +74,18 @@ public class PreviewManager {
 		try {
 			baseURL = Client.INSTANCE.get().getVamdcTapURL(ivoaID);
 			queryURL = new URL(baseURL+"sync?LANG=VSS2&REQUEST=doQuery&FORMAT=XSAMS&QUERY="+URLEncoder.encode(query,"UTF-8"));
-			
+
 		} catch (RegistryCommunicationException e) {
 		} catch (MalformedURLException e) {
 		} catch (UnsupportedEncodingException e) {
 		}
-		
+
 		return queryURL;
 	}
-	
-	
+
+
 	public Collection<HttpHeadResponse> getNodes(){
-		ArrayList<HttpHeadResponse> nodes = new ArrayList<HttpHeadResponse>();
+		TreeSet<HttpHeadResponse> nodes = new TreeSet<HttpHeadResponse>(new HttpHeadResponseComparator());
 		for (Future<HttpHeadResponse> task:nodeFutureResponses){
 			if (task.isDone()&& !task.isCancelled()){
 				try {
@@ -99,9 +101,24 @@ public class PreviewManager {
 				}
 			}
 		}
-		return Collections.unmodifiableList(nodes);
+		return new ArrayList<HttpHeadResponse>(nodes);
 	}
-	
+
+	private class HttpHeadResponseComparator implements Comparator<HttpHeadResponse>{
+
+		public int compare(HttpHeadResponse o1, HttpHeadResponse o2) {
+			if (o1==null || o2==null)
+				return 0;
+			Integer value1 = Integer.valueOf(o1.getStatus().ordinal());
+			Integer value2 = Integer.valueOf(o2.getStatus().ordinal());
+			int compare = value1.compareTo(value2);
+				if (compare!=0)
+						return compare;
+				else return o1.getIvoaID().compareTo(o2.getIvoaID());
+		}
+
+	}
+
 	public boolean isDone(){
 		for (Future<HttpHeadResponse> task:nodeFutureResponses){
 			if (!task.isDone())
@@ -109,7 +126,7 @@ public class PreviewManager {
 		}
 		return true;
 	}
-	
+
 	public void cancel(){
 		for (Future<HttpHeadResponse> task:nodeFutureResponses){
 			if (!task.isDone())
@@ -117,4 +134,9 @@ public class PreviewManager {
 		}
 	}
 	
+	public void clear(){
+		cancel();
+		nodeFutureResponses=new ArrayList<Future<HttpHeadResponse>>();
+	}
+
 }
