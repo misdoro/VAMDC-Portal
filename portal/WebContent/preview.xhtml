@@ -9,16 +9,98 @@
 	xmlns:a4j="http://richfaces.org/a4j" template="/layout/template.xhtml">
 
 	<ui:define name="body">
-	<h:panelGrid id="panel1">
-		<h:outputText value="counter #{queryData.count}" />
-		<h:outputText value="#{queryData.queryString}" />
-		<a4j:form ajaxSubmit="true">
-			<a4j:commandButton value="Modify query" action="#{query.refine()}" 
-			styleClass="roundButton" reRender="panel1"/>
-			<a4j:commandButton value="Save query" action="#{query.saveQuery()}" 
-			styleClass="roundButton" reRender="panel1"/>
-		</a4j:form>
+		<h:panelGrid id="panel1">
+			<h:outputText value="counter #{queryData.count}" />
+			<h:outputText value="#{queryData.queryString}" />
+			<a4j:form ajaxSubmit="true">
+				<a4j:commandButton value="Modify query" action="#{query.refine()}"
+					styleClass="roundButton" reRender="panel1" />
+				<a4j:commandButton value="Save query" action="#{query.saveQuery()}"
+					styleClass="roundButton" reRender="panel1" />
+			</a4j:form>
 		</h:panelGrid>
+
+
+		<a4j:region>
+			<h:form>
+				<a4j:poll id="previewTablePoll" interval="500"
+					enabled="#{!preview.done}"
+					reRender="previewNodes" />
+			</h:form>
+		</a4j:region>
+
+		<rich:dataTable id="previewNodes" value="#{preview.nodes}" var="node">
+			<f:facet name="header">
+				<rich:columnGroup>
+					<h:column>
+						<h:outputText styleClass="headerText" value="Name" />
+					</h:column>
+					<h:column>
+						<h:outputText styleClass="headerText" value="Response" />
+					</h:column>
+					<h:column>
+						<h:outputText styleClass="headerText" value="Download" />
+					</h:column>
+
+					<h:column>
+						<h:outputText styleClass="headerText" value="Species" />
+					</h:column>
+					<h:column>
+						<h:outputText styleClass="headerText" value="States" />
+					</h:column>
+					<h:column>
+						<h:outputText styleClass="headerText" value="Processes" />
+					</h:column>
+					<h:column>
+						<h:outputText styleClass="headerText" value="Radiative" />
+					</h:column>
+					<h:column>
+						<h:outputText styleClass="headerText" value="Collisions" />
+					</h:column>
+					<h:column>
+						<h:outputText styleClass="headerText" value="Non Radiative" />
+					</h:column>
+
+				</rich:columnGroup>
+			</f:facet>
+
+			<h:column>
+				<h:outputText value="#{node.ivoaID}" />
+			</h:column>
+
+			<h:column>
+				<h:outputText value="#{node.status}" />
+			</h:column>
+
+			<h:column>
+				<h:outputLink value="#{node.fullQueryURL}" target="_blank"
+					rendered="#{node.status=='OK'}">
+					<h:outputText value="XSAMS" />
+				</h:outputLink>
+			</h:column>
+
+			<h:column>
+				<h:outputText value="#{node.species}" />
+			</h:column>
+			<h:column>
+				<h:outputText value="#{node.states}" />
+			</h:column>
+			<h:column>
+				<h:outputText value="#{node.processes}" />
+			</h:column>
+			<h:column>
+				<h:outputText value="#{node.radiative}" />
+			</h:column>
+			<h:column>
+				<h:outputText value="#{node.collisions}" />
+			</h:column>
+			<h:column>
+				<h:outputText value="#{node.nonRadiative}" />
+			</h:column>
+
+
+		</rich:dataTable>
+
 	</ui:define>
 
 </ui:composition>

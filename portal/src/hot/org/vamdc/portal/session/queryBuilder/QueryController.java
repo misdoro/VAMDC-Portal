@@ -11,6 +11,7 @@ import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.core.Conversation;
 import org.jboss.seam.log.Log;
+import org.vamdc.portal.RedirectPage;
 import org.vamdc.portal.session.queryBuilder.forms.AtomsForm;
 
 /**
@@ -39,9 +40,9 @@ public class QueryController {
 		if (queryData.isValid()){
 			conversation.endAndRedirect();
 			log.info("Save action");
-			return "queryLog";
+			return RedirectPage.QUERY_LOG;
 		}else{
-			return "query";
+			return RedirectPage.QUERY;
 		}
 			
 	}
@@ -50,14 +51,14 @@ public class QueryController {
 		
 		if (queryData.isValid()){
 			log.info("Preview action");
-			return "preview";
+			return RedirectPage.PREVIEW;
 		}else 
-			return "query";
+			return RedirectPage.QUERY;
 	}
 	
 	public String refine(){
 		log.info("refine query");
-		return "query";
+		return RedirectPage.QUERY;
 	}
 	
 	public void action(){

@@ -1,4 +1,7 @@
-package org.vamdc.portal.session.queryBuilder;
+package org.vamdc.portal.session.queryBuilder.nodeTree;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
@@ -7,9 +10,9 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.international.StatusMessages;
 import org.richfaces.model.TreeNode;
 import org.richfaces.model.TreeNodeImpl;
+import org.vamdc.dictionary.Restrictable;
 import org.vamdc.portal.registry.Client;
-import org.vamdc.portal.session.queryBuilder.nodeTree.TreeNodeElement;
-import org.vamdc.portal.session.queryBuilder.nodeTree.VamdcNode;
+import org.vamdc.portal.session.queryBuilder.QueryData;
 import org.vamdc.registry.client.Registry;
 import org.vamdc.registry.client.Registry.Service;
 import org.vamdc.registry.client.RegistryCommunicationException;
@@ -52,6 +55,23 @@ public class NodeTree{
 		
 	}
 	
-	
+	public Collection<String> getActiveNodes(){
+		Collection<String> result = new ArrayList<String>();
+
+		Registry registry = Client.INSTANCE.get();
+		Collection<Restrictable> keywords = queryData.getKeywords();
+		
+		try {
+			for (String ivoaID:registry.getIVOAIDs(Service.VAMDC_TAP)){
+				if (keywords.size()>0 && registry.getRestrictables(ivoaID).containsAll(keywords)){
+					result.add(ivoaID);
+				}
+			}
+		} catch (RegistryCommunicationException e) {
+			
+		}
+		
+		return result;
+	}
 	
 }
