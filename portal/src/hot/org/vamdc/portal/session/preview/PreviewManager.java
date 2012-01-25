@@ -7,6 +7,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.TreeSet;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -20,6 +21,7 @@ import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.log.Log;
 import org.vamdc.portal.RedirectPage;
+import org.vamdc.portal.Settings;
 import org.vamdc.portal.registry.Client;
 import org.vamdc.portal.session.queryBuilder.QueryData;
 import org.vamdc.portal.session.queryBuilder.nodeTree.NodeTree;
@@ -36,7 +38,8 @@ public class PreviewManager {
 	@In QueryData queryData;
 
 	private Collection<Future<HttpHeadResponse>> nodeFutureResponses = new ArrayList<Future<HttpHeadResponse>>();
-
+	private long startTime;
+	
 	public void initiate(){
 		if (nodeFutureResponses.size()>0)
 			return;
@@ -51,6 +54,7 @@ public class PreviewManager {
 			}catch (IllegalArgumentException e){
 			}
 		}
+		startTime = new Date().getTime();
 	}
 
 
@@ -120,7 +124,25 @@ public class PreviewManager {
 		}
 		return true;
 	}
+	
+	public int getPercentsDone(){
+		int result=0;
+		if (isDone())
+			result=100;
+		else{
+			Long now = new Date().getTime();
+			result = (100*(int)(now-startTime)/Settings.HTTP_HEAD_TIMEOUT.getInt());
+		}
+		log.info(result);
+		return result;
+	}
 
+	public String getStringStatus(){
+		if (isDone())
+			return "Done";
+		return ""+getNodes().size()+" nodes of "+nodeFutureResponses.size()+" responded";
+	}
+	
 	public void cancel(){
 		for (Future<HttpHeadResponse> task:nodeFutureResponses){
 			if (!task.isDone())

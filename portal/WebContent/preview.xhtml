@@ -8,27 +8,42 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j" template="/layout/template.xhtml">
 
+	<style>
+.roundButton {
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	width: 50px;
+}
+</style>
+
+
 	<ui:define name="body">
-		<h:panelGrid id="statusPanel">
-			<h:outputText value="#{queryData.queryString}" />
-			<a4j:form ajaxSubmit="true">
+		<a4j:form ajaxSubmit="true">
+			<rich:progressBar id="previewProgress" value="#{preview.percentsDone}"
+				styleClass="roundButton" interval="1000" minValue="0" maxValue="100" enabled="#{!preview.done}">
+				<h:outputText value="#{preview.stringStatus}" />
+			</rich:progressBar>
+			<h:panelGrid id="statusPanel" columns="4">
+
 				<a4j:commandButton value="Modify query" action="#{preview.refine()}"
-					styleClass="roundButton"/>
+					styleClass="roundButton" />
+
 				<a4j:commandButton value="Stop waiting" action="#{preview.cancel}"
-					styleClass="roundButton" disabled="#{preview.done}"/>
+					styleClass="roundButton" disabled="#{preview.done}" />
 				<a4j:commandButton value="Save query" action="#{query.saveQuery()}"
 					styleClass="roundButton" disabled="#{!preview.done}" />
-			</a4j:form>
-		</h:panelGrid>
-
+			</h:panelGrid>
+		</a4j:form>
+		<h:outputText value="#{queryData.queryString}" />
 
 		<a4j:region>
 			<h:form>
 				<a4j:poll id="previewTablePoll" interval="1000"
-					enabled="#{!preview.done}"
-					reRender="previewTable,statusPanel" />
+					enabled="#{!preview.done}" reRender="previewTable,statusPanel" />
 			</h:form>
 		</a4j:region>
+
+		
 
 		<ui:include src="/xhtml/preview/table.xhtml" />
 

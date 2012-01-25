@@ -14,7 +14,7 @@ public enum Settings {
 	DISPLAY_URL("displayURL","http://localhost/"),
 	REGISTRY_URL("registryURL","http://casx019-zone1.ast.cam.ac.uk/registry/services/RegistryQueryv1_0"),
 	REGISTRY_UPDATE_INTERVAL("registryUpdateInterval","300000"),
-			
+	HTTP_HEAD_TIMEOUT("HTTPHeadTimeout","30000"),
 	;
 	
 	

@@ -4,6 +4,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.Callable;
 
+import org.vamdc.portal.Settings;
+
+
 public class PreviewThread implements Callable<HttpHeadResponse>{
 
 	private String ivoaID;
@@ -24,7 +27,7 @@ public class PreviewThread implements Callable<HttpHeadResponse>{
 		HttpURLConnection connection = (HttpURLConnection) queryURL.openConnection();
 		
 		connection.setRequestMethod("HEAD");
-		connection.setReadTimeout(30*1000);
+		connection.setReadTimeout(Settings.HTTP_HEAD_TIMEOUT.getInt());
 		
 		HttpHeadResponse request = new HttpHeadResponse(ivoaID,connection);
 		
