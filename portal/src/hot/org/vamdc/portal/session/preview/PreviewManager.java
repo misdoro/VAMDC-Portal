@@ -48,13 +48,9 @@ public class PreviewManager {
 		for (String ivoaID:activeNodes){
 			try{
 				nodeFutureResponses.add(executor.submit(new PreviewThread(ivoaID,getQuery(ivoaID))));
-				log.info("Submit preview thread to "+ivoaID);
 			}catch (IllegalArgumentException e){
 			}
 		}
-
-		log.info(""+nodeFutureResponses.size()+"head requests queued to be submitted for nodes");
-
 	}
 
 
@@ -82,7 +78,6 @@ public class PreviewManager {
 			if (task.isDone()&& !task.isCancelled()){
 				try {
 					HttpHeadResponse response = task.get();
-					log.info("we have a response for"+response.getIvoaID());
 					nodes.add(response);
 				} catch (InterruptedException e) {
 					log.info("interruptedException");
@@ -106,10 +101,17 @@ public class PreviewManager {
 			int compare = value1.compareTo(value2);
 				if (compare!=0)
 						return compare;
-				else return o1.getIvoaID().compareTo(o2.getIvoaID());
+				else if(o1.getProcesses()!=o2.getProcesses())
+					return o2.getProcesses()-o1.getProcesses();
+				else
+					return o1.getIvoaID().compareTo(o2.getIvoaID());
+				
 		}
+		
 
+		
 	}
+	
 
 	public boolean isDone(){
 		for (Future<HttpHeadResponse> task:nodeFutureResponses){
