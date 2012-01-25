@@ -3,7 +3,6 @@ package org.vamdc.portal.session.queryBuilder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EnumSet;
-import java.util.Random;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
@@ -15,9 +14,10 @@ import org.vamdc.portal.session.queryBuilder.forms.QueryForm;
 @Scope(ScopeType.CONVERSATION)
 public class QueryData {
 
-	private Integer counter=0;
 
 	private Collection<QueryForm> forms=new ArrayList<QueryForm>();
+	
+	private String comments="";
 
 	public Collection<Restrictable> getKeywords(){
 		EnumSet<Restrictable> result = EnumSet.noneOf(Restrictable.class);
@@ -47,16 +47,6 @@ public class QueryData {
 		return result;
 	}
 
-	public int getCount(){
-		return counter;
-	}
-
-	public void count(){
-		Random val = new Random();
-		Integer index = val.nextInt(Restrictable.values().length);
-		counter++;
-	}
-
 	public boolean isValid(){
 		return true;
 	}
@@ -71,6 +61,14 @@ public class QueryData {
 	
 	void deleteForm(QueryForm form){
 		forms.remove(form);
+	}
+
+	public String getComments() {
+		return comments;
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
 	}
 
 }

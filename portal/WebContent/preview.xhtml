@@ -18,9 +18,13 @@
 
 
 	<ui:define name="body">
+		<h:panelGrid columns="2">
+		<h:panelGrid>
 		<a4j:form ajaxSubmit="true">
-			<rich:progressBar id="previewProgress" value="#{preview.percentsDone}"
-				styleClass="roundButton" interval="1000" minValue="0" maxValue="100" enabled="#{!preview.done}">
+			<rich:progressBar id="previewProgress"
+				value="#{preview.percentsDone}" styleClass="roundButton"
+				interval="1000" minValue="0" maxValue="100"
+				enabled="#{!preview.done}">
 				<h:outputText value="#{preview.stringStatus}" />
 			</rich:progressBar>
 			<h:panelGrid id="statusPanel" columns="4">
@@ -39,14 +43,39 @@
 		<a4j:region>
 			<h:form>
 				<a4j:poll id="previewTablePoll" interval="1000"
-					enabled="#{!preview.done}" reRender="previewTable,statusPanel" />
+					enabled="#{!preview.done}" reRender="previewTable,statusPanel,commentsPanel" />
 			</h:form>
 		</a4j:region>
 
+
+		<a4j:form>
+			<rich:panel id="commentsPanel">
+				<f:facet name="header">
+					<h:outputText value="Comments"></h:outputText>
+				</f:facet>
+
+				<h:inputTextarea cols="55" rows="3" value="#{queryData.comments}"
+					disabled="#{!(preview.done)}">
+					<a4j:support event="onchange" reRender="commentsPanel"/>
+				</h:inputTextarea>
+			</rich:panel>
+		</a4j:form>
 		
-
+		</h:panelGrid>
+		<h:panelGrid>
+			<rich:panel id="consumerPanel">
+				<f:facet name="header">
+					<h:outputText value="Consumers"></h:outputText>
+				</f:facet>
+				<rich:spacer height="150" width="400"></rich:spacer>
+				<h:outputText value="nyi"></h:outputText>
+			</rich:panel>
+		</h:panelGrid>
+		
+		</h:panelGrid>
+				
 		<ui:include src="/xhtml/preview/table.xhtml" />
-
+	
 	</ui:define>
 
 </ui:composition>

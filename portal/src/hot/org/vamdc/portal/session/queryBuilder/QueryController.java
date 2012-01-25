@@ -53,11 +53,7 @@ public class QueryController {
 		}else 
 			return RedirectPage.QUERY;
 	}
-	
-	public void action(){
-		queryData.count();
-	}
-	
+		
 	public void addFormAtoms(){
 		queryData.addForm(new AtomsForm());
 	}
