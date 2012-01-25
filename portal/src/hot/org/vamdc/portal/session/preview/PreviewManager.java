@@ -6,7 +6,6 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.TreeSet;
 import java.util.concurrent.ExecutionException;
@@ -38,12 +37,9 @@ public class PreviewManager {
 
 	private Collection<Future<HttpHeadResponse>> nodeFutureResponses = new ArrayList<Future<HttpHeadResponse>>();
 
-	public String initiate(){
-		if (!queryData.isValid())
-			return RedirectPage.QUERY;
-
+	public void initiate(){
 		if (nodeFutureResponses.size()>0)
-			return RedirectPage.PREVIEW;
+			return;
 
 		Collection<String> activeNodes = nodeTree.getActiveNodes();
 
@@ -59,10 +55,6 @@ public class PreviewManager {
 
 		log.info(""+nodeFutureResponses.size()+"head requests queued to be submitted for nodes");
 
-		if (nodeFutureResponses.size()>0)
-			return RedirectPage.PREVIEW;
-
-		return RedirectPage.QUERY;
 	}
 
 
@@ -137,6 +129,11 @@ public class PreviewManager {
 	public void clear(){
 		cancel();
 		nodeFutureResponses=new ArrayList<Future<HttpHeadResponse>>();
+	}
+	
+	public String refine(){
+		clear();
+		return RedirectPage.QUERY;
 	}
 
 }

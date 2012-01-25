@@ -12,7 +12,6 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.core.Conversation;
 import org.jboss.seam.log.Log;
 import org.vamdc.portal.RedirectPage;
-import org.vamdc.portal.session.preview.PreviewManager;
 import org.vamdc.portal.session.queryBuilder.forms.AtomsForm;
 
 /**
@@ -34,8 +33,6 @@ public class QueryController {
 	
 	@In(create=true) @Out QueryData queryData;
 	
-	@In(create=true) PreviewManager preview;
-	
 	@End
 	public String saveQuery(){
 		
@@ -52,15 +49,9 @@ public class QueryController {
 	public String preview(){
 		
 		if (queryData.isValid()){
-			log.info("Preview action");
 			return RedirectPage.PREVIEW;
 		}else 
 			return RedirectPage.QUERY;
-	}
-	
-	public String refine(){
-		preview.clear();
-		return RedirectPage.QUERY;
 	}
 	
 	public void action(){

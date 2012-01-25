@@ -12,7 +12,7 @@
 		<h:panelGrid id="statusPanel">
 			<h:outputText value="#{queryData.queryString}" />
 			<a4j:form ajaxSubmit="true">
-				<a4j:commandButton value="Modify query" action="#{query.refine()}"
+				<a4j:commandButton value="Modify query" action="#{preview.refine()}"
 					styleClass="roundButton"/>
 				<a4j:commandButton value="Stop waiting" action="#{preview.cancel}"
 					styleClass="roundButton"/>
