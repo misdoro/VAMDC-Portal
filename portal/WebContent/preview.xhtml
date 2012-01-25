@@ -26,81 +26,11 @@
 			<h:form>
 				<a4j:poll id="previewTablePoll" interval="1000"
 					enabled="#{!preview.done}"
-					reRender="previewNodes,statusPanel" />
+					reRender="previewTable,statusPanel" />
 			</h:form>
 		</a4j:region>
 
-		<rich:dataTable id="previewNodes" value="#{preview.nodes}" var="node">
-			<f:facet name="header">
-				<rich:columnGroup>
-					<h:column>
-						<h:outputText styleClass="headerText" value="Name" />
-					</h:column>
-					<h:column>
-						<h:outputText styleClass="headerText" value="Response" />
-					</h:column>
-					<h:column>
-						<h:outputText styleClass="headerText" value="Download" />
-					</h:column>
-
-					<h:column>
-						<h:outputText styleClass="headerText" value="Species" />
-					</h:column>
-					<h:column>
-						<h:outputText styleClass="headerText" value="States" />
-					</h:column>
-					<h:column>
-						<h:outputText styleClass="headerText" value="Processes" />
-					</h:column>
-					<h:column>
-						<h:outputText styleClass="headerText" value="Radiative" />
-					</h:column>
-					<h:column>
-						<h:outputText styleClass="headerText" value="Collisions" />
-					</h:column>
-					<h:column>
-						<h:outputText styleClass="headerText" value="Non Radiative" />
-					</h:column>
-
-				</rich:columnGroup>
-			</f:facet>
-
-			<h:column>
-				<h:outputText value="#{node.ivoaID}" />
-			</h:column>
-
-			<h:column>
-				<h:outputText value="#{node.status}" />
-			</h:column>
-
-			<h:column>
-				<h:outputLink value="#{node.fullQueryURL}" target="_blank"
-					rendered="#{node.status=='OK'}">
-					<h:outputText value="XSAMS" />
-				</h:outputLink>
-			</h:column>
-
-			<h:column>
-				<h:outputText value="#{node.species}" />
-			</h:column>
-			<h:column>
-				<h:outputText value="#{node.states}" />
-			</h:column>
-			<h:column>
-				<h:outputText value="#{node.processes}" />
-			</h:column>
-			<h:column>
-				<h:outputText value="#{node.radiative}" />
-			</h:column>
-			<h:column>
-				<h:outputText value="#{node.collisions}" />
-			</h:column>
-			<h:column>
-				<h:outputText value="#{node.nonRadiative}" />
-			</h:column>
-
-
-		</rich:dataTable>
+		<ui:include src="/xhtml/preview/table.xhtml" />
 
 	</ui:define>
 
