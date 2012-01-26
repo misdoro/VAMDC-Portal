@@ -45,10 +45,11 @@ public class PersistentQueryLog {
 	}
 
 	public void save(Query query) {
+		entityManager.persist(query);
 		for (HttpHeadResponse response:query.getResponses()){
+			response.setQuery(query);
 			entityManager.persist(response);
 		}
-		entityManager.persist(query);
 	}
 	
 }
