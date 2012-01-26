@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.vamdc.portal.entity.query.HttpHeadResponse;
 import org.vamdc.portal.entity.query.Query;
 import org.vamdc.portal.entity.query.RespondedNode;
 
@@ -17,7 +18,7 @@ public class QueryFacade {
 	public QueryFacade(Query query){
 		this.query = query;
 		respondedNodes = new ArrayList<ResponseFacade>();
-		for (RespondedNode node:query.getResponses()){	
+		for (HttpHeadResponse node:query.getResponses()){	
 			respondedNodes.add(new ResponseFacade(node,query));
 		}
 		

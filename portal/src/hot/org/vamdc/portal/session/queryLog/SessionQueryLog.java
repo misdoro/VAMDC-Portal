@@ -21,9 +21,10 @@ public class SessionQueryLog implements Serializable{
 		return Collections.unmodifiableList(storedQueries);
 	}
 
-	public void addQuery(Query newQuery){
+
+	public void save(Query query) {
 		synchronized(storedQueries){
-			this.storedQueries.add(newQuery);
+			this.storedQueries.add(query);
 		}
 	}
 	

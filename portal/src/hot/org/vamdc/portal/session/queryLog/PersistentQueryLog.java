@@ -12,6 +12,7 @@ import org.jboss.seam.annotations.Name;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.security.Credentials;
 import org.jboss.seam.security.Identity;
+import org.vamdc.portal.entity.query.HttpHeadResponse;
 import org.vamdc.portal.entity.query.Query;
 
 @Name("persistentQueryLog")
@@ -41,6 +42,13 @@ public class PersistentQueryLog {
 			return Collections.unmodifiableList(queries);
 		}
 		return new ArrayList<Query>();
+	}
+
+	public void save(Query query) {
+		for (HttpHeadResponse response:query.getResponses()){
+			entityManager.persist(response);
+		}
+		entityManager.persist(query);
 	}
 	
 }

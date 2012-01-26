@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.concurrent.Callable;
 
 import org.vamdc.portal.Settings;
+import org.vamdc.portal.entity.query.HttpHeadResponse;
 
 
 public class PreviewThread implements Callable<HttpHeadResponse>{

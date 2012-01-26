@@ -1,11 +1,20 @@
-package org.vamdc.portal.session.preview;
+package org.vamdc.portal.entity.query;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
-public class HttpHeadResponse {
+@Entity
+public class HttpHeadResponse implements Serializable{
 
+	private static final long serialVersionUID = 7243615545353337911L;
 	public enum Response{
 		OK,
 		EMPTY,
@@ -15,20 +24,12 @@ public class HttpHeadResponse {
 		
 	}
 	
-	public enum Field{
-		Species,
-		States,
-		Processes,
-		Radiative,
-		Collisions,
-		NonRadiative,
-		
-		;
-	}
-	
 	private String ivoaID;
 	private String fullQueryURL;
 	private Response status;
+	private Query query;
+	
+	private Integer recordID;
 	
 	private int species;
 	private int states;
@@ -37,6 +38,9 @@ public class HttpHeadResponse {
 	private int nonRadiative;
 	private int collisions;
 	
+	
+	public HttpHeadResponse(){
+	}
 	
 	public HttpHeadResponse(String ivoaID, HttpURLConnection connection) {
 		this.ivoaID = ivoaID;
@@ -91,5 +95,24 @@ public class HttpHeadResponse {
 	public int getNonRadiative() { return nonRadiative; }
 	public int getCollisions() { return collisions; }
 	public String getFullQueryURL() { return fullQueryURL; }
+
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="queryID")
+	public Query getQuery() {
+		return query;
+	}
+
+	public void setQuery(Query query) {
+		this.query = query;
+	}
+
+	@Id @GeneratedValue
+	public Integer getRecordID() {
+		return recordID;
+	}
+
+	public void setRecordID(Integer recordID) {
+		this.recordID = recordID;
+	}
 	
 }

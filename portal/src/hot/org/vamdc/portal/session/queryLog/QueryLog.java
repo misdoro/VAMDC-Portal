@@ -10,6 +10,7 @@ import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.log.Log;
+import org.vamdc.portal.entity.query.HttpHeadResponse;
 import org.vamdc.portal.entity.query.Query;
 
 @Name("queryLog")
@@ -40,6 +41,14 @@ public class QueryLog {
 		}
 		log.info("Loaded #0 queries to log", queries.size());
 		return Collections.unmodifiableList(queries);
+	}
+
+	public void save(Query query) {
+		if (query.getUser()!=null){
+			persistentQueryLog.save(query);
+		}else{
+			sessionQueryLog.save(query);
+		}
 	}
 	
 }

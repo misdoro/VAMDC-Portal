@@ -22,6 +22,7 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.log.Log;
 import org.vamdc.portal.RedirectPage;
 import org.vamdc.portal.Settings;
+import org.vamdc.portal.entity.query.HttpHeadResponse;
 import org.vamdc.portal.registry.Client;
 import org.vamdc.portal.session.queryBuilder.QueryData;
 import org.vamdc.portal.session.queryBuilder.nodeTree.NodeTree;
