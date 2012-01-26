@@ -3,6 +3,7 @@ package org.vamdc.portal.session.queryBuilder;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 
@@ -19,11 +20,13 @@ import org.jboss.seam.security.Credentials;
 import org.jboss.seam.security.Identity;
 import org.vamdc.portal.RedirectPage;
 import org.vamdc.portal.entity.query.HttpHeadResponse;
+import org.vamdc.portal.entity.query.HttpHeadResponse.Response;
 import org.vamdc.portal.entity.query.Query;
 import org.vamdc.portal.entity.security.User;
 import org.vamdc.portal.session.preview.PreviewManager;
 import org.vamdc.portal.session.queryBuilder.forms.AtomsForm;
 import org.vamdc.portal.session.queryLog.QueryLog;
+import org.vamdc.portal.session.security.UserInfo;
 
 /**
  * Main class of a query page
@@ -40,9 +43,7 @@ public class QueryController {
 	@In
 	Conversation conversation;
 	
-	@In private EntityManager entityManager;
-	@In private Credentials credentials;
-	@In private Identity identity;
+	@In(create=true) UserInfo auth;
 	
 	@In(create=true) @Out QueryData queryData;
 	
@@ -69,28 +70,28 @@ public class QueryController {
 	private void persistQuery() {
 		Query query = constructQuery();
 		queryLog.save(query);
-		
-		
 	}
 	
 	private Query constructQuery(){
 		Query result = new Query();
 		result.setComments(queryData.getComments());
 		result.setQueryString(queryData.getQueryString());
-		result.setResponses(new ArrayList<HttpHeadResponse>(preview.getNodes()));
-		result.setUser(getUser());
+		result.setResponses(selectRespondedNodes());
+		result.setUser(auth.getUser());
 		return result;
 	}
 
-	private User getUser(){
-		String user = null;
-		if (identity!=null && identity.isLoggedIn() && credentials!=null)
-			user=credentials.getUsername();
-		if (user!=null && user.length()>0){
-			return (User) entityManager.createQuery("from User where username =:username").setParameter("username", user).getSingleResult();
+	private List<HttpHeadResponse> selectRespondedNodes() {
+		ArrayList<HttpHeadResponse> responses = new ArrayList<HttpHeadResponse>();
+		
+		for (HttpHeadResponse response:preview.getNodes()){
+			if (response.getStatus()==Response.OK)
+				responses.add(response);
 		}
-		return null;
+		return responses;
 	}
+
+	
 	
 	public String preview(){
 		

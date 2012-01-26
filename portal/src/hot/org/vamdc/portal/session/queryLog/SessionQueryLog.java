@@ -14,7 +14,7 @@ import org.vamdc.portal.entity.query.Query;
 @Scope(ScopeType.SESSION)
 public class SessionQueryLog implements Serializable{
 
-	private static final long serialVersionUID = 2555499604910810322L;
+	private static final long serialVersionUID = 2555499604910810323L;
 	private List<Query> storedQueries = new ArrayList<Query>();
 
 	public List<Query> getStoredQueries() {
@@ -25,6 +25,12 @@ public class SessionQueryLog implements Serializable{
 	public void save(Query query) {
 		synchronized(storedQueries){
 			this.storedQueries.add(query);
+		}
+	}
+	
+	public void clear(){
+		synchronized(storedQueries){
+			storedQueries.clear();
 		}
 	}
 	

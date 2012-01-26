@@ -10,8 +10,8 @@ import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.log.Log;
-import org.vamdc.portal.entity.query.HttpHeadResponse;
 import org.vamdc.portal.entity.query.Query;
+import org.vamdc.portal.session.security.UserInfo;
 
 @Name("queryLog")
 @Scope(ScopeType.EVENT)
@@ -20,6 +20,8 @@ public class QueryLog {
 	@In(create=true) PersistentQueryLog persistentQueryLog;
 	
 	@In(create=true) SessionQueryLog sessionQueryLog;
+
+	@In(create=true) UserInfo auth;
 	
 	@Logger private Log log;
 	
@@ -29,14 +31,9 @@ public class QueryLog {
 		queries = new ArrayList<QueryFacade>();
 		
 		for (Query stored:persistentQueryLog.getStoredQueries()){
-			log.info("Loading query #0 to log", stored.getQueryID());
-			QueryFacade query = new QueryFacade(stored);
-			log.info("Loading query #0 to log", stored.getQueryID());
-			queries.add(query);
-			
+			queries.add(new QueryFacade(stored));
 		}
 		for (Query session:sessionQueryLog.getStoredQueries()){
-			log.info("Loading query #0 to log", session.getQueryID());
 			queries.add(new QueryFacade(session));
 		}
 		log.info("Loaded #0 queries to log", queries.size());
@@ -45,10 +42,20 @@ public class QueryLog {
 
 	public void save(Query query) {
 		if (query.getUser()!=null){
+			log.info("Saving query to the persistent log");
 			persistentQueryLog.save(query);
 		}else{
+			log.info("Saving query to the session log");
 			sessionQueryLog.save(query);
 		}
+	}
+	
+	public void persistSessionQueries(){
+		for (Query sessionQuery:sessionQueryLog.getStoredQueries()){
+			sessionQuery.setUser(auth.getUser());
+			persistentQueryLog.save(sessionQuery);
+		}
+		sessionQueryLog.clear();
 	}
 	
 }

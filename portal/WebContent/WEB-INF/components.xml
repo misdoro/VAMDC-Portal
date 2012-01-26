@@ -43,6 +43,7 @@
 	</event>
 	<event type="org.jboss.seam.security.loginSuccessful">
 		<action execute="#{redirect.returnToCapturedView}" />
+		<action execute="#{queryLog.persistSessionQueries}"/>
 	</event>
 
 	<security:identity-manager identity-store="#{jpaIdentityStore}" role-identity-store="#{jpaIdentityStore}"/>

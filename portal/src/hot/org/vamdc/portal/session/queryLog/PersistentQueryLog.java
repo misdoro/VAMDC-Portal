@@ -10,31 +10,29 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.log.Log;
-import org.jboss.seam.security.Credentials;
-import org.jboss.seam.security.Identity;
 import org.vamdc.portal.entity.query.HttpHeadResponse;
 import org.vamdc.portal.entity.query.Query;
+import org.vamdc.portal.entity.security.User;
+import org.vamdc.portal.session.security.UserInfo;
 
 @Name("persistentQueryLog")
 public class PersistentQueryLog {
 
 	@Logger private Log log;
 	
-	@In private Credentials credentials;
-	@In private Identity identity;
+	@In private UserInfo auth;
 	@In private EntityManager entityManager;
 	
 	@SuppressWarnings("unchecked")
 	public List<Query> getStoredQueries(){
 		log.info("Reading saved queries");
-		String user = null;
+		
 		List<Query> queries = null;
 		
-		if (identity!=null && identity.isLoggedIn() && credentials!=null)
-			user=credentials.getUsername();
+		User user = auth.getUser();
 		
-		if (user!=null && user.length()>0){
-			queries=entityManager.createQuery("from Query where user.username =:username").setParameter("username", user).getResultList();
+		if (user!=null){
+			queries=entityManager.createQuery("from Query where user.username =:username").setParameter("username", user.getUsername()).getResultList();
 		}
 		
 		if (queries!=null && queries.size()>0){

@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.vamdc.portal.entity.query.HttpHeadResponse;
 import org.vamdc.portal.entity.query.Query;
-import org.vamdc.portal.entity.query.RespondedNode;
 
 public class QueryFacade {
 
