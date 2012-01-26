@@ -61,6 +61,42 @@ public class HttpHeadResponse implements Serializable{
 		
 	}
 
+	public void setIvoaID(String ivoaID) {
+		this.ivoaID = ivoaID;
+	}
+
+	public void setFullQueryURL(String fullQueryURL) {
+		this.fullQueryURL = fullQueryURL;
+	}
+
+	public void setStatus(Response status) {
+		this.status = status;
+	}
+
+	public void setSpecies(int species) {
+		this.species = species;
+	}
+
+	public void setStates(int states) {
+		this.states = states;
+	}
+
+	public void setProcesses(int processes) {
+		this.processes = processes;
+	}
+
+	public void setRadiative(int radiative) {
+		this.radiative = radiative;
+	}
+
+	public void setNonRadiative(int nonRadiative) {
+		this.nonRadiative = nonRadiative;
+	}
+
+	public void setCollisions(int collisions) {
+		this.collisions = collisions;
+	}
+
 	private int getValue( HttpURLConnection connection,String headerName){
 		try{
 			return Integer.valueOf(connection.getHeaderField(headerName));

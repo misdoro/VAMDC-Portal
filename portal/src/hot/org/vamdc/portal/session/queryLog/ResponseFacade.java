@@ -1,19 +1,15 @@
 package org.vamdc.portal.session.queryLog;
 
 import org.vamdc.portal.entity.query.HttpHeadResponse;
-import org.vamdc.portal.entity.query.Query;
-import org.vamdc.portal.entity.query.RespondedNode;
 import org.vamdc.portal.registry.Client;
 import org.vamdc.registry.client.RegistryCommunicationException;
 
 public class ResponseFacade {
 
 	private HttpHeadResponse response;
-	private Query query;
 	
-	public ResponseFacade (HttpHeadResponse node, Query parent){
+	public ResponseFacade (HttpHeadResponse node){
 		this.response = node;
-		this.query = parent;
 	}
 
 	public String getNode(){
@@ -25,11 +21,14 @@ public class ResponseFacade {
 	}
 	
 	public String getStats(){
-		return response.getRecordID().toString();
+		if (response!=null)
+			return "Sp: "+response.getSpecies()+" -st:"+response.getStates()+" - Pr:"+response.getProcesses();
+		return "?";
 	}
 	
-	public String getXsamsURL(){
+	public String getFullQueryURL(){
 		return response.getFullQueryURL();
 	}
+	
 	
 }

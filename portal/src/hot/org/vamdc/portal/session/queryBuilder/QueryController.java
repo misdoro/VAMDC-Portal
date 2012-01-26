@@ -46,7 +46,7 @@ public class QueryController {
 	
 	@In(create=true) @Out QueryData queryData;
 	
-	@In private PreviewManager preview;
+	@In(create=true) private PreviewManager preview;
 	
 	@In(create=true) private QueryLog queryLog;
 	

@@ -19,7 +19,7 @@ public class QueryFacade {
 		this.query = query;
 		respondedNodes = new ArrayList<ResponseFacade>();
 		for (HttpHeadResponse node:query.getResponses()){	
-			respondedNodes.add(new ResponseFacade(node,query));
+			respondedNodes.add(new ResponseFacade(node));
 		}
 		
 	}

@@ -11,7 +11,7 @@
 	<ui:define name="body">
 
 		<rich:dataTable id="queryListAll" value="#{queryLog.queries}"
-			var="query">
+			var="savedQuery">
 			<f:facet name="header">
 				<rich:columnGroup>
 					<h:column>
@@ -28,11 +28,11 @@
 			</f:facet>
 
 			<h:column>
-				<h:outputText value="#{query.queryString}" />
+				<h:outputText value="#{savedQuery.queryString}" />
 			</h:column>
 
 			<h:column>
-				<h:outputText value="#{query.comments}" />
+				<h:outputText value="#{savedQuery.comments}" />
 			</h:column>
 
 			<h:column>
