@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -37,11 +38,11 @@ public class Query implements Serializable{
 	public Integer getQueryID() { return queryID; }
 	public void setQueryID(Integer queryID) { this.queryID = queryID; }
 
-	
+	@Lob
 	public String getQueryString() { return queryString; }
 	public void setQueryString(String queryString) { this.queryString = queryString; }
 	
-	
+	@Lob
 	public String getComments() { return comments; }
 	public void setComments(String comments) { this.comments = comments; }
 	
