@@ -5,8 +5,6 @@ package org.vamdc.portal.session.queryBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.In;
@@ -16,13 +14,10 @@ import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.core.Conversation;
 import org.jboss.seam.log.Log;
-import org.jboss.seam.security.Credentials;
-import org.jboss.seam.security.Identity;
 import org.vamdc.portal.RedirectPage;
 import org.vamdc.portal.entity.query.HttpHeadResponse;
 import org.vamdc.portal.entity.query.HttpHeadResponse.Response;
 import org.vamdc.portal.entity.query.Query;
-import org.vamdc.portal.entity.security.User;
 import org.vamdc.portal.session.preview.PreviewManager;
 import org.vamdc.portal.session.queryBuilder.forms.AtomsForm;
 import org.vamdc.portal.session.queryLog.QueryLog;
