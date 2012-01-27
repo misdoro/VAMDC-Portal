@@ -51,6 +51,4 @@ public class Query implements Serializable{
 	public List<HttpHeadResponse> getResponses() { return responses; }
 	public void setResponses(List<HttpHeadResponse> responses) { this.responses = responses; }
 	
-
-	
 }

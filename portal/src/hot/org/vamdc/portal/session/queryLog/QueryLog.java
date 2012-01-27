@@ -31,10 +31,10 @@ public class QueryLog {
 		queries = new ArrayList<QueryFacade>();
 		
 		for (Query stored:persistentQueryLog.getStoredQueries()){
-			queries.add(new QueryFacade(stored));
+			queries.add(new QueryFacade(stored,"p"));
 		}
 		for (Query session:sessionQueryLog.getStoredQueries()){
-			queries.add(new QueryFacade(session));
+			queries.add(new QueryFacade(session,"s"));
 		}
 		log.info("Loaded #0 queries to log", queries.size());
 		return Collections.unmodifiableList(queries);
@@ -56,6 +56,16 @@ public class QueryLog {
 			persistentQueryLog.save(sessionQuery);
 		}
 		sessionQueryLog.clear();
+	}
+	
+	public void deleteQuery(String id){
+		log.info("Delete query"+id);
+		if (id!=null){
+			if (id.substring(0, 1).equals("p"))
+				persistentQueryLog.delete(Integer.valueOf(id.substring(1)));
+			else
+				sessionQueryLog.delete(Integer.valueOf(id.substring(1)));
+		}
 	}
 	
 }

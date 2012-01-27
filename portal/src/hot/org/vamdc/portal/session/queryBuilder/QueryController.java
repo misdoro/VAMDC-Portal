@@ -95,6 +95,8 @@ public class QueryController {
 		}else 
 			return RedirectPage.QUERY;
 	}
+	
+
 		
 	public void addFormAtoms(){
 		queryData.addForm(new AtomsForm());
