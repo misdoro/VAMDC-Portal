@@ -18,18 +18,18 @@ import org.vamdc.portal.session.security.UserInfo;
 public class QueryLog {
 
 	@In(create=true) PersistentQueryLog persistentQueryLog;
-	
+
 	@In(create=true) SessionQueryLog sessionQueryLog;
 
 	@In(create=true) UserInfo auth;
-	
+
 	@Logger private Log log;
-	
+
 	public List<QueryFacade> getQueries(){
 		List<QueryFacade> queries;
-		
+
 		queries = new ArrayList<QueryFacade>();
-		
+
 		for (Query stored:persistentQueryLog.getStoredQueries()){
 			queries.add(new QueryFacade(stored,"p"));
 		}
@@ -40,16 +40,20 @@ public class QueryLog {
 		return Collections.unmodifiableList(queries);
 	}
 
-	public void save(Query query) {
-		if (query.getUser()!=null){
+	public void save(Query query, String queryID) {
+		if (query.getUser()!=null && (queryID==null || queryID.substring(0,1).equals("p"))){
 			log.info("Saving query to the persistent log");
+			if (queryID!=null) 
+				query.setQueryID(Integer.valueOf(queryID.substring(1)));
 			persistentQueryLog.save(query);
 		}else{
+			if (queryID!=null) 
+				query.setQueryID(Integer.valueOf(queryID.substring(1)));
 			log.info("Saving query to the session log");
 			sessionQueryLog.save(query);
 		}
 	}
-	
+
 	public void persistSessionQueries(){
 		for (Query sessionQuery:sessionQueryLog.getStoredQueries()){
 			sessionQuery.setUser(auth.getUser());
@@ -57,15 +61,32 @@ public class QueryLog {
 		}
 		sessionQueryLog.clear();
 	}
-	
-	public void deleteQuery(String id){
-		log.info("Delete query"+id);
-		if (id!=null){
-			if (id.substring(0, 1).equals("p"))
-				persistentQueryLog.delete(Integer.valueOf(id.substring(1)));
+
+	public void deleteQuery(String queryID){
+		log.info("Delete query"+queryID);
+		if (queryID!=null){
+			if (queryID.substring(0, 1).equals("p"))
+				persistentQueryLog.delete(Integer.valueOf(queryID.substring(1)));
 			else
-				sessionQueryLog.delete(Integer.valueOf(id.substring(1)));
+				sessionQueryLog.delete(Integer.valueOf(queryID.substring(1)));
 		}
 	}
-	
+
+	public Query getQuery(String queryID){
+		if (queryID!=null){
+			List<Query> queries = null;
+			int intQueryID = Integer.valueOf(queryID.substring(1));
+			if (queryID.substring(0, 1).equals("p"))
+				queries = persistentQueryLog.getStoredQueries();
+			else 
+				queries = sessionQueryLog.getStoredQueries();
+
+			for (Query query:queries){
+				if (query.getQueryID().equals(intQueryID))
+					return query;
+			}
+		}
+		return null;
+	}
+
 }

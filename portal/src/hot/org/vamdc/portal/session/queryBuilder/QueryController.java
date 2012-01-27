@@ -64,7 +64,7 @@ public class QueryController {
 	
 	private void persistQuery() {
 		Query query = constructQuery();
-		queryLog.save(query);
+		queryLog.save(query,queryData.getEditQueryId());
 	}
 	
 	private Query constructQuery(){
@@ -100,6 +100,19 @@ public class QueryController {
 		
 	public void addFormAtoms(){
 		queryData.addForm(new AtomsForm());
+	}
+	
+	public String edit(String queryID){
+		queryData.setEditQueryId(queryID);
+		return clone(queryID);
+	}
+	
+	public String clone(String queryID){
+		conversation.begin();
+		Query query = queryLog.getQuery(queryID);
+		queryData.setComments(query.getComments());
+		queryData.loadQuery(query.getQueryString());
+		return RedirectPage.QUERY;
 	}
 	
 }

@@ -4,13 +4,4 @@
 
 	conversation-required="true"
 	action="#{preview.initiate}">
-	
-	<navigation>
-		<rule if-outcome="queryLog">
-			<redirect view-id="/queryLog.xhtml" />
-		</rule>
-		<rule if-outcome="query">
-			<redirect view-id="/query.xhtml" />
-		</rule>
-	</navigation>
 </page>

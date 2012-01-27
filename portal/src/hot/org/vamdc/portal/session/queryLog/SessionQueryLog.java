@@ -17,20 +17,25 @@ public class SessionQueryLog implements Serializable{
 	private static final long serialVersionUID = 2555499604910810323L;
 	private List<Query> storedQueries = new ArrayList<Query>();
 	private int idCounter=0;
-	
-	
+
+
 	public List<Query> getStoredQueries() {
 		return Collections.unmodifiableList(storedQueries);
 	}
 
 
 	public void save(Query query) {
+		Integer queryID=null;
+		if ((queryID = query.getQueryID())!=null)
+			delete(queryID);
+		
+		query.setQueryID(idCounter++);
+
 		synchronized(storedQueries){
-			query.setQueryID(idCounter++);
 			this.storedQueries.add(query);
 		}
 	}
-	
+
 	public void clear(){
 		synchronized(storedQueries){
 			storedQueries.clear();
@@ -40,13 +45,15 @@ public class SessionQueryLog implements Serializable{
 
 	public void delete(Integer queryId) {
 		Query toRemove = null;
-		for (Query stored:storedQueries){
-			if (stored.getQueryID()==queryId){
-				toRemove=stored;
-				break;
+		synchronized(storedQueries){
+			for (Query stored:storedQueries){
+				if (stored.getQueryID()==queryId){
+					toRemove=stored;
+					break;
+				}
 			}
+			storedQueries.remove(toRemove);
 		}
-		storedQueries.remove(toRemove);
 	}
-	
+
 }

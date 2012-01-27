@@ -18,6 +18,8 @@ public class QueryData {
 	private Collection<QueryForm> forms=new ArrayList<QueryForm>();
 	
 	private String comments="";
+	
+	private String editedQueryId;
 
 	public Collection<Restrictable> getKeywords(){
 		EnumSet<Restrictable> result = EnumSet.noneOf(Restrictable.class);
@@ -69,6 +71,19 @@ public class QueryData {
 
 	public void setComments(String comments) {
 		this.comments = comments;
+	}
+	
+	public String getEditQueryId() {
+		return editedQueryId;
+	}
+
+	public void setEditQueryId(String editQueryId) {
+		this.editedQueryId = editQueryId;
+	}
+
+	public void loadQuery(String queryString) {
+		// TODO load forms contents from the query string.
+		
 	}
 
 }
