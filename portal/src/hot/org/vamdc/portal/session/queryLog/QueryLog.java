@@ -57,6 +57,7 @@ public class QueryLog {
 	public void persistSessionQueries(){
 		for (Query sessionQuery:sessionQueryLog.getStoredQueries()){
 			sessionQuery.setUser(auth.getUser());
+			sessionQuery.setQueryID(null);
 			persistentQueryLog.save(sessionQuery);
 		}
 		sessionQueryLog.clear();

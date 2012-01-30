@@ -43,8 +43,6 @@ public class PersistentQueryLog {
 	}
 
 	public void save(Query query) {
-		query.setQueryID(null);
-		
 		entityManager.persist(query);
 		for (HttpHeadResponse response:query.getResponses()){
 			response.setQuery(query);
@@ -59,6 +57,8 @@ public class PersistentQueryLog {
 			Query toRemove = (Query)entityManager.createQuery("from Query where user.username = :username and queryID = :queryID")
 					.setParameter("username",user.getUsername())
 					.setParameter("queryID", queryID).getSingleResult();
+			for (HttpHeadResponse response:toRemove.getResponses())
+				entityManager.remove(response);
 			entityManager.remove(toRemove);
 		}
 	}

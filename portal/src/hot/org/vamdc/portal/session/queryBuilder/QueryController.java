@@ -68,7 +68,11 @@ public class QueryController {
 	}
 	
 	private Query constructQuery(){
-		Query result = new Query();
+		Query result=null;
+		if (queryData.getEditQueryId()!=null)
+			result = queryLog.getQuery(queryData.getEditQueryId());
+		else
+			result = new Query();
 		result.setComments(queryData.getComments());
 		result.setQueryString(queryData.getQueryString());
 		result.setResponses(selectRespondedNodes());
