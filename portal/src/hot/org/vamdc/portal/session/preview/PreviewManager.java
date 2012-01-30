@@ -23,10 +23,9 @@ import org.jboss.seam.log.Log;
 import org.vamdc.portal.RedirectPage;
 import org.vamdc.portal.Settings;
 import org.vamdc.portal.entity.query.HttpHeadResponse;
-import org.vamdc.portal.registry.Client;
+import org.vamdc.portal.registry.RegistryFacade;
 import org.vamdc.portal.session.queryBuilder.QueryData;
 import org.vamdc.portal.session.queryBuilder.nodeTree.NodeTree;
-import org.vamdc.registry.client.RegistryCommunicationException;
 
 @Name("preview")
 @Scope(ScopeType.CONVERSATION)
@@ -38,6 +37,8 @@ public class PreviewManager {
 	@In(create=true) NodeTree nodeTree;
 	@In QueryData queryData;
 
+	@In RegistryFacade registryFacade;
+	
 	private Collection<Future<HttpHeadResponse>> nodeFutureResponses = new ArrayList<Future<HttpHeadResponse>>();
 	private long startTime;
 	
@@ -65,10 +66,8 @@ public class PreviewManager {
 		URL baseURL;
 		URL queryURL=null;
 		try {
-			baseURL = Client.INSTANCE.get().getVamdcTapURL(ivoaID);
+			baseURL = registryFacade.getVamdcTapURL(ivoaID);
 			queryURL = new URL(baseURL+"sync?LANG=VSS2&REQUEST=doQuery&FORMAT=XSAMS&QUERY="+URLEncoder.encode(query,"UTF-8"));
-
-		} catch (RegistryCommunicationException e) {
 		} catch (MalformedURLException e) {
 		} catch (UnsupportedEncodingException e) {
 		}

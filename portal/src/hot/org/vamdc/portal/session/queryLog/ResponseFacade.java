@@ -1,10 +1,14 @@
 package org.vamdc.portal.session.queryLog;
 
+import org.jboss.seam.annotations.In;
 import org.vamdc.portal.entity.query.HttpHeadResponse;
 import org.vamdc.portal.registry.Client;
+import org.vamdc.portal.registry.RegistryFacade;
 import org.vamdc.registry.client.RegistryCommunicationException;
 
 public class ResponseFacade {
+
+	@In(create=true) RegistryFacade registryFacade;
 
 	private HttpHeadResponse response;
 	
@@ -13,11 +17,7 @@ public class ResponseFacade {
 	}
 
 	public String getNode(){
-		try {
-			return Client.INSTANCE.get().getResourceMetadata(response.getIvoaID()).getTitle();
-		} catch (RegistryCommunicationException e) {
-			return "";
-		}
+		return registryFacade.getResourceTitle(response.getIvoaID());
 	}
 	
 	public String getStats(){

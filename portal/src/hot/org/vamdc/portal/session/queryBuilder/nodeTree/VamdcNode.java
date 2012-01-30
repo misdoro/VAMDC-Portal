@@ -9,9 +9,8 @@ import java.util.Map.Entry;
 
 import org.richfaces.model.TreeNode;
 import org.vamdc.dictionary.Restrictable;
+import org.vamdc.portal.registry.RegistryFacade;
 import org.vamdc.portal.session.queryBuilder.QueryData;
-import org.vamdc.registry.client.Registry;
-import org.vamdc.registry.client.RegistryCommunicationException;
 
 
 public class VamdcNode implements TreeNode<TreeNodeElement>,TreeNodeElement{
@@ -21,33 +20,31 @@ public class VamdcNode implements TreeNode<TreeNodeElement>,TreeNodeElement{
 	private final String ivoaID;
 	private final TreeNode<TreeNodeElement> root;
 	private final Map<Object,TreeNode<TreeNodeElement>> restrictables = new HashMap<Object,TreeNode<TreeNodeElement>>();
-	private final Registry registry;
+	private final RegistryFacade registry;
 
-	
-	public VamdcNode(TreeNode<TreeNodeElement> root, Registry registry, String id, QueryData queryData){
+
+	public VamdcNode(TreeNode<TreeNodeElement> root, RegistryFacade registryFacade, String id, QueryData queryData){
 		this.ivoaID = id;
 		this.root = root;
-		this.registry=registry;
+		this.registry=registryFacade;
 		this.queryData = queryData;
-		
+
 		EnumSet<Restrictable> missingKeywords;
 		if (queryData.getKeywords().size()>0){
 			missingKeywords = EnumSet.copyOf(queryData.getKeywords());
 		}else{
 			missingKeywords = EnumSet.noneOf(Restrictable.class);
 		}
-		
-		try {
-			for (Restrictable key:registry.getRestrictables(ivoaID)){
-				restrictables.put(key, new RestrictableNode(key,this, queryData));
-				missingKeywords.remove(key);
-			}
-		}catch (RegistryCommunicationException e) { }
+
+		for (Restrictable key:registryFacade.getRestrictables(ivoaID)){
+			restrictables.put(key, new RestrictableNode(key,this, queryData));
+			missingKeywords.remove(key);
+		}
 
 		for (Restrictable key:missingKeywords){
 			restrictables.put(key, new RestrictableNode(key,this,null));
 		}
-		
+
 	}
 
 	private static final long serialVersionUID = 7577402632944052661L;
@@ -60,11 +57,7 @@ public class VamdcNode implements TreeNode<TreeNodeElement>,TreeNodeElement{
 	public TreeNodeElement getData() { return this; }
 
 	public String getDescription(){ 
-		try {
-			return registry.getResourceMetadata(ivoaID).getContent().getDescription();
-		} catch (RegistryCommunicationException e) {
-			return "";
-		} 
+		return registry.getResourceDescription(ivoaID); 
 	}
 
 	public String getType(){ return "vamdcNode"; }
@@ -83,16 +76,11 @@ public class VamdcNode implements TreeNode<TreeNodeElement>,TreeNodeElement{
 	public void setData(TreeNodeElement arg0) {}
 
 	public boolean isActive() {
-		try {
-			Collection<Restrictable> keywords = queryData.getKeywords();
-			return (keywords.size()>0 && registry.getRestrictables(ivoaID).containsAll(keywords));
-		} catch (RegistryCommunicationException e) {
-			return false;
-		}
+		Collection<Restrictable> keywords = queryData.getKeywords();
+		return (keywords.size()>0 && registry.getRestrictables(ivoaID).containsAll(keywords));
 	}
 
 	public boolean isMissing() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
