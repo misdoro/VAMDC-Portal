@@ -11,16 +11,11 @@ public class QueryFacade {
 
 	private final Query query; 
 	
-	private final List<ResponseFacade> respondedNodes ;
-	
 	private final String idPrefix;
 	
 	public QueryFacade(Query query, String idPrefix){
 		this.query = query;
-		respondedNodes = new ArrayList<ResponseFacade>();
-		for (HttpHeadResponse node:query.getResponses()){	
-			respondedNodes.add(new ResponseFacade(node));
-		}
+		
 		this.idPrefix = idPrefix;
 	}
 	
@@ -33,7 +28,11 @@ public class QueryFacade {
 	}
 	
 	public  List<ResponseFacade> getResponses(){
-		return Collections.unmodifiableList(respondedNodes);
+		List<ResponseFacade> respondedNodes = new ArrayList<ResponseFacade>();
+		for (HttpHeadResponse node:query.getResponses()){	
+			respondedNodes.add(new ResponseFacade(node));
+		}
+		return respondedNodes;
 	}
 	
 	public String getId(){

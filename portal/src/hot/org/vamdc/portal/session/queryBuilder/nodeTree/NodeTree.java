@@ -25,7 +25,7 @@ import org.vamdc.portal.session.queryBuilder.QueryData;
 @Scope(ScopeType.STATELESS)
 public class NodeTree{
 
-	@In private RegistryFacade registryFacade;
+	@In(create=true) private RegistryFacade registryFacade;
 
 	@In private QueryData queryData;
 

@@ -36,7 +36,7 @@ public class VamdcNode implements TreeNode<TreeNodeElement>,TreeNodeElement{
 			missingKeywords = EnumSet.noneOf(Restrictable.class);
 		}
 
-		for (Restrictable key:registryFacade.getRestrictables(ivoaID)){
+		for (Restrictable key:registry.getRestrictables(ivoaID)){
 			restrictables.put(key, new RestrictableNode(key,this, queryData));
 			missingKeywords.remove(key);
 		}
@@ -62,7 +62,7 @@ public class VamdcNode implements TreeNode<TreeNodeElement>,TreeNodeElement{
 
 	public String getType(){ return "vamdcNode"; }
 
-	public String getName(){ return ivoaID; }
+	public String getName(){ return registry.getResourceTitle(ivoaID); }
 
 	public TreeNode<TreeNodeElement> getParent() { 
 		System.out.println("getParent called for node"+ivoaID);
