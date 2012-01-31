@@ -37,7 +37,7 @@ public class PreviewManager {
 	@In(create=true) NodeTree nodeTree;
 	@In QueryData queryData;
 
-	@In RegistryFacade registryFacade;
+	@In(create=true) RegistryFacade registryFacade;
 	
 	private Collection<Future<HttpHeadResponse>> nodeFutureResponses = new ArrayList<Future<HttpHeadResponse>>();
 	private long startTime;
