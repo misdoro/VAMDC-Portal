@@ -8,10 +8,20 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j" template="/layout/template.xhtml">
 
+	<style>
+.activeRow {
+	color: red;
+	background-color: red;
+}
+</style>
+
 	<ui:define name="body">
+
+		<ui:include src="/xhtml/consumer/consumerPanel.xhtml"></ui:include>
 
 		<h:panelGrid id="queryListAll">
 			<rich:dataTable value="#{queryLog.queries}" var="savedQuery">
+
 				<f:facet name="header">
 					<rich:columnGroup>
 						<h:column>
@@ -61,15 +71,29 @@
 						<h:outputText value="#{savedQuery.comments}" />
 					</rich:column>
 
-					<rich:column>
-						<h:outputText value="#{registryFacade.getResourceTitle(response.node)}" />
+					<rich:column
+						styleClass="#{consumers.isSelected(savedQuery.id,response.node)? 'activeRow':''}">
+						<h:outputText
+							value="#{registryFacade.getResourceTitle(response.node)}" />
+						<a4j:form ajaxSubmit="true">
+							<a4j:commandButton value="Select"
+								action="#{consumers.select(savedQuery.id,response.node)}"
+								rendered="#{!consumers.isSelected(savedQuery.id,response.node)}"
+								reRender="queryListAll" />
+							<a4j:commandButton value="Deselect"
+								action="#{consumers.deselect(savedQuery.id,response.node)}"
+								rendered="#{consumers.isSelected(savedQuery.id,response.node)}"
+								reRender="queryListAll" />
+						</a4j:form>
 					</rich:column>
 
-					<rich:column>
+					<rich:column
+						columnClass="#{consumers.isSelected(savedQuery.id,response.node)? 'ActiveRow':''}">
 						<h:outputText value="#{response.stats}" />
 					</rich:column>
 
-					<rich:column>
+					<rich:column
+						columnClass="#{consumers.isSelected(savedQuery.id,response.node)? 'ActiveRow':''}">
 						<h:outputLink value="#{response.fullQueryURL}">
 							<h:outputText value="XSAMS" />
 						</h:outputLink>

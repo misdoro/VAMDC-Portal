@@ -92,4 +92,22 @@ public class RegistryFacade {
 			return null;
 		}
 	}
+
+	public Collection<String> getConsumerIvoaIDs() {
+		try {
+			return Collections.unmodifiableCollection(registry.getIVOAIDs(Service.CONSUMER));
+		}catch (RegistryCommunicationException e) {
+			logError(e);
+		}
+		return Collections.emptyList();
+	}
+
+	public Resource getResource(String ivoaID) {
+		try {
+			return registry.getResourceMetadata(ivoaID);
+		} catch (RegistryCommunicationException e) {
+			logError(e);
+		}
+		return null;
+	}
 }
