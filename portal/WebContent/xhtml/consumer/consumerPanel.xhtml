@@ -8,7 +8,7 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j">
 
-	<a4j:form ajaxSubmit="true">
+	
 		<rich:panel id="consumers">
 			<f:facet name="header">
 				<h:outputText value="Consumers" />
@@ -19,7 +19,6 @@
 			</h:selectOneRadio>
 			<a4j:commandButton value="submit" action="#{consumers.process}" reRender="queryListAll"></a4j:commandButton>
 		</rich:panel>
-	</a4j:form>
 
 
 </ui:composition>

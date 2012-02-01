@@ -17,41 +17,44 @@
 
 	<ui:define name="body">
 
-		<ui:include src="/xhtml/consumer/consumerPanel.xhtml"></ui:include>
+		<a4j:form>
 
+		<ui:include src="/xhtml/consumer/consumerPanel.xhtml"/>
+		
 		<h:panelGrid id="queryListAll">
-			<rich:dataTable value="#{queryLog.queries}" var="savedQuery">
+			
+				<rich:dataTable value="#{queryLog.queries}" var="savedQuery">
 
-				<f:facet name="header">
-					<rich:columnGroup>
-						<h:column>
-							<h:outputText styleClass="headerText" value="Query" />
-						</h:column>
-						<h:column>
-							<h:outputText styleClass="headerText" value="Comments" />
-						</h:column>
-						<h:column>
-							<h:outputText styleClass="headerText" value="Database" />
-						</h:column>
-						<h:column>
-							<h:outputText styleClass="headerText" value="Results" />
-						</h:column>
-						<h:column>
-							<h:outputText styleClass="headerText" value="Download" />
-						</h:column>
+					<f:facet name="header">
+						<rich:columnGroup>
+							<h:column>
+								<h:outputText styleClass="headerText" value="Query" />
+							</h:column>
+							<h:column>
+								<h:outputText styleClass="headerText" value="Comments" />
+							</h:column>
+							<h:column>
+								<h:outputText styleClass="headerText" value="Database" />
+							</h:column>
+							<h:column>
+								<h:outputText styleClass="headerText" value="Results" />
+							</h:column>
+							<h:column>
+								<h:outputText styleClass="headerText" value="Download" />
+							</h:column>
 
-					</rich:columnGroup>
-				</f:facet>
+						</rich:columnGroup>
+					</f:facet>
 
-				<rich:subTable value="#{savedQuery.responses}" var="response"
-					rowKeyVar="rowKey">
+					<rich:subTable value="#{savedQuery.responses}" var="response"
+						rowKeyVar="rowKey">
 
-					<rich:column rowspan="#{savedQuery.responses.size()}"
-						rendered="#{rowKey eq 0}">
+						<rich:column rowspan="#{savedQuery.responses.size()}"
+							rendered="#{rowKey eq 0}">
 
-						<h:panelGrid numcols="2">
-							<h:panelGrid numcols="1">
-								<a4j:form ajaxSubmit="true">
+							<h:panelGrid numcols="2">
+								<h:panelGrid numcols="1">
+
 									<a4j:commandButton value="Edit"
 										action="#{query.edit(savedQuery.id)}" styleClass="roundButton" />
 									<a4j:commandButton value="Clone"
@@ -60,49 +63,38 @@
 									<a4j:commandButton value="Delete"
 										action="#{queryLog.deleteQuery(savedQuery.id)}"
 										styleClass="roundButton" reRender="queryListAll" />
-								</a4j:form>
+
+								</h:panelGrid>
+								<h:outputText value="#{savedQuery.queryString}" />
 							</h:panelGrid>
-							<h:outputText value="#{savedQuery.queryString}" />
-						</h:panelGrid>
-					</rich:column>
+						</rich:column>
 
-					<rich:column rowspan="#{savedQuery.responses.size()}"
-						rendered="#{rowKey eq 0}">
-						<h:outputText value="#{savedQuery.comments}" />
-					</rich:column>
+						<rich:column rowspan="#{savedQuery.responses.size()}" rendered="#{rowKey eq 0}">
+							<h:outputText value="#{savedQuery.comments}" />
+						</rich:column>
 
-					<rich:column
-						styleClass="#{consumers.isSelected(savedQuery.id,response.node)? 'activeRow':''}">
-						<h:outputText
-							value="#{registryFacade.getResourceTitle(response.node)}" />
-						<a4j:form ajaxSubmit="true">
-							<a4j:commandButton value="Select"
-								action="#{consumers.select(savedQuery.id,response.node)}"
-								rendered="#{!consumers.isSelected(savedQuery.id,response.node)}"
-								reRender="queryListAll" />
-							<a4j:commandButton value="Deselect"
-								action="#{consumers.deselect(savedQuery.id,response.node)}"
-								rendered="#{consumers.isSelected(savedQuery.id,response.node)}"
-								reRender="queryListAll" />
-						</a4j:form>
-					</rich:column>
+						<rich:column>
+							<h:selectBooleanCheckbox value="#{consumers.queries[response.fullQueryURL]}" />
+							<h:outputText
+								value="#{registryFacade.getResourceTitle(response.node)}" />
 
-					<rich:column
-						columnClass="#{consumers.isSelected(savedQuery.id,response.node)? 'ActiveRow':''}">
-						<h:outputText value="#{response.stats}" />
-					</rich:column>
+						</rich:column>
 
-					<rich:column
-						columnClass="#{consumers.isSelected(savedQuery.id,response.node)? 'ActiveRow':''}">
-						<h:outputLink value="#{response.fullQueryURL}">
-							<h:outputText value="XSAMS" />
-						</h:outputLink>
-					</rich:column>
-				</rich:subTable>
+						<rich:column>
+							<h:outputText value="#{response.stats}" />
+						</rich:column>
 
-			</rich:dataTable>
+						<rich:column>
+							<h:outputLink value="#{response.fullQueryURL}">
+								<h:outputText value="XSAMS" />
+							</h:outputLink>
+						</rich:column>
+					</rich:subTable>
 
+				</rich:dataTable>
+			
 		</h:panelGrid>
+		</a4j:form>
 	</ui:define>
 
 </ui:composition>
