@@ -48,6 +48,9 @@ public class PreviewManager {
 
 		Collection<String> activeNodes = nodeTree.getActiveNodes();
 
+		if (activeNodes.size()==0)
+			return;
+		
 		ExecutorService executor = Executors.newFixedThreadPool(activeNodes.size());
 
 		for (String ivoaID:activeNodes){
