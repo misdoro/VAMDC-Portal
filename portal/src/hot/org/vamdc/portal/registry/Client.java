@@ -33,7 +33,7 @@ public enum Client {
 	
 	private class RegistryThread implements Runnable{
 
-		private transient boolean running=true;
+		private volatile boolean running=true;
 		
 		public void run() {
 			while(running){
@@ -41,6 +41,12 @@ public enum Client {
 					reloadRegistry();
 					Thread.sleep(Settings.REGISTRY_UPDATE_INTERVAL.getInt());
 				} catch (RegistryCommunicationException e) {
+					System.err.println("Registry communication problem"+e.getMessage());
+					e.printStackTrace();
+					try {
+						Thread.sleep(Settings.REGISTRY_RETRY_INTERVAL.getInt());
+					} catch (InterruptedException e1) {
+					}
 				} catch (InterruptedException e) {
 				}
 			}
