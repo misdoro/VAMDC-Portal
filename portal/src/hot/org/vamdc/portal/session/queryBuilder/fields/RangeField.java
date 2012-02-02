@@ -56,4 +56,8 @@ public class RangeField extends AbstractField{
 		}
 	}
 	
+	public boolean hasValue(){
+		return (fieldIsSet(hiValue)|| fieldIsSet(loValue));
+	}
+	
 }
