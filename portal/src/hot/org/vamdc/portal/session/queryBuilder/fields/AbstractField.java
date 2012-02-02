@@ -1,5 +1,7 @@
 package org.vamdc.portal.session.queryBuilder.fields;
 
+import java.util.UUID;
+
 import org.vamdc.dictionary.Restrictable;
 
 /**
@@ -8,12 +10,14 @@ import org.vamdc.dictionary.Restrictable;
  */
 public abstract class AbstractField {
 	private String value;
-	private Restrictable keyword;
+	protected Restrictable keyword;
 	private String title;
+	private String id;
 	
 	public AbstractField(Restrictable keyword, String title){
 		this.keyword = keyword;
 		this.title = title;
+		this.id = UUID.randomUUID().toString();
 	}
 	
 	public String getValue(){
@@ -58,5 +62,17 @@ public abstract class AbstractField {
 	public String getTitle(){
 		return this.title;
 	}
+	
+	public String getUuid(){
+		return this.id;
+	}
+	
+	public String getUnits(){
+		return this.keyword.getUnits();
+	}
 
+	protected boolean fieldIsSet(String value){
+		return (value!=null && value.length()>0);
+	}
+	
 }

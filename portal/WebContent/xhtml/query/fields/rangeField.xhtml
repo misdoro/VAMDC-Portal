@@ -8,15 +8,18 @@
 	xmlns:a4j="http://richfaces.org/a4j">
 
 
-	<h:panelGrid columns="5">
-		<h:outputText value="#{field.title}" style="font-weight:bold" />
-		<rich:spacer width="18" />
-		<h:inputText value="#{field.loValue}" style="width: 150px;">
-			<a4j:support event="oncomplete" reRender="nodeTree" />
+
+
+	<h:outputText value="#{field.title}" style="font-weight:bold" />
+	<h:panelGrid columns="5" id="field#{field.uuid}" style="width: 100%;">
+		<rich:spacer width="10"/>
+		<h:inputText value="#{field.loValue}" style="width: 70px;">
+			<a4j:support event="oncomplete" reRender="nodeTree,field#{field.uuid}" />
 		</h:inputText>
 		<h:outputText value="to"/>
-		<h:inputText value="#{field.hiValue}" style="width: 150px;">
-			<a4j:support event="oncomplete" reRender="nodeTree" />
+		<h:inputText value="#{field.hiValue}" style="width: 70px;">
+			<a4j:support event="oncomplete" reRender="nodeTree,field#{field.uuid}" />
 		</h:inputText>
+		<h:outputText value="#{field.units}" rendered="#{field.units.length()>0}"/>
 	</h:panelGrid>
 </ui:composition>

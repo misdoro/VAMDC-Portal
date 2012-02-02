@@ -20,6 +20,7 @@ import org.vamdc.portal.entity.query.HttpHeadResponse.Response;
 import org.vamdc.portal.entity.query.Query;
 import org.vamdc.portal.session.preview.PreviewManager;
 import org.vamdc.portal.session.queryBuilder.forms.AtomsForm;
+import org.vamdc.portal.session.queryBuilder.forms.MoleculesForm;
 import org.vamdc.portal.session.queryLog.QueryLog;
 import org.vamdc.portal.session.security.UserInfo;
 
@@ -100,12 +101,6 @@ public class QueryController {
 			return RedirectPage.QUERY;
 	}
 	
-
-		
-	public void addFormAtoms(){
-		queryData.addForm(new AtomsForm());
-	}
-	
 	public String edit(String queryID){
 		queryData.setEditQueryId(queryID);
 		return clone(queryID);
@@ -118,5 +113,18 @@ public class QueryController {
 		queryData.loadQuery(query.getQueryString());
 		return RedirectPage.QUERY;
 	}
+		
+	public void addFormAtoms(){
+		queryData.addForm(new AtomsForm());
+	}
+	
+	public void addFormMolecules(){
+		queryData.addForm(new MoleculesForm());
+	}
+	
+	public void action(){
+		
+	}
+
 	
 }

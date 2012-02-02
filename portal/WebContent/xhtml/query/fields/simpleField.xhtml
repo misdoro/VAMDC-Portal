@@ -8,11 +8,12 @@
 	xmlns:a4j="http://richfaces.org/a4j">
 
 
-	<h:panelGrid columns="3">
-		<h:outputText value="#{field.title}" style="font-weight:bold" />
-		<rich:spacer width="18" />
-		<h:inputText value="#{field.value}" style="width: 351px;">
-			<a4j:support event="onchange" reRender="nodeTree"/>
+	<h:outputText value="#{field.title}" />
+
+	
+		<h:inputText value="#{field.value}">
+			<a4j:support event="onchange" reRender="nodeTree" />
 		</h:inputText>
-	</h:panelGrid>
+
+
 </ui:composition>
