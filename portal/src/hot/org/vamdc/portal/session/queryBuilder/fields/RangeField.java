@@ -36,10 +36,10 @@ public class RangeField extends AbstractField{
 	public String getQuery(){
 		fixCompareOrder();
 		
-		String result = getQueryPart(this.keyword.name(),"<",hiValue);
+		String result = getQueryPart(this.keyword.name(),">",loValue);
 		if (result.length()>0)
 			result+=" AND ";
-		result+=getQueryPart(this.keyword.name(),">",loValue);
+		result+=getQueryPart(this.keyword.name(),"<",hiValue);
 		return result;
 		
 	}
@@ -63,6 +63,7 @@ public class RangeField extends AbstractField{
 		}
 	}
 	
+	@Override
 	public boolean hasValue(){
 		return (fieldIsSet(hiValue)|| fieldIsSet(loValue));
 	}

@@ -12,11 +12,11 @@
 				<h:outputText value="#{form.title}" />
 			</rich:toolBarGroup>
 			<rich:toolBarGroup location="right">
-				<a4j:commandLink reRender="form#{form.id},nodeTree"
+				<a4j:commandLink reRender="form#{form.id},nodeTree,buttonArea"
 					action="#{form.clear}"
 					value="O Clear" />
 				
-				<a4j:commandLink reRender="formPanel,nodeTree"
+				<a4j:commandLink reRender="formPanel,nodeTree,buttonArea"
 					action="#{form.delete}"
 					value="X Remove" />
 					<rich:spacer widh="20"/>
