@@ -10,6 +10,11 @@ import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 public abstract class AbstractForm implements QueryForm{
 	
 	protected List<AbstractField> fields;
+	private transient Collection<QueryForm> forms;
+	
+	public AbstractForm(Collection<QueryForm> forms){ 
+		this.forms = forms;
+	}
 	
 	public String getQueryPart() {
 		String query="";
@@ -35,5 +40,17 @@ public abstract class AbstractForm implements QueryForm{
 		}
 		return keywords;
 	}
+	
+	public void clear(){
+		for (AbstractField field:fields){
+			field.clear();
+		}
+	}
 
+	public void delete(){
+		synchronized(forms){
+			forms.remove(this);
+		}
+	}
+	
 }

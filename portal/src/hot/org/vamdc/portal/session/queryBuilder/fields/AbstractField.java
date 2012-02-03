@@ -59,17 +59,13 @@ public abstract class AbstractField {
 	 */
 	public abstract String getView();
 	
-	public String getTitle(){
-		return this.title;
-	}
 	
-	public String getUuid(){
-		return this.id;
-	}
+	public String getTitle(){ return this.title; }
+	public String getUnits(){ return this.keyword.getUnits(); }
+	public String getDescription(){ return this.keyword.getDescription(); }
+	public String getUuid(){ return this.id; }
 	
-	public String getUnits(){
-		return this.keyword.getUnits();
-	}
+	public void clear(){ this.value=""; }
 
 	protected boolean fieldIsSet(String value){
 		return (value!=null && value.length()>0);

@@ -60,4 +60,10 @@ public class RangeField extends AbstractField{
 		return (fieldIsSet(hiValue)|| fieldIsSet(loValue));
 	}
 	
+	@Override
+	public void clear(){
+		hiValue="";
+		loValue="";
+	}
+	
 }

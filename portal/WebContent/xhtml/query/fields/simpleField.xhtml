@@ -8,12 +8,13 @@
 	xmlns:a4j="http://richfaces.org/a4j">
 
 
-	<h:outputText value="#{field.title}" />
-
-	
-		<h:inputText value="#{field.value}">
-			<a4j:support event="onchange" reRender="nodeTree" />
-		</h:inputText>
+	<h:outputText value="#{field.title}" style="font-weight:bold">
+		<rich:toolTip value="#{field.description}" styleClass="toolTip"
+			direction="bottom-left" rendered="#{field.description.length()>0}" />
+	</h:outputText>
+	<h:inputText value="#{field.value}">
+		<a4j:support event="onchange" reRender="nodeTree" />
+	</h:inputText>
 
 
 </ui:composition>

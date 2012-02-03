@@ -19,4 +19,7 @@ public interface QueryForm {
 	public String getQueryPart();
 	public Collection<Restrictable> getKeywords();
 
+	public void clear();
+	public void delete();
+	
 }

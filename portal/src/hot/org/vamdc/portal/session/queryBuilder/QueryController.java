@@ -115,11 +115,11 @@ public class QueryController {
 	}
 		
 	public void addFormAtoms(){
-		queryData.addForm(new AtomsForm());
+		queryData.addForm(new AtomsForm(queryData.getForms()));
 	}
 	
 	public void addFormMolecules(){
-		queryData.addForm(new MoleculesForm());
+		queryData.addForm(new MoleculesForm(queryData.getForms()));
 	}
 	
 	public void action(){
