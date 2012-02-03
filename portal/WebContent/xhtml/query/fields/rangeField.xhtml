@@ -15,11 +15,11 @@
 	<h:panelGrid columns="5" id="field#{field.uuid}" style="width: 100%;">
 		<rich:spacer width="10" />
 		<h:inputText value="#{field.loValue}" style="width: 70px;">
-			<a4j:support event="onchange" reRender="nodeTree,field#{field.uuid}" />
+			<a4j:support event="onchange" reRender="nodeTree,field#{field.uuid},buttonArea" />
 		</h:inputText>
 		<h:outputText value="to" />
 		<h:inputText value="#{field.hiValue}" style="width: 70px;">
-			<a4j:support event="onchange" reRender="nodeTree,field#{field.uuid}" />
+			<a4j:support event="onchange" reRender="nodeTree,field#{field.uuid},buttonArea" />
 		</h:inputText>
 		<h:outputText value="#{field.units}"
 			rendered="#{field.units.length()>0}" />

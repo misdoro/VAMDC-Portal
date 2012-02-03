@@ -13,7 +13,7 @@
 			direction="bottom-left" rendered="#{field.description.length()>0}" />
 	</h:outputText>
 	<h:inputText value="#{field.value}">
-		<a4j:support event="onchange" reRender="nodeTree" />
+		<a4j:support event="onchange" reRender="nodeTree,buttonArea" />
 	</h:inputText>
 
 

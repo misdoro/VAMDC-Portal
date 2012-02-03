@@ -50,7 +50,7 @@ public class QueryData {
 	}
 
 	public boolean isValid(){
-		return true;
+		return getKeywords().size()>0;
 	}
 
 	public Collection<QueryForm> getForms(){

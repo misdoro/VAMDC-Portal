@@ -44,7 +44,7 @@
 		</f:facet>
 
 		<h:column>
-			<h:selectBooleanCheckbox value="#{consumers.queries[node.fullQueryURL]}" />
+			<h:selectBooleanCheckbox value="#{consumers.queries[node.fullQueryURL]}" disabled="#{!preview.done}"/>
 			<h:outputText value="#{registryFacade.getResourceTitle(node.ivoaID)}" />
 		</h:column>
 
