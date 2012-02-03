@@ -12,7 +12,7 @@ public class AtomsForm extends AbstractForm implements QueryForm {
 
 	public String getTitle() { return "Atoms"; }
 
-	public String getView() { return "/xhtml/query/forms/atomsForm.xhtml"; }
+	public String getView() { return "/xhtml/query/forms/standardForm.xhtml"; }
 
 	public String getId() {	return "1";	}
 	

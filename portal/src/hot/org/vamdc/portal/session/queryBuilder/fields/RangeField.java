@@ -8,9 +8,16 @@ public class RangeField extends AbstractField{
 		super(keyword, title);
 	}
 	
+	public RangeField(String prefix, Restrictable keyword, String title) {
+		super(keyword,title);
+		if (fieldIsSet(prefix))
+			this.prefix=prefix+".";
+	}
+
 	@Override
 	public String getView() { return "/xhtml/query/fields/rangeField.xhtml"; }
 
+	private String prefix="";
 	private String loValue;
 	private String hiValue;
 	
@@ -39,7 +46,7 @@ public class RangeField extends AbstractField{
 	
 	private String getQueryPart(String keyword,String compare, String value){
 		if (fieldIsSet(value))
-			return keyword+" "+compare+" "+value;
+			return prefix+keyword+" "+compare+" "+value;
 		return "";
 	}
 	
