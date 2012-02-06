@@ -20,6 +20,8 @@ public class QueryData {
 	private String comments="";
 	
 	private String editedQueryId;
+	
+	private volatile boolean formsChanged=false;
 
 	public Collection<Restrictable> getKeywords(){
 		EnumSet<Restrictable> result = EnumSet.noneOf(Restrictable.class);
@@ -54,15 +56,23 @@ public class QueryData {
 	}
 
 	public Collection<QueryForm> getForms(){
-		return forms;
+		synchronized(forms){
+			return forms;
+		}
 	}
 
-	void addForm(QueryForm form){
-		forms.add(form);
+	public void addForm(QueryForm form){
+		synchronized(forms){
+			forms.add(form);
+			formsChanged=true;
+		}
 	}
 	
-	void deleteForm(QueryForm form){
-		forms.remove(form);
+	public void deleteForm(QueryForm form){
+		synchronized(forms){
+			forms.remove(form);
+			formsChanged=true;
+		}
 	}
 
 	public String getComments() {
@@ -84,6 +94,15 @@ public class QueryData {
 	public void loadQuery(String queryString) {
 		// TODO load forms contents from the query string.
 		
+	}
+
+	public boolean isFormsChanged() {
+		System.out.println("form changed "+formsChanged);
+		return formsChanged;
+	}
+	
+	public void formsReloaded(){
+		this.formsChanged = false;
 	}
 
 }

@@ -1,9 +1,9 @@
 package org.vamdc.portal.session.queryBuilder.forms;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 import org.vamdc.dictionary.Restrictable;
+import org.vamdc.portal.session.queryBuilder.QueryData;
 import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 import org.vamdc.portal.session.queryBuilder.fields.RangeField;
 import org.vamdc.portal.session.queryBuilder.fields.SimpleField;
@@ -16,8 +16,8 @@ public class MoleculesForm extends AbstractForm implements QueryForm{
 
 	public String getId() { return "2"; }
 
-	public MoleculesForm(Collection<QueryForm> collection){
-		super(collection);
+	public MoleculesForm(QueryData queryData){
+		super(queryData);
 		fields = new ArrayList<AbstractField>();
 		fields.add(new SimpleField(Restrictable.MoleculeChemicalName,"Chemical name"));
 		fields.add(new SimpleField(Restrictable.MoleculeStoichiometricFormula,"Stoichiometric formula"));

@@ -13,17 +13,26 @@
 	<ui:define name="body">
 		<table>
 			<tr>
-				<td><ui:include src="/xhtml/query/formMenu.xhtml" /><rich:spacer
-						width="140" /></td>
+				<td><ui:include src="/xhtml/query/formMenu.xhtml" />
+					<rich:spacer width="140" /></td>
 
-				<td style="vertical-align: top; horizontal-align: left"><h:panelGrid
-						id="formPanel">
-						<c:forEach items="#{queryData.forms}" var="form">
-							<a4j:include viewId="#{form.view}" />
-						</c:forEach>
-						<rich:spacer width="400" />
-						<h:outputText value="#{queryData.comments}" />
-					</h:panelGrid></td>
+				<td style="vertical-align: top; horizontal-align: left">
+					<a4j:outputPanel id="formPanel">
+						<h:panelGrid>
+							<c:forEach items="#{queryData.forms}" var="form">
+								<a4j:include viewId="#{form.view}" />
+							</c:forEach>
+							<rich:spacer width="400" />
+							<h:outputText value="#{queryData.comments}" />
+						</h:panelGrid> 
+					</a4j:outputPanel>
+					<a4j:form>
+						<a4j:poll id="formsReRenderPoll" interval="100"
+							enabled="#{queryData.formsChanged}"
+							reRender="formPanel" action="#{queryData.formsReloaded}" />
+					</a4j:form>
+					
+					</td>
 				<td style="vertical-align: top"><ui:include
 						src="/xhtml/query/actionButtons.xhtml" /> <ui:include
 						src="/xhtml/query/nodeTree.xhtml" /></td>

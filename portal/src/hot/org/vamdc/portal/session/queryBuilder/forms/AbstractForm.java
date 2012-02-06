@@ -5,15 +5,20 @@ import java.util.EnumSet;
 import java.util.List;
 
 import org.vamdc.dictionary.Restrictable;
+import org.vamdc.portal.session.queryBuilder.QueryData;
 import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 
 public abstract class AbstractForm implements QueryForm{
 	
 	protected List<AbstractField> fields;
-	private transient Collection<QueryForm> forms;
+	private transient QueryData queryData;
 	
-	public AbstractForm(Collection<QueryForm> forms){ 
-		this.forms = forms;
+	public AbstractForm(QueryData queryData){ 
+		this.queryData = queryData;
+	}
+	
+	public void setQueryData(QueryData queryData){ 
+		this.queryData = queryData;
 	}
 	
 	public String getQueryPart() {
@@ -48,9 +53,7 @@ public abstract class AbstractForm implements QueryForm{
 	}
 
 	public void delete(){
-		synchronized(forms){
-			forms.remove(this);
-		}
+		queryData.deleteForm(this);
 	}
 	
 }

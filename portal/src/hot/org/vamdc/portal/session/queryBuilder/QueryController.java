@@ -118,23 +118,23 @@ public class QueryController {
 	}
 		
 	public void addFormAtoms(){
-		queryData.addForm(new AtomsForm(queryData.getForms()));
+		queryData.addForm(new AtomsForm(queryData));
 	}
 	
 	public void addFormMolecules(){
-		queryData.addForm(new MoleculesForm(queryData.getForms()));
+		queryData.addForm(new MoleculesForm(queryData));
 	}
 	
 	public void addFormParticles(){
-		queryData.addForm(new ParticlesForm(queryData.getForms()));
+		queryData.addForm(new ParticlesForm(queryData));
 	}
 	
 	public void addFormTransitions(){
-		queryData.addForm(new TransitionsForm(queryData.getForms()));
+		queryData.addForm(new TransitionsForm(queryData));
 	}
 	
 	public void addFormEnvironment(){
-		queryData.addForm(new EnvironmentForm(queryData.getForms()));
+		queryData.addForm(new EnvironmentForm(queryData));
 	}
 	
 	public void action(){

@@ -3,6 +3,7 @@ package org.vamdc.portal.session.queryBuilder.forms;
 import java.util.Collection;
 
 import org.vamdc.dictionary.Restrictable;
+import org.vamdc.portal.session.queryBuilder.QueryData;
 import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 
 /**
@@ -19,6 +20,8 @@ public interface QueryForm {
 	public String getQueryPart();
 	public Collection<Restrictable> getKeywords();
 
+	public void setQueryData(QueryData data);
+	
 	public void clear();
 	public void delete();
 	

@@ -1,9 +1,9 @@
 package org.vamdc.portal.session.queryBuilder.forms;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 import org.vamdc.dictionary.Restrictable;
+import org.vamdc.portal.session.queryBuilder.QueryData;
 import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 import org.vamdc.portal.session.queryBuilder.fields.SimpleField;
 
@@ -15,8 +15,8 @@ public class ParticlesForm extends AbstractForm implements QueryForm{
 
 	public String getId() {	return "3"; }
 	
-	public ParticlesForm(Collection<QueryForm> forms){
-		super(forms);
+	public ParticlesForm(QueryData queryData){
+		super(queryData);
 		fields = new ArrayList<AbstractField>();
 		fields.add(new SimpleField(Restrictable.ParticleName,"Particle name"));
 	}

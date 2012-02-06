@@ -1,9 +1,9 @@
 package org.vamdc.portal.session.queryBuilder.forms;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 import org.vamdc.dictionary.Restrictable;
+import org.vamdc.portal.session.queryBuilder.QueryData;
 import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 import org.vamdc.portal.session.queryBuilder.fields.RangeField;
 import org.vamdc.portal.session.queryBuilder.fields.SimpleField;
@@ -16,8 +16,8 @@ public class AtomsForm extends AbstractForm implements QueryForm {
 
 	public String getId() {	return "1";	}
 	
-	public AtomsForm(Collection<QueryForm> collection){
-		super(collection);
+	public AtomsForm(QueryData queryData){
+		super(queryData);
 		fields = new ArrayList<AbstractField>();
 		fields.add(new SimpleField(Restrictable.AtomSymbol,"Atom symbol"));
 		fields.add(new SimpleField(Restrictable.InchiKey,"InChIKey"));
