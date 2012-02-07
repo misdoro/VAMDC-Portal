@@ -11,11 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class HttpHeadResponse implements Serializable{
 
-	private static final long serialVersionUID = 7243615545353337911L;
+	private static final long serialVersionUID = 7243615545353337912L;
 	public enum Response{
 		OK,
 		EMPTY,
@@ -119,5 +120,8 @@ public class HttpHeadResponse implements Serializable{
 	public Query getQuery() { return query; }
 	public void setQuery(Query query) { this.query = query; }
 
-
+	@Transient
+	public boolean isOk(){
+		return this.status==Response.OK;
+	}
 }
