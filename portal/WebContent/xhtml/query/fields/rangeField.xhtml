@@ -8,20 +8,21 @@
 	xmlns:a4j="http://richfaces.org/a4j">
 
 
-	<h:outputText value="#{field.title}" style="font-weight:bold">
+	<h:panelGroup>
+		<h:outputText value="#{field.title}" style="font-weight:bold" />
 		<rich:toolTip value="#{field.description}" styleClass="toolTip"
 			direction="bottom-left" rendered="#{field.description.length()>0}" />
-	</h:outputText>
-	<h:panelGrid columns="5" id="field#{field.uuid}" style="width: 100%;">
+	</h:panelGroup>
+	<h:panelGroup>
 		<rich:spacer width="10" />
-		<h:inputText value="#{field.loValue}" style="width: 70px;">
+		<h:inputText value="#{field.loValue}" styleClass="narrowfield">
 			<a4j:support event="onchange" reRender="nodeTree,buttonArea" />
 		</h:inputText>
 		<h:outputText value="to" />
-		<h:inputText value="#{field.hiValue}" style="width: 70px;">
+		<h:inputText value="#{field.hiValue}" styleClass="narrowfield">
 			<a4j:support event="onchange" reRender="nodeTree,buttonArea" />
 		</h:inputText>
-		<h:outputText value="#{field.units}"
-			rendered="#{field.units.length()>0}" />
-	</h:panelGrid>
+	
+		<h:outputText value="#{field.units}" />
+	</h:panelGroup>
 </ui:composition>
