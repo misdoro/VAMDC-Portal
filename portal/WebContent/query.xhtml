@@ -26,12 +26,6 @@
 							<h:outputText value="#{queryData.comments}" />
 						</h:panelGrid> 
 					</a4j:outputPanel>
-					<a4j:form>
-						<a4j:poll id="formsReRenderPoll" interval="100"
-							enabled="#{queryData.formsChanged}"
-							reRender="formPanel" action="#{queryData.formsReloaded}" />
-					</a4j:form>
-					
 					</td>
 				<td style="vertical-align: top"><ui:include
 						src="/xhtml/query/actionButtons.xhtml" /> <ui:include

@@ -2,6 +2,7 @@ package org.vamdc.portal.session.queryBuilder;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.EnumSet;
 
 import org.jboss.seam.ScopeType;
@@ -15,13 +16,11 @@ import org.vamdc.portal.session.queryBuilder.forms.QueryForm;
 public class QueryData {
 
 
-	private Collection<QueryForm> forms=new ArrayList<QueryForm>();
+	private Collection<QueryForm> forms=Collections.synchronizedList(new ArrayList<QueryForm>());
 	
 	private String comments="";
 	
 	private String editedQueryId;
-	
-	private volatile boolean formsChanged=false;
 
 	public Collection<Restrictable> getKeywords(){
 		EnumSet<Restrictable> result = EnumSet.noneOf(Restrictable.class);
@@ -56,23 +55,15 @@ public class QueryData {
 	}
 
 	public Collection<QueryForm> getForms(){
-		synchronized(forms){
-			return forms;
-		}
+		return forms;
 	}
 
 	public void addForm(QueryForm form){
-		synchronized(forms){
-			forms.add(form);
-			formsChanged=true;
-		}
+		forms.add(form);
 	}
 	
 	public void deleteForm(QueryForm form){
-		synchronized(forms){
-			forms.remove(form);
-			formsChanged=true;
-		}
+		forms.remove(form);
 	}
 
 	public String getComments() {
@@ -94,15 +85,6 @@ public class QueryData {
 	public void loadQuery(String queryString) {
 		// TODO load forms contents from the query string.
 		
-	}
-
-	public boolean isFormsChanged() {
-		System.out.println("form changed "+formsChanged);
-		return formsChanged;
-	}
-	
-	public void formsReloaded(){
-		this.formsChanged = false;
 	}
 
 }

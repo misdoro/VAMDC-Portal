@@ -16,7 +16,7 @@
 					action="#{form.clear}"
 					value="Clear" />
 				
-				<a4j:commandLink id="form#{form.id}Remove" ajaxSingle="true" reRender="formsReRenderPoll"
+				<a4j:commandLink id="form#{form.id}Remove" ajaxSingle="true" reRender="formPanel,nodeTree,buttonArea"
 					action="#{form.delete}"
 					value="Remove" immediate="true"/>
 					<rich:componentControl for="form#{form.id}" attachTo="form#{form.id}Remove" operation="hide" event="onclick"/>
