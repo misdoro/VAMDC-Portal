@@ -84,8 +84,7 @@ public class Consumers {
 	}
 	
 	public boolean isProcessing(){
-		return ((consumerLocation!=null && !consumerLocation.isDone())
-				||consumerLocation==null);
+		return ((consumerLocation!=null && !consumerLocation.isDone()));
 	}
 	
 	public String getLocation(){

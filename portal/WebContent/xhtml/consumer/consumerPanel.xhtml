@@ -18,7 +18,7 @@
 			<f:selectItems value="#{consumers.consumers}" />
 		</h:selectOneRadio>
 		<a4j:commandButton value="submit" action="#{consumers.process}" 
-			disabled="#{!consumers.processing}"
+			disabled="#{consumers.processing}"
 			reRender="consumers"/>
 
 		<h:panelGroup id="consumerLocation">
