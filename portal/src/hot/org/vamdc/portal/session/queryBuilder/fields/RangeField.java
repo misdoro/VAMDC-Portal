@@ -38,7 +38,7 @@ public class RangeField extends AbstractField{
 	public String getQuery(){
 		fixCompareOrder();
 		String result = "";
-		if (hiValue.equals(loValue)){
+		if (hiValue!=null && hiValue.equals(loValue)){
 			result=getQueryPart(this.keyword.name(),"=",loValue);
 		}else{
 			result=getQueryPart(this.keyword.name(),">=",loValue);
