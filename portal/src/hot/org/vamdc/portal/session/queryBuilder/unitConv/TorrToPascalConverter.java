@@ -5,14 +5,14 @@ import java.math.MathContext;
 
 import javax.measure.converter.UnitConverter;
 
-class TorrToBarConverter extends javax.measure.converter.UnitConverter{
+class TorrToPascalConverter extends javax.measure.converter.UnitConverter{
 	
 	private static final long serialVersionUID = 3461046439784490042L;
-	private final static double torrsInBar=750.06;
+	private final static double torrsInPascal=133.322387415;
 	
 	@Override
 	public double convert(double torr) {
-		return torr/torrsInBar;
+		return torr/torrsInPascal;
 	}
 
 	@Override

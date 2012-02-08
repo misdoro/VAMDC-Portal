@@ -5,9 +5,9 @@ public class PressureUnitConverter extends AbstractUnitConverter{
 	
 	
 	enum PressConvert implements AbstractUnitConverter.Convert{
-		BAR("bar",javax.measure.unit.NonSI.BAR.getConverterTo(javax.measure.unit.NonSI.BAR)),
-		PASCAL("Pa",javax.measure.unit.SI.PASCAL.getConverterTo(javax.measure.unit.NonSI.BAR)),
-		TORR("torr",new TorrToBarConverter()),
+		BAR("bar",javax.measure.unit.NonSI.BAR.getConverterTo(javax.measure.unit.SI.PASCAL)),
+		PASCAL("Pa",javax.measure.unit.SI.PASCAL.getConverterTo(javax.measure.unit.SI.PASCAL)),
+		TORR("torr",new TorrToPascalConverter()),
 		;
 		
 		
