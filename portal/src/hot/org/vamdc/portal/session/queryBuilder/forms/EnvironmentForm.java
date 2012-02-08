@@ -6,6 +6,8 @@ import org.vamdc.dictionary.Restrictable;
 import org.vamdc.portal.session.queryBuilder.QueryData;
 import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 import org.vamdc.portal.session.queryBuilder.fields.RangeField;
+import org.vamdc.portal.session.queryBuilder.fields.UnitConvRangeField;
+import org.vamdc.portal.session.queryBuilder.unitConv.TemperatureConverter;
 
 public class EnvironmentForm extends AbstractForm implements QueryForm{
 	public String getTitle() { return "Environment"; }
@@ -17,7 +19,10 @@ public class EnvironmentForm extends AbstractForm implements QueryForm{
 	public EnvironmentForm(QueryData queryData){
 		super(queryData);
 		fields = new ArrayList<AbstractField>();
-		fields.add(new RangeField(Restrictable.Temperature,"Temperature"));
+		fields.add(new UnitConvRangeField(
+				Restrictable.Temperature,
+				"Temperature",
+				new TemperatureConverter()));
 		fields.add(new RangeField(Restrictable.Pressure,"Pressure"));
 	}
 }

@@ -18,8 +18,8 @@ public class RangeField extends AbstractField{
 	public String getView() { return "/xhtml/query/fields/rangeField.xhtml"; }
 
 	private String prefix="";
-	private String loValue;
-	private String hiValue;
+	protected String loValue;
+	protected String hiValue;
 	
 	public String getHiValue(){	return hiValue; }
 	public String getLoValue(){	return loValue; }
@@ -31,6 +31,8 @@ public class RangeField extends AbstractField{
 	public void setHiValue(String hiValue){
 		this.hiValue = hiValue;
 	}
+	
+	public void setPrefix(String prefix){ this.prefix = prefix; }
 	
 	@Override
 	public String getQuery(){
@@ -50,10 +52,16 @@ public class RangeField extends AbstractField{
 		return "";
 	}
 	
-	private void fixCompareOrder(){
+	protected void fixCompareOrder(){
 		if (fieldIsSet(hiValue) && fieldIsSet(loValue)){
-			Double lo = Double.parseDouble(loValue);
-			Double hi = Double.parseDouble(hiValue);
+			Double lo=Double.NaN;
+			Double hi=Double.NaN;
+			try{
+				lo = Double.parseDouble(loValue);
+				hi = Double.parseDouble(hiValue);
+			}catch(NumberFormatException e){
+				
+			}
 			
 			if (lo>hi){
 				String tmp = loValue;

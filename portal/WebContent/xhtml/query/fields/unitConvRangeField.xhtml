@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
+
+
+	<h:panelGroup>
+		<h:outputText value="#{field.title}" style="font-weight:bold" />
+		<rich:toolTip value="#{field.description}" styleClass="toolTip"
+			direction="bottom-left" rendered="#{field.description.length()>0}" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<rich:spacer width="10" />
+		<h:inputText value="#{field.userLoValue}" styleClass="narrowfield">
+			<a4j:support event="onchange" reRender="nodeTree,buttonArea,convertedPanel" />
+		</h:inputText>
+		<h:outputText value="to" />
+		<h:inputText value="#{field.userHiValue}" styleClass="narrowfield">
+			<a4j:support event="onchange" reRender="nodeTree,buttonArea,convertedPanel" />
+		</h:inputText>
+	
+		<h:selectOneMenu value="#{field.converter.selectedOption}" valueChangeListener="#{field.update}">
+			<f:selectItems value="#{field.converter.options}" />
+			<a4j:support event="onchange" reRender="convertedPanel"/>
+		</h:selectOneMenu>
+	</h:panelGroup>
+	<h:panelGroup>
+		<h:outputText value="Equivalent to"/>
+	</h:panelGroup>
+	<h:panelGroup id="convertedPanel">
+		<h:outputText value="#{field.converted}"/>
+		<h:outputText value="#{field.units}" />
+	</h:panelGroup>
+</ui:composition>
