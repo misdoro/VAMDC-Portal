@@ -63,7 +63,7 @@ public abstract class AbstractField {
 	public String getTitle(){ return this.title; }
 	public String getUnits(){ return this.keyword.getUnits(); }
 	public String getDescription(){ return this.keyword.getDescription(); }
-	public String getUuid(){ return this.id; }
+	public String getId(){ return this.id; }
 	
 	public void clear(){ this.value=""; }
 

@@ -7,6 +7,7 @@ import org.vamdc.portal.session.queryBuilder.QueryData;
 import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 import org.vamdc.portal.session.queryBuilder.fields.RangeField;
 import org.vamdc.portal.session.queryBuilder.fields.UnitConvRangeField;
+import org.vamdc.portal.session.queryBuilder.unitConv.PressureUnitConverter;
 import org.vamdc.portal.session.queryBuilder.unitConv.TemperatureConverter;
 
 public class EnvironmentForm extends AbstractForm implements QueryForm{
@@ -23,6 +24,9 @@ public class EnvironmentForm extends AbstractForm implements QueryForm{
 				Restrictable.Temperature,
 				"Temperature",
 				new TemperatureConverter()));
-		fields.add(new RangeField(Restrictable.Pressure,"Pressure"));
+		fields.add(new UnitConvRangeField(
+				Restrictable.Pressure,
+				"Pressure",
+				new PressureUnitConverter()));
 	}
 }

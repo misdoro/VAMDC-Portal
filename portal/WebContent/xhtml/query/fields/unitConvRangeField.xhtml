@@ -16,22 +16,22 @@
 	<h:panelGroup>
 		<rich:spacer width="10" />
 		<h:inputText value="#{field.userLoValue}" styleClass="narrowfield">
-			<a4j:support event="onchange" reRender="nodeTree,buttonArea,convertedPanel" />
+			<a4j:support event="onchange" reRender="nodeTree,buttonArea,conv#{field.id}" />
 		</h:inputText>
 		<h:outputText value="to" />
 		<h:inputText value="#{field.userHiValue}" styleClass="narrowfield">
-			<a4j:support event="onchange" reRender="nodeTree,buttonArea,convertedPanel" />
+			<a4j:support event="onchange" reRender="nodeTree,buttonArea,conv#{field.id}" />
 		</h:inputText>
 	
 		<h:selectOneMenu value="#{field.converter.selectedOption}" valueChangeListener="#{field.update}">
 			<f:selectItems value="#{field.converter.options}" />
-			<a4j:support event="onchange" reRender="convertedPanel"/>
+			<a4j:support event="onchange" reRender="conv#{field.id}"/>
 		</h:selectOneMenu>
 	</h:panelGroup>
 	<h:panelGroup>
 		<h:outputText value="Equivalent to"/>
 	</h:panelGroup>
-	<h:panelGroup id="convertedPanel">
+	<h:panelGroup id="conv#{field.id}">
 		<h:outputText value="#{field.converted}"/>
 		<h:outputText value="#{field.units}" />
 	</h:panelGroup>
