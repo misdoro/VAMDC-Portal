@@ -36,7 +36,7 @@ public abstract class AbstractField {
 	}
 	
 	public String getQuery(){
-		if (value==null || value.trim().length()==0)
+		if (keyword==null || value==null || value.trim().length()==0)
 			return "";
 		
 		StringBuilder result = new StringBuilder();
@@ -61,8 +61,16 @@ public abstract class AbstractField {
 	
 	
 	public String getTitle(){ return this.title; }
-	public String getUnits(){ return this.keyword.getUnits(); }
-	public String getDescription(){ return this.keyword.getDescription(); }
+	public String getUnits(){ 
+		if (this.keyword!=null)
+			return this.keyword.getUnits(); 
+		return "";
+	}
+	public String getDescription(){ 
+		if (this.keyword!=null)
+			return this.keyword.getDescription(); 
+		return "";
+	}
 	public String getId(){ return this.id; }
 	
 	public void clear(){ this.value=""; }

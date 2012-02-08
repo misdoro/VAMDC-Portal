@@ -9,6 +9,7 @@ public class SuggestionField extends AbstractField{
 	public interface Suggestion{
 		public Collection<String> options(Object input);
 		public String getIllegalLabel();
+		public void selected();
 	}
 	
 	public SuggestionField(Restrictable keyword, String title, Suggestion suggestion) {

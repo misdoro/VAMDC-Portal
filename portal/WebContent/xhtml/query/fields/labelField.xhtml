@@ -12,18 +12,8 @@
 		<rich:toolTip value="#{field.description}" styleClass="toolTip"
 			direction="bottom-left" rendered="#{field.description.length()>0}" />
 	</h:outputText>
-	<h:inputText value="#{field.value}" id="field#{field.id}">
-		<rich:suggestionbox for="field#{field.id}"
-		 suggestionAction="#{field.suggestion.options}"
-			var="opt" nothingLabel="#{field.suggestion.illegalLabel}">
-			<h:column>
-				<h:outputText value="#{opt}"/>
-			</h:column>
-			<a4j:support event="onselect" action="#{field.suggestion.selected}"
-				reRender="form#{form.id},nodeTree,buttonArea" />
-		</rich:suggestionbox>
-		<a4j:support event="onchange" reRender="nodeTree,buttonArea" />
-	</h:inputText>
-
+	<s:div style=" width : 250px;">
+		<h:outputText value="#{field.value}" />
+	</s:div>
 
 </ui:composition>
