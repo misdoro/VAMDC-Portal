@@ -11,7 +11,7 @@ import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
  * @author doronin
  */
 public interface QueryForm {
-	
+	public String getFullTitle();
 	public String getTitle();
 	public String getView();
 	public String getId();
@@ -24,5 +24,7 @@ public interface QueryForm {
 	
 	public void clear();
 	public void delete();
+	public void setPrefix(String prefix);
+	public String getPrefix();
 	
 }

@@ -3,6 +3,8 @@ package org.vamdc.portal.session.queryBuilder.forms;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.faces.event.ValueChangeEvent;
+
 import org.vamdc.dictionary.IAEAProcessCode;
 import org.vamdc.dictionary.Restrictable;
 import org.vamdc.dictionary.XsamsProcessCode;
@@ -13,13 +15,15 @@ import org.vamdc.portal.session.queryBuilder.fields.SuggestionField;
 
 public class CollisionsForm extends AbstractForm implements QueryForm{
 
-	AbstractField processName;
-	AbstractField processDescription;
-	AbstractField xsamsProcCode;
-	AbstractField iaeaProcCode;
+	private AbstractField processName;
+	private AbstractField processDescription;
+	private AbstractField xsamsProcCode;
+	private AbstractField iaeaProcCode;
+	private QueryData queryData;
 	
 	public CollisionsForm(QueryData queryData) {
 		super(queryData);
+		this.queryData = queryData;
 		fields = new ArrayList<AbstractField>();
 
 		processName = new SuggestionField(null,"Process name",new ProcessNameSuggest());
@@ -37,7 +41,7 @@ public class CollisionsForm extends AbstractForm implements QueryForm{
 
 	public String getTitle() { return "Collisions"; }
 
-	public String getView() { return "/xhtml/query/forms/standardForm.xhtml"; }
+	public String getView() { return "/xhtml/query/forms/collisionsForm.xhtml"; }
 
 	public abstract class SuggestionImpl implements SuggestionField.Suggestion{
 		protected abstract Collection<String> getValues();
@@ -115,5 +119,47 @@ public class CollisionsForm extends AbstractForm implements QueryForm{
 			return null;
 		}
 	}
+	
+	/**
+	 * Class for managing species table at the bottom of the form
+	 * @author doronin
+	 *
+	 */
+	public class SpeciesFacade{
+		private QueryForm speciesForm;
+		private int index;
+		
+		public SpeciesFacade(QueryForm speciesForm,int index){
+			this.speciesForm = speciesForm;
+			this.index = index;
+		}
+	
+		public void roleChanged(ValueChangeEvent event){
+			String prefix="";
+			if (event!=null)
+				prefix = (String)event.getNewValue();
+			
+			if ("reactant".equals(prefix) || "product".equals(prefix))
+				prefix=prefix+index;
+			speciesForm.setPrefix(prefix);
+			
+		}
+		
+		public String getRole(){ return speciesForm.getPrefix(); }
+		public void setRole(String role){ speciesForm.setPrefix(role); }
+		
+		public String getTitle(){ return speciesForm.getTitle(); }
+		
+		public String getId(){
+			return speciesForm.getId();
+		}
+	}
 
+	public Collection<SpeciesFacade> getSpecies(){
+		Collection<SpeciesFacade> result = new ArrayList<SpeciesFacade>();
+		for(QueryForm form:queryData.getSpeciesForms())
+			result.add(new SpeciesFacade(form,0));
+		return result;
+	}
+	
 }

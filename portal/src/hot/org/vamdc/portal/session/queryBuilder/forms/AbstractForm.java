@@ -13,7 +13,8 @@ public abstract class AbstractForm implements QueryForm{
 	
 	protected List<AbstractField> fields;
 	private transient QueryData queryData;
-	private String id;
+	private final String id;
+	private String prefix="";
 	
 	public AbstractForm(QueryData queryData){ 
 		this.queryData = queryData;
@@ -61,6 +62,29 @@ public abstract class AbstractForm implements QueryForm{
 	
 	public String getId(){
 		return this.id;
+	}
+	
+	public void setPrefix(String prefix){
+		if (prefix==null)
+			prefix="";
+		this.prefix = prefix;
+		
+		if (prefix.length()>0)
+			prefix+=".";
+		
+		for (AbstractField field:fields){
+			field.setPrefix(prefix);
+		}
+	}
+	
+	public String getPrefix(){
+		return this.prefix;
+	}
+	
+	public final String getFullTitle(){
+		if (prefix!=null && prefix.length()>0)
+			return getTitle()+" ("+prefix+")";
+		return getTitle();
 	}
 	
 }

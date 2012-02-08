@@ -62,6 +62,10 @@ public class QueryData {
 	public Collection<QueryForm> getForms(){
 		return forms;
 	}
+	
+	public Collection<QueryForm> getSpeciesForms(){
+		return speciesForms;
+	}
 
 	public void addSpeciesForm(QueryForm form){
 		addForm(form);

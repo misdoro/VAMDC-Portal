@@ -13,6 +13,7 @@ public abstract class AbstractField {
 	protected Restrictable keyword;
 	private String title;
 	private String id;
+	private String prefix;
 	
 	public AbstractField(Restrictable keyword, String title){
 		this.keyword = keyword;
@@ -40,7 +41,7 @@ public abstract class AbstractField {
 			return "";
 		
 		StringBuilder result = new StringBuilder();
-		
+		result.append(prefix);
 		result.append(keyword.name());
 		result.append(" = ");
 		result.append("\"");
@@ -77,6 +78,10 @@ public abstract class AbstractField {
 
 	protected boolean fieldIsSet(String value){
 		return (value!=null && value.length()>0);
+	}
+
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
 	}
 	
 }

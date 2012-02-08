@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+	<style>
+.leftColumn {
+	font-weight: bold;
+}
+
+.rightColumn {
+	width: 250px;
+	align: right;
+	text-align: right;
+	float: right;
+}
+</style>
+
+	<rich:simpleTogglePanel id="form#{form.id}" switchType="client">
+
+		<ui:include src="/xhtml/query/forms/formTitle.xhtml" />
+
+		<a4j:form ajaxSubmit="true">
+			<c:forEach items="#{form.fields}" var="field">
+				<h:panelGrid columns="2" columnClasses="leftColumn,rightColumn">
+					<rich:spacer width="150" />
+					<rich:spacer width="250" />
+					<ui:include src="#{field.view}" />
+				</h:panelGrid>
+			</c:forEach>
+		</a4j:form>
+
+		<rich:dataTable id="collisionTable" value="#{form.species}"
+			var="species">
+			<f:facet name="header">
+				<rich:columnGroup>
+					<h:column>
+						<h:outputText styleClass="headerText" value="Species" />
+					</h:column>
+					<h:column>
+						<h:outputText styleClass="headerText" value="Role" />
+					</h:column>
+				</rich:columnGroup>
+			</f:facet>
+
+			<h:column>
+				<h:outputText value="#{species.title}" />
+			</h:column>
+
+			<h:column>
+				<h:selectOneMenu value="#{species.role}" id="select#{species.id}"
+					valueChangeListener="#{species.roleChanged}">
+					<f:selectItem itemValue="" itemLabel="Undefined" />
+					<f:selectItem itemValue="target" itemLabel="Target" />
+					<f:selectItem itemValue="collider" itemLabel="Collider" />
+					<f:selectItem itemValue="reactant" itemLabel="Reactant" />
+					<f:selectItem itemValue="product" itemLabel="Product" />
+					
+					<a4j:support event="onchange" reRender="form#{species.id}"/>
+				</h:selectOneMenu>
+			</h:column>
+
+		</rich:dataTable>
+	</rich:simpleTogglePanel>
+
+</ui:composition>
