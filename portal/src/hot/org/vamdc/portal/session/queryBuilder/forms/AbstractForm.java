@@ -42,7 +42,7 @@ public abstract class AbstractForm implements QueryForm{
 	public Collection<Restrictable> getKeywords() {
 		EnumSet<Restrictable> keywords = EnumSet.noneOf(Restrictable.class);
 		for (AbstractField field:fields){
-			if (field.hasValue()){
+			if (field.hasValue() && field.getKeyword()!=null){
 				keywords.add(field.getKeyword());
 			}
 		}
