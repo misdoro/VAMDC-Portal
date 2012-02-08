@@ -8,17 +8,35 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j">
 
-	
-		<rich:panel id="consumers">
-			<f:facet name="header">
-				<h:outputText value="Consumers" />
-			</f:facet>
 
-			<h:selectOneRadio value="#{consumers.selectedConsumer}">
-				<f:selectItems value="#{consumers.consumers}" />
-			</h:selectOneRadio>
-			<a4j:commandButton value="submit" action="#{consumers.process}" reRender="queryListAll"></a4j:commandButton>
-		</rich:panel>
+	<rich:panel id="consumers">
+		<f:facet name="header">
+			<h:outputText value="Consumers" />
+		</f:facet>
+
+		<h:selectOneRadio value="#{consumers.selectedConsumer}">
+			<f:selectItems value="#{consumers.consumers}" />
+		</h:selectOneRadio>
+		<a4j:commandButton value="submit" action="#{consumers.process}" 
+			disabled="#{!consumers.processing}"
+			reRender="consumers"/>
+
+		<h:panelGroup id="consumerLocation">
+			<a4j:region>
+				<h:form>
+					<a4j:poll id="consumerPoll" interval="1000"
+						enabled="#{consumers.processing}"
+						reRender="consumers" />
+				</h:form>
+			</a4j:region>
+			<h:graphicImage value="/img/waitingIcon.gif" width="40%"
+								rendered="#{consumers.processing}" />
+			<h:outputLink value="#{consumers.location}" target="_blank"
+				rendered="#{consumers.done}">
+				<h:outputText value="Result" />
+			</h:outputLink>
+		</h:panelGroup>
+	</rich:panel>
 
 
 </ui:composition>

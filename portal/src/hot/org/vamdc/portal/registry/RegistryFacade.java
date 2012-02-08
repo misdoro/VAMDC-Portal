@@ -5,6 +5,8 @@ import java.net.URL;
 import java.util.Collection;
 import java.util.Collections;
 
+import net.ivoa.xml.voresource.v1.Capability;
+import net.ivoa.xml.voresource.v1.Interface;
 import net.ivoa.xml.voresource.v1.Resource;
 
 import org.jboss.seam.ScopeType;
@@ -18,6 +20,7 @@ import org.vamdc.dictionary.Restrictable;
 import org.vamdc.registry.client.Registry;
 import org.vamdc.registry.client.RegistryCommunicationException;
 import org.vamdc.registry.client.Registry.Service;
+import org.vamdc.xml.xsams_consumer.v1.XsamsConsumerRestriction;
 
 
 @Name("registryFacade")
@@ -109,5 +112,26 @@ public class RegistryFacade {
 			logError(e);
 		}
 		return null;
+	}
+	
+	public URL getConsumerService(String ivoaID){
+		URL result = null;
+		
+		net.ivoa.xml.voresource.v1.Service consumer = (net.ivoa.xml.voresource.v1.Service) getResource(ivoaID);
+		for (Capability cap:consumer.getCapability()){
+			if (cap.getStandardID().equalsIgnoreCase(
+					Registry.Service.CONSUMER.getStandardID())){
+				for (Interface interf:cap.getInterface()){
+					if (interf instanceof net.ivoa.xml.vodataservice.v1.ParamHTTP){
+						try {
+							result= new URL(interf.getAccessURL().get(0).getValue());
+						} catch (MalformedURLException e) {
+						}
+					}
+				}
+			}
+		}
+		return result;
+		
 	}
 }
