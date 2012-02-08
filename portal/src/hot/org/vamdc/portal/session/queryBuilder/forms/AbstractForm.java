@@ -14,11 +14,12 @@ public abstract class AbstractForm implements QueryForm{
 	protected List<AbstractField> fields;
 	private transient QueryData queryData;
 	private final String id;
-	private String prefix="";
+	protected String prefix;
 	
 	public AbstractForm(QueryData queryData){ 
 		this.queryData = queryData;
 		this.id=UUID.randomUUID().toString();
+		this.prefix="";
 	}
 	
 	public void setQueryData(QueryData queryData){ 

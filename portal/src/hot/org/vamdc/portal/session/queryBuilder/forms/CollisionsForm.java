@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
 
 import org.vamdc.dictionary.IAEAProcessCode;
 import org.vamdc.dictionary.Restrictable;
@@ -143,6 +144,16 @@ public class CollisionsForm extends AbstractForm implements QueryForm{
 				prefix=prefix+index;
 			speciesForm.setPrefix(prefix);
 			
+		}
+		
+		public Collection<SelectItem> getRoles(){
+			 Collection<SelectItem> result = new ArrayList<SelectItem>();
+			 result.add(new SelectItem("","undefined"));
+			 result.add(new SelectItem("target","Target"));
+			 result.add(new SelectItem("collider","Collider"));
+			 result.add(new SelectItem("reactant","Reactant"));
+			 result.add(new SelectItem("product","Product"));
+			 return result;
 		}
 		
 		public String getRole(){ return speciesForm.getPrefix(); }

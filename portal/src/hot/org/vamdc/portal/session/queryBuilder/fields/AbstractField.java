@@ -19,6 +19,7 @@ public abstract class AbstractField {
 		this.keyword = keyword;
 		this.title = title;
 		this.id = UUID.randomUUID().toString();
+		this.prefix="";
 	}
 	
 	public String getValue(){

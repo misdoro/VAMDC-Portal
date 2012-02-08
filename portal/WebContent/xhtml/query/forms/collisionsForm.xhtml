@@ -35,6 +35,7 @@
 			</c:forEach>
 		</a4j:form>
 
+		<a4j:form ajaxSubmit="true">
 		<rich:dataTable id="collisionTable" value="#{form.species}"
 			var="species">
 			<f:facet name="header">
@@ -53,19 +54,18 @@
 			</h:column>
 
 			<h:column>
-				<h:selectOneMenu value="#{species.role}" id="select#{species.id}"
-					valueChangeListener="#{species.roleChanged}">
-					<f:selectItem itemValue="" itemLabel="Undefined" />
-					<f:selectItem itemValue="target" itemLabel="Target" />
-					<f:selectItem itemValue="collider" itemLabel="Collider" />
-					<f:selectItem itemValue="reactant" itemLabel="Reactant" />
-					<f:selectItem itemValue="product" itemLabel="Product" />
-					
-					<a4j:support event="onchange" reRender="form#{species.id}"/>
-				</h:selectOneMenu>
+				<a4j:region>
+					<h:outputText value="Role" />
+					<h:selectOneMenu value="#{species.role}" 
+						valueChangeListener="#{species.roleChanged}">
+						<f:selectItems value="#{species.roles}" />
+						<a4j:support event="onchange" reRender="form#{species.id}"/>
+					</h:selectOneMenu>
+				</a4j:region>
 			</h:column>
 
 		</rich:dataTable>
+		</a4j:form>
 	</rich:simpleTogglePanel>
 
 </ui:composition>
