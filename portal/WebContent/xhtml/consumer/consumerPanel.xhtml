@@ -23,11 +23,9 @@
 
 		<h:panelGroup id="consumerLocation">
 			<a4j:region>
-				<h:form>
 					<a4j:poll id="consumerPoll" interval="1000"
 						enabled="#{consumers.processing}"
 						reRender="consumers" />
-				</h:form>
 			</a4j:region>
 			<h:graphicImage value="/img/waitingIcon.gif" width="40%"
 								rendered="#{consumers.processing}" />
