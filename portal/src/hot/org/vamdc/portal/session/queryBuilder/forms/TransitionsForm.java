@@ -21,8 +21,6 @@ public class TransitionsForm extends AbstractForm implements QueryForm{
 	public String getTitle() { return "Transitions"; }
 
 	public String getView() { return "/xhtml/query/forms/standardForm.xhtml"; }
-
-	public String getId() {	return "5"; }
 	
 
 }

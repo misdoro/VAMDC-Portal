@@ -3,6 +3,7 @@ package org.vamdc.portal.session.queryBuilder.forms;
 import java.util.Collection;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.UUID;
 
 import org.vamdc.dictionary.Restrictable;
 import org.vamdc.portal.session.queryBuilder.QueryData;
@@ -12,9 +13,11 @@ public abstract class AbstractForm implements QueryForm{
 	
 	protected List<AbstractField> fields;
 	private transient QueryData queryData;
+	private String id;
 	
 	public AbstractForm(QueryData queryData){ 
 		this.queryData = queryData;
+		this.id=UUID.randomUUID().toString();
 	}
 	
 	public void setQueryData(QueryData queryData){ 
@@ -54,6 +57,10 @@ public abstract class AbstractForm implements QueryForm{
 
 	public void delete(){
 		queryData.deleteForm(this);
+	}
+	
+	public String getId(){
+		return this.id;
 	}
 	
 }

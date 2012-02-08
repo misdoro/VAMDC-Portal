@@ -20,6 +20,7 @@ import org.vamdc.portal.entity.query.HttpHeadResponse.Response;
 import org.vamdc.portal.entity.query.Query;
 import org.vamdc.portal.session.preview.PreviewManager;
 import org.vamdc.portal.session.queryBuilder.forms.AtomsForm;
+import org.vamdc.portal.session.queryBuilder.forms.CollisionsForm;
 import org.vamdc.portal.session.queryBuilder.forms.EnvironmentForm;
 import org.vamdc.portal.session.queryBuilder.forms.MoleculesForm;
 import org.vamdc.portal.session.queryBuilder.forms.ParticlesForm;
@@ -118,19 +119,23 @@ public class QueryController {
 	}
 		
 	public void addFormAtoms(){
-		queryData.addForm(new AtomsForm(queryData));
+		queryData.addSpeciesForm(new AtomsForm(queryData));
 	}
 	
 	public void addFormMolecules(){
-		queryData.addForm(new MoleculesForm(queryData));
+		queryData.addSpeciesForm(new MoleculesForm(queryData));
 	}
 	
 	public void addFormParticles(){
-		queryData.addForm(new ParticlesForm(queryData));
+		queryData.addSpeciesForm(new ParticlesForm(queryData));
 	}
 	
 	public void addFormTransitions(){
-		queryData.addForm(new TransitionsForm(queryData));
+		queryData.addProcessForm(new TransitionsForm(queryData));
+	}
+	
+	public void addFormCollisions(){
+		queryData.addProcessForm(new CollisionsForm(queryData));
 	}
 	
 	public void addFormEnvironment(){

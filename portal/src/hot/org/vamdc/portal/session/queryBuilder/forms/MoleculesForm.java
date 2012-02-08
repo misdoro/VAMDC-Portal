@@ -14,8 +14,6 @@ public class MoleculesForm extends AbstractForm implements QueryForm{
 
 	public String getView() { return "/xhtml/query/forms/standardForm.xhtml"; }
 
-	public String getId() { return "2"; }
-
 	public MoleculesForm(QueryData queryData){
 		super(queryData);
 		fields = new ArrayList<AbstractField>();

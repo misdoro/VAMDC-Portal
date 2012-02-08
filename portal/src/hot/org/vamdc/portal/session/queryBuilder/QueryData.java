@@ -18,6 +18,11 @@ public class QueryData {
 
 	private Collection<QueryForm> forms=Collections.synchronizedList(new ArrayList<QueryForm>());
 	
+	//Species-related forms
+	private Collection<QueryForm> speciesForms=Collections.synchronizedList(new ArrayList<QueryForm>());
+	
+	private QueryForm processForm=null;
+	
 	private String comments="";
 	
 	private String editedQueryId;
@@ -58,33 +63,41 @@ public class QueryData {
 		return forms;
 	}
 
+	public void addSpeciesForm(QueryForm form){
+		addForm(form);
+		speciesForms.add(form);
+	}
+	
+	public boolean addProcessForm(QueryForm form){
+		if (processForm==null){
+			processForm=form;
+			addForm(form);
+			return true;
+		}
+		return false;
+	}
+	
 	public void addForm(QueryForm form){
 		forms.add(form);
 	}
 	
 	public void deleteForm(QueryForm form){
 		forms.remove(form);
+		speciesForms.remove(form);
+		if (processForm==form)
+			processForm=null;
 	}
 
-	public String getComments() {
-		return comments;
-	}
+	public String getComments() { return comments; }
 
-	public void setComments(String comments) {
-		this.comments = comments;
-	}
+	public void setComments(String comments) { this.comments = comments; }
 	
-	public String getEditQueryId() {
-		return editedQueryId;
-	}
+	public String getEditQueryId() { return editedQueryId; }
 
-	public void setEditQueryId(String editQueryId) {
-		this.editedQueryId = editQueryId;
-	}
+	public void setEditQueryId(String editQueryId) { this.editedQueryId = editQueryId; }
 
 	public void loadQuery(String queryString) {
 		// TODO load forms contents from the query string.
-		
 	}
 
 }
