@@ -58,9 +58,16 @@ public enum Client {
 		}
 		
 		private void reloadRegistry() throws RegistryCommunicationException {
-			Registry newInstance = RegistryFactory.getClient(Settings.REGISTRY_URL.get());
-			if (newInstance!=null && newInstance.getIVOAIDs(Service.VAMDC_TAP).size()>0)
-				Client.INSTANCE.set(newInstance);
+			try{
+				Registry newInstance = RegistryFactory.getClient(Settings.REGISTRY_URL.get());
+				if (newInstance!=null && newInstance.getIVOAIDs(Service.VAMDC_TAP).size()>0)
+					Client.INSTANCE.set(newInstance);
+			}catch (Exception e){
+				if (!(e instanceof RegistryCommunicationException))
+					throw new RegistryCommunicationException(e.getMessage());
+				else 
+					throw (RegistryCommunicationException)e;
+			}
 		}
 		
 	}
