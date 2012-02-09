@@ -174,4 +174,21 @@ public class CollisionsForm extends AbstractForm implements Form{
 		return result;
 	}
 	
+	@Override
+	public void clear(){
+		super.clear();
+		clearPrefixes();
+	}
+	private void clearPrefixes() {
+		for(Form form:queryData.getSpeciesForms()){
+			form.setPrefix("");
+			form.setPrefixIndex(0);
+		}
+	}
+	
+	@Override
+	public void delete(){
+		super.delete();
+		clearPrefixes();
+	}
 }
