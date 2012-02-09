@@ -1,9 +1,7 @@
 package org.vamdc.portal.session.queryBuilder.forms;
 
-import java.util.ArrayList;
 
 import org.vamdc.portal.session.queryBuilder.QueryData;
-import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 
 public class QueryEditForm extends AbstractForm implements Form{
 
@@ -14,8 +12,6 @@ public class QueryEditForm extends AbstractForm implements Form{
 	private String queryString = "";
 	
 	public QueryEditForm(){
-		queryData.setQueryEditForm(this);
-		fields = new ArrayList<AbstractField>();
 	}
 	
 	@Override
