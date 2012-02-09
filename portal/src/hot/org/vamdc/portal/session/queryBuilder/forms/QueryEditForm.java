@@ -18,11 +18,11 @@ public class QueryEditForm extends AbstractForm implements Form{
 	public String getValue(){
 		if (queryString.length()>0)
 			return queryString;
-		return queryData.getQueryString();
+		return queryData.buildQueryString();
 	}
 	
 	public void setValue(String newQueryString){
-		if (!newQueryString.equals(queryData.getQueryString()))
+		if (!newQueryString.equals(queryData.buildQueryString()))
 				queryString=newQueryString;
 	}
 	

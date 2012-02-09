@@ -40,10 +40,13 @@ public class QueryData {
 			
 	}
 
+	public String buildQueryString(){
+		return "select * where "+QueryGenerator.getFormsQuery(getForms());
+	}
 	public String getQueryString(){
 		if (queryEditForm!=null && queryEditForm.getValue().length()>0)
 			return queryEditForm.getValue();
-		return "select * where "+QueryGenerator.getFormsQuery(getForms()); 
+		return buildQueryString(); 
 	}
 	
 
