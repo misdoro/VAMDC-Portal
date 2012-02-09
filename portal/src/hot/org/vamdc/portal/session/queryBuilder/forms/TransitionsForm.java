@@ -20,11 +20,11 @@ public class TransitionsForm extends AbstractForm implements Form{
 		fields = new ArrayList<AbstractField>();
 		fields.add(new RangeField(Restrictable.RadTransWavelength,"Wavelength"));
 		AbstractField field = new UnitConvRangeField(Restrictable.StateEnergy, "Upper state energy", new EnergyUnitConverter());
-		field.setPrefix("upper");
+		field.setPrefix("upper.");
 		fields.add(field);
 		//fields.add(new RangeField("upper",Restrictable.StateEnergy,"Upper state energy"));
 		field = new UnitConvRangeField(Restrictable.StateEnergy, "Lower state energy", new EnergyUnitConverter());
-		field.setPrefix("lower");
+		field.setPrefix("lower.");
 		fields.add(field);
 		//fields.add(new RangeField("lower",Restrictable.StateEnergy,"Lower state energy"));
 		fields.add(new RangeField(Restrictable.RadTransProbabilityA,"Probability, A"));
