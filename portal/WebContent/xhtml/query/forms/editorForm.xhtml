@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+	<rich:panel id="form#{form.id}">
+
+		<ui:include src="/xhtml/query/forms/formTitle.xhtml" />
+		
+		<h:inputTextarea cols="60" rows="10" value="#{form.value}">
+			<a4j:support event="onchange" reRender="nodeTree,buttonArea" />
+		</h:inputTextarea>
+		
+	</rich:panel>
+
+</ui:composition>

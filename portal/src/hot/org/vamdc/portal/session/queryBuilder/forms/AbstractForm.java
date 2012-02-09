@@ -12,7 +12,7 @@ import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 public abstract class AbstractForm implements Form{
 	
 	protected List<AbstractField> fields;
-	private transient QueryData queryData;
+	protected transient QueryData queryData;
 	private final String id;
 	protected String prefix;
 	

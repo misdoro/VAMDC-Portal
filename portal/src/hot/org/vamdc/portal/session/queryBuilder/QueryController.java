@@ -21,6 +21,7 @@ import org.vamdc.portal.entity.query.Query;
 import org.vamdc.portal.session.preview.PreviewManager;
 import org.vamdc.portal.session.queryBuilder.forms.AtomsForm;
 import org.vamdc.portal.session.queryBuilder.forms.CollisionsForm;
+import org.vamdc.portal.session.queryBuilder.forms.CommentsForm;
 import org.vamdc.portal.session.queryBuilder.forms.EnvironmentForm;
 import org.vamdc.portal.session.queryBuilder.forms.MoleculesForm;
 import org.vamdc.portal.session.queryBuilder.forms.ParticlesForm;
@@ -140,6 +141,10 @@ public class QueryController {
 	
 	public void addFormEnvironment(){
 		queryData.addForm(new EnvironmentForm(queryData));
+	}
+	
+	public void addFormComments(){
+		queryData.addForm(new CommentsForm(queryData));
 	}
 	
 	public void action(){

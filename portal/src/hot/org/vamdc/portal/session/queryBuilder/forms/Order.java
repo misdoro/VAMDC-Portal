@@ -11,6 +11,7 @@ public class Order implements Comparator<Form>{
 	final static Integer Environment=7;
 	final static Integer Transitions=5;
 	final static Integer Collisions=6;
+	static final Integer Comments = 9;
 	
 	public int compare(Form o1, Form o2) {
 		if (o1==null || o2==null)
