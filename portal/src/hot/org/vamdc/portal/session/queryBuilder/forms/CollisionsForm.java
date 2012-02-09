@@ -13,6 +13,7 @@ import org.vamdc.portal.session.queryBuilder.QueryData;
 import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 import org.vamdc.portal.session.queryBuilder.fields.LabelField;
 import org.vamdc.portal.session.queryBuilder.fields.SuggestionField;
+import org.vamdc.portal.session.queryBuilder.fields.SuggestionImpl;
 
 public class CollisionsForm extends AbstractForm implements Form{
 
@@ -45,33 +46,6 @@ public class CollisionsForm extends AbstractForm implements Form{
 		fields.add(iaeaProcCode);
 	}
 
-
-	public abstract class SuggestionImpl implements SuggestionField.Suggestion{
-		protected abstract Collection<String> getValues();
-
-		protected Collection<String> values;
-		SuggestionImpl(){
-			this.values= getValues();
-		}
-		
-		public Collection<String> options(Object input) {
-			String in = (String)input;
-			Collection<String> result = new ArrayList<String>();
-			for (String key:values){
-				if (key.toUpperCase().contains(in.toUpperCase())){
-					result.add(key);
-				}
-			}
-			return result;
-		}
-
-		public String getIllegalLabel() { return "Illegal value"; }
-		public void selected() { 
-			processDescription.setValue("");
-			processName.setValue("");
-		}
-	}
-
 	public class XsamsCodeSuggest extends SuggestionImpl{
 		@Override
 		protected Collection<String> getValues() {
@@ -79,6 +53,12 @@ public class CollisionsForm extends AbstractForm implements Form{
 			for (XsamsProcessCode key:XsamsProcessCode.values())
 				result.add(key.name());
 			return result;
+		}
+
+		@Override
+		public void selected() {
+			processDescription.setValue("");
+			processName.setValue("");
 		}
 	}
 
@@ -90,9 +70,18 @@ public class CollisionsForm extends AbstractForm implements Form{
 				result.add(key.name());
 			return result;
 		}
+
+		@Override
+		public void selected() {
+			processDescription.setValue("");
+			processName.setValue("");
+		
+		}
 	}
 		
 	public class ProcessNameSuggest extends SuggestionImpl{
+
+		ProcessNameSuggest() { super(); }
 
 		@Override
 		protected Collection<String> getValues() {
