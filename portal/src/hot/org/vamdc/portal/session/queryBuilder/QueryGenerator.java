@@ -15,6 +15,7 @@ public class QueryGenerator {
 
 
 	public static String getFormsQuery(Collection<Form> forms){
+
 		SortedSet<Form> sorted = new TreeSet<Form>(new FormComparator()); 
 		sorted.addAll(forms);
 
@@ -23,49 +24,51 @@ public class QueryGenerator {
 		Integer productIndex=0;
 
 		String oldPrefix="";
-
-		String modifier=AND;
-		boolean inOrGroup=false;
 		String orGroup="";
 
 		for (Form form:sorted){
-
+			
 			if (form.getPrefix().equals("reactant")){
 				form.setPrefixIndex(reactantIndex++);
 			}else if (form.getPrefix().equals("product")){
 				form.setPrefixIndex(productIndex++);
 			}
 
-
-			if ((form.getPrefix()==null
-					|| form.getPrefix().length()==0 
-					|| (form.getPrefix().equals(oldPrefix) 
-							&& 
-							(oldPrefix.equals("target")||oldPrefix.equals("collider"))
-							)
-					)
-					&&form.getOrder()<=Order.SPECIES_LIMIT){
-				modifier=OR;
-				inOrGroup=true;
-			}
-			else
-				modifier=AND;
-
+			if (formIsPrefixChanged(oldPrefix,form)){
+				result=addQueryPart(result,AND,orGroup);
+				orGroup="";
+			}	
 			oldPrefix=form.getPrefix();
 
-
-			if (inOrGroup){
-				if (modifier==OR){
-					orGroup=addQueryPart(orGroup, modifier, form.getQueryPart());
-				}else{
-					result=addQueryPart(result,modifier,orGroup);
-					orGroup="";
-					inOrGroup=false;
-				}
-			}else
-				result = addQueryPart(result, modifier, form.getQueryPart());
+			if (formIsSpecies(form)&&
+					(formHasNoPrefix(form)
+					||formIsTargetOrCollider(form))){
+				orGroup=addQueryPart(orGroup, OR, form.getQueryPart());
+			}else{
+				result = addQueryPart(result, AND, form.getQueryPart());
+			}
+			
 		}
+		//Add the last orGroup, if any
+		result = addQueryPart(result, AND, orGroup);
+		
 		return result;
+	}
+
+	private static boolean formIsTargetOrCollider(Form form) {
+		return form.getPrefix().equals("target")||form.getPrefix().equals("collider");
+	}
+
+	private static boolean formIsPrefixChanged(String oldPrefix, Form form) {
+		return !form.getPrefix().equals(oldPrefix);
+	}
+
+	private static boolean formIsSpecies(Form form) {
+		return form.getOrder()<=Order.SPECIES_LIMIT;
+	}
+
+	private static boolean formHasNoPrefix(Form form){
+		return form.getPrefix()==null || form.getPrefix().length()==0; 
 	}
 
 	private static String addQueryPart(String result, String modifier, String queryPart) {
