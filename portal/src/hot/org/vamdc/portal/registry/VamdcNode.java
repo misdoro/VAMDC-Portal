@@ -52,7 +52,7 @@ public class VamdcNode {
 	}
 	
 	public String getStatus(){
-		return AvailabilityMonitor.INSTANCE.getStatus(ivoaID).name();
+		return "OK";
 	}
 	
 }
