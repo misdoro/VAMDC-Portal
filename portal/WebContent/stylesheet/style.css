@@ -12,6 +12,31 @@
 	margin-left:5px;
 }
 
-.rich-progress-bar-completed{
+.leftColumn {
+	font-weight: bold;
+}
+
+.rightColumn {
+	width: 250px;
+	align: right;
+	text-align: right;
+	float: right;
+}
+
+.rich-progress-bar-done{
 	background-image: url("../img/progressBarComplete.png");
+}
+
+.rich-progress-bar-mockup{
+	border-color: #BED6F8;
+	border-width: 1px;
+	border-style: solid;
+    color: #000000;
+    font-family: Arial,Verdana,sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2px;
+
+	
 }

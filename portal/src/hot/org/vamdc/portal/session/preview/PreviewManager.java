@@ -128,15 +128,14 @@ public class PreviewManager {
 		return true;
 	}
 	
-	public int getPercentsDone(){
-		int result=0;
+	public Long getPercentsDone(){
+		Long result=0L;
 		if (isDone())
-			result=100;
+			result=101L;
 		else{
 			Long now = new Date().getTime();
-			result = (100*(int)(now-startTime)/Settings.HTTP_HEAD_TIMEOUT.getInt());
+			result = (100L*(Long)(now-startTime)/Settings.HTTP_HEAD_TIMEOUT.getInt());
 		}
-		log.info(result);
 		return result;
 	}
 

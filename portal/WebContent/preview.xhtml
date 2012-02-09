@@ -8,24 +8,25 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j" template="/layout/template.xhtml">
 
-	<style>
-.roundButton {
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-	width: 50px;
-}
-</style>
-
 
 	<ui:define name="body">
 		<a4j:form>
 			<h:panelGrid columns="2">
 				<h:panelGrid>
-				
-					<rich:progressBar id="previewProgress"
-						value="#{preview.percentsDone}" styleClass="roundButton"
-						interval="1000" minValue="0" maxValue="100"
-						enabled="#{!preview.done}">
+
+					<rich:progressBar id="previewProgress" styleClass="#{preview.done? 'rich-progress-bar-done':''}"
+						value="#{preview.percentsDone}" interval="1000" minValue="0"
+						maxValue="100" reRenderAfterComplete="previewProgress">
+						<f:facet name="initial">
+							<a4j:outputPanel layout="block" styleClass="rich-progress-bar-width rich-progress-bar-mockup">
+								<h:outputText value="Starting preview..." />
+							</a4j:outputPanel>
+						</f:facet>
+						<f:facet name="complete">
+							<a4j:outputPanel layout="block" styleClass="rich-progress-bar-width rich-progress-bar-done rich-progress-bar-mockup">
+								<h:outputText value="Done" />
+							</a4j:outputPanel>
+						</f:facet>
 						<h:outputText value="#{preview.stringStatus}" />
 					</rich:progressBar>
 					<h:panelGrid id="statusPanel" columns="4">
