@@ -224,16 +224,3 @@ table.radio input[type=radio] {
    vertical-align: bottom;
 }
 
-.field{
-	margin-top:0px;
-	margin-bottom:0px;
-	margin-right:5px;
-	margin-left:5px;
-}
-.narrowfield{
-	width: 70px;
-	margin-top:0px;
-	margin-bottom:0px;
-	margin-right:5px;
-	margin-left:5px;
-}
