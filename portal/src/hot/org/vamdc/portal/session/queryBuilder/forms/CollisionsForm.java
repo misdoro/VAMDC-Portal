@@ -9,7 +9,6 @@ import javax.faces.model.SelectItem;
 import org.vamdc.dictionary.IAEAProcessCode;
 import org.vamdc.dictionary.Restrictable;
 import org.vamdc.dictionary.XsamsProcessCode;
-import org.vamdc.portal.session.queryBuilder.QueryData;
 import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 import org.vamdc.portal.session.queryBuilder.fields.LabelField;
 import org.vamdc.portal.session.queryBuilder.fields.SuggestionField;
@@ -18,7 +17,7 @@ import org.vamdc.portal.session.queryBuilder.fields.SuggestionImpl;
 public class CollisionsForm extends AbstractForm implements Form{
 
 	public String getTitle() { return "Collisions"; }
-	public Integer getOrder() { return Order.Collisions; }
+	public Integer getOrder() { return Order.Process; }
 	public String getView() { return "/xhtml/query/forms/collisionsForm.xhtml"; }
 
 	
@@ -26,24 +25,21 @@ public class CollisionsForm extends AbstractForm implements Form{
 	private AbstractField processDescription;
 	private AbstractField xsamsProcCode;
 	private AbstractField iaeaProcCode;
-	private QueryData queryData;
 	
-	public CollisionsForm(QueryData queryData) {
-		super(queryData);
-		this.queryData = queryData;
-		fields = new ArrayList<AbstractField>();
-
+	public CollisionsForm() {
+		super();
+		
 		processName = new SuggestionField(null,"Process name",new ProcessNameSuggest());
-		fields.add(processName);
+		addField(processName);
 		
 		processDescription = new LabelField("Process description");
-		fields.add(processDescription);
+		addField(processDescription);
 		
 		xsamsProcCode = new SuggestionField(Restrictable.CollisionCode,"Process code",new XsamsCodeSuggest());
-		fields.add(xsamsProcCode);
+		addField(xsamsProcCode);
 
 		iaeaProcCode = new SuggestionField(Restrictable.CollisionIAEACode,"IAEA process code",new IaeaCodeSuggest());
-		fields.add(iaeaProcCode);
+		addField(iaeaProcCode);
 	}
 
 	public class XsamsCodeSuggest extends SuggestionImpl{
@@ -168,6 +164,13 @@ public class CollisionsForm extends AbstractForm implements Form{
 		super.clear();
 		clearPrefixes();
 	}
+	
+	@Override
+	public void delete(){
+		super.delete();
+		clearPrefixes();
+	}
+	
 	private void clearPrefixes() {
 		for(Form form:queryData.getSpeciesForms()){
 			form.setPrefix("");
@@ -175,9 +178,4 @@ public class CollisionsForm extends AbstractForm implements Form{
 		}
 	}
 	
-	@Override
-	public void delete(){
-		super.delete();
-		clearPrefixes();
-	}
 }

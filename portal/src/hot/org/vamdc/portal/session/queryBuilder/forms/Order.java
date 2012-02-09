@@ -6,12 +6,14 @@ public class Order implements Comparator<Form>{
 	final static Integer Atoms=1;
 	final static Integer Molecules=2;
 	final static Integer Particles=3;
-	public final static Integer SPECIES_LIMIT=4;
+	public final static Integer SPECIES_LIMIT=4;//Species go below this number
 	
 	final static Integer Environment=7;
-	final static Integer Transitions=5;
-	final static Integer Collisions=6;
-	static final Integer Comments = 9;
+
+	public final static Integer SINGLE_LIMIT=10;//Forms above this number can occur once
+	final static Integer Process=12;
+	final static Integer Query=14;
+	static final Integer Comments = 15;
 	
 	public int compare(Form o1, Form o2) {
 		if (o1==null || o2==null)

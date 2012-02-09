@@ -29,4 +29,6 @@ public interface Form {
 	
 	public Integer getOrder();
 	public void setPrefixIndex(Integer integer);
+	
+	public String getValue();
 }

@@ -8,14 +8,13 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:c="http://java.sun.com/jstl/core">
 
+	<a4j:form ajaxSubmit="true">	
 	<rich:panel id="form#{form.id}">
-
 		<ui:include src="/xhtml/query/forms/formTitle.xhtml" />
-		
-		<h:inputTextarea cols="60" rows="10" value="#{form.value}">
-			<a4j:support event="onchange" reRender="nodeTree,buttonArea" />
-		</h:inputTextarea>
-		
+			<h:inputTextarea cols="60" rows="10" value="#{form.value}">
+				<a4j:support event="onchange" reRender="nodeTree,buttonArea" />
+			</h:inputTextarea>
 	</rich:panel>
+	</a4j:form>
 
 </ui:composition>

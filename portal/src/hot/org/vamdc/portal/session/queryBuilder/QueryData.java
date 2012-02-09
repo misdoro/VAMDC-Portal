@@ -24,9 +24,8 @@ public class QueryData {
 	
 	//Species-related forms
 	private Collection<Form> speciesForms=Collections.synchronizedSet(new TreeSet<Form>(new Order()));
-	//ProcessForm
-	private Form processForm=null;
 	
+	private Form queryEditForm=null;
 	
 	private String comments="";
 	
@@ -42,7 +41,8 @@ public class QueryData {
 	}
 
 	public String getQueryString(){
-		
+		if (queryEditForm!=null && queryEditForm.getValue().length()>0)
+			return queryEditForm.getValue();
 		return "select * where "+QueryGenerator.getFormsQuery(getForms()); 
 	}
 	
@@ -65,31 +65,40 @@ public class QueryData {
 	public Collection<Form> getSpeciesForms(){
 		return new ArrayList<Form>(speciesForms);
 	}
-
-	public void addSpeciesForm(Form form){
-		addForm(form);
-		speciesForms.add(form);
-	}
 	
-	public boolean addProcessForm(Form form){
-		if (processForm==null){
-			processForm=form;
-			addForm(form);
+	/**
+	 * Check if we can add a form
+	 * @param newForm form to add
+	 * @return true if form can be added
+	 */
+	private boolean canAdd(Form newForm){
+		if (newForm.getOrder()<Order.SINGLE_LIMIT)
 			return true;
+		for (Form form:forms){
+			if (form.getOrder().equals(newForm.getOrder()))
+				return false;
 		}
-		return false;
+		return true;
 	}
 	
 	public void addForm(Form form){
-		forms.add(form);
-		formsList = Collections.synchronizedList(new ArrayList<Form>(forms));
+		if (canAdd(form)){
+			forms.add(form);
+			form.setQueryData(this);
+			if (form.getOrder()<Order.SPECIES_LIMIT)
+				speciesForms.add(form);
+			formsList = Collections.synchronizedList(new ArrayList<Form>(forms));
+		}
+	}
+	
+	public void setQueryEditForm(Form form){
+		this.queryEditForm = form;
 	}
 	
 	public void deleteForm(Form form){
 		forms.remove(form);
-		speciesForms.remove(form);
-		if (processForm==form)
-			processForm=null;
+		if (form.getOrder()<Order.SPECIES_LIMIT)
+			speciesForms.remove(form);
 		formsList = Collections.synchronizedList(new ArrayList<Form>(forms));
 	}
 	

@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.vamdc.dictionary.Restrictable;
-import org.vamdc.portal.session.queryBuilder.QueryData;
-import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 import org.vamdc.portal.session.queryBuilder.fields.SuggestionField;
 import org.vamdc.portal.session.queryBuilder.fields.SuggestionImpl;
 
@@ -15,10 +13,8 @@ public class ParticlesForm extends AbstractForm implements Form{
 	public Integer getOrder() { return Order.Particles; }
 	public String getView() { return "/xhtml/query/forms/standardForm.xhtml"; }
 	
-	public ParticlesForm(QueryData queryData){
-		super(queryData);
-		fields = new ArrayList<AbstractField>();
-		fields.add(
+	public ParticlesForm(){
+		addField(
 				new SuggestionField(Restrictable.ParticleName,"Particle name",new ParticleNameSuggest()));
 	}
 	

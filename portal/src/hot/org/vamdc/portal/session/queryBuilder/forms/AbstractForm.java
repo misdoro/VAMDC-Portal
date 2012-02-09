@@ -1,5 +1,6 @@
 package org.vamdc.portal.session.queryBuilder.forms;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EnumSet;
 import java.util.List;
@@ -16,14 +17,18 @@ public abstract class AbstractForm implements Form{
 	private final String id;
 	protected String prefix;
 	
-	public AbstractForm(QueryData queryData){ 
-		this.queryData = queryData;
+	public AbstractForm(){ 
 		this.id=UUID.randomUUID().toString();
 		this.prefix="";
+		this.fields = new ArrayList<AbstractField>();
 	}
 	
 	public void setQueryData(QueryData queryData){ 
 		this.queryData = queryData;
+	}
+	
+	void addField(AbstractField field){
+		fields.add(field);
 	}
 	
 	public String getQueryPart() {
@@ -95,6 +100,10 @@ public abstract class AbstractForm implements Form{
 		if (prefix!=null && prefix.length()>0)
 			return getTitle()+" ("+prefix+")";
 		return getTitle();
+	}
+	
+	public String getValue(){
+		return "";
 	}
 	
 }

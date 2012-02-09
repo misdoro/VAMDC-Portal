@@ -25,6 +25,7 @@ import org.vamdc.portal.session.queryBuilder.forms.CommentsForm;
 import org.vamdc.portal.session.queryBuilder.forms.EnvironmentForm;
 import org.vamdc.portal.session.queryBuilder.forms.MoleculesForm;
 import org.vamdc.portal.session.queryBuilder.forms.ParticlesForm;
+import org.vamdc.portal.session.queryBuilder.forms.QueryEditForm;
 import org.vamdc.portal.session.queryBuilder.forms.TransitionsForm;
 import org.vamdc.portal.session.queryLog.QueryLog;
 import org.vamdc.portal.session.security.UserInfo;
@@ -120,31 +121,35 @@ public class QueryController {
 	}
 		
 	public void addFormAtoms(){
-		queryData.addSpeciesForm(new AtomsForm(queryData));
+		queryData.addForm(new AtomsForm());
 	}
 	
 	public void addFormMolecules(){
-		queryData.addSpeciesForm(new MoleculesForm(queryData));
+		queryData.addForm(new MoleculesForm());
 	}
 	
 	public void addFormParticles(){
-		queryData.addSpeciesForm(new ParticlesForm(queryData));
+		queryData.addForm(new ParticlesForm());
 	}
 	
 	public void addFormTransitions(){
-		queryData.addProcessForm(new TransitionsForm(queryData));
+		queryData.addForm(new TransitionsForm());
 	}
 	
 	public void addFormCollisions(){
-		queryData.addProcessForm(new CollisionsForm(queryData));
+		queryData.addForm(new CollisionsForm());
 	}
 	
 	public void addFormEnvironment(){
-		queryData.addForm(new EnvironmentForm(queryData));
+		queryData.addForm(new EnvironmentForm());
 	}
 	
 	public void addFormComments(){
-		queryData.addForm(new CommentsForm(queryData));
+		queryData.addForm(new CommentsForm());
+	}
+	
+	public void addFormQueryEditor(){
+		queryData.addForm(new QueryEditForm());
 	}
 	
 	public void action(){

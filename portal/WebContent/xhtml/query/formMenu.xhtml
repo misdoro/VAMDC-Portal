@@ -60,11 +60,11 @@
 				<rich:dropDownMenu style="background-color:#B5DAFF" value="Advanced"
 					submitMode="ajax" direction="bottom-right" jointPoint="tr">
 					<rich:menuItem value="Query editor" reRender="formPanel,nodeTree"
-						action="#{query.action}" />
+						action="#{query.addFormQueryEditor}" />
 					<rich:menuItem value="Request" reRender="formPanel,nodeTree"
 						action="#{query.action}" />
 					<rich:menuItem value="Comments" reRender="formPanel,nodeTree"
-						action="#{query.action}" />
+						action="#{query.addFormComments}" />
 				</rich:dropDownMenu>
 
 			</a4j:form>
