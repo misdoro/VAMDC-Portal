@@ -10,8 +10,7 @@ import org.vamdc.registry.client.RegistryCommunicationException;
 import org.vamdc.registry.client.RegistryFactory;
 
 public enum Client {
-	INSTANCE,
-	;
+	INSTANCE;
 	
 	private volatile Registry registry;
 	private RegistryThread thread;

@@ -177,5 +177,10 @@
 			<artifactId>jsr-275</artifactId>
 			<version>0.9.4</version>
 		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-client</artifactId>
+			<version>1.11</version>
+		</dependency>
 	</dependencies>
 </project>

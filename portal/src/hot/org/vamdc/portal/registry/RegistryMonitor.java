@@ -21,6 +21,7 @@ public class RegistryMonitor
   	@Destroy
   	public void stop(){
   		Client.INSTANCE.stopUpdates();
+  		AvailabilityMonitor.INSTANCE.stop();
   	}
 	
     public int getCount(){
@@ -42,7 +43,8 @@ public class RegistryMonitor
   	public RegistryMonitor(){
   		if (Client.INSTANCE.get()!=null)
   			System.out.println(Client.INSTANCE.get());
-		
+  		if (AvailabilityMonitor.INSTANCE.getStatusMap()!=null)
+  			System.out.println(AvailabilityMonitor.INSTANCE.getStatusMap());
   	}
   	
 
