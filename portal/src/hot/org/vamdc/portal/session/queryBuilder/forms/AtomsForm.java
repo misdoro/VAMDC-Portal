@@ -8,10 +8,10 @@ import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 import org.vamdc.portal.session.queryBuilder.fields.RangeField;
 import org.vamdc.portal.session.queryBuilder.fields.SimpleField;
 
-public class AtomsForm extends AbstractForm implements QueryPageForm {
+public class AtomsForm extends AbstractForm implements Form {
 
 	public String getTitle() { return "Atoms"; }
-
+	public Integer getOrder() { return Order.Atoms; }
 	public String getView() { return "/xhtml/query/forms/standardForm.xhtml"; }
 	
 	public AtomsForm(QueryData queryData){

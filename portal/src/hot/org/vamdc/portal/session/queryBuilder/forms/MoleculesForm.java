@@ -8,10 +8,10 @@ import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 import org.vamdc.portal.session.queryBuilder.fields.RangeField;
 import org.vamdc.portal.session.queryBuilder.fields.SimpleField;
 
-public class MoleculesForm extends AbstractForm implements QueryPageForm{
+public class MoleculesForm extends AbstractForm implements Form{
 
 	public String getTitle() { return "Molecules"; }
-
+	public Integer getOrder() { return Order.Molecules; }
 	public String getView() { return "/xhtml/query/forms/standardForm.xhtml"; }
 
 	public MoleculesForm(QueryData queryData){
@@ -22,5 +22,7 @@ public class MoleculesForm extends AbstractForm implements QueryPageForm{
 		fields.add(new RangeField(Restrictable.IonCharge,"Ion charge"));
 		fields.add(new SimpleField(Restrictable.InchiKey,"InChIKey"));
 	}
+
+	
 	
 }

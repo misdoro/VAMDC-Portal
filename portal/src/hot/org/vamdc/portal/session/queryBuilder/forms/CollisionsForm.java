@@ -14,8 +14,13 @@ import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 import org.vamdc.portal.session.queryBuilder.fields.LabelField;
 import org.vamdc.portal.session.queryBuilder.fields.SuggestionField;
 
-public class CollisionsForm extends AbstractForm implements QueryPageForm{
+public class CollisionsForm extends AbstractForm implements Form{
 
+	public String getTitle() { return "Collisions"; }
+	public Integer getOrder() { return Order.Collisions; }
+	public String getView() { return "/xhtml/query/forms/collisionsForm.xhtml"; }
+
+	
 	private AbstractField processName;
 	private AbstractField processDescription;
 	private AbstractField xsamsProcCode;
@@ -40,9 +45,6 @@ public class CollisionsForm extends AbstractForm implements QueryPageForm{
 		fields.add(iaeaProcCode);
 	}
 
-	public String getTitle() { return "Collisions"; }
-
-	public String getView() { return "/xhtml/query/forms/collisionsForm.xhtml"; }
 
 	public abstract class SuggestionImpl implements SuggestionField.Suggestion{
 		protected abstract Collection<String> getValues();
@@ -127,10 +129,10 @@ public class CollisionsForm extends AbstractForm implements QueryPageForm{
 	 *
 	 */
 	public class SpeciesFacade{
-		private QueryPageForm speciesForm;
+		private Form speciesForm;
 		private int index;
 		
-		public SpeciesFacade(QueryPageForm speciesForm,int index){
+		public SpeciesFacade(Form speciesForm,int index){
 			this.speciesForm = speciesForm;
 			this.index = index;
 		}
@@ -143,7 +145,6 @@ public class CollisionsForm extends AbstractForm implements QueryPageForm{
 			if ("reactant".equals(prefix) || "product".equals(prefix))
 				prefix=prefix+index;
 			speciesForm.setPrefix(prefix);
-			
 		}
 		
 		public Collection<SelectItem> getRoles(){
@@ -168,7 +169,7 @@ public class CollisionsForm extends AbstractForm implements QueryPageForm{
 
 	public Collection<SpeciesFacade> getSpecies(){
 		Collection<SpeciesFacade> result = new ArrayList<SpeciesFacade>();
-		for(QueryPageForm form:queryData.getSpeciesForms())
+		for(Form form:queryData.getSpeciesForms())
 			result.add(new SpeciesFacade(form,0));
 		return result;
 	}

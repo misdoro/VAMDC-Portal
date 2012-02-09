@@ -7,10 +7,10 @@ import org.vamdc.portal.session.queryBuilder.QueryData;
 import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 import org.vamdc.portal.session.queryBuilder.fields.SimpleField;
 
-public class ParticlesForm extends AbstractForm implements QueryPageForm{
+public class ParticlesForm extends AbstractForm implements Form{
 
 	public String getTitle() { return "Particles"; }
-
+	public Integer getOrder() { return Order.Particles; }
 	public String getView() { return "/xhtml/query/forms/standardForm.xhtml"; }
 	
 	public ParticlesForm(QueryData queryData){

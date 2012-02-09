@@ -4,24 +4,29 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
+import java.util.List;
+import java.util.TreeSet;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.vamdc.dictionary.Restrictable;
-import org.vamdc.portal.session.queryBuilder.forms.QueryPageForm;
+import org.vamdc.portal.session.queryBuilder.forms.Form;
+import org.vamdc.portal.session.queryBuilder.forms.Order;
 
 @Name("queryData")
 @Scope(ScopeType.CONVERSATION)
 public class QueryData {
 
 
-	private Collection<QueryPageForm> forms=Collections.synchronizedList(new ArrayList<QueryPageForm>());
+	private Collection<Form> forms=Collections.synchronizedSet(new TreeSet<Form>(new Order()));
+	private List<Form> formsList = Collections.synchronizedList(new ArrayList<Form>());
 	
 	//Species-related forms
-	private Collection<QueryPageForm> speciesForms=Collections.synchronizedList(new ArrayList<QueryPageForm>());
+	private Collection<Form> speciesForms=Collections.synchronizedSet(new TreeSet<Form>(new Order()));
+	//ProcessForm
+	private Form processForm=null;
 	
-	private QueryPageForm processForm=null;
 	
 	private String comments="";
 	
@@ -29,7 +34,7 @@ public class QueryData {
 
 	public Collection<Restrictable> getKeywords(){
 		EnumSet<Restrictable> result = EnumSet.noneOf(Restrictable.class);
-		for (QueryPageForm form:forms){
+		for (Form form:getForms()){
 			result.addAll(form.getKeywords());
 		}
 		return result;
@@ -38,43 +43,35 @@ public class QueryData {
 
 	public String getQueryString(){
 		
-		return "select * where "+getFormsQuery(); 
+		return "select * where "+QueryGenerator.getFormsQuery(getForms()); 
 	}
 	
-	private String getFormsQuery(){
-		
-		
-		String result = "";
-		for (QueryPageForm form:forms){
-			String queryPart = form.getQueryPart();
-			if (queryPart.length()>0){
-				if (result.length()>0)
-					result+=" AND "+queryPart;
-				else
-					result=queryPart;
-			}
-		}
-		return result;
-	}
+
+
+
 
 	public boolean isValid(){
 		return getKeywords().size()>0;
 	}
 
-	public Collection<QueryPageForm> getForms(){
-		return forms;
+	/**
+	 * This method must be fast and must return a fast collection
+	 * @return
+	 */
+	public List<Form> getForms(){
+		return formsList;
 	}
 	
-	public Collection<QueryPageForm> getSpeciesForms(){
-		return speciesForms;
+	public Collection<Form> getSpeciesForms(){
+		return new ArrayList<Form>(speciesForms);
 	}
 
-	public void addSpeciesForm(QueryPageForm form){
+	public void addSpeciesForm(Form form){
 		addForm(form);
 		speciesForms.add(form);
 	}
 	
-	public boolean addProcessForm(QueryPageForm form){
+	public boolean addProcessForm(Form form){
 		if (processForm==null){
 			processForm=form;
 			addForm(form);
@@ -83,25 +80,25 @@ public class QueryData {
 		return false;
 	}
 	
-	public void addForm(QueryPageForm form){
+	public void addForm(Form form){
 		forms.add(form);
+		formsList = Collections.synchronizedList(new ArrayList<Form>(forms));
 	}
 	
-	public void deleteForm(QueryPageForm form){
+	public void deleteForm(Form form){
 		forms.remove(form);
 		speciesForms.remove(form);
 		if (processForm==form)
 			processForm=null;
+		formsList = Collections.synchronizedList(new ArrayList<Form>(forms));
 	}
-
+	
 	public String getComments() { return comments; }
-
 	public void setComments(String comments) { this.comments = comments; }
 	
 	public String getEditQueryId() { return editedQueryId; }
-
 	public void setEditQueryId(String editQueryId) { this.editedQueryId = editQueryId; }
-
+	
 	public void loadQuery(String queryString) {
 		// TODO load forms contents from the query string.
 	}

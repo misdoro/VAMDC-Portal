@@ -7,8 +7,12 @@ import org.vamdc.portal.session.queryBuilder.QueryData;
 import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 import org.vamdc.portal.session.queryBuilder.fields.RangeField;
 
-public class TransitionsForm extends AbstractForm implements QueryPageForm{
+public class TransitionsForm extends AbstractForm implements Form{
 
+	public String getTitle() { return "Transitions"; }
+	public Integer getOrder() { return Order.Transitions; }
+	public String getView() { return "/xhtml/query/forms/standardForm.xhtml"; }
+	
 	public TransitionsForm(QueryData queryData){
 		super(queryData);
 		fields = new ArrayList<AbstractField>();
@@ -18,9 +22,7 @@ public class TransitionsForm extends AbstractForm implements QueryPageForm{
 		fields.add(new RangeField(Restrictable.RadTransProbabilityA,"Probability, A"));
 	}
 
-	public String getTitle() { return "Transitions"; }
 
-	public String getView() { return "/xhtml/query/forms/standardForm.xhtml"; }
 	
 
 }

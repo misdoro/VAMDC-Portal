@@ -9,7 +9,7 @@ import org.vamdc.dictionary.Restrictable;
 import org.vamdc.portal.session.queryBuilder.QueryData;
 import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 
-public abstract class AbstractForm implements QueryPageForm{
+public abstract class AbstractForm implements Form{
 	
 	protected List<AbstractField> fields;
 	private transient QueryData queryData;
@@ -36,8 +36,6 @@ public abstract class AbstractForm implements QueryPageForm{
 				else query=field.getQuery();
 			}
 		}
-		if (query.length()>0)
-			query="("+query+")";
 		return query;
 	}
 	
@@ -77,6 +75,15 @@ public abstract class AbstractForm implements QueryPageForm{
 		
 		for (AbstractField field:fields){
 			field.setPrefix(prefix);
+		}
+	}
+	public void setPrefixIndex(Integer index){
+		String prefix = this.prefix;
+		if (index!=null && prefix!=null && prefix.length()>0){
+			prefix=prefix+index+".";
+			for (AbstractField field:fields){
+				field.setPrefix(prefix);
+			}
 		}
 	}
 	

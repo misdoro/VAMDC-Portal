@@ -10,7 +10,7 @@ import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
  * Interface used to build forms
  * @author doronin
  */
-public interface QueryPageForm {
+public interface Form {
 	public String getFullTitle();
 	public String getTitle();
 	public String getView();
@@ -27,4 +27,6 @@ public interface QueryPageForm {
 	public void setPrefix(String prefix);
 	public String getPrefix();
 	
+	public Integer getOrder();
+	public void setPrefixIndex(Integer integer);
 }
