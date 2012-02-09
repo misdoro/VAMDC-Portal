@@ -19,25 +19,33 @@
 	white-space: -pre-wrap; /* Opera */
 	white-space: -o-pre-wrap; /* Opera 7 */
 }
-.activeRow{
+
+.activeRow {
 	color: green;
 }
-.missingRow{
+
+.missingRow {
 	color: red;
 }
-
 </style>
 
-	<br/><h:outputText value="available, can answer" styleClass="activeRow" />
-	<br/><h:outputText value="available, don't support query" styleClass="" />
-	<br/><rich:spacer width="10"/><h:outputText value="unsupported keyword" styleClass="missingRow" />
 	<h:panelGrid id="nodeTree">
+		<rich:panel header="Legend">
+			
+			<h:outputText value="available, can answer" styleClass="activeRow" />
+			<br />
+			<h:outputText value="available, don't support query" styleClass="" />
+			<br />
+			<rich:spacer width="10" />
+			<h:outputText value="unsupported keyword" styleClass="missingRow" />
+		</rich:panel>
 		<a4j:form ajaxSubmit="true">
 			<rich:tree value="#{nodeTree.root}" var="item">
 				<rich:treeNode>
-					<h:outputText value="#{item.name}" styleClass="#{item.isActive() ? 'activeRow' : (item.isMissing() ? 'missingRow':'')}"/>
+					<h:outputText value="#{item.name}"
+						styleClass="#{item.isActive() ? 'activeRow' : (item.isMissing() ? 'missingRow':'')}" />
 					<rich:toolTip value="#{item.description}" styleClass="toolTip"
-						direction="top-left" rendered="#{item.hasDescription()}"/>
+						direction="top-left" rendered="#{item.hasDescription()}" />
 				</rich:treeNode>
 			</rich:tree>
 		</a4j:form>
