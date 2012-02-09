@@ -44,12 +44,36 @@ public abstract class AbstractField {
 		StringBuilder result = new StringBuilder();
 		result.append(prefix);
 		result.append(keyword.name());
-		result.append(" = ");
-		result.append("\"");
-		result.append(value);
-		result.append("\"");
-		
+		String tryIn = tryIn();
+		if (tryIn.length()>0){
+			result.append(tryIn);
+			return result.toString();
+		}else{
+			result.append(" = ");
+			result.append("\"");
+			result.append(value);
+			result.append("\"");
+		}
 		return result.toString();
+	}
+	
+	private String tryIn(){
+		String result ="";
+		result+=" IN (";
+		String in = "";
+		for (String part:value.split("[,.:_]")){
+			String val = part.trim();
+			
+			if (val.length()>0){
+				if (in.length()>0)
+					in+=",";
+				in+="'"+val+"'";
+			}
+		}
+		result+=in+") ";
+		if (in.length()>0)
+			return result;
+		return "";
 	}
 	
 	public boolean hasValue(){
