@@ -7,7 +7,7 @@ import org.vamdc.portal.session.queryBuilder.QueryData;
 import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 import org.vamdc.portal.session.queryBuilder.fields.RangeField;
 
-public class TransitionsForm extends AbstractForm implements QueryForm{
+public class TransitionsForm extends AbstractForm implements QueryPageForm{
 
 	public TransitionsForm(QueryData queryData){
 		super(queryData);

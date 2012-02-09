@@ -9,7 +9,7 @@ import org.vamdc.portal.session.queryBuilder.fields.UnitConvRangeField;
 import org.vamdc.portal.session.queryBuilder.unitConv.PressureUnitConverter;
 import org.vamdc.portal.session.queryBuilder.unitConv.TemperatureConverter;
 
-public class EnvironmentForm extends AbstractForm implements QueryForm{
+public class EnvironmentForm extends AbstractForm implements QueryPageForm{
 	public String getTitle() { return "Environment"; }
 
 	public String getView() { return "/xhtml/query/forms/standardForm.xhtml"; }

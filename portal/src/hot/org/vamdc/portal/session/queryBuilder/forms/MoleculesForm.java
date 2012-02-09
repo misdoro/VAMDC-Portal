@@ -8,7 +8,7 @@ import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 import org.vamdc.portal.session.queryBuilder.fields.RangeField;
 import org.vamdc.portal.session.queryBuilder.fields.SimpleField;
 
-public class MoleculesForm extends AbstractForm implements QueryForm{
+public class MoleculesForm extends AbstractForm implements QueryPageForm{
 
 	public String getTitle() { return "Molecules"; }
 

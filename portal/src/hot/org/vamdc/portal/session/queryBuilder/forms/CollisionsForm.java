@@ -14,7 +14,7 @@ import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 import org.vamdc.portal.session.queryBuilder.fields.LabelField;
 import org.vamdc.portal.session.queryBuilder.fields.SuggestionField;
 
-public class CollisionsForm extends AbstractForm implements QueryForm{
+public class CollisionsForm extends AbstractForm implements QueryPageForm{
 
 	private AbstractField processName;
 	private AbstractField processDescription;
@@ -127,10 +127,10 @@ public class CollisionsForm extends AbstractForm implements QueryForm{
 	 *
 	 */
 	public class SpeciesFacade{
-		private QueryForm speciesForm;
+		private QueryPageForm speciesForm;
 		private int index;
 		
-		public SpeciesFacade(QueryForm speciesForm,int index){
+		public SpeciesFacade(QueryPageForm speciesForm,int index){
 			this.speciesForm = speciesForm;
 			this.index = index;
 		}
@@ -168,7 +168,7 @@ public class CollisionsForm extends AbstractForm implements QueryForm{
 
 	public Collection<SpeciesFacade> getSpecies(){
 		Collection<SpeciesFacade> result = new ArrayList<SpeciesFacade>();
-		for(QueryForm form:queryData.getSpeciesForms())
+		for(QueryPageForm form:queryData.getSpeciesForms())
 			result.add(new SpeciesFacade(form,0));
 		return result;
 	}

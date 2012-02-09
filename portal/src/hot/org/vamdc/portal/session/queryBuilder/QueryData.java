@@ -9,19 +9,19 @@ import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.vamdc.dictionary.Restrictable;
-import org.vamdc.portal.session.queryBuilder.forms.QueryForm;
+import org.vamdc.portal.session.queryBuilder.forms.QueryPageForm;
 
 @Name("queryData")
 @Scope(ScopeType.CONVERSATION)
 public class QueryData {
 
 
-	private Collection<QueryForm> forms=Collections.synchronizedList(new ArrayList<QueryForm>());
+	private Collection<QueryPageForm> forms=Collections.synchronizedList(new ArrayList<QueryPageForm>());
 	
 	//Species-related forms
-	private Collection<QueryForm> speciesForms=Collections.synchronizedList(new ArrayList<QueryForm>());
+	private Collection<QueryPageForm> speciesForms=Collections.synchronizedList(new ArrayList<QueryPageForm>());
 	
-	private QueryForm processForm=null;
+	private QueryPageForm processForm=null;
 	
 	private String comments="";
 	
@@ -29,7 +29,7 @@ public class QueryData {
 
 	public Collection<Restrictable> getKeywords(){
 		EnumSet<Restrictable> result = EnumSet.noneOf(Restrictable.class);
-		for (QueryForm form:forms){
+		for (QueryPageForm form:forms){
 			result.addAll(form.getKeywords());
 		}
 		return result;
@@ -42,8 +42,10 @@ public class QueryData {
 	}
 	
 	private String getFormsQuery(){
+		
+		
 		String result = "";
-		for (QueryForm form:forms){
+		for (QueryPageForm form:forms){
 			String queryPart = form.getQueryPart();
 			if (queryPart.length()>0){
 				if (result.length()>0)
@@ -59,20 +61,20 @@ public class QueryData {
 		return getKeywords().size()>0;
 	}
 
-	public Collection<QueryForm> getForms(){
+	public Collection<QueryPageForm> getForms(){
 		return forms;
 	}
 	
-	public Collection<QueryForm> getSpeciesForms(){
+	public Collection<QueryPageForm> getSpeciesForms(){
 		return speciesForms;
 	}
 
-	public void addSpeciesForm(QueryForm form){
+	public void addSpeciesForm(QueryPageForm form){
 		addForm(form);
 		speciesForms.add(form);
 	}
 	
-	public boolean addProcessForm(QueryForm form){
+	public boolean addProcessForm(QueryPageForm form){
 		if (processForm==null){
 			processForm=form;
 			addForm(form);
@@ -81,11 +83,11 @@ public class QueryData {
 		return false;
 	}
 	
-	public void addForm(QueryForm form){
+	public void addForm(QueryPageForm form){
 		forms.add(form);
 	}
 	
-	public void deleteForm(QueryForm form){
+	public void deleteForm(QueryPageForm form){
 		forms.remove(form);
 		speciesForms.remove(form);
 		if (processForm==form)

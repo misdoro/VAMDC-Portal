@@ -10,7 +10,7 @@ import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
  * Interface used to build forms
  * @author doronin
  */
-public interface QueryForm {
+public interface QueryPageForm {
 	public String getFullTitle();
 	public String getTitle();
 	public String getView();

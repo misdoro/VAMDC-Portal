@@ -9,7 +9,7 @@ import org.vamdc.dictionary.Restrictable;
 import org.vamdc.portal.session.queryBuilder.QueryData;
 import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 
-public abstract class AbstractForm implements QueryForm{
+public abstract class AbstractForm implements QueryPageForm{
 	
 	protected List<AbstractField> fields;
 	private transient QueryData queryData;
