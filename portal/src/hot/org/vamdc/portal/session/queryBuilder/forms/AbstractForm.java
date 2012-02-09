@@ -36,6 +36,8 @@ public abstract class AbstractForm implements QueryForm{
 				else query=field.getQuery();
 			}
 		}
+		if (query.length()>0)
+			query="("+query+")";
 		return query;
 	}
 	
