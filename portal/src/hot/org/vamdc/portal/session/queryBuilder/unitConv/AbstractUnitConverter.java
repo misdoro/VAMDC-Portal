@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.faces.model.SelectItem;
 
+import org.vamdc.portal.session.queryBuilder.unitConv.PressureUnitConverter.PressConvert;
+
 public abstract class AbstractUnitConverter implements UnitConverter{
 	
 	protected interface Convert{
@@ -12,7 +14,6 @@ public abstract class AbstractUnitConverter implements UnitConverter{
 		public String getDisplay();
 		public Double convert(Double value);
 		public Convert[] getValues();
-		public Convert valueOfShort(String value);
 	}
 	
 	protected Convert converter;
@@ -35,7 +36,15 @@ public abstract class AbstractUnitConverter implements UnitConverter{
 	}
 	
 	public void setSelectedOption(String option) {
-		converter=converter.valueOfShort(option);
+		converter=valueOfShort(option);
+	}
+	
+	private Convert valueOfShort(String value){
+		for (Convert opt:converter.getValues()){
+			if (opt.getDisplay().equals(value))
+					return opt;
+		}
+		return null;
 	}
 
 	public Double getConvertedValue(Double value) {

@@ -16,17 +16,8 @@ public class TemperatureConverter extends AbstractUnitConverter{
 			this.convert = converter;
 		}
 		
-		public String getDisplay(){
-			return this.display;
-		}
-		
-		public Convert valueOfShort(String value){
-			for (Convert opt:TempConvert.values()){
-				if (opt.getDisplay().equals(value))
-						return opt;
-			}
-			return null;
-		}
+		public String getDisplay(){ return this.display; }
+		public Convert[] getValues() { return TempConvert.values(); }
 		
 		public Double convert(Double value){
 			if (convert == null || value==null)
@@ -34,9 +25,6 @@ public class TemperatureConverter extends AbstractUnitConverter{
 			return convert.convert(value);
 		}
 
-		public Convert[] getValues() {
-			return TempConvert.values();
-		}
 		
 	}
 	

@@ -24,13 +24,7 @@ public class PressureUnitConverter extends AbstractUnitConverter{
 			return this.display;
 		}
 		
-		public Convert valueOfShort(String value){
-			for (Convert opt:PressConvert.values()){
-				if (opt.getDisplay().equals(value))
-						return opt;
-			}
-			return null;
-		}
+		
 		
 		public Double convert(Double value){
 			if (convert == null || value==null)
