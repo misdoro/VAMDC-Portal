@@ -25,7 +25,7 @@ public class AtomsForm extends AbstractForm implements Form {
 		fields.add(new RangeField(Restrictable.AtomNuclearCharge,"Nuclear charge"));
 		fields.add(new RangeField(Restrictable.IonCharge,"Ion charge"));
 		fields.add(new UnitConvRangeField(
-				Restrictable.StateEnergy, "Upper state energy", new EnergyUnitConverter()));
+				Restrictable.StateEnergy, "State energy", new EnergyUnitConverter()));
 	}
 
 }
