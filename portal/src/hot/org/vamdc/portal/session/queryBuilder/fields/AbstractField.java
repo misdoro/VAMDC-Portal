@@ -61,17 +61,18 @@ public abstract class AbstractField {
 		String result ="";
 		result+=" IN (";
 		String in = "";
+		int numRes=0;
 		for (String part:value.split("[,.:_]")){
 			String val = part.trim();
-			
 			if (val.length()>0){
+				numRes++;
 				if (in.length()>0)
 					in+=",";
 				in+="'"+val+"'";
 			}
 		}
 		result+=in+") ";
-		if (in.length()>0)
+		if (numRes>1)
 			return result;
 		return "";
 	}
