@@ -1,7 +1,6 @@
 package org.vamdc.portal.session.queryLog;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.vamdc.portal.entity.query.HttpHeadResponse;

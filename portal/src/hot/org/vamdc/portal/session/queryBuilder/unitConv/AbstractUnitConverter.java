@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.faces.model.SelectItem;
 
-import org.vamdc.portal.session.queryBuilder.unitConv.PressureUnitConverter.PressConvert;
-
 public abstract class AbstractUnitConverter implements UnitConverter{
 	
 	protected interface Convert{
