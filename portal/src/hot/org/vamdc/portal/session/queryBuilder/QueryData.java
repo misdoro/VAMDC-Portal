@@ -7,6 +7,9 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.TreeSet;
 
+import javax.persistence.EntityManager;
+
+import org.jboss.seam.Component;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
@@ -115,4 +118,8 @@ public class QueryData {
 		// TODO load forms contents from the query string.
 	}
 
+	public EntityManager getEntityManager(){
+		return (EntityManager) Component.getInstance("entityManager");
+	}
+	
 }
