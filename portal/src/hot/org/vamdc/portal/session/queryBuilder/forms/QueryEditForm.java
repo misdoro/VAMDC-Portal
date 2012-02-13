@@ -5,7 +5,7 @@ import org.vamdc.portal.session.queryBuilder.QueryData;
 
 public class QueryEditForm extends AbstractForm implements Form{
 
-	public String getTitle() { return "Query comments"; }
+	public String getTitle() { return "Query editor"; }
 	public Integer getOrder() { return Order.Query; }
 	public String getView() { return "/xhtml/query/forms/editorForm.xhtml"; }
 	
