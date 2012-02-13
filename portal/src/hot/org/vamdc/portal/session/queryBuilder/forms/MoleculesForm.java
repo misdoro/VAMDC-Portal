@@ -28,21 +28,24 @@ public class MoleculesForm extends AbstractForm implements Form{
 		addField(new RangeField(Restrictable.IonCharge,"Ion charge"));
 		addField(new SimpleField(Restrictable.InchiKey,"InChIKey"));
 	}
+
+	
+	
 	
 	public class ChemNameSuggestion implements SuggestionField.Suggestion{
-		
+
 		public Collection<String> options(Object input) {
 			String value = (String) input;
 			if (value==null || value.length()==0 || value.trim().length()==0)
 				return Collections.emptyList();
 
 			Collection<String> result = new ArrayList<String>();
-			
+
 			EntityManager entityManager = queryData.getEntityManager();
-			
+
 			if (entityManager==null)
 				return Collections.emptyList();
-			
+
 			for (Object molecule:entityManager
 					.createNamedQuery("MoleculeNames.findByMolecNameWildcard")
 					.setParameter("molecName", "%"+value+"%")
@@ -64,20 +67,20 @@ public class MoleculesForm extends AbstractForm implements Form{
 		}
 	}
 
-public class StoichFormSuggestion implements SuggestionField.Suggestion{
-		
+	public class StoichFormSuggestion implements SuggestionField.Suggestion{
+
 		public Collection<String> options(Object input) {
 			String value = (String) input;
 			if (value==null || value.length()==0 || value.trim().length()==0)
 				return Collections.emptyList();
 
 			Collection<String> result = new ArrayList<String>();
-			
+
 			EntityManager entityManager = queryData.getEntityManager();
-			
+
 			if (entityManager==null)
 				return Collections.emptyList();
-			
+
 			for (Object molecule:entityManager
 					.createNamedQuery("Molecules.findByStoichiometricFormulaWildcard")
 					.setParameter("stoichiometricFormula", "%"+value+"%")
@@ -98,5 +101,5 @@ public class StoichFormSuggestion implements SuggestionField.Suggestion{
 			//TODO: process selection event
 		}
 	}
-	
+
 }
