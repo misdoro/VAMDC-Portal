@@ -35,10 +35,9 @@ public class PostRequest implements Callable<URL>{
 		URL result=null;
 		int resultCode = connection.getResponseCode();
 		
-		if (resultCode== HttpURLConnection.HTTP_MOVED_TEMP){
+		if (resultCode== HttpURLConnection.HTTP_MOVED_TEMP || resultCode== HttpURLConnection.HTTP_SEE_OTHER || resultCode==HttpURLConnection.HTTP_MOVED_PERM){
 			result = new URL(connection.getHeaderField("Location"));
 		}
-		
 		return result;
 	}
 

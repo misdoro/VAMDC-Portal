@@ -27,8 +27,7 @@
 						enabled="#{consumers.processing}"
 						reRender="consumers" />
 			</a4j:region>
-			<h:graphicImage value="/img/waitingIcon.gif" width="40%"
-								rendered="#{consumers.processing}" />
+			<h:graphicImage value="/img/waitingIcon.gif" rendered="#{consumers.processing}" />
 			<h:outputLink value="#{consumers.location}" target="_blank"
 				rendered="#{consumers.done}">
 				<h:outputText value="Result" />
