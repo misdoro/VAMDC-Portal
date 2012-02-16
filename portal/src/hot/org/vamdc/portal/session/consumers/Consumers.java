@@ -15,8 +15,6 @@ import javax.faces.model.SelectItem;
 
 
 import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.Begin;
-import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
@@ -24,7 +22,7 @@ import org.vamdc.portal.registry.RegistryFacade;
 
 
 @Name("consumers")
-@Scope(ScopeType.CONVERSATION)
+@Scope(ScopeType.PAGE)
 public class Consumers {
 
 	@In(create=true) RegistryFacade registryFacade;
@@ -59,7 +57,6 @@ public class Consumers {
 		this.queries = queries;
 	}
 
-	@Begin(nested=true)
 	public void process(){
 		List<URL> nodes = new ArrayList<URL>();
 		for (String req:queries.keySet()){
@@ -73,7 +70,8 @@ public class Consumers {
 		URL consumer = registryFacade.getConsumerService(selectedIvoaID);
 		
 		if (nodes.size()>0 && consumer!=null){
-			System.out.println(nodes.get(0)+" to "+consumer);
+			for(URL node:nodes)
+				System.out.println(node+" to "+consumer);
 			ExecutorService executor = Executors.newSingleThreadExecutor();
 			consumerLocation = executor.submit(new PostRequest(consumer,nodes));
 		}
@@ -85,6 +83,32 @@ public class Consumers {
 	
 	public boolean isProcessing(){
 		return ((consumerLocation!=null && !consumerLocation.isDone()));
+	}
+	
+	public boolean isOk(){
+		return (isDone() && !isErrorHappened());
+	}
+	
+	public boolean isErrorHappened(){
+		if (isDone()){
+			try{
+				consumerLocation.get();
+			} catch (Exception e) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public String getError(){
+		if (isDone()){
+			try{
+				consumerLocation.get();
+			} catch (Exception e) {
+				return e.getMessage();
+			}
+		}
+		return "";
 	}
 	
 	public String getLocation(){
@@ -99,11 +123,6 @@ public class Consumers {
 		if (result!=null)
 			return result.toExternalForm();
 		return "";
-	}
-	
-	@End
-	public void reset(){
-		this.consumerLocation=null;
 	}
 	
 }

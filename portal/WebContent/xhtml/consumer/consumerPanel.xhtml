@@ -11,7 +11,7 @@
 
 	<rich:panel id="consumers">
 		<f:facet name="header">
-			<h:outputText value="Consumers" />
+			<h:outputText value="XSAMS processors" />
 		</f:facet>
 
 		<h:selectOneRadio value="#{consumers.selectedConsumer}">
@@ -27,9 +27,13 @@
 						enabled="#{consumers.processing}"
 						reRender="consumers" />
 			</a4j:region>
-			<h:graphicImage value="/img/waitingIcon.gif" rendered="#{consumers.processing}" />
+			<h:graphicImage value="/img/waitingIcon.gif" width="16" height="16" rendered="#{consumers.processing}" />
+			<h:graphicImage value="/img/error.gif" id="consumerErrorImg" rendered="#{consumers.errorHappened}">
+				<rich:toolTip value="#{consumers.error}" styleClass="toolTip"
+					direction="top-left" id="consumerErrorText"/>
+			</h:graphicImage>
 			<h:outputLink value="#{consumers.location}" target="_blank"
-				rendered="#{consumers.done}">
+				rendered="#{consumers.ok}">
 				<h:outputText value="Result" />
 			</h:outputLink>
 		</h:panelGroup>
