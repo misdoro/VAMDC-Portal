@@ -29,7 +29,7 @@
 
 
 			<a4j:form ajaxSubmit="true">
-				<rich:dropDownMenu style="background-color:#B5DAFF" value="Species"
+				<rich:dropDownMenu style="background-color:#B5DAFF;" value="Species"
 					submitMode="ajax" direction="bottom-right" jointPoint="tr">
 					<rich:menuItem value="Atom" reRender="formPanel,nodeTree"
 						action="#{query.addFormAtoms}" />
@@ -41,7 +41,7 @@
 
 				<rich:spacer height="10" />
 
-				<rich:dropDownMenu style="background-color:#B5DAFF"
+				<rich:dropDownMenu style="background-color:#B5DAFF;"
 					value="Processes" submitMode="ajax" direction="bottom-right"
 					jointPoint="tr">
 					<rich:menuItem value="Transition" reRender="formPanel,nodeTree"
@@ -57,7 +57,7 @@
 				<br />
 				<rich:spacer height="5" />
 
-				<rich:dropDownMenu style="background-color:#B5DAFF" value="Advanced"
+				<rich:dropDownMenu style="background-color:#B5DAFF; " value="Advanced"
 					submitMode="ajax" direction="bottom-right" jointPoint="tr">
 					<rich:menuItem value="Query editor" reRender="formPanel,nodeTree"
 						action="#{query.addFormQueryEditor}" />
