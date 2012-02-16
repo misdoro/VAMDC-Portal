@@ -45,7 +45,10 @@
 
 		<h:column>
 			<h:selectBooleanCheckbox value="#{consumers.queries[node.fullQueryURL]}" 
-				disabled="#{!preview.done}" rendered="#{node.isOk()}"/>
+				disabled="#{!preview.done}" rendered="#{node.isOk()}" id="process#{node.recordID}">
+					<rich:toolTip value="Select for processing" styleClass="toolTip"
+					direction="bottom-right"/>
+			</h:selectBooleanCheckbox>
 			<h:outputText value="#{registryFacade.getResourceTitle(node.ivoaID)}" />
 		</h:column>
 

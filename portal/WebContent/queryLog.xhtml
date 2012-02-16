@@ -74,7 +74,10 @@
 						</rich:column>
 
 						<rich:column>
-							<h:selectBooleanCheckbox value="#{consumers.queries[response.fullQueryURL]}" />
+							<h:selectBooleanCheckbox value="#{consumers.queries[response.fullQueryURL]}" id="process#{response.id}" >
+								<rich:toolTip value="Select for processing" styleClass="toolTip"
+									direction="bottom-right"/>
+							</h:selectBooleanCheckbox>
 							<h:outputText
 								value="#{registryFacade.getResourceTitle(response.node)}" />
 

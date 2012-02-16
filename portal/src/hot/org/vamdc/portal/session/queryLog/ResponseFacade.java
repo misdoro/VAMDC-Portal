@@ -1,5 +1,7 @@
 package org.vamdc.portal.session.queryLog;
 
+import java.util.UUID;
+
 import org.vamdc.portal.entity.query.HttpHeadResponse;
 
 public class ResponseFacade {
@@ -25,5 +27,15 @@ public class ResponseFacade {
 		return response.getFullQueryURL();
 	}
 	
+	public String getId(){
+		String result=null;
+		if (response!=null){
+			result = response.getRecordID().toString();
+		}
+		
+		if (result==null || result.length()==0)
+			result = UUID.randomUUID().toString();
+		return "";
+	}
 	
 }
