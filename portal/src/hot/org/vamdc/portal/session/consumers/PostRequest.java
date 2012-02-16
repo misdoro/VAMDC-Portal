@@ -51,7 +51,10 @@ public class PostRequest implements Callable<URL>{
 		
 		String data="";
 		for (URL node:nodes){
+			if (data.length()>0)
+				data+="&";
 			data+=URLEncoder.encode("url", "UTF-8") + "=" + URLEncoder.encode(node.toString(), "UTF-8");
+			
 		};
 		OutputStreamWriter wr = new OutputStreamWriter(connection.getOutputStream());
 		wr.write(data);
