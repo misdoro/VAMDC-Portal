@@ -8,7 +8,7 @@ package org.vamdc.portal;
 public enum Settings {
 
 	HTTP_CONNECT_TIMEOUT("HTTPConnTimeout", "2000"),
-	HTTP_DATA_TIMEOUT("HTTPDataTimeout","20000"),
+	HTTP_DATA_TIMEOUT("HTTPDataTimeout","30000"),
 	STATIC_STORAGE_PATH("fileStoragePath","/tmp"),
 	STATIC_ACCESS_URL("fileStorageURL","http://localhost/"),
 	DISPLAY_URL("displayURL","http://localhost/"),
@@ -16,7 +16,7 @@ public enum Settings {
 	REGISTRY_UPDATE_INTERVAL("registryUpdateInterval","300000"),
 	AVAILABILITY_MONITOR_INTERVAL("availabilityMonitorInterval","300000"),
 	REGISTRY_RETRY_INTERVAL("registryRetryInterval","10000"),
-	HTTP_HEAD_TIMEOUT("HTTPHeadTimeout","30000"),
+	HTTP_HEAD_TIMEOUT("HTTPHeadTimeout","60000"),
 	;
 	
 	
