@@ -37,6 +37,8 @@ public class PostRequest implements Callable<URL>{
 		
 		if (resultCode== HttpURLConnection.HTTP_MOVED_TEMP || resultCode== HttpURLConnection.HTTP_SEE_OTHER || resultCode==HttpURLConnection.HTTP_MOVED_PERM){
 			result = new URL(connection.getHeaderField("Location"));
+		}else{
+			throw new IOException("XSAMS processor service returned "+resultCode+" status code.");
 		}
 		return result;
 	}
