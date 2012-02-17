@@ -56,13 +56,20 @@ public class QueryData {
 	
 	private Collection<Restrictable> getKeywordsFromQuery(String query){
 		EnumSet<Restrictable> result = EnumSet.noneOf(Restrictable.class);
-		Query parser = new QueryImpl(getQueryString(),null);
+		Query parser;
+		try{
+			parser = new QueryImpl(getQueryString(),null);
+		}catch (IllegalArgumentException e){
+			return result;
+		}
+		
 		Collection<RestrictExpression> keywords = parser.getRestrictsList();
 		if (keywords!=null){
 			for (RestrictExpression keyword:keywords){
 				result.add(keyword.getColumn());
 			}
 		}
+		
 		return result;
 	}
 
