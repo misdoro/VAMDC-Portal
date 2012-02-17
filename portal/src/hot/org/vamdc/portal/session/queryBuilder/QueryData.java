@@ -16,6 +16,9 @@ import org.jboss.seam.annotations.Scope;
 import org.vamdc.dictionary.Restrictable;
 import org.vamdc.portal.session.queryBuilder.forms.Form;
 import org.vamdc.portal.session.queryBuilder.forms.Order;
+import org.vamdc.tapservice.vss2.Query;
+import org.vamdc.tapservice.vss2.RestrictExpression;
+import org.vamdc.tapservice.vss2.impl.QueryImpl;
 
 @Name("queryData")
 @Scope(ScopeType.CONVERSATION)
@@ -34,7 +37,15 @@ public class QueryData {
 	
 	private String editedQueryId;
 
+	
 	public Collection<Restrictable> getKeywords(){
+		if (isUserModified()){
+			return getKeywordsFromQuery(queryEditForm.getValue());
+		}
+		return getKeywordsFromForms();
+	}
+	
+	private Collection<Restrictable> getKeywordsFromForms(){
 		EnumSet<Restrictable> result = EnumSet.noneOf(Restrictable.class);
 		for (Form form:getForms()){
 			result.addAll(form.getKeywords());
@@ -42,19 +53,32 @@ public class QueryData {
 		return result;
 			
 	}
+	
+	private Collection<Restrictable> getKeywordsFromQuery(String query){
+		EnumSet<Restrictable> result = EnumSet.noneOf(Restrictable.class);
+		Query parser = new QueryImpl(getQueryString(),null);
+		Collection<RestrictExpression> keywords = parser.getRestrictsList();
+		if (keywords!=null){
+			for (RestrictExpression keyword:keywords){
+				result.add(keyword.getColumn());
+			}
+		}
+		return result;
+	}
 
 	public String buildQueryString(){
 		return "select * where "+QueryGenerator.getFormsQuery(getForms());
 	}
+	
 	public String getQueryString(){
-		if (queryEditForm!=null && queryEditForm.getValue().length()>0)
+		if (isUserModified())
 			return queryEditForm.getValue();
 		return buildQueryString(); 
 	}
 	
-
-
-
+	private boolean isUserModified(){
+		return (queryEditForm!=null && queryEditForm.getValue().length()>0);
+	}
 
 	public boolean isValid(){
 		return getKeywords().size()>0;
