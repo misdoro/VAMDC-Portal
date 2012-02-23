@@ -25,16 +25,23 @@ public class AbstractFieldTest {
 	
 	@Test
 	public void getSingleQuery() {
-		field.setValue("Fe");
-		String query = field.getQuery();
-		assertTrue(query.equals("AtomSymbol = 'Fe'"));
+		assertQueryEquals("Fe","AtomSymbol = 'Fe'");
+	}
+	
+	@Test
+	public void trimSingleQuery(){
+		assertQueryEquals("Fe ","AtomSymbol = 'Fe'");
 	}
 	
 	@Test
 	public void getInQuery(){
-		field.setValue("Fe, Co");
-		String query = field.getQuery();
-		assertTrue(query.equals("AtomSymbol IN ('Fe','Co')"));
+		assertQueryEquals("Fe, Co","AtomSymbol IN ('Fe','Co')");
 	}
 
+	public void assertQueryEquals(String parameter, String supposedResult){
+		field.setValue(parameter);
+		String query = field.getQuery();
+		assertTrue(query.equals(supposedResult));
+	}
+	
 }

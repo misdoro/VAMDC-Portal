@@ -51,7 +51,7 @@ public abstract class AbstractField {
 		}else{
 			result.append(" = ");
 			result.append("'");
-			result.append(value);
+			result.append(value.trim());
 			result.append("'");
 		}
 		return result.toString();
