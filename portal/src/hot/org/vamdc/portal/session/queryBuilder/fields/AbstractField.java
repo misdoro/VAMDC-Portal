@@ -44,19 +44,34 @@ public abstract class AbstractField {
 		StringBuilder result = new StringBuilder();
 		result.append(prefix);
 		result.append(keyword.name());
+		
+		String tryLike = tryLike();
+		if (tryLike.length()>0){
+			result.append(tryLike);
+			return result.toString();
+		}
+		
 		String tryIn = tryIn();
 		if (tryIn.length()>0){
 			result.append(tryIn);
 			return result.toString();
-		}else{
+		}
 			result.append(" = ");
 			result.append("'");
 			result.append(value.trim());
 			result.append("'");
-		}
+		
 		return result.toString();
 	}
 	
+	private String tryLike() {
+		
+		if (value.contains("%"))
+			return " LIKE '"+value.trim()+"'"; 
+		
+		return "";
+	}
+
 	private String tryIn(){
 		String result ="";
 		result+=" IN (";

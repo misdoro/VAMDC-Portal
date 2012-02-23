@@ -13,6 +13,33 @@ public class AbstractFieldTest {
 	
 	private AbstractField field;
 	
+	@Test
+	public void getSingleQuery() {
+		assertQueryEquals("Fe",KEYWORD+" = 'Fe'");
+	}
+	
+	@Test
+	public void trimSingleQuery(){
+		assertQueryEquals("Fe ",KEYWORD+" = 'Fe'");
+	}
+	
+	@Test
+	public void trimEmptyValue(){
+		assertQueryEquals(" ","");
+	}
+	
+	@Test
+	public void testLikeQuery(){
+		assertQueryEquals("Fe%",KEYWORD+" LIKE 'Fe%'");
+	}
+	
+	@Test
+	public void getInQuery(){
+		assertQueryEquals("Fe, Co",KEYWORD+" IN ('Fe','Co')");
+	}
+
+	private final static String KEYWORD = "AtomSymbol";
+	
 	@Before
 	public void setupTest(){
 		field = new SimpleField(Restrictable.AtomSymbol, null);
@@ -23,22 +50,7 @@ public class AbstractFieldTest {
 		field = null;
 	}
 	
-	@Test
-	public void getSingleQuery() {
-		assertQueryEquals("Fe","AtomSymbol = 'Fe'");
-	}
-	
-	@Test
-	public void trimSingleQuery(){
-		assertQueryEquals("Fe ","AtomSymbol = 'Fe'");
-	}
-	
-	@Test
-	public void getInQuery(){
-		assertQueryEquals("Fe, Co","AtomSymbol IN ('Fe','Co')");
-	}
-
-	public void assertQueryEquals(String parameter, String supposedResult){
+	private void assertQueryEquals(String parameter, String supposedResult){
 		field.setValue(parameter);
 		String query = field.getQuery();
 		assertTrue(query.equals(supposedResult));
