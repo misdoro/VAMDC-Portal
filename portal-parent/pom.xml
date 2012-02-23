@@ -22,7 +22,7 @@
 		<jboss.embedded.version>beta3.SP10</jboss.embedded.version>
 		<ejb.api.version>3.0</ejb.api.version>
 		<jsr250-api.version>1.0</jsr250-api.version>
-		<junit.version>3.8.1</junit.version>
+		<junit.version>4.10</junit.version>
 		<drools.version>5.0.1</drools.version>
 		<jbpm3.version>3.2.5.SP5</jbpm3.version>
 		<seam.version>2.2.2.Final</seam.version>

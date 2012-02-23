@@ -50,9 +50,9 @@ public abstract class AbstractField {
 			return result.toString();
 		}else{
 			result.append(" = ");
-			result.append("\"");
+			result.append("'");
 			result.append(value);
-			result.append("\"");
+			result.append("'");
 		}
 		return result.toString();
 	}
@@ -71,7 +71,7 @@ public abstract class AbstractField {
 				in+="'"+val+"'";
 			}
 		}
-		result+=in+") ";
+		result+=in+")";
 		if (numRes>1)
 			return result;
 		return "";

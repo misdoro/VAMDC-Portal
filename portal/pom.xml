@@ -58,6 +58,7 @@
 		</plugins>
 	</build>
 	<dependencies>
+	
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
