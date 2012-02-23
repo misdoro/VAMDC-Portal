@@ -2,16 +2,16 @@ package org.vamdc.portal.registry;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Destroy;
-import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.Startup;
-import org.jboss.seam.international.StatusMessages;
-import org.jboss.seam.log.Log;
 import org.vamdc.registry.client.Registry.Service;
 import org.vamdc.registry.client.RegistryCommunicationException;
 
+/**
+ * 
+ * Class that ensures that registry client starts on application startup and dies after the app is undeployed
+ */
 @Scope(ScopeType.APPLICATION)
 @Startup
 @Name("registry")
