@@ -39,7 +39,6 @@ public class AbstractFieldTest {
 	}
 
 	private final static String KEYWORD = "AtomSymbol";
-	
 	@Before
 	public void setupTest(){
 		field = new SimpleField(Restrictable.AtomSymbol, null);

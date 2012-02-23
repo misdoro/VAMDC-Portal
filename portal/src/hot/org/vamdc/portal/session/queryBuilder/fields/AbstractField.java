@@ -14,65 +14,66 @@ public abstract class AbstractField {
 	private String title;
 	private String id;
 	private String prefix;
-	
+
 	public AbstractField(Restrictable keyword, String title){
 		this.keyword = keyword;
 		this.title = title;
 		this.id = UUID.randomUUID().toString();
 		this.prefix="";
 	}
-	
+
 	public String getValue(){
 		return value;
 	}
 	public void setValue(String value){
 		this.value = value;
 	}
-	
+
 	public Restrictable getKeyword() {
 		return keyword;
 	}
-	
+
 	public void setKeyword(Restrictable keyword) {
 		this.keyword = keyword;
 	}
-	
+
 	public String getQuery(){
 		if (keyword==null || value==null || value.trim().length()==0)
 			return "";
-		
+		String value = this.value.trim();
+
 		StringBuilder result = new StringBuilder();
 		result.append(prefix);
 		result.append(keyword.name());
-		
-		String tryLike = tryLike();
+
+		String tryLike = tryLike(value);
 		if (tryLike.length()>0){
 			result.append(tryLike);
 			return result.toString();
 		}
-		
-		String tryIn = tryIn();
+
+		String tryIn = tryIn(value);
 		if (tryIn.length()>0){
 			result.append(tryIn);
 			return result.toString();
 		}
-			result.append(" = ");
-			result.append("'");
-			result.append(value.trim());
-			result.append("'");
-		
+		result.append(" = ");
+		result.append("'");
+		result.append(value.trim());
+		result.append("'");
+
 		return result.toString();
 	}
-	
-	private String tryLike() {
-		
+
+	private static String tryLike(String value) {
+
 		if (value.contains("%"))
-			return " LIKE '"+value.trim()+"'"; 
-		
+			return " LIKE '"+value+"'"; 
+
 		return "";
 	}
 
-	private String tryIn(){
+	private static String tryIn(String value){
 		String result ="";
 		result+=" IN (";
 		String in = "";
@@ -91,17 +92,17 @@ public abstract class AbstractField {
 			return result;
 		return "";
 	}
-	
+
 	public boolean hasValue(){
 		return this.value!=null && this.value.length()>0;
 	}
-	
+
 	/**
 	 * Get a face suitable for the form field display
 	 */
 	public abstract String getView();
-	
-	
+
+
 	public String getTitle(){ return this.title; }
 	public String getUnits(){ 
 		if (this.keyword!=null)
@@ -114,7 +115,7 @@ public abstract class AbstractField {
 		return "";
 	}
 	public String getId(){ return this.id; }
-	
+
 	public void clear(){ this.value=""; }
 
 	protected boolean fieldIsSet(String value){
@@ -124,5 +125,5 @@ public abstract class AbstractField {
 	public void setPrefix(String prefix) {
 		this.prefix = prefix;
 	}
-	
+
 }
