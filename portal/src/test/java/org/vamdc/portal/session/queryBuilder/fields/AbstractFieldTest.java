@@ -34,6 +34,11 @@ public class AbstractFieldTest {
 	}
 	
 	@Test
+	public void testLikeStarQuery(){
+		assertQueryEquals("Fe*",KEYWORD+" LIKE 'Fe%'");
+	}
+	
+	@Test
 	public void getInQuery(){
 		assertQueryEquals("Fe, Co",KEYWORD+" IN ('Fe','Co')");
 	}

@@ -66,9 +66,11 @@ public abstract class AbstractField {
 	}
 
 	private static String tryLike(String value) {
-
-		if (value.contains("%"))
+		
+		if (value.contains("%")|| value.contains("*")){
+			value = value.replace("*", "%");
 			return " LIKE '"+value+"'"; 
+		}
 
 		return "";
 	}
