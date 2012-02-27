@@ -59,6 +59,8 @@ public class PreviewManager {
 			}catch (IllegalArgumentException e){
 			}
 		}
+		
+		executor.shutdown();
 		startTime = new Date().getTime();
 	}
 

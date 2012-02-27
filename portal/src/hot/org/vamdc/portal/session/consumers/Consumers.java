@@ -74,6 +74,7 @@ public class Consumers {
 				System.out.println(node+" to "+consumer);
 			ExecutorService executor = Executors.newSingleThreadExecutor();
 			consumerLocation = executor.submit(new PostRequest(consumer,nodes));
+			executor.shutdown();
 		}
 	}
 	
