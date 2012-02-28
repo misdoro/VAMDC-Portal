@@ -32,9 +32,7 @@ import org.vamdc.portal.session.queryBuilder.nodeTree.NodeTree;
 @Scope(ScopeType.PAGE)
 public class PreviewManager implements Serializable{
 
-	/**
-	 * 
-	 */
+	//TODO: create meaningful test to check the serializability
 	private static final long serialVersionUID = 2029452631857959114L;
 
 	@Logger

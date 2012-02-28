@@ -1,5 +1,6 @@
 package org.vamdc.portal.session.consumers;
 
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -23,7 +24,10 @@ import org.vamdc.portal.registry.RegistryFacade;
 
 @Name("consumers")
 @Scope(ScopeType.PAGE)
-public class Consumers {
+public class Consumers implements Serializable{
+
+	//TODO: create meaningful test to check the serializability
+	private static final long serialVersionUID = -4206391044359168710L;
 
 	@In(create=true) RegistryFacade registryFacade;
 
