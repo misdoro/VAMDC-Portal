@@ -1,5 +1,9 @@
 package org.vamdc.portal.session.queryBuilder;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -22,21 +26,30 @@ import org.vamdc.tapservice.vss2.impl.QueryImpl;
 
 @Name("queryData")
 @Scope(ScopeType.CONVERSATION)
-public class QueryData {
+public class QueryData implements Serializable{
 
-
-	private Collection<Form> forms=Collections.synchronizedSet(new TreeSet<Form>(new Order()));
-	private List<Form> formsList = Collections.synchronizedList(new ArrayList<Form>());
+	private static final long serialVersionUID = -6797195825696968172L;
+	
+	//All forms and lists are serialized explicitly
+	private transient Collection<Form> forms;
+	private transient List<Form> formsList;
 	
 	//Species-related forms
-	private Collection<Form> speciesForms=Collections.synchronizedSet(new TreeSet<Form>(new Order()));
-	
-	private Form queryEditForm=null;
+	private transient Collection<Form> speciesForms;
+	private transient Form queryEditForm=null;
 	
 	private String comments="";
-	
 	private String editedQueryId;
 
+	public QueryData(){
+		initCollections();
+	}
+	
+	private void initCollections(){
+		forms=Collections.synchronizedSet(new TreeSet<Form>(new Order()));
+		formsList = Collections.synchronizedList(new ArrayList<Form>());
+		speciesForms=Collections.synchronizedSet(new TreeSet<Form>(new Order()));
+	}
 	
 	public Collection<Restrictable> getKeywords(){
 		if (isUserModified()){
@@ -119,13 +132,20 @@ public class QueryData {
 	}
 	
 	public void addForm(Form form){
+		if (quickAddForm(form)){
+			formsList = Collections.synchronizedList(new ArrayList<Form>(forms));
+		}
+	}
+	
+	private boolean quickAddForm(Form form){
 		if (canAdd(form)){
 			forms.add(form);
 			form.setQueryData(this);
 			if (form.getOrder()<Order.SPECIES_LIMIT)
 				speciesForms.add(form);
-			formsList = Collections.synchronizedList(new ArrayList<Form>(forms));
+			return true;
 		}
+		return false;
 	}
 	
 	public void setQueryEditForm(Form form){
@@ -144,13 +164,31 @@ public class QueryData {
 	
 	public String getEditQueryId() { return editedQueryId; }
 	public void setEditQueryId(String editQueryId) { this.editedQueryId = editQueryId; }
-	
-	public void loadQuery(String queryString) {
-		// TODO load forms contents from the query string.
-	}
 
 	public EntityManager getEntityManager(){
 		return (EntityManager) Component.getInstance("entityManager");
+	}
+	
+	private void writeObject(ObjectOutputStream s) throws IOException{
+		s.defaultWriteObject();
+		
+		int numForms = forms.size();
+		s.writeInt(numForms);
+		for (Form f:forms){
+			s.writeObject(f);
+		}
+	}
+	
+	private void readObject(ObjectInputStream s) throws IOException, ClassNotFoundException{
+		s.defaultReadObject();
+		int numForms = s.readInt();
+		
+		this.initCollections();
+		
+		for (int i=0;i<numForms;i++){
+			quickAddForm((Form) s.readObject());
+		}
+		
 	}
 	
 }

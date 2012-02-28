@@ -116,7 +116,7 @@ public class QueryController {
 		conversation.begin();
 		Query query = queryLog.getQuery(queryID);
 		queryData.setComments(query.getComments());
-		queryData.loadQuery(query.getQueryString());
+		QueryLoader.loadQuery(queryData,query.getQueryString());
 		return RedirectPage.QUERY;
 	}
 		
