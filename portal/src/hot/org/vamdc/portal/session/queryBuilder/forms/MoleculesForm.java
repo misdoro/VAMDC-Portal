@@ -17,6 +17,8 @@ import org.vamdc.portal.session.queryBuilder.fields.SuggestionField;
 
 public class MoleculesForm extends AbstractForm implements Form{
 
+
+	private static final long serialVersionUID = 3499663104107031985L;
 	public String getTitle() { return "Molecules"; }
 	public Integer getOrder() { return Order.Molecules; }
 	public String getView() { return "/xhtml/query/forms/standardForm.xhtml"; }

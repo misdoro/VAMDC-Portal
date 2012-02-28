@@ -1,10 +1,11 @@
 package org.vamdc.portal.session.queryBuilder.unitConv;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
 
-public interface UnitConverter {
+public interface UnitConverter extends Serializable{
 
 	public List<SelectItem> getOptions();
 	public String getSelectedOption();

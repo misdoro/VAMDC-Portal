@@ -133,8 +133,12 @@ public class QueryData implements Serializable{
 	
 	public void addForm(Form form){
 		if (quickAddForm(form)){
-			formsList = Collections.synchronizedList(new ArrayList<Form>(forms));
+			rebuildLists();
 		}
+	}
+
+	private void rebuildLists() {
+		formsList = Collections.synchronizedList(new ArrayList<Form>(forms));
 	}
 	
 	private boolean quickAddForm(Form form){
@@ -156,7 +160,7 @@ public class QueryData implements Serializable{
 		forms.remove(form);
 		if (form.getOrder()<Order.SPECIES_LIMIT)
 			speciesForms.remove(form);
-		formsList = Collections.synchronizedList(new ArrayList<Form>(forms));
+		rebuildLists();
 	}
 	
 	public String getComments() { return comments; }
@@ -188,7 +192,7 @@ public class QueryData implements Serializable{
 		for (int i=0;i<numForms;i++){
 			quickAddForm((Form) s.readObject());
 		}
-		
+		rebuildLists();
 	}
 	
 }

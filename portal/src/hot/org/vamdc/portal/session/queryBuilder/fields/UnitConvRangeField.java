@@ -7,6 +7,8 @@ import org.vamdc.portal.session.queryBuilder.unitConv.UnitConverter;
 
 public class UnitConvRangeField extends RangeField{
 	
+	private static final long serialVersionUID = -7749430017746806827L;
+
 	public UnitConvRangeField(Restrictable keyword, String title, UnitConverter converter) {
 		super(keyword, title);
 		this.converter = converter;
@@ -15,7 +17,7 @@ public class UnitConvRangeField extends RangeField{
 	@Override
 	public String getView() { return "/xhtml/query/fields/unitConvRangeField.xhtml"; }
 
-	private UnitConverter converter;
+	private transient UnitConverter converter;
 	private String userHiValue="";
 	private String userLoValue="";
 	
@@ -37,8 +39,8 @@ public class UnitConvRangeField extends RangeField{
 		if (value==null || value.length()==0)
 			return result;
 		try {
-			Double userHiValue = Double.parseDouble(value);
-			result=converter.getConvertedValue(userHiValue)+" ";
+			Double userValue = Double.parseDouble(value);
+			result=converter.getConvertedValue(userValue)+" ";
 		}catch (NumberFormatException e){}
 		return result;
 	}

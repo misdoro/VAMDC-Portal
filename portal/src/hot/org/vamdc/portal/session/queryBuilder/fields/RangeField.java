@@ -4,6 +4,8 @@ import org.vamdc.dictionary.Restrictable;
 
 public class RangeField extends AbstractField{
 
+	private static final long serialVersionUID = 6586234035266177619L;
+
 	public RangeField(Restrictable keyword, String title) {
 		super(keyword, title);
 	}

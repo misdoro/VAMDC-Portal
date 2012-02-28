@@ -5,6 +5,8 @@ import org.vamdc.portal.session.queryBuilder.QueryData;
 
 public class QueryEditForm extends AbstractForm implements Form{
 
+
+	private static final long serialVersionUID = 1038458921184436210L;
 	public String getTitle() { return "Query editor"; }
 	public Integer getOrder() { return Order.Query; }
 	public String getView() { return "/xhtml/query/forms/editorForm.xhtml"; }

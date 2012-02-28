@@ -9,6 +9,8 @@ import org.vamdc.portal.session.queryBuilder.fields.SuggestionImpl;
 
 public class ParticlesForm extends AbstractForm implements Form{
 
+
+	private static final long serialVersionUID = 6076734404479237682L;
 	public String getTitle() { return "Particles"; }
 	public Integer getOrder() { return Order.Particles; }
 	public String getView() { return "/xhtml/query/forms/standardForm.xhtml"; }

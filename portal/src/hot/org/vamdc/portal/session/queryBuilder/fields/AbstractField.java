@@ -1,5 +1,6 @@
 package org.vamdc.portal.session.queryBuilder.fields;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 import org.vamdc.dictionary.Restrictable;
@@ -8,7 +9,9 @@ import org.vamdc.dictionary.Restrictable;
  * Base class for the form field
  * @author doronin
  */
-public abstract class AbstractField {
+public abstract class AbstractField implements Serializable{
+
+	private static final long serialVersionUID = 5518997643252666012L;
 	private String value;
 	protected Restrictable keyword;
 	private String title;

@@ -2,6 +2,8 @@ package org.vamdc.portal.session.queryBuilder.unitConv;
 
 public class TemperatureConverter extends AbstractUnitConverter{
 
+	private static final long serialVersionUID = 8886404808744416699L;
+
 	enum TempConvert implements AbstractUnitConverter.Convert{
 		KELVIN("K",javax.measure.unit.SI.KELVIN.getConverterTo(javax.measure.unit.SI.KELVIN)),
 		CELSIUS("C",javax.measure.unit.SI.CELSIUS.getConverterTo(javax.measure.unit.SI.KELVIN)),

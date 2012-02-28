@@ -4,6 +4,9 @@ public class PressureUnitConverter extends AbstractUnitConverter{
 	
 	
 	
+
+	private static final long serialVersionUID = -8696428690669550365L;
+
 	enum PressConvert implements AbstractUnitConverter.Convert{
 		BAR("bar",javax.measure.unit.NonSI.BAR.getConverterTo(javax.measure.unit.SI.PASCAL)),
 		PASCAL("Pa",javax.measure.unit.SI.PASCAL.getConverterTo(javax.measure.unit.SI.PASCAL)),

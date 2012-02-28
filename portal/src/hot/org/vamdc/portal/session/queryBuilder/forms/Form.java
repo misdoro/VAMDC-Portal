@@ -1,5 +1,6 @@
 package org.vamdc.portal.session.queryBuilder.forms;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import org.vamdc.dictionary.Restrictable;
@@ -10,7 +11,7 @@ import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
  * Interface used to build forms
  * @author doronin
  */
-public interface Form {
+public interface Form extends Serializable{
 	public String getFullTitle();
 	public String getTitle();
 	public String getView();

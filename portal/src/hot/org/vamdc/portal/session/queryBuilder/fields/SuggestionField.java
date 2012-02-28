@@ -6,6 +6,7 @@ import org.vamdc.dictionary.Restrictable;
 
 public class SuggestionField extends AbstractField{
 	
+	private static final long serialVersionUID = -5667718305736669698L;
 	public interface Suggestion{
 		public Collection<String> options(Object input);
 		public String getIllegalLabel();

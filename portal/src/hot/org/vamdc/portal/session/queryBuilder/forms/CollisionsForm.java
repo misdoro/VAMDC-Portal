@@ -16,6 +16,8 @@ import org.vamdc.portal.session.queryBuilder.fields.SuggestionImpl;
 
 public class CollisionsForm extends AbstractForm implements Form{
 
+
+	private static final long serialVersionUID = -2400424219243476027L;
 	public String getTitle() { return "Collisions"; }
 	public Integer getOrder() { return Order.Process; }
 	public String getView() { return "/xhtml/query/forms/collisionsForm.xhtml"; }

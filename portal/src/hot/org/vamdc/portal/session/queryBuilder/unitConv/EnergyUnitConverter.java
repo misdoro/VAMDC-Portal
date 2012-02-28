@@ -4,6 +4,7 @@ import org.vamdc.portal.session.queryBuilder.unitConv.CustomConverters.Converter
 
 public class EnergyUnitConverter extends AbstractUnitConverter{
 	
+	private static final long serialVersionUID = 7036929222571544931L;
 	enum EnergyConvert implements AbstractUnitConverter.Convert{
 		WL("1/cm",CustomConverters.WnToWn()),
 		EV("eV",CustomConverters.EVToWn()),

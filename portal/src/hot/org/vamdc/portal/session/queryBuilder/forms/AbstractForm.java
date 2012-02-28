@@ -12,6 +12,8 @@ import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 
 public abstract class AbstractForm implements Form{
 	
+
+	private static final long serialVersionUID = -2420596698571830221L;
 	protected List<AbstractField> fields;
 	protected transient QueryData queryData;
 	private final String id;

@@ -8,6 +8,8 @@ import org.vamdc.portal.session.queryBuilder.unitConv.EnergyUnitConverter;
 
 public class AtomsForm extends AbstractForm implements Form {
 
+
+	private static final long serialVersionUID = -795296288400049729L;
 	public String getTitle() { return "Atoms"; }
 	public Integer getOrder() { return Order.Atoms; }
 	public String getView() { return "/xhtml/query/forms/standardForm.xhtml"; }

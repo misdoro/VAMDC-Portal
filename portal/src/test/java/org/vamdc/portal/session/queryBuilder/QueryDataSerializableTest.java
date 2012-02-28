@@ -41,6 +41,9 @@ public class QueryDataSerializableTest {
 		
 		QueryData copy = (QueryData) deSerializeObject(serial);
 		
+		System.out.println("Initial query: "+query);
+		System.out.println("Copy query: "+copy.getQueryString());
+		
 		assertTrue(query.equals(copy.getQueryString()));
 		System.out.println("query was "+query+" and was OK");
 		

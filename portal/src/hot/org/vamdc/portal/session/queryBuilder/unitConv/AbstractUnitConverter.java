@@ -7,6 +7,8 @@ import javax.faces.model.SelectItem;
 
 public abstract class AbstractUnitConverter implements UnitConverter{
 	
+	private static final long serialVersionUID = -7732846155302824698L;
+
 	protected interface Convert{
 	
 		public String getDisplay();
