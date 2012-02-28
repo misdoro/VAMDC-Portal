@@ -42,12 +42,6 @@ public class QueryDataSerializableTest {
 		addAtomsForm("Fe");
 		veryfyCopyQueryEquality();
 	}
-
-	private void addAtomsForm(String element) {
-		Form form = new AtomsForm();
-		form.getFields().iterator().next().setValue(element);
-		queryData.addForm(form);
-	}
 	
 	@Test
 	public void testSerializeMoleculesForm() throws IOException, ClassNotFoundException{
@@ -109,6 +103,12 @@ public class QueryDataSerializableTest {
 		veryfyCopyQueryEquality();	
 	}
 
+	private void addAtomsForm(String element) {
+		Form form = new AtomsForm();
+		form.getFields().iterator().next().setValue(element);
+		queryData.addForm(form);
+	}
+	
 	private CollisionsForm addCollisionsForm() {
 		CollisionsForm form = new CollisionsForm();
 		Iterator<AbstractField> fields = form.getFields().iterator();
