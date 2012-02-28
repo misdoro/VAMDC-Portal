@@ -1,5 +1,6 @@
 package org.vamdc.portal.session.preview;
 
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -28,8 +29,13 @@ import org.vamdc.portal.session.queryBuilder.QueryData;
 import org.vamdc.portal.session.queryBuilder.nodeTree.NodeTree;
 
 @Name("preview")
-@Scope(ScopeType.CONVERSATION)
-public class PreviewManager {
+@Scope(ScopeType.PAGE)
+public class PreviewManager implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2029452631857959114L;
 
 	@Logger
 	Log log;
