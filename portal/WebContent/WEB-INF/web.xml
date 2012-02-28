@@ -64,4 +64,10 @@
 		</web-resource-collection>
 		<auth-constraint />
 	</security-constraint>
+	
+	<session-config>
+    	<!-- HTTP Session timeout, in minutes -->
+    	<session-timeout>60</session-timeout>
+	</session-config>
+	
 </web-app>
