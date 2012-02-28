@@ -22,6 +22,7 @@ public class ParticlesForm extends AbstractForm implements Form{
 	
 	public class ParticleNameSuggest extends SuggestionImpl{
 
+		private static final long serialVersionUID = 8545624978301193585L;
 		@Override
 		protected Collection<String> getValues() {
 			Collection<String> result = new ArrayList<String>(){

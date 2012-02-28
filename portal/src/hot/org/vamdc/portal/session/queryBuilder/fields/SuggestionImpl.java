@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public abstract class SuggestionImpl implements SuggestionField.Suggestion{
+
+	private static final long serialVersionUID = 8835812132003605567L;
 	protected abstract Collection<String> getValues();
 
 	protected Collection<String> values;

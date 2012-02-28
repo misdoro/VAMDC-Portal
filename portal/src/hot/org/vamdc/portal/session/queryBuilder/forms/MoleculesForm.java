@@ -36,6 +36,8 @@ public class MoleculesForm extends AbstractForm implements Form{
 	
 	public class ChemNameSuggestion implements SuggestionField.Suggestion{
 
+		private static final long serialVersionUID = 7286322175153115141L;
+
 		public Collection<String> options(Object input) {
 			String value = (String) input;
 			if (value==null || value.length()==0 || value.trim().length()==0)
@@ -70,6 +72,9 @@ public class MoleculesForm extends AbstractForm implements Form{
 	}
 
 	public class StoichFormSuggestion implements SuggestionField.Suggestion{
+
+
+		private static final long serialVersionUID = -1570905697531370200L;
 
 		public Collection<String> options(Object input) {
 			String value = (String) input;

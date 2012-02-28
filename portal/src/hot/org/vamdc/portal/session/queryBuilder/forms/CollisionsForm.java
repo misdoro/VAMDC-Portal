@@ -45,6 +45,8 @@ public class CollisionsForm extends AbstractForm implements Form{
 	}
 
 	public class XsamsCodeSuggest extends SuggestionImpl{
+
+		private static final long serialVersionUID = 7850044834682292686L;
 		@Override
 		protected Collection<String> getValues() {
 			Collection<String> result = new ArrayList<String>();
@@ -61,6 +63,8 @@ public class CollisionsForm extends AbstractForm implements Form{
 	}
 
 	public class IaeaCodeSuggest extends SuggestionImpl{
+
+		private static final long serialVersionUID = 4808699657011895289L;
 		@Override
 		protected Collection<String> getValues() {
 			Collection<String> result = new ArrayList<String>();
@@ -78,6 +82,8 @@ public class CollisionsForm extends AbstractForm implements Form{
 	}
 		
 	public class ProcessNameSuggest extends SuggestionImpl{
+
+		private static final long serialVersionUID = -3692917437915852791L;
 
 		ProcessNameSuggest() { super(); }
 

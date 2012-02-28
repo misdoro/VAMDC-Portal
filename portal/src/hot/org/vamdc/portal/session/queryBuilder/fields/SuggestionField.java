@@ -1,5 +1,6 @@
 package org.vamdc.portal.session.queryBuilder.fields;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import org.vamdc.dictionary.Restrictable;
@@ -7,7 +8,7 @@ import org.vamdc.dictionary.Restrictable;
 public class SuggestionField extends AbstractField{
 	
 	private static final long serialVersionUID = -5667718305736669698L;
-	public interface Suggestion{
+	public interface Suggestion extends Serializable{
 		public Collection<String> options(Object input);
 		public String getIllegalLabel();
 		public void selected();
