@@ -20,8 +20,8 @@ public class RangeField extends AbstractField{
 	public String getView() { return "/xhtml/query/fields/rangeField.xhtml"; }
 
 	private String prefix="";
-	protected String loValue;
-	protected String hiValue;
+	protected String loValue="";
+	protected String hiValue="";
 
 	public String getHiValue(){	return hiValue; }
 	public String getLoValue(){	return loValue; }
