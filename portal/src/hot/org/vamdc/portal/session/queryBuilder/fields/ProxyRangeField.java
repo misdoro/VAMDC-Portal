@@ -47,11 +47,13 @@ public class ProxyRangeField extends UnitConvRangeField{
 	public int getSelectedField() {	return selectedField; }
 	public void setSelectedField(int selectedField) { this.selectedField = selectedField; }
 
-	public void selectField(ValueChangeEvent event){
-		System.out.println(selectedField);
-		this.fixCompareOrder();
-	}
+	public void selectField(ValueChangeEvent event){}
 
+	@Override
+	public String getConverted(){
+		return this.getTitle()+" "+super.getConverted();
+	}
+	
 	@Override
 	public void setUserHiValue(String userHiValue) {
 		super.setUserHiValue(userHiValue);

@@ -57,6 +57,7 @@
 				<rich:toolTip value="#{node.statusDescription}" styleClass="toolTip"
 					direction="bottom-right"/>
 			</h:outputText>
+			<h:outputText value=" (#{node.truncated}%)" rendered="#{node.status=='TRUNCATED'}"/>
 		</h:column>
 
 		<h:column>
