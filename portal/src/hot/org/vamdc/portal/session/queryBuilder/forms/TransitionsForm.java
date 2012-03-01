@@ -2,9 +2,12 @@ package org.vamdc.portal.session.queryBuilder.forms;
 
 import org.vamdc.dictionary.Restrictable;
 import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
+import org.vamdc.portal.session.queryBuilder.fields.ProxyRangeField;
 import org.vamdc.portal.session.queryBuilder.fields.RangeField;
 import org.vamdc.portal.session.queryBuilder.fields.UnitConvRangeField;
+import org.vamdc.portal.session.queryBuilder.unitConv.CustomConverters;
 import org.vamdc.portal.session.queryBuilder.unitConv.EnergyUnitConverter;
+import org.vamdc.portal.session.queryBuilder.unitConv.FrequencyUnitConverter;
 import org.vamdc.portal.session.queryBuilder.unitConv.WavelengthUnitConverter;
 
 public class TransitionsForm extends AbstractForm implements Form{
@@ -16,7 +19,10 @@ public class TransitionsForm extends AbstractForm implements Form{
 	
 	public TransitionsForm(){
 		super();
-		addField(new UnitConvRangeField(Restrictable.RadTransWavelength,"Wavelength", new WavelengthUnitConverter()));
+		ProxyRangeField wlField = new ProxyRangeField(Restrictable.RadTransWavelength,"Wavelength", new WavelengthUnitConverter());
+		wlField.addProxyField(new UnitConvRangeField(Restrictable.RadTransFrequency,"Frequency",new FrequencyUnitConverter()), CustomConverters.MHzToWn());
+		
+		addField(wlField);
 		AbstractField field = new UnitConvRangeField(Restrictable.StateEnergy, "Upper state energy", new EnergyUnitConverter());
 		field.setPrefix("upper.");
 		addField(field);

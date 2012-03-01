@@ -17,10 +17,12 @@ public abstract class AbstractUnitConverter implements UnitConverter{
 	}
 	
 	protected EnumConverter converter;
+	private final EnumConverter defaultConverter; 
 	
 	protected List<SelectItem> options;
 	public AbstractUnitConverter(EnumConverter converter){
 		this.converter=converter;
+		this.defaultConverter = converter;
 		this.options = new ArrayList<SelectItem>();
 		for (EnumConverter conv:converter.getValues()){
 			options.add(new SelectItem(conv.getDisplay()));
@@ -37,6 +39,8 @@ public abstract class AbstractUnitConverter implements UnitConverter{
 	
 	public void setSelectedOption(String option) {
 		converter=valueOfShort(option);
+		if (converter == null)
+			converter = defaultConverter;
 	}
 	
 	private EnumConverter valueOfShort(String value){

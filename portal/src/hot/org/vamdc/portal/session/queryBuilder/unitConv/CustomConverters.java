@@ -7,6 +7,8 @@ package org.vamdc.portal.session.queryBuilder.unitConv;
  */
 public class CustomConverters {
 	
+	private final static Double C = 2.99792458e5;
+	
 	class DirectConverter implements Converter{
 		public Double convert(Double value) { return value; }
 	}
@@ -22,5 +24,14 @@ public class CustomConverters {
 	}
 	public static RydToWnConverter RydToWn(){ return new CustomConverters().new RydToWnConverter(); }
 	
+	class FreqToWavenumberConverter implements Converter{
+		public Double convert(Double value) {
+			if (value!=null && value!=0)
+				return C*1e7/value;
+			else return Double.NaN;
+		}
+	}
+	
+	public static FreqToWavenumberConverter MHzToWn(){ return new CustomConverters().new FreqToWavenumberConverter(); }
 	
 }

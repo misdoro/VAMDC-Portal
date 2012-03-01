@@ -11,7 +11,7 @@
 	<h:panelGroup>
 		<h:selectOneMenu value="#{field.selectedField}" valueChangeListener="#{field.selectField}">
 			<f:selectItems value="#{field.options}" />
-			<a4j:support event="onchange" reRender="conv#{field.id}"/>
+			<a4j:support event="onchange" reRender="conv#{field.id},units#{field.id}"/>
 		</h:selectOneMenu>
 	</h:panelGroup>
 	<h:panelGroup>
@@ -24,7 +24,7 @@
 			<a4j:support event="onchange" reRender="nodeTree,buttonArea,conv#{field.id}" />
 		</h:inputText>
 	
-		<h:selectOneMenu value="#{field.converter.selectedOption}" valueChangeListener="#{field.update}">
+		<h:selectOneMenu value="#{field.converter.selectedOption}" valueChangeListener="#{field.update}" id="units#{field.id}">
 			<f:selectItems value="#{field.converter.options}" />
 			<a4j:support event="onchange" reRender="conv#{field.id}"/>
 		</h:selectOneMenu>
