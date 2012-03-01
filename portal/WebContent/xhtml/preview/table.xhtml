@@ -53,12 +53,15 @@
 		</h:column>
 
 		<h:column>
-			<h:outputText value="#{node.status}" />
+			<h:outputText value="#{node.status}" id="st#{node.recordID}">
+				<rich:toolTip value="#{node.statusDescription}" styleClass="toolTip"
+					direction="bottom-right"/>
+			</h:outputText>
 		</h:column>
 
 		<h:column>
 			<h:outputLink value="#{node.fullQueryURL}" target="_blank"
-				rendered="#{node.status=='OK'}">
+				rendered="#{node.isOk()}">
 				<h:outputText value="XSAMS" />
 			</h:outputLink>
 		</h:column>

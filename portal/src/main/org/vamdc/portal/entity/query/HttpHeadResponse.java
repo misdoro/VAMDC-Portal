@@ -16,14 +16,24 @@ import javax.persistence.Transient;
 @Entity
 public class HttpHeadResponse implements Serializable{
 
-	private static final long serialVersionUID = 7243615545353337912L;
+	private static final long serialVersionUID = 7243615545353337914L;
 	public enum Response{
-		OK,
-		EMPTY,
-		FAIL,
-		TIMEOUT,
+		OK("Node has data corresponding the query"),
+		TRUNCATED("Query is too unspecific for the node, output will be truncated"),
+		EMPTY("Node has no data corresponding the query"),
+		FAIL("Node failed to respond"),
+		TIMEOUT("It took too long for the node to respond"),
 		;
 
+		private String description;
+		Response(String description){
+			this.description = description;
+		}
+		
+		public String getDescription(){
+			return this.description;
+		}
+		
 	}
 
 	private String ivoaID;
@@ -39,6 +49,7 @@ public class HttpHeadResponse implements Serializable{
 	private int radiative;
 	private int nonRadiative;
 	private int collisions;
+	private int truncated;
 
 
 	public HttpHeadResponse(){
@@ -49,6 +60,8 @@ public class HttpHeadResponse implements Serializable{
 		this.fullQueryURL = connection.getURL().toString();
 		this.status = retrieveStatus(connection);
 		retrieveHeaders(connection);
+		if (truncated>0 && truncated<100)
+			this.status=Response.TRUNCATED;
 	}
 
 
@@ -59,12 +72,30 @@ public class HttpHeadResponse implements Serializable{
 		radiative = getValue(connection,"VAMDC-COUNT-RADIATIVE");
 		nonRadiative = getValue(connection,"VAMDC-COUNT-NONRADIATIVE");
 		processes = collisions+radiative+nonRadiative;
-
+		truncated = getTruncatedValue(connection,"VAMDC-TRUNCATED");
 	}
 
 	private int getValue( HttpURLConnection connection,String headerName){
 		try{
 			return Integer.valueOf(connection.getHeaderField(headerName));
+		}catch (NumberFormatException e){
+			return 0;
+		}
+	}
+	
+	private int getTruncatedValue( HttpURLConnection connection,String headerName ){
+		try{
+			String val = connection.getHeaderField(headerName);
+			if (val==null || val.length()==0)
+				return 0;
+			String[] valPart = val.split("[\\s%]");
+			if (valPart.length==0)
+				return 0;
+			String valStr = valPart[0].trim();
+			Double valDouble = Double.valueOf(valStr);
+			if (valDouble>=0. && valDouble<=1.)
+				valDouble=1.;
+			return valDouble.intValue();
 		}catch (NumberFormatException e){
 			return 0;
 		}
@@ -94,6 +125,8 @@ public class HttpHeadResponse implements Serializable{
 	
 	public Response getStatus() { return status; }
 	public void setStatus(Response status) { this.status = status; }
+	@Transient
+	public String getStatusDescription() {return status.getDescription();}
 
 	public int getSpecies() { return species; }	
 	public int getStates() { return states; }
@@ -101,6 +134,8 @@ public class HttpHeadResponse implements Serializable{
 	public int getRadiative() { return radiative; }
 	public int getNonRadiative() { return nonRadiative; }
 	public int getCollisions() { return collisions; }
+	@Transient
+	public int getTruncated() { return truncated; }
 	
 	public void setSpecies(int species) { this.species = species; }
 	public void setStates(int states) { this.states = states; }
@@ -122,6 +157,6 @@ public class HttpHeadResponse implements Serializable{
 
 	@Transient
 	public boolean isOk(){
-		return this.status==Response.OK;
+		return this.status==Response.OK || this.status == Response.TRUNCATED;
 	}
 }
