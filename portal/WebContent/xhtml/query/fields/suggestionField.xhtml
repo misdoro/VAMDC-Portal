@@ -8,21 +8,23 @@
 	xmlns:a4j="http://richfaces.org/a4j">
 
 
-	<h:outputText value="#{field.title}">
-		<rich:toolTip value="#{field.description}" styleClass="toolTip"
-			direction="bottom-left" rendered="#{field.description.length()>0}" />
-	</h:outputText>
+	<h:panelGroup>
+		<h:outputText value="#{field.title}" id="title#{field.id}">
+			<rich:toolTip value="#{field.description}" styleClass="toolTip"
+				direction="bottom-left" rendered="#{field.description.length()>0}" />
+		</h:outputText>
+	</h:panelGroup>
 	<h:inputText value="#{field.value}" id="field#{field.id}">
 		<rich:suggestionbox for="field#{field.id}"
-		 suggestionAction="#{field.suggestion.options}"
-			var="opt" nothingLabel="#{field.suggestion.illegalLabel}">
+			suggestionAction="#{field.suggestion.options}" var="opt"
+			nothingLabel="#{field.suggestion.illegalLabel}">
 			<h:column>
-				<h:outputText value="#{opt}"/>
+				<h:outputText value="#{opt}" />
 			</h:column>
 			<a4j:support event="onselect" action="#{field.suggestion.selected}"
-				reRender="form#{form.id},nodeTree,buttonArea"/>
+				reRender="form#{form.id},nodeTree,buttonArea" />
 		</rich:suggestionbox>
-		<a4j:support event="onchange" reRender="nodeTree,buttonArea"/>
+		<a4j:support event="onchange" reRender="nodeTree,buttonArea" />
 	</h:inputText>
 
 

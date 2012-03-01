@@ -7,11 +7,12 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j">
 
-
-	<h:outputText value="#{field.title}">
-		<rich:toolTip value="#{field.description}" styleClass="toolTip"
-			direction="bottom-left" rendered="#{field.description.length()>0}" />
-	</h:outputText>
+	<h:panelGroup>
+		<h:outputText value="#{field.title}" id="title#{field.id}">
+			<rich:toolTip value="#{field.description}" styleClass="toolTip"
+				direction="bottom-left" rendered="#{field.description.length()>0}" />
+		</h:outputText>
+	</h:panelGroup>
 	<h:inputText value="#{field.value}">
 		<a4j:support event="onchange" reRender="nodeTree,buttonArea" />
 	</h:inputText>

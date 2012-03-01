@@ -9,9 +9,10 @@
 
 
 	<h:panelGroup>
-		<h:outputText value="#{field.title}" />
-		<rich:toolTip value="#{field.description}" styleClass="toolTip"
-			direction="bottom-left" rendered="#{field.description.length()>0}" />
+		<h:outputText value="#{field.title}" id="title#{field.id}">
+			<rich:toolTip value="#{field.description}" styleClass="toolTip"
+				direction="bottom-left" rendered="#{field.description.length()>0}" />
+		</h:outputText>
 	</h:panelGroup>
 	<h:panelGroup>
 		<rich:spacer width="10" />
