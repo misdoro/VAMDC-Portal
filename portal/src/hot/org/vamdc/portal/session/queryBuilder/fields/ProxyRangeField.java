@@ -59,9 +59,13 @@ public class ProxyRangeField extends UnitConvRangeField{
 			UnitConvRangeField proxied = proxyFields.get(selectedField);
 			Converter conv = fieldConverters.get(selectedField);
 			proxied.setUserHiValue(userHiValue);
-			this.setHiValue(
-					conv.convert(Double.valueOf(proxied.getHiValue())).toString()
-					);
+			try{
+				this.setHiValue(
+						conv.convert(Double.valueOf(proxied.getHiValue())).toString()
+						);
+			}catch (NumberFormatException e){
+				this.setHiValue("");
+			}
 		};
 
 	}
@@ -73,9 +77,13 @@ public class ProxyRangeField extends UnitConvRangeField{
 			UnitConvRangeField proxied = proxyFields.get(selectedField);
 			Converter conv = fieldConverters.get(selectedField);
 			proxied.setUserLoValue(userLoValue);
-			this.setLoValue(
-					conv.convert(Double.valueOf(proxied.getLoValue())).toString()
-					);
+			try{
+				this.setLoValue(
+						conv.convert(Double.valueOf(proxied.getLoValue())).toString()
+						);
+			}catch (NumberFormatException e){
+				this.setLoValue("");
+			}
 		};
 	}
 
@@ -87,7 +95,7 @@ public class ProxyRangeField extends UnitConvRangeField{
 		else
 			super.update(event);
 	}
-	
+
 	@Override
 	public UnitConverter getConverter(){
 		if (selectedField>0)
