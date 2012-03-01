@@ -17,7 +17,7 @@ public class UnitConvRangeField extends RangeField{
 	@Override
 	public String getView() { return "/xhtml/query/fields/unitConvRangeField.xhtml"; }
 
-	private transient UnitConverter converter;
+	private UnitConverter converter;
 	private String userHiValue="";
 	private String userLoValue="";
 	
@@ -40,7 +40,7 @@ public class UnitConvRangeField extends RangeField{
 			return result;
 		try {
 			Double userValue = Double.parseDouble(value);
-			result=converter.getConvertedValue(userValue)+" ";
+			result=converter.convert(userValue)+" ";
 		}catch (NumberFormatException e){}
 		return result;
 	}

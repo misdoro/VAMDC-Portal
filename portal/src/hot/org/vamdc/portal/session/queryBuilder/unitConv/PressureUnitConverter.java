@@ -1,15 +1,12 @@
 package org.vamdc.portal.session.queryBuilder.unitConv;
 
 public class PressureUnitConverter extends AbstractUnitConverter{
-	
-	
-	
 
 	private static final long serialVersionUID = -8696428690669550365L;
 
-	enum PressConvert implements AbstractUnitConverter.Convert{
+	enum PressConvert implements AbstractUnitConverter.EnumConverter{
 		BAR("bar",javax.measure.unit.NonSI.BAR.getConverterTo(javax.measure.unit.SI.PASCAL)),
-		PASCAL("Pa",javax.measure.unit.SI.PASCAL.getConverterTo(javax.measure.unit.SI.PASCAL)),
+		PASCAL("Pa",null),
 		TORR("torr",new TorrToPascalConverter()),
 		;
 		
@@ -35,7 +32,7 @@ public class PressureUnitConverter extends AbstractUnitConverter{
 			return convert.convert(value);
 		}
 
-		public Convert[] getValues() {
+		public EnumConverter[] getValues() {
 			return PressConvert.values();
 		}
 		

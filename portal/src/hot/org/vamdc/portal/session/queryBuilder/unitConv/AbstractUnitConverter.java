@@ -9,20 +9,20 @@ public abstract class AbstractUnitConverter implements UnitConverter{
 	
 	private static final long serialVersionUID = -7732846155302824698L;
 
-	protected interface Convert{
+	protected interface EnumConverter{
 	
 		public String getDisplay();
 		public Double convert(Double value);
-		public Convert[] getValues();
+		public EnumConverter[] getValues();
 	}
 	
-	protected Convert converter;
+	protected EnumConverter converter;
 	
 	protected List<SelectItem> options;
-	public AbstractUnitConverter(Convert converter){
+	public AbstractUnitConverter(EnumConverter converter){
 		this.converter=converter;
 		this.options = new ArrayList<SelectItem>();
-		for (Convert conv:converter.getValues()){
+		for (EnumConverter conv:converter.getValues()){
 			options.add(new SelectItem(conv.getDisplay()));
 		}
 	}
@@ -39,15 +39,15 @@ public abstract class AbstractUnitConverter implements UnitConverter{
 		converter=valueOfShort(option);
 	}
 	
-	private Convert valueOfShort(String value){
-		for (Convert opt:converter.getValues()){
+	private EnumConverter valueOfShort(String value){
+		for (EnumConverter opt:converter.getValues()){
 			if (opt.getDisplay().equals(value))
 					return opt;
 		}
 		return null;
 	}
 
-	public Double getConvertedValue(Double value) {
+	public Double convert (Double value) {
 		if (converter!=null && value!=null)
 			return converter.convert(value);
 		return Double.MIN_NORMAL;

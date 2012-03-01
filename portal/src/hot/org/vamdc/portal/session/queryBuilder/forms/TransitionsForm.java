@@ -5,6 +5,7 @@ import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 import org.vamdc.portal.session.queryBuilder.fields.RangeField;
 import org.vamdc.portal.session.queryBuilder.fields.UnitConvRangeField;
 import org.vamdc.portal.session.queryBuilder.unitConv.EnergyUnitConverter;
+import org.vamdc.portal.session.queryBuilder.unitConv.WavelengthUnitConverter;
 
 public class TransitionsForm extends AbstractForm implements Form{
 
@@ -15,7 +16,7 @@ public class TransitionsForm extends AbstractForm implements Form{
 	
 	public TransitionsForm(){
 		super();
-		addField(new RangeField(Restrictable.RadTransWavelength,"Wavelength"));
+		addField(new UnitConvRangeField(Restrictable.RadTransWavelength,"Wavelength", new WavelengthUnitConverter()));
 		AbstractField field = new UnitConvRangeField(Restrictable.StateEnergy, "Upper state energy", new EnergyUnitConverter());
 		field.setPrefix("upper.");
 		addField(field);

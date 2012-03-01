@@ -1,16 +1,16 @@
 package org.vamdc.portal.session.queryBuilder.unitConv;
 
-
+/**
+ * Custom simple converters, used both in in-field unit conversions and inter-field conversions 
+ *
+ *
+ */
 public class CustomConverters {
-
-	interface Converter{
-		public Double convert(Double value);
-	}
 	
-	class WnToWnConverter implements Converter{
+	class DirectConverter implements Converter{
 		public Double convert(Double value) { return value; }
 	}
-	public static WnToWnConverter WnToWn(){ return new CustomConverters().new WnToWnConverter(); }
+	public static DirectConverter Direct(){ return new CustomConverters().new DirectConverter(); }
 	
 	class EVToWnConverter implements Converter{
 		public Double convert(Double value) { return 8065.54429*value; }
@@ -21,5 +21,6 @@ public class CustomConverters {
 		public Double convert(Double value) { return 109737.31568539*value; }
 	}
 	public static RydToWnConverter RydToWn(){ return new CustomConverters().new RydToWnConverter(); }
+	
 	
 }
