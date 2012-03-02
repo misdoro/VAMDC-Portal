@@ -1,14 +1,18 @@
 package org.vamdc.portal.session.queryBuilder.unitConv;
 
+import java.io.Serializable;
+
 /**
  * Custom simple converters, used both in in-field unit conversions and inter-field conversions 
  *
  *
  */
-public class CustomConverters {
+@SuppressWarnings("serial")
+public class CustomConverters implements Serializable{
 	
 	private final static Double C = 2.99792458e5;
 	
+
 	class DirectConverter implements Converter{
 		public Double convert(Double value) { return value; }
 	}
