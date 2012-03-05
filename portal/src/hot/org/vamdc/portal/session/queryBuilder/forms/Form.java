@@ -6,6 +6,7 @@ import java.util.Collection;
 import org.vamdc.dictionary.Restrictable;
 import org.vamdc.portal.session.queryBuilder.QueryData;
 import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
+import org.vamdc.tapservice.vss2.LogicNode;
 
 /**
  * Interface used to build forms
@@ -20,6 +21,7 @@ public interface Form extends Serializable{
 	
 	public String getQueryPart();
 	public Collection<Restrictable> getKeywords();
+	public Collection<Restrictable> getSupportedKeywords();
 
 	public void setQueryData(QueryData data);
 	
@@ -32,4 +34,6 @@ public interface Form extends Serializable{
 	public void setPrefixIndex(Integer integer);
 	
 	public String getValue();
+	
+	public void loadFromQuery(LogicNode branch);
 }

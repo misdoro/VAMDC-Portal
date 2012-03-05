@@ -1,6 +1,9 @@
 package org.vamdc.portal.session.queryBuilder.fields;
 
 import org.vamdc.dictionary.Restrictable;
+import org.vamdc.tapservice.vss2.LogicNode;
+import org.vamdc.tapservice.vss2.LogicNode.Operator;
+import org.vamdc.tapservice.vss2.RestrictExpression;
 
 public class RangeField extends AbstractField{
 
@@ -10,16 +13,9 @@ public class RangeField extends AbstractField{
 		super(keyword, title);
 	}
 
-	public RangeField(String prefix, Restrictable keyword, String title) {
-		super(keyword,title);
-		if (fieldIsSet(prefix))
-			this.prefix=prefix+".";
-	}
-
 	@Override
 	public String getView() { return "/xhtml/query/fields/rangeField.xhtml"; }
 
-	private String prefix="";
 	protected String loValue="";
 	protected String hiValue="";
 
@@ -33,8 +29,6 @@ public class RangeField extends AbstractField{
 	public void setHiValue(String hiValue){
 		this.hiValue = hiValue;
 	}
-
-	public void setPrefix(String prefix){ this.prefix = prefix; }
 
 	@Override
 	public String getQuery(){
@@ -53,11 +47,12 @@ public class RangeField extends AbstractField{
 	}
 
 	private String getQueryPart(String keyword,String compare, String value){
-		if (fieldIsSet(value))
-			return prefix+keyword+" "+compare+" "+value;
+		if (fieldIsSet(value)){
+			return addPrefix()+keyword+" "+compare+" "+value;
+		}
 		return "";
 	}
-
+	
 	protected void fixCompareOrder(){
 		if (fieldIsSet(hiValue) && fieldIsSet(loValue)){
 			Double lo=Double.NaN;
@@ -86,6 +81,41 @@ public class RangeField extends AbstractField{
 	public void clear(){
 		hiValue="";
 		loValue="";
+	}
+	
+	@Override 
+	public void loadFromQuery(LogicNode part){
+		if (part==null || part.getOperator()== null)
+			return;
+		Operator clause = part.getOperator();
+		switch(clause){
+		case EQUAL_TO:
+			RestrictExpression key = (RestrictExpression) part;
+			this.setHiValue(key.getValue().toString());
+			this.setLoValue(key.getValue().toString());
+			if (key.getPrefix()!=null)
+				this.setPrefix(key.getPrefix().getPrefix().name());
+			break;
+		case OR:
+			return;//Group separation is not done properly, return
+		case AND:
+			for (Object rangeKey:part.getValues()){
+				RestrictExpression rkey = (RestrictExpression) rangeKey;
+				switch (rkey.getOperator()){
+				case GREATER_THAN_EQUAL_TO:
+				case GREATER_THAN:
+					this.setLoValue(rkey.getValue().toString());
+					break;
+				case LESS_THAN_EQUAL_TO:
+				case LESS_THAN:
+					this.setHiValue(rkey.getValue().toString());
+					break;
+				default:
+					return;
+				}
+			}
+			
+		}
 	}
 
 }

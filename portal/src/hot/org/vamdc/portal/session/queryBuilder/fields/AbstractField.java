@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.UUID;
 
 import org.vamdc.dictionary.Restrictable;
+import org.vamdc.tapservice.vss2.LogicNode;
+import org.vamdc.tapservice.vss2.LogicNode.Operator;
+import org.vamdc.tapservice.vss2.RestrictExpression;
 
 /**
  * Base class for the form field
@@ -16,7 +19,7 @@ public abstract class AbstractField implements Serializable{
 	protected Restrictable keyword;
 	private String title;
 	private String id;
-	private String prefix;
+	protected String prefix;
 
 	public AbstractField(Restrictable keyword, String title){
 		this.keyword = keyword;
@@ -39,14 +42,15 @@ public abstract class AbstractField implements Serializable{
 	public void setKeyword(Restrictable keyword) {
 		this.keyword = keyword;
 	}
-
+	
+	
 	public String getQuery(){
 		if (keyword==null || value==null || value.trim().length()==0)
 			return "";
 		String value = this.value.trim();
 
 		StringBuilder result = new StringBuilder();
-		result.append(prefix);
+		result.append(addPrefix());
 		result.append(keyword.name());
 
 		String tryLike = tryLike(value);
@@ -68,8 +72,14 @@ public abstract class AbstractField implements Serializable{
 		return result.toString();
 	}
 
+	String addPrefix(){
+		if (prefix!=null && prefix.length()>0)
+			return prefix+".";
+		return "";
+	}
+	
 	private static String tryLike(String value) {
-		
+
 		if (value.contains("%")|| value.contains("*")){
 			value = value.replace("*", "%");
 			return " LIKE '"+value+"'"; 
@@ -129,6 +139,26 @@ public abstract class AbstractField implements Serializable{
 
 	public void setPrefix(String prefix) {
 		this.prefix = prefix;
+	}
+	
+	public String getPrefix(){
+		return prefix;
+	}
+
+	public void loadFromQuery(LogicNode part){
+		if (part==null || part.getOperator()== null)
+			return;
+		Operator clause = part.getOperator();
+		switch(clause){
+		case EQUAL_TO:
+		case IN:
+		case LIKE:
+			RestrictExpression key = (RestrictExpression) part;
+			this.setValue((String)key.getValue());
+			if (key.getPrefix()!=null && key.getPrefix().getPrefix()!=null)
+				this.setPrefix(key.getPrefix().getPrefix().name());
+			break;	
+		}
 	}
 
 }
