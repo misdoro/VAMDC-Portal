@@ -14,32 +14,41 @@ import org.junit.Test;
 public class QueryLoaderTest {
 
 	private QueryData queryData;
+	private String query;
 	
 	@Before
 	public void construct(){
 		queryData = new QueryData();
+		query="";
 	}
 	
 	@After
 	public void afterTest(){
 		queryData = null;
+		query = null;
 	}
 	
 	@Test
 	public void testLoadTransitionsWavelengthProbability(){
-		String query = "select * where (RadTransWavelength >= 100.0 AND RadTransWavelength <= 500.0 AND RadTransProbabilityA >= 1 AND RadTransProbabilityA <= 2)";
+		query = "select * where (RadTransWavelength >= 100.0 AND RadTransWavelength <= 500.0 AND RadTransProbabilityA >= 1 AND RadTransProbabilityA <= 2)";
 		assertQueryLoadsFine(query);
 	}
 	
 	@Test
 	public void testLoadTransitionsWavelengthSingleProbability(){
-		String query = "select * where (RadTransWavelength >= 100.0 AND RadTransWavelength <= 500.0 AND RadTransProbabilityA = 1)";
+		query = "select * where (RadTransWavelength >= 100.0 AND RadTransWavelength <= 500.0 AND RadTransProbabilityA = 1)";
 		assertQueryLoadsFine(query);
 	}
 
 	@Test
 	public void testFullLoadTransitions(){
-		String query = "select * where (RadTransWavelength >= 100.0 AND RadTransWavelength <= 500.0 AND upper.StateEnergy >= 500.0 AND upper.StateEnergy <= 600.0 AND lower.StateEnergy >= 600.0 AND lower.StateEnergy <= 700.0 AND RadTransProbabilityA >= 1 AND RadTransProbabilityA <= 2)";
+		query = "select * where (RadTransWavelength >= 100.0 AND RadTransWavelength <= 500.0 AND upper.StateEnergy >= 500.0 AND upper.StateEnergy <= 600.0 AND lower.StateEnergy >= 600.0 AND lower.StateEnergy <= 700.0 AND RadTransProbabilityA >= 1 AND RadTransProbabilityA <= 2)";
+		assertQueryLoadsFine(query);
+	}
+	
+	@Test
+	public void testLoadEnvironment(){
+		query = "select * where (Temperature >= 1.0 AND Temperature <= 23.0 AND Pressure >= 10000.0 AND Pressure <= 10100.0)";
 		assertQueryLoadsFine(query);
 	}
 	
