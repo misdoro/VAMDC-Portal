@@ -40,7 +40,7 @@ public class UnitConvRangeField extends RangeField{
 			return result;
 		try {
 			Double userValue = Double.parseDouble(value);
-			result=converter.convert(userValue)+" ";
+			result=""+converter.convert(userValue);
 		}catch (NumberFormatException e){}
 		return result;
 	}
@@ -61,6 +61,20 @@ public class UnitConvRangeField extends RangeField{
 		this.setLoValue(doConv(userLoValue));
 		this.setHiValue(doConv(userHiValue));
 		this.fixCompareOrder();
+	}
+	
+	@Override
+	public void setLoValue(String loValue){
+		super.setLoValue(loValue);
+		if (this.userLoValue.equals(""))
+			this.userLoValue = loValue;
+	}
+	
+	@Override
+	public void setHiValue(String hiValue){
+		super.setHiValue(hiValue);
+		if (this.userHiValue.equals(""))
+			this.userHiValue = hiValue;
 	}
 	
 }
