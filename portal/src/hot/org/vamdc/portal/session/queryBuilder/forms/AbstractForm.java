@@ -118,17 +118,19 @@ public abstract class AbstractForm implements Form{
 		return "";
 	}
 
-	
+
 	public void loadFromQuery(LogicNode branch){
 		for (AbstractField field:fields){
-			LogicNode part = NodeFilter.filterKeywords(branch, EnumSet.of(field.getKeyword()));
-			String prefix = field.getPrefix();
-			if (part!=null && prefix!=null && prefix.length()>0){
-				part = NodeFilter.filterPrefix(part, new Prefix(VSSPrefix.valueOf(prefix.toUpperCase()), 0));
+			if (field.getKeyword()!=null){
+				LogicNode part = NodeFilter.filterKeywords(branch, EnumSet.of(field.getKeyword()));
+				String prefix = field.getPrefix();
+				if (part!=null && prefix!=null && prefix.length()>0){
+					part = NodeFilter.filterPrefix(part, new Prefix(VSSPrefix.valueOf(prefix.toUpperCase()), 0));
+				}
+				if (part!=null)
+					field.loadFromQuery(part);
 			}
-			if (part!=null)
-				field.loadFromQuery(part);
 		}
 	}
-	
+
 }
