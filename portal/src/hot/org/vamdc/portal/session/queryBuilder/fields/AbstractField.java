@@ -155,8 +155,6 @@ public abstract class AbstractField implements Serializable{
 		case LIKE:
 			RestrictExpression key = (RestrictExpression) part;
 			this.setValue((String)key.getValue());
-			if (key.getPrefix()!=null && key.getPrefix().getPrefix()!=null)
-				this.setPrefix(key.getPrefix().getPrefix().name());
 			break;	
 		}
 	}

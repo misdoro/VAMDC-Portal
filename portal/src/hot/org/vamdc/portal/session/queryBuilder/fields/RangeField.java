@@ -110,8 +110,6 @@ public class RangeField extends AbstractField{
 			RestrictExpression key = (RestrictExpression) part;
 			this.setHiValue(key.getValue().toString());
 			this.setLoValue(key.getValue().toString());
-			if (key.getPrefix()!=null)
-				this.setPrefix(key.getPrefix().getPrefix().name());
 			break;
 		case OR:
 			return;//Group separation is not done properly, return
