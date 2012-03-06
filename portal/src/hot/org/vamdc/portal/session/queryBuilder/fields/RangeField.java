@@ -16,18 +16,32 @@ public class RangeField extends AbstractField{
 	@Override
 	public String getView() { return "/xhtml/query/fields/rangeField.xhtml"; }
 
-	protected String loValue="";
 	protected String hiValue="";
+	protected String loValue="";
 
 	public String getHiValue(){	return hiValue; }
 	public String getLoValue(){	return loValue; }
 
-	public void setLoValue(String loValue){
-		this.loValue = loValue;
+	public void setHiValue(String value){
+		if (isValidValue(value)) 
+			this.hiValue = value; 
+	}
+	public void setLoValue(String value){
+		if (isValidValue(value))
+			this.loValue = value;
 	}
 
-	public void setHiValue(String hiValue){
-		this.hiValue = hiValue;
+	private boolean isValidValue(String value) {
+		if (value==null || value.length()==0)
+			return true;
+		try {
+			Double num = Double.valueOf(value);
+			if (num!=null && !num.isNaN())
+				return true;
+		}catch (NumberFormatException e){
+			return false;
+		}
+		return false;
 	}
 
 	@Override
@@ -38,9 +52,12 @@ public class RangeField extends AbstractField{
 			result=getQueryPart(this.keyword.name(),"=",loValue);
 		}else{
 			result=getQueryPart(this.keyword.name(),">=",loValue);
-			if (result.length()>0)
-				result+=" AND ";
-			result+=getQueryPart(this.keyword.name(),"<=",hiValue);
+			String hiPart = getQueryPart(this.keyword.name(),"<=",hiValue);
+			if (hiPart.length()>0){
+				if (result.length()>0)
+					result+=" AND ";
+				result+=hiPart;
+			}
 		}
 		return result;
 
@@ -52,7 +69,7 @@ public class RangeField extends AbstractField{
 		}
 		return "";
 	}
-	
+
 	protected void fixCompareOrder(){
 		if (fieldIsSet(hiValue) && fieldIsSet(loValue)){
 			Double lo=Double.NaN;
@@ -82,7 +99,7 @@ public class RangeField extends AbstractField{
 		hiValue="";
 		loValue="";
 	}
-	
+
 	@Override 
 	public void loadFromQuery(LogicNode part){
 		if (part==null || part.getOperator()== null)
@@ -111,10 +128,10 @@ public class RangeField extends AbstractField{
 					this.setHiValue(rkey.getValue().toString());
 					break;
 				default:
-					return;
+					break;
 				}
 			}
-			
+
 		}
 	}
 
