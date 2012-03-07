@@ -14,6 +14,7 @@ import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 import org.vamdc.tapservice.vss2.LogicNode;
 import org.vamdc.tapservice.vss2.NodeFilter;
 import org.vamdc.tapservice.vss2.Prefix;
+import org.vamdc.tapservice.vss2.RestrictExpression;
 
 public abstract class AbstractForm implements Form{
 
@@ -88,7 +89,7 @@ public abstract class AbstractForm implements Form{
 	public Integer getInsertOrder() { return insertOrder; }
 
 	public void setInsertOrder(Integer insertOrder) { this.insertOrder = insertOrder; }
-	
+
 	public void setPrefix(String prefix){
 		if (prefix==null)
 			prefix="";
@@ -120,17 +121,48 @@ public abstract class AbstractForm implements Form{
 		for (AbstractField field:fields){
 			if (field.getKeyword()!=null){
 				LogicNode part = NodeFilter.filterKeywords(branch, EnumSet.of(field.getKeyword()));
-				String prefix = field.getPrefix();
-				if (part!=null && prefix!=null && prefix.length()>0){
-					part = NodeFilter.filterPrefix(part, new Prefix(VSSPrefix.valueOf(prefix.toUpperCase()), 0));
-				}
+				part = filterByFieldPrefix(field, part);
 				if (part!=null){
 					field.loadFromQuery(part);
 					loadedFieldsCount++;
 				}
 			}
 		}
+		if (loadedFieldsCount>0){
+			String prefix = extractPrefix(branch);
+			if (prefix.length()>0)
+				this.setPrefix(prefix);
+		}
 		return loadedFieldsCount;
+	}
+
+	private LogicNode filterByFieldPrefix(AbstractField field, LogicNode part) {
+		String prefix = field.getPrefix();
+		if (part!=null && prefix!=null && prefix.length()>0){
+			part = NodeFilter.filterPrefix(part, new Prefix(VSSPrefix.valueOf(prefix.toUpperCase()), 0));
+		}
+		return part;
+	}
+
+	private String extractPrefix(LogicNode branch){
+		Prefix pref = findRestrictExpression(branch).getPrefix();
+		if (pref!=null && pref.getPrefix()!=null)
+			return pref.getPrefix().name().toLowerCase();
+		return "";
+	}
+
+	private RestrictExpression findRestrictExpression(LogicNode branch){
+		if (branch instanceof RestrictExpression)
+			return (RestrictExpression)branch;
+		else{
+			Object node = branch.getValue();
+			if (node instanceof RestrictExpression)
+				return (RestrictExpression)node;
+			else 
+				return findRestrictExpression((LogicNode) node);
+
+
+		}
 	}
 
 }

@@ -92,12 +92,21 @@ public class QueryLoaderTest {
 	
 	@Test
 	public void testLoadCollision(){
-		String query = "select * where (CollisionCode = 'inel') AND ((collider.AtomSymbol = 'He')) AND ((target.MoleculeStoichiometricFormula = 'CO'))";
+		String query = "select * where ((collider.AtomSymbol = 'He')) AND ((target.MoleculeStoichiometricFormula = 'CO')) AND (CollisionCode = 'inel')";
 		assertQueryLoadsFine(query);
+	}
+	
+	@Test
+	public void testLoadReaction(){
+		//String query = "select * where (reactant0.AtomSymbol = 'Fe') AND (reactant1.AtomSymbol = 'Ni') AND (reactant2.AtomSymbol = 'Co') AND (CollisionCode = 'inel')";
+		String query = "select * where (reactant0.AtomSymbol = 'Co') AND (reactant1.AtomSymbol = 'Ni') AND (reactant2.AtomSymbol = 'Fe') AND (CollisionCode = 'inel')";
+		assertQueryLoadsFine(query);
+
 	}
 	
 	private void assertQueryLoadsFine(String query) {
 		assertTrue(QueryLoader.loadQuery(queryData, query));
+		System.out.println("---------- Testing queryLoader");
 		System.out.println("original: "+query);
 		System.out.println("rebuilt : "+queryData.getQueryString());
 		assertEquals(query,queryData.getQueryString());
