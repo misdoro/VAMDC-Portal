@@ -64,6 +64,12 @@ public class QueryLoaderTest {
 		assertQueryLoadsFine(query);
 	}
 	
+	@Test
+	public void testLoadSingleAtom(){
+		query = "select * where ((AtomSymbol = 'Po'))";
+		assertQueryLoadsFine(query);
+ 	}
+	
 	/*@Test
 	public void testLoadTwoAtoms(){
 	    String query = "select * where ((AtomSymbol = 'Co') OR (AtomSymbol = 'Fe'))";
@@ -76,7 +82,7 @@ public class QueryLoaderTest {
 		assertTrue(QueryLoader.loadQuery(queryData, query));
 		System.out.println("original: "+query);
 		System.out.println("rebuilt : "+queryData.getQueryString());
-		assertEquals(queryData.getQueryString(),query);
+		assertEquals(query,queryData.getQueryString());
 	}
 	
 	

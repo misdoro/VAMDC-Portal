@@ -119,7 +119,8 @@ public abstract class AbstractForm implements Form{
 	}
 
 
-	public void loadFromQuery(LogicNode branch){
+	public int loadFromQuery(LogicNode branch){
+		int loadedFieldsCount=0;
 		for (AbstractField field:fields){
 			if (field.getKeyword()!=null){
 				LogicNode part = NodeFilter.filterKeywords(branch, EnumSet.of(field.getKeyword()));
@@ -127,10 +128,13 @@ public abstract class AbstractForm implements Form{
 				if (part!=null && prefix!=null && prefix.length()>0){
 					part = NodeFilter.filterPrefix(part, new Prefix(VSSPrefix.valueOf(prefix.toUpperCase()), 0));
 				}
-				if (part!=null)
+				if (part!=null){
 					field.loadFromQuery(part);
+					loadedFieldsCount++;
+				}
 			}
 		}
+		return loadedFieldsCount;
 	}
 
 }

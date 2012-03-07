@@ -35,5 +35,5 @@ public interface Form extends Serializable{
 	
 	public String getValue();
 	
-	public void loadFromQuery(LogicNode branch);
+	public int loadFromQuery(LogicNode branch);
 }
