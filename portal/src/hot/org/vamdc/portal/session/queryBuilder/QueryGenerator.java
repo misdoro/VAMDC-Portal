@@ -16,7 +16,7 @@ public class QueryGenerator {
 
 	public static String getFormsQuery(Collection<Form> forms){
 
-		SortedSet<Form> sorted = new TreeSet<Form>(new FormComparator()); 
+		SortedSet<Form> sorted = new TreeSet<Form>(new Order()); 
 		sorted.addAll(forms);
 
 		String result = "";

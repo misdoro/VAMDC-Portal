@@ -90,6 +90,12 @@ public class QueryLoaderTest {
 
 	}
 	
+	@Test
+	public void testLoadCollision(){
+		String query = "select * where (CollisionCode = 'inel') AND ((collider.AtomSymbol = 'He')) AND ((target.MoleculeStoichiometricFormula = 'CO'))";
+		assertQueryLoadsFine(query);
+	}
+	
 	private void assertQueryLoadsFine(String query) {
 		assertTrue(QueryLoader.loadQuery(queryData, query));
 		System.out.println("original: "+query);
