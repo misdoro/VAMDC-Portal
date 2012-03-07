@@ -109,6 +109,13 @@ public class QueryLoaderTest {
 
 	}
 	
+	@Test
+	public void testLoadReactantProductReaction(){
+		String query = "select * where (reactant0.AtomSymbol = 'Fe') AND (reactant1.AtomSymbol = 'Ni') AND (reactant2.AtomSymbol = 'Co') AND (product0.AtomSymbol = 'Au') AND (product1.AtomSymbol = 'Pt') AND (CollisionCode = 'chem')";
+		assertQueryLoadsFine(query);
+
+	}
+	
 	private void assertQueryLoadsFine(String query) {
 		assertTrue(QueryLoader.loadQuery(queryData, query));
 		System.out.println("---------- Testing queryLoader");
