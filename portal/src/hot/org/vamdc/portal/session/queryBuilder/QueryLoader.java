@@ -18,7 +18,6 @@ import org.vamdc.tapservice.vss2.LogicNode;
 import org.vamdc.tapservice.vss2.NodeFilter;
 import org.vamdc.tapservice.vss2.Prefix;
 import org.vamdc.tapservice.vss2.Query;
-import org.vamdc.tapservice.vss2.RestrictExpression;
 import org.vamdc.tapservice.vss2.impl.QueryImpl;
 
 public class QueryLoader {
@@ -40,9 +39,9 @@ public class QueryLoader {
 
 		Collection<LogicNode> subtrees = getSpeciesFormsSubtrees(qp);
 		for (LogicNode subtree:subtrees){
-			Form resultForm = findBestMatchingForm(subtree);
-			if (resultForm!=null)
-				queryData.addForm(resultForm);
+			Form speciesForm = findBestMatchingForm(subtree);
+			if (speciesForm!=null)
+				queryData.addForm(speciesForm);
 			
 		}
 
@@ -72,31 +71,29 @@ public class QueryLoader {
 		return result;
 	}
 
-	private static Collection<LogicNode> getSpeciesFormsSubtrees(Query qp) {
-		Collection<LogicNode> subtrees = new ArrayList<LogicNode>();
+	private static Collection<LogicNode> getSpeciesFormsSubtrees(Query parsedQuery) {
+		Collection<LogicNode> result = new ArrayList<LogicNode>();
 
-		Collection<Prefix> prefs = qp.getPrefixes();
-
-		Collection<Restrictable> speciesFormsKeywords = getSpeciesFormsKeywords();
-		LogicNode speciesTree = NodeFilter.filterKeywords(qp.getRestrictsTree(), speciesFormsKeywords);
+		LogicNode speciesFilteredTree = NodeFilter.filterKeywords(parsedQuery.getRestrictsTree(), getSpeciesFormsKeywords());
 
 		Collection<VSSPrefix> speciesPrefixes = EnumSet.of(VSSPrefix.COLLIDER,VSSPrefix.TARGET,VSSPrefix.PRODUCT,VSSPrefix.REACTANT);
 
-		for (Prefix pref:prefs){
+		for (Prefix pref:parsedQuery.getPrefixes()){
 			if (speciesPrefixes.contains(pref.getPrefix())){
-				subtrees.add(NodeFilter.filterPrefix(speciesTree, pref));
+				result.add(NodeFilter.filterPrefix(speciesFilteredTree, pref));
 			}
 		}
 
-		LogicNode unprefixed = (NodeFilter.filterPrefix(speciesTree, new Prefix(null,0)));
+		LogicNode unprefixed = (NodeFilter.filterPrefix(speciesFilteredTree, new Prefix(null,0)));
+		
 		if (unprefixed!=null && unprefixed.getOperator().equals(Operator.OR)){
 			for (Object sub :unprefixed.getValues()){
-				subtrees.add((LogicNode) sub);
+				result.add((LogicNode) sub);
 			}
 		}else if (unprefixed!=null){
-			subtrees.add(unprefixed);
+			result.add(unprefixed);
 		}
-		return subtrees;
+		return result;
 	}
 
 	private static Collection<Restrictable> getSpeciesFormsKeywords() {
