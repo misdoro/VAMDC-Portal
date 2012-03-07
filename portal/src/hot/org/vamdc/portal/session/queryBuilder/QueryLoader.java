@@ -8,10 +8,12 @@ import org.vamdc.dictionary.Restrictable;
 import org.vamdc.dictionary.VSSPrefix;
 import org.vamdc.portal.session.queryBuilder.forms.AtomsForm;
 import org.vamdc.portal.session.queryBuilder.forms.CollisionsForm;
+import org.vamdc.portal.session.queryBuilder.forms.CommentsForm;
 import org.vamdc.portal.session.queryBuilder.forms.EnvironmentForm;
 import org.vamdc.portal.session.queryBuilder.forms.Form;
 import org.vamdc.portal.session.queryBuilder.forms.MoleculesForm;
 import org.vamdc.portal.session.queryBuilder.forms.ParticlesForm;
+import org.vamdc.portal.session.queryBuilder.forms.QueryEditForm;
 import org.vamdc.portal.session.queryBuilder.forms.TransitionsForm;
 import org.vamdc.tapservice.vss2.LogicNode;
 import org.vamdc.tapservice.vss2.LogicNode.Operator;
@@ -45,6 +47,14 @@ public class QueryLoader {
 			
 		}
 
+		if (queryData.getComments().length()>0)
+			queryData.addForm(new CommentsForm());
+		
+		if (!queryString.equals(queryData.getQueryString())){
+			QueryEditForm qe = new QueryEditForm();
+			qe.setValue(queryString);
+			queryData.addForm(qe);
+		}
 
 		return true;
 	}
