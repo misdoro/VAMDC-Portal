@@ -98,8 +98,7 @@ public class QueryLoaderTest {
 	
 	@Test
 	public void testLoadReaction(){
-		//String query = "select * where (reactant0.AtomSymbol = 'Fe') AND (reactant1.AtomSymbol = 'Ni') AND (reactant2.AtomSymbol = 'Co') AND (CollisionCode = 'inel')";
-		String query = "select * where (reactant0.AtomSymbol = 'Co') AND (reactant1.AtomSymbol = 'Ni') AND (reactant2.AtomSymbol = 'Fe') AND (CollisionCode = 'inel')";
+		String query = "select * where (reactant0.AtomSymbol = 'Fe') AND (reactant1.AtomSymbol = 'Ni') AND (reactant2.AtomSymbol = 'Co') AND (CollisionCode = 'inel')";
 		assertQueryLoadsFine(query);
 
 	}
