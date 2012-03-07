@@ -70,13 +70,25 @@ public class QueryLoaderTest {
 		assertQueryLoadsFine(query);
  	}
 	
-	/*@Test
+	@Test
 	public void testLoadTwoAtoms(){
-	    String query = "select * where ((AtomSymbol = 'Co') OR (AtomSymbol = 'Fe'))";
-	    
+		query = "select * where ((AtomSymbol = 'U') OR (AtomSymbol = 'Po'))";
+		assertQueryLoadsFine(query);
+	}
+	
+	@Test
+	public void testLoadTwoDetailedAtoms(){
+	    String query = "select * where ((AtomSymbol = 'U' AND IonCharge = 1) OR (AtomSymbol = 'Po' AND IonCharge >= 2 AND IonCharge <= 3))";
 	    assertQueryLoadsFine(query);
 	    
-	}*/
+	}
+	
+	@Test
+	public void testLoadDetailedAtom(){
+		String query = "select * where ((AtomSymbol = 'Po' AND IonCharge >= 2 AND IonCharge <= 3))";
+		assertQueryLoadsFine(query);
+
+	}
 	
 	private void assertQueryLoadsFine(String query) {
 		assertTrue(QueryLoader.loadQuery(queryData, query));

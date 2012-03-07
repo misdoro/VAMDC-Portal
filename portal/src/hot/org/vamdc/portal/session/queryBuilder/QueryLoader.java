@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EnumSet;
 
-import org.mvel2.Operator;
 import org.vamdc.dictionary.Restrictable;
 import org.vamdc.dictionary.VSSPrefix;
 import org.vamdc.portal.session.queryBuilder.forms.AtomsForm;
@@ -15,6 +14,7 @@ import org.vamdc.portal.session.queryBuilder.forms.MoleculesForm;
 import org.vamdc.portal.session.queryBuilder.forms.ParticlesForm;
 import org.vamdc.portal.session.queryBuilder.forms.TransitionsForm;
 import org.vamdc.tapservice.vss2.LogicNode;
+import org.vamdc.tapservice.vss2.LogicNode.Operator;
 import org.vamdc.tapservice.vss2.NodeFilter;
 import org.vamdc.tapservice.vss2.Prefix;
 import org.vamdc.tapservice.vss2.Query;
