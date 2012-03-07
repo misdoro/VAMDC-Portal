@@ -24,6 +24,8 @@ public abstract class AbstractForm implements Form{
 	protected transient QueryData queryData;
 	private final String id;
 	protected String prefix;
+	private Integer insertOrder;
+
 
 	public AbstractForm(){ 
 		this.id=UUID.randomUUID().toString();
@@ -81,10 +83,12 @@ public abstract class AbstractForm implements Form{
 		queryData.deleteForm(this);
 	}
 
-	public String getId(){
-		return this.id;
-	}
+	public String getId(){ return this.id; }
 
+	public Integer getInsertOrder() { return insertOrder; }
+
+	public void setInsertOrder(Integer insertOrder) { this.insertOrder = insertOrder; }
+	
 	public void setPrefix(String prefix){
 		if (prefix==null)
 			prefix="";
@@ -104,9 +108,7 @@ public abstract class AbstractForm implements Form{
 		}
 	}
 
-	public String getPrefix(){
-		return this.prefix;
-	}
+	public String getPrefix(){ return this.prefix; }
 
 	public final String getFullTitle(){
 		if (prefix!=null && prefix.length()>0)

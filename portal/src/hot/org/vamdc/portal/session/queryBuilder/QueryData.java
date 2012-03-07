@@ -40,6 +40,8 @@ public class QueryData implements Serializable{
 	
 	private String comments="";
 	private String editedQueryId;
+	
+	private volatile Integer lastInsertOrder=0;
 
 	public QueryData(){
 		initCollections();
@@ -143,6 +145,7 @@ public class QueryData implements Serializable{
 	
 	private boolean quickAddForm(Form form){
 		if (canAdd(form)){
+			form.setInsertOrder(lastInsertOrder++);
 			forms.add(form);
 			form.setQueryData(this);
 			if (form.getOrder()<Order.SPECIES_LIMIT)

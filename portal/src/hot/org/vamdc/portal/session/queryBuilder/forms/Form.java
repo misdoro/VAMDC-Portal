@@ -24,6 +24,9 @@ public interface Form extends Serializable{
 	public Collection<Restrictable> getSupportedKeywords();
 
 	public void setQueryData(QueryData data);
+	public Integer getInsertOrder();
+	public void setInsertOrder(Integer insertOrder);
+	
 	
 	public void clear();
 	public void delete();

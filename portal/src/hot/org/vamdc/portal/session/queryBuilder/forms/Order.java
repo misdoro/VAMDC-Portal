@@ -20,6 +20,6 @@ public class Order implements Comparator<Form>{
 			return 0;
 		if (o1.getOrder()!=o2.getOrder())
 			return o1.getOrder().compareTo(o2.getOrder());
-		return o1.getId().compareTo(o2.getId());
+		return o2.getInsertOrder().compareTo(o1.getInsertOrder());
 	}
 }
