@@ -128,12 +128,18 @@ public abstract class AbstractForm implements Form{
 				}
 			}
 		}
-		if (loadedFieldsCount>0){
+		
+		loadPrefix(branch, loadedFieldsCount);
+		
+		return loadedFieldsCount;
+	}
+
+	private void loadPrefix(LogicNode branch, int loadedFieldsCount) {
+		if (loadedFieldsCount>0 && this.getOrder() <= Order.SPECIES_LIMIT){
 			String prefix = extractPrefix(branch);
 			if (prefix.length()>0)
 				this.setPrefix(prefix);
 		}
-		return loadedFieldsCount;
 	}
 
 	private LogicNode filterByFieldPrefix(AbstractField field, LogicNode part) {

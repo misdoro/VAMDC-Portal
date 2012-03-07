@@ -53,6 +53,12 @@ public class QueryLoaderTest {
 	}
 	
 	@Test
+	public void testLoadEnergyTransitions(){
+		query = "select * where (upper.StateEnergy = 500.0 AND lower.StateEnergy >= 600.0 AND lower.StateEnergy <= 700.0 AND RadTransProbabilityA >= 1 AND RadTransProbabilityA <= 2)";
+		assertQueryLoadsFine(query);
+	}
+	
+	@Test
 	public void testLoadEnvironment(){
 		query = "select * where (Temperature >= 1.0 AND Temperature <= 23.0 AND Pressure >= 10000.0 AND Pressure <= 10100.0)";
 		assertQueryLoadsFine(query);
