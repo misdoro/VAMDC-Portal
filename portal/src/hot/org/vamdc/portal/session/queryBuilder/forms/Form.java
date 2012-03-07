@@ -13,7 +13,6 @@ import org.vamdc.tapservice.vss2.LogicNode;
  * @author doronin
  */
 public interface Form extends Serializable{
-	public String getFullTitle();
 	public String getTitle();
 	public String getView();
 	public String getId();

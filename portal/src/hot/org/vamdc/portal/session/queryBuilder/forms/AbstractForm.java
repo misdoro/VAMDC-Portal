@@ -110,12 +110,6 @@ public abstract class AbstractForm implements Form{
 
 	public String getPrefix(){ return this.prefix; }
 
-	public final String getFullTitle(){
-		if (prefix!=null && prefix.length()>0)
-			return getTitle()+" ("+prefix+")";
-		return getTitle();
-	}
-
 	public String getValue(){
 		return "";
 	}

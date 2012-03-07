@@ -9,7 +9,8 @@
 	<f:facet name="header">
 		<rich:toolBar itemSeparator="none" style="border: none;">
 			<rich:toolBarGroup>
-				<h:outputText value="#{form.fullTitle}" />
+				<h:outputText value="#{form.title}" />
+				<h:outputText value=" (#{form.prefix}) " rendered="#{form.prefix.length()>0}" />
 			</rich:toolBarGroup>
 			<rich:toolBarGroup location="right">
 				<a4j:commandLink ajaxSingle="true" reRender="form#{form.id},nodeTree,buttonArea"
