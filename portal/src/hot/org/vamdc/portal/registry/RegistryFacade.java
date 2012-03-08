@@ -116,10 +116,10 @@ public class RegistryFacade {
 	public URL getConsumerService(String ivoaID){
 		URL result = null;
 		net.ivoa.xml.voresource.v1.Service consumer = (net.ivoa.xml.voresource.v1.Service) getResource(ivoaID);
-		if (consumer==null)
+		if (ivoaID==null || ivoaID.length()==0 || consumer==null)
 			return null;
 		for (Capability cap:consumer.getCapability()){
-			if (cap.getStandardID().equalsIgnoreCase(
+			if (cap!= null && cap.getStandardID()!=null && cap.getStandardID().equalsIgnoreCase(
 					Registry.Service.CONSUMER.getStandardID())){
 				for (Interface interf:cap.getInterface()){
 					if (interf instanceof net.ivoa.xml.vodataservice.v1.ParamHTTP){
