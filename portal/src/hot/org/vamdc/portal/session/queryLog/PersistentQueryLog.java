@@ -1,6 +1,7 @@
 package org.vamdc.portal.session.queryLog;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -43,6 +44,7 @@ public class PersistentQueryLog {
 	}
 
 	public void save(Query query) {
+		deleteStaleResponses(query.getQueryID());
 		entityManager.persist(query);
 		for (HttpHeadResponse response:query.getResponses()){
 			response.setQuery(query);
@@ -50,6 +52,14 @@ public class PersistentQueryLog {
 		}
 	}
 
+	private void deleteStaleResponses(Integer queryID){
+		User user = auth.getUser();
+		if (user!=null&& queryID!=null){
+			entityManager.createQuery("delete from HttpHeadResponse where queryID = :queryID")
+					.setParameter("queryID", queryID).executeUpdate();
+		}
+	}
+	
 	public void delete(Integer queryID) {
 		User user = auth.getUser();
 		
