@@ -74,21 +74,21 @@
 						</rich:column>
 
 						<rich:column>
-							<h:selectBooleanCheckbox value="#{consumers.queries[response.fullQueryURL]}" id="process#{response.id}" >
+							<h:selectBooleanCheckbox value="#{consumers.queries[response.fullQueryURL]}" id="process#{response.id}" rendered="#{response.id.length()>0}">
 								<rich:toolTip value="Select for processing" styleClass="toolTip"
 									direction="bottom-right"/>
 							</h:selectBooleanCheckbox>
 							<h:outputText
-								value="#{registryFacade.getResourceTitle(response.node)}" />
+								value="#{registryFacade.getResourceTitle(response.nodeIVOAId)}" />
 
 						</rich:column>
 
 						<rich:column>
-							<h:outputText value="#{response.stats}" />
+							<h:outputText value="#{response.statsString}" />
 						</rich:column>
 
 						<rich:column>
-							<h:outputLink value="#{response.fullQueryURL}">
+							<h:outputLink value="#{response.fullQueryURL}" rendered="#{response.fullQueryURL.length()>0}" >
 								<h:outputText value="XSAMS" />
 							</h:outputLink>
 						</rich:column>

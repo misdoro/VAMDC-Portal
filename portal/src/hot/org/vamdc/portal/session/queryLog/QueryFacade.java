@@ -26,11 +26,13 @@ public class QueryFacade {
 		return query.getComments();
 	}
 	
-	public  List<ResponseFacade> getResponses(){
-		List<ResponseFacade> respondedNodes = new ArrayList<ResponseFacade>();
+	public  List<ResponseInterface> getResponses(){
+		List<ResponseInterface> respondedNodes = new ArrayList<ResponseInterface>();
 		for (HttpHeadResponse node:query.getResponses()){	
 			respondedNodes.add(new ResponseFacade(node));
 		}
+		if (respondedNodes.size()==0)
+			respondedNodes.add(new EmptyResponse());
 		return respondedNodes;
 	}
 	

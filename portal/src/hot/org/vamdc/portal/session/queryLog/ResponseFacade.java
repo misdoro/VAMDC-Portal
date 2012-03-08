@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import org.vamdc.portal.entity.query.HttpHeadResponse;
 
-public class ResponseFacade {
+public class ResponseFacade implements ResponseInterface {
 	private HttpHeadResponse response;
 	
 	public ResponseFacade (HttpHeadResponse node){
@@ -13,11 +13,11 @@ public class ResponseFacade {
 			throw new IllegalArgumentException("Response is null!");
 	}
 
-	public String getNode(){
+	public String getNodeIVOAId(){
 		return response.getIvoaID();
 	}
 	
-	public String getStats(){
+	public String getStatsString(){
 		if (response!=null)
 			return "Sp: "+response.getSpecies()+" -st:"+response.getStates()+" - Pr:"+response.getProcesses();
 		return "?";
@@ -35,7 +35,7 @@ public class ResponseFacade {
 		
 		if (result==null || result.length()==0)
 			result = UUID.randomUUID().toString();
-		return "";
+		return result;
 	}
 	
 }
