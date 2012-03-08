@@ -20,7 +20,6 @@ import org.vamdc.dictionary.Restrictable;
 import org.vamdc.registry.client.Registry;
 import org.vamdc.registry.client.RegistryCommunicationException;
 import org.vamdc.registry.client.Registry.Service;
-import org.vamdc.xml.xsams_consumer.v1.XsamsConsumerRestriction;
 
 
 @Name("registryFacade")
@@ -116,8 +115,9 @@ public class RegistryFacade {
 	
 	public URL getConsumerService(String ivoaID){
 		URL result = null;
-		
 		net.ivoa.xml.voresource.v1.Service consumer = (net.ivoa.xml.voresource.v1.Service) getResource(ivoaID);
+		if (consumer==null)
+			return null;
 		for (Capability cap:consumer.getCapability()){
 			if (cap.getStandardID().equalsIgnoreCase(
 					Registry.Service.CONSUMER.getStandardID())){
