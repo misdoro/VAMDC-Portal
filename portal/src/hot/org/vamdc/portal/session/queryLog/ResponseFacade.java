@@ -29,7 +29,7 @@ public class ResponseFacade implements ResponseInterface {
 	
 	public String getId(){
 		String result=null;
-		if (response!=null){
+		if (response!=null && response.getRecordID()!=null){
 			result = response.getRecordID().toString();
 		}
 		
