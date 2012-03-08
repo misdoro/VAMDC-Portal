@@ -9,34 +9,46 @@
 	xmlns:a4j="http://richfaces.org/a4j">
 
 
-	<rich:panel id="consumers">
+	<rich:panel id="consumers" styleClass="consumerPanel">
 		<f:facet name="header">
 			<h:outputText value="XSAMS processors" />
 		</f:facet>
+		<h:panelGrid columns="2">
+			<rich:panel bodyClass="scrollPanel consumersList">
+				<h:selectOneRadio value="#{consumers.selectedConsumer}"
+					layout="pageDirection">
+					<f:selectItems value="#{consumers.consumers}" />
+					<a4j:support event="onclick" reRender="consumerInfo"></a4j:support>
+				</h:selectOneRadio>
+			</rich:panel>
 
-		<h:selectOneRadio value="#{consumers.selectedConsumer}">
-			<f:selectItems value="#{consumers.consumers}" />
-		</h:selectOneRadio>
-		<a4j:commandButton value="submit" action="#{consumers.process}" 
-			disabled="#{consumers.processing}"
-			reRender="consumers"/>
+			<h:panelGrid columns="1" id="consumerLocation">
 
-		<h:panelGroup id="consumerLocation">
-			<a4j:region>
-					<a4j:poll id="consumerPoll" interval="1000"
-						enabled="#{consumers.processing}"
-						reRender="consumers" />
-			</a4j:region>
-			<h:graphicImage value="/img/waitingIcon.gif" width="16" height="16" rendered="#{consumers.processing}" />
-			<h:graphicImage value="/img/error.gif" id="consumerErrorImg" rendered="#{consumers.errorHappened}">
-				<rich:toolTip value="#{consumers.error}" styleClass="toolTip"
-					direction="top-left" id="consumerErrorText"/>
-			</h:graphicImage>
-			<h:outputLink value="#{consumers.location}" target="_blank"
-				rendered="#{consumers.ok}">
-				<h:outputText value="Result" />
-			</h:outputLink>
-		</h:panelGroup>
+				<h:panelGroup>
+					<a4j:commandButton value="Process" action="#{consumers.process}"
+						disabled="#{consumers.processing}" reRender="consumers" />
+					<a4j:region>
+						<a4j:poll id="consumerPoll" interval="1000"
+							enabled="#{consumers.processing}" reRender="consumers" />
+					</a4j:region>
+					<h:graphicImage value="/img/waitingIcon.gif" width="16" height="16"
+						rendered="#{consumers.processing}" />
+					<h:graphicImage value="/img/error.gif" id="consumerErrorImg"
+						rendered="#{consumers.errorHappened}">
+						<rich:toolTip value="#{consumers.error}" styleClass="toolTip"
+							direction="top-left" id="consumerErrorText" />
+					</h:graphicImage>
+					<h:outputLink value="#{consumers.location}" target="_blank"
+						rendered="#{consumers.ok}">
+						<h:outputText value="Result" />
+					</h:outputLink>
+				</h:panelGroup>
+				<rich:panel id="consumerInfo" styleClass="consumerDescription">
+					<h:outputText
+						value="#{registryFacade.getResourceDescription(consumers.selectedConsumer)}" />
+				</rich:panel>
+			</h:panelGrid>
+		</h:panelGrid>
 	</rich:panel>
 
 

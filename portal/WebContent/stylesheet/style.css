@@ -38,7 +38,28 @@
     font-size: 11px;
     font-weight: bold;
     text-align: center;
-    margin-bottom: 2px;
+    margin-bottom: 2px;	
+}
 
-	
+.rich-panel-body{
+	padding: 3px;
+}
+
+.consumerPanel{
+	width: 400px;
+	height: 175px;
+}
+
+.consumerDescription{
+	width: 200px;
+	height: 115px;
+}
+
+.scrollPanel{
+	overflow-y: auto;
+}
+
+.consumersList{
+	height: 135px;
+	width: 100%;
 }
