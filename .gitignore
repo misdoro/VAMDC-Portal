@@ -1,8 +1,5 @@
 .*
-build/*
-target/*
-portal/target/*
-portal/build/*
-portal-test/bin/*
+*/build/*
+*/target/*
 !.gitignore
 *.class

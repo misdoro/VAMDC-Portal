@@ -1,0 +1,64 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.vamdc</groupId>
+	<artifactId>portal</artifactId>
+	<version>3.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>portal - parent</name>
+	<description>VAMDC Portal (r)evolution - root project</description>
+	
+	<parent>
+		<groupId>org.jboss.seam</groupId>
+		<artifactId>root</artifactId>
+		<version>2.2.2.Final</version>
+	</parent>
+	
+	<modules>
+		<module>portal.ear</module>
+		<module>portal.war</module>
+		<module>portal.ejb</module>
+	</modules>
+	
+	<properties>
+		<junit.version>4.10</junit.version>
+		<persistence-api.version>1.0</persistence-api.version>
+		<hibernate-commons-annotations.version>3.3.0.ga</hibernate-commons-annotations.version>
+		<richfaces.version>3.3.3.Final</richfaces.version>
+		<servlet.version>2.5</servlet.version>
+	</properties>
+		
+	<repositories>
+		<repository>
+			<id>jboss-public-repository-group</id>
+			<name>JBoss Public Maven Repository Group</name>
+			<url>http://repository.jboss.org/nexus/content/groups/public</url>
+		</repository>
+		<repository>
+			<id>vamdc repository</id>
+			<name>VAMDC stuff for Maven</name>
+			<url>http://vamdc.doronin.org/maven/</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<argLine>-Dsun.lang.ClassLoader.allowArraySyntax=true</argLine>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+</project>
