@@ -26,6 +26,9 @@
 		<hibernate-commons-annotations.version>3.3.0.ga</hibernate-commons-annotations.version>
 		<richfaces.version>3.3.3.Final</richfaces.version>
 		<servlet.version>2.5</servlet.version>
+		<registry-client.version>11.12-SNAPSHOT</registry-client.version>
+		<query-parser.version>2.0-r2-SNAPSHOT</query-parser.version>
+		<drools.version>5.0.1</drools.version>
 	</properties>
 		
 	<repositories>
@@ -57,6 +60,10 @@
 				<configuration>
 					<argLine>-Dsun.lang.ClassLoader.allowArraySyntax=true</argLine>
 				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.5</version>		
 			</plugin>
 		</plugins>
 	</build>

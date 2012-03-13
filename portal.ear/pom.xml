@@ -8,10 +8,9 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	
-	<groupId>org.vamdc</groupId>
 	<artifactId>portal.ear</artifactId>
 	<packaging>ear</packaging>
-	<version>3.0.0-SNAPSHOT</version>
+	
 	<dependencies>
 		<dependency>
 			<groupId>${groupId}</groupId>
@@ -34,17 +33,42 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 			<groupId>org.jboss.el</groupId>
 			<artifactId>jboss-el</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.drools</groupId>
+			<artifactId>drools-compiler</artifactId>
+			<version>${drools.version}</version>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>org.drools</groupId>
+			<artifactId>drools-api</artifactId>
+			<version>${drools.version}</version>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>org.drools</groupId>
+			<artifactId>drools-core</artifactId>
+			<version>${drools.version}</version>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>org.mvel</groupId>
+			<artifactId>mvel2</artifactId>
+			<version>2.0.10</version>
+			<type>ejb</type>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
 			<plugin>
 				<artifactId>maven-ear-plugin</artifactId>
+				<version>2.7</version>
 				<configuration>
 					<displayName>VAMDC Portal</displayName>
 					<description>EAR package of the VAMDC portal</description>
 					<earName>portal</earName>
 					<jboss>
-						<version>4</version>
+						<version>5</version>
 					</jboss>
 					<version>5</version>
 					<modules>
@@ -73,4 +97,9 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 			</plugin>
 		</plugins>
 	</build>
+	<dependencyManagement>
+		<dependencies>
+			
+		</dependencies>
+	</dependencyManagement>
 </project>
