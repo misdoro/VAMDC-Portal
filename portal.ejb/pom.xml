@@ -79,19 +79,19 @@
 			<groupId>org.vamdc.tapservice</groupId>
 			<artifactId>VSSParser</artifactId>
 			<version>${query-parser.version}</version>
-			<type>ejb</type>
+			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>org.vamdc</groupId>
 			<artifactId>Dictionaries</artifactId>
 			<version>11.12-SNAPSHOT</version>
-			<type>ejb</type>
+			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>org.vamdc</groupId>
 			<artifactId>registry-client-light</artifactId>
 			<version>${registry-client.version}</version>
-			<type>ejb</type>
+			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -113,13 +113,11 @@
 			<groupId>org.richfaces.ui</groupId>
 			<artifactId>richfaces-ui</artifactId>
 			<version>${richfaces.version}</version>
-			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>org.richfaces.framework</groupId>
 			<artifactId>richfaces-api</artifactId>
 			<version>${richfaces.version}</version>
-			<type>ejb</type>
 			<exclusions>
 				<exclusion>
 					<artifactId>commons-logging</artifactId>
@@ -139,7 +137,6 @@
 			<groupId>org.richfaces.framework</groupId>
 			<artifactId>richfaces-impl</artifactId>
 			<version>${richfaces.version}</version>
-			<type>ejb</type>
 			<exclusions>
 				<exclusion>
 					<artifactId>commons-logging</artifactId>
@@ -168,36 +165,6 @@
 			<artifactId>servlet-api</artifactId>
 			<version>${servlet.version}</version>
 			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>net.ivoa</groupId>
-			<artifactId>mappings</artifactId>
-			<version>11.12-SNAPSHOT</version>
-			<type>ejb</type>
-		</dependency>
-		<dependency>
-			<groupId>org.jvnet.jaxb2_commons</groupId>
-			<artifactId>jaxb2-basics-runtime</artifactId>
-			<version>0.5.3</version>
-			<type>ejb</type>
-		</dependency>
-		<dependency>
-			<groupId>commons-digester</groupId>
-			<artifactId>commons-digester</artifactId>
-			<version>1.8.1</version>
-			<type>ejb</type>
-		</dependency>
-		<dependency>
-			<groupId>org.antlr</groupId>
-			<artifactId>antlr-runtime</artifactId>
-			<version>3.2</version>
-			<type>ejb</type>
-		</dependency>
-		<dependency>
-			<groupId>org.antlr</groupId>
-			<artifactId>stringtemplate</artifactId>
-			<version>3.2</version>
-			<type>ejb</type>
 		</dependency>
 	</dependencies>
 	<build>

@@ -21,6 +21,7 @@
 	</modules>
 	
 	<properties>
+		<context>portal</context>
 		<junit.version>4.10</junit.version>
 		<persistence-api.version>1.0</persistence-api.version>
 		<hibernate-commons-annotations.version>3.3.0.ga</hibernate-commons-annotations.version>
