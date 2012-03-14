@@ -1,7 +1,5 @@
 package org.vamdc.portal.session.queryBuilder.nodeTree;
 
-import java.util.ArrayList;
-import java.util.Collection;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
@@ -9,7 +7,6 @@ import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.richfaces.model.TreeNode;
 import org.richfaces.model.TreeNodeImpl;
-import org.vamdc.dictionary.Restrictable;
 import org.vamdc.portal.registry.RegistryFacade;
 import org.vamdc.portal.session.queryBuilder.QueryData;
 
@@ -46,16 +43,6 @@ public class NodeTree{
 
 	}
 
-	public Collection<String> getActiveNodes(){
-		Collection<String> result = new ArrayList<String>();
 
-		Collection<Restrictable> keywords = queryData.getKeywords();
-		for (String ivoaID:registryFacade.getTapIvoaIDs()){
-			if (keywords.size()>0 && registryFacade.getRestrictables(ivoaID).containsAll(keywords))
-				result.add(ivoaID);
-		}
-		
-		return result;
-	}
 
 }

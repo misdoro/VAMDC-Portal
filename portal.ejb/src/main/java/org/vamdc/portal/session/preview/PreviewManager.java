@@ -21,12 +21,12 @@ import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.log.Log;
+import org.vamdc.dictionary.Restrictable;
 import org.vamdc.portal.RedirectPage;
 import org.vamdc.portal.Settings;
 import org.vamdc.portal.entity.query.HttpHeadResponse;
 import org.vamdc.portal.registry.RegistryFacade;
 import org.vamdc.portal.session.queryBuilder.QueryData;
-import org.vamdc.portal.session.queryBuilder.nodeTree.NodeTree;
 
 @Name("preview")
 @Scope(ScopeType.PAGE)
@@ -38,7 +38,6 @@ public class PreviewManager implements Serializable{
 	@Logger
 	Log log;
 
-	@In(create=true) NodeTree nodeTree;
 	@In QueryData queryData;
 
 	@In(create=true) RegistryFacade registryFacade;
@@ -50,7 +49,7 @@ public class PreviewManager implements Serializable{
 		if (nodeFutureResponses.size()>0)
 			return;
 
-		Collection<String> activeNodes = nodeTree.getActiveNodes();
+		Collection<String> activeNodes = getActiveNodes();
 
 		if (activeNodes.size()==0)
 			return;
@@ -68,7 +67,17 @@ public class PreviewManager implements Serializable{
 		startTime = new Date().getTime();
 	}
 
+	public Collection<String> getActiveNodes(){
+		Collection<String> result = new ArrayList<String>();
 
+		Collection<Restrictable> keywords = queryData.getKeywords();
+		for (String ivoaID:registryFacade.getTapIvoaIDs()){
+			if (keywords.size()>0 && registryFacade.getRestrictables(ivoaID).containsAll(keywords))
+				result.add(ivoaID);
+		}
+		
+		return result;
+	}
 
 	private URL getQuery(String ivoaID) {
 		String query = queryData.getQueryString();
