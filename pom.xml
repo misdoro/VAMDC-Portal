@@ -30,6 +30,8 @@
 		<registry-client.version>11.12-SNAPSHOT</registry-client.version>
 		<query-parser.version>2.0-r2-SNAPSHOT</query-parser.version>
 		<drools.version>5.0.1</drools.version>
+		
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 		
 	<repositories>

@@ -123,15 +123,8 @@
 				<configuration>
 					<ejbVersion>3.0</ejbVersion>
 				</configuration>
+				<version>2.3</version>
 			</plugin>
 		</plugins>
 	</build>
-
-	<dependencyManagement>
-		<dependencies>
-
-
-		
-		</dependencies>
-	</dependencyManagement>
 </project>
