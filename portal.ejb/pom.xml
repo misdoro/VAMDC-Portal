@@ -144,6 +144,10 @@
 							<token>portalDatasource</token>
 							<value>${context}Datasource</value>
 						</replacement>
+						<replacement>
+							<token>portalEntityManagerFactory</token>
+							<value>${context}EntityManagerFactory</value>
+						</replacement>
 					</replacements>
 				</configuration>
 			</plugin>
