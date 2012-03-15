@@ -44,12 +44,13 @@ public enum Settings {
 		String specificValue="";
 		String path = ServletLifecycle.getServletContext().getContextPath();
 		if (path!=null && path.length()>1){
-			path=path.substring(1);
-			specificValue = System.getProperty(path+"."+this.key);
+			path=path.substring(1)+"."+this.key;
+			specificValue = System.getProperty(path);
 		}
 		
-		if (specificValue!=null && specificValue.length()>0)
+		if (specificValue!=null && specificValue.length()>0){
 			this.value = specificValue;
+		}
 		else
 			this.value = System.getProperty(this.key, this.defValue);
 		return this.value;
