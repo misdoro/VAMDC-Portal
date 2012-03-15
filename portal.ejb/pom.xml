@@ -125,6 +125,29 @@
 				</configuration>
 				<version>2.3</version>
 			</plugin>
+			<plugin>
+				<groupId>com.google.code.maven-replacer-plugin</groupId>
+				<artifactId>replacer</artifactId>
+				<version>1.5.0</version>
+				<executions>
+					<execution>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>replace</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<file>target/classes/META-INF/persistence.xml</file>
+					<replacements>
+						<replacement>
+							<token>portalDatasource</token>
+							<value>${context}Datasource</value>
+						</replacement>
+					</replacements>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 </project>

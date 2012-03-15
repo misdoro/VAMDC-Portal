@@ -59,7 +59,7 @@
 				<configuration>
 					<displayName>VAMDC Portal</displayName>
 					<description>EAR package of the VAMDC portal</description>
-					<earName>portal</earName>
+					<earName>${context}</earName>
 					<defaultJavaBundleDir>lib</defaultJavaBundleDir>
 					<jboss>
 						<version>5</version>
@@ -70,7 +70,7 @@
 						<webModule>
 							<groupId>${project.groupId}</groupId>
 							<artifactId>portal.war</artifactId>
-							<contextRoot>/portal</contextRoot>
+							<contextRoot>/${context}</contextRoot>
 							<bundleFileName>portal-${project.version}.war</bundleFileName>
 						</webModule>
 						<ejbModule>
@@ -92,9 +92,4 @@
 			</plugin>
 		</plugins>
 	</build>
-	<dependencyManagement>
-		<dependencies>
-
-		</dependencies>
-	</dependencyManagement>
 </project>
