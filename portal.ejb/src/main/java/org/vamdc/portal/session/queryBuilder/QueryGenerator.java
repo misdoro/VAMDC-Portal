@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.vamdc.dictionary.Requestable;
 import org.vamdc.portal.session.queryBuilder.forms.Form;
 import org.vamdc.portal.session.queryBuilder.forms.Order;
 
@@ -80,5 +81,18 @@ public class QueryGenerator {
 				result=queryPart;
 		}
 		return result;
+	}
+	
+	public static String getRequestPart(Collection<Requestable> keywords){
+		
+		if (keywords.isEmpty())
+			return "*";
+		else{
+			String result = "";
+			for (Requestable key:keywords){
+				result+=key.name()+",";
+			}
+			return result.substring(0,result.length()-1);
+		}
 	}
 }

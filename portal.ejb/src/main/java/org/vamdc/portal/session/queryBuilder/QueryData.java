@@ -17,6 +17,7 @@ import org.jboss.seam.Component;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
+import org.vamdc.dictionary.Requestable;
 import org.vamdc.dictionary.Restrictable;
 import org.vamdc.portal.session.queryBuilder.forms.Form;
 import org.vamdc.portal.session.queryBuilder.forms.Order;
@@ -37,6 +38,8 @@ public class QueryData implements Serializable{
 	//Species-related forms
 	private transient Collection<Form> speciesForms;
 	private transient Form queryEditForm=null;
+	
+	private Collection<Requestable> request;
 	
 	private String comments="";
 	private String editedQueryId;
@@ -196,6 +199,14 @@ public class QueryData implements Serializable{
 			quickAddForm((Form) s.readObject());
 		}
 		rebuildLists();
+	}
+
+	public Collection<Requestable> getRequest() {
+		return request;
+	}
+
+	public void setRequest(Collection<Requestable> request) {
+		this.request = request;
 	}
 	
 }
