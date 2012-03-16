@@ -18,6 +18,7 @@ import org.vamdc.portal.session.queryBuilder.fields.RangeField;
 import org.vamdc.portal.session.queryBuilder.forms.AtomsForm;
 import org.vamdc.portal.session.queryBuilder.forms.CollisionsForm;
 import org.vamdc.portal.session.queryBuilder.forms.CollisionsForm.SpeciesFacade;
+import org.vamdc.portal.session.queryBuilder.forms.EnvironmentForm;
 import org.vamdc.portal.session.queryBuilder.forms.Form;
 import org.vamdc.portal.session.queryBuilder.forms.MoleculesForm;
 import org.vamdc.portal.session.queryBuilder.forms.ParticlesForm;
@@ -40,7 +41,7 @@ public class QueryDataSerializableTest {
 	@Test
 	public void testSerializeAtomsForm() throws IOException, ClassNotFoundException{
 		addAtomsForm("Fe");
-		veryfyCopyQueryEquality();
+		verifyCopyQueryEquality();
 	}
 	
 	@Test
@@ -49,7 +50,7 @@ public class QueryDataSerializableTest {
 		form.getFields().iterator().next().setValue("Carbon monoxide");
 		queryData.addForm(form);
 		
-		veryfyCopyQueryEquality();
+		verifyCopyQueryEquality();
 		
 	}
 	
@@ -59,14 +60,14 @@ public class QueryDataSerializableTest {
 		form.getFields().iterator().next().setValue("electron");
 		queryData.addForm(form);
 		
-		veryfyCopyQueryEquality();	
+		verifyCopyQueryEquality();	
 	}
 	
 	@Test
 	public void testSerializeTransitionForm() throws IOException, ClassNotFoundException{
 		addTransitionsForm();
 		
-		veryfyCopyQueryEquality();	
+		verifyCopyQueryEquality();	
 	}
 	
 	@Test
@@ -77,14 +78,14 @@ public class QueryDataSerializableTest {
 		addAtomsForm("Co");
 		addAtomsForm("Ni");
 		
-		veryfyCopyQueryEquality();
+		verifyCopyQueryEquality();
 	}
 	
 	@Test
 	public void testSerializeCollisionsForm() throws IOException, ClassNotFoundException{
 		addCollisionsForm();
 
-		veryfyCopyQueryEquality();	
+		verifyCopyQueryEquality();	
 	}
 	
 	@Test
@@ -100,7 +101,13 @@ public class QueryDataSerializableTest {
 			face.setRole("reactant"+(i++));
 		}
 		
-		veryfyCopyQueryEquality();	
+		verifyCopyQueryEquality();	
+	}
+	
+	@Test
+	public void testEnvironmentForm() throws IOException, ClassNotFoundException{
+		addEnvironmentForm();
+		verifyCopyQueryEquality();
 	}
 
 	private void addAtomsForm(String element) {
@@ -126,8 +133,16 @@ public class QueryDataSerializableTest {
 		wavelength.setLoValue("5008");
 		queryData.addForm(form);
 	}
+	
+	private void addEnvironmentForm() {
+		Form form = new EnvironmentForm();
+		RangeField temp = (RangeField) form.getFields().iterator().next();
+		temp.setHiValue("500");
+		temp.setLoValue("100");
+		queryData.addForm(form);
+	}
 
-	private void veryfyCopyQueryEquality() throws IOException,
+	private void verifyCopyQueryEquality() throws IOException,
 			ClassNotFoundException {
 		String query = queryData.getQueryString();
 		System.out.println("Initial query: "+query);
