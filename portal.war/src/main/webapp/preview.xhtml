@@ -23,8 +23,8 @@
 								<h:outputText value="Starting preview..." />
 							</a4j:outputPanel>
 							<a4j:region>                       
-                            	<a4j:poll id="previewTablePoll" interval="1000" enabled="#{!preview.done}" reRender="previewTable,statusPanel,commentsPanel" />
-                            </a4j:region>
+								<a4j:poll id="previewTablePoll" interval="1000" enabled="#{!preview.done}" reRender="previewTable,statusPanel,commentsPanel" />
+							</a4j:region>
 						</f:facet>
 						<f:facet name="complete">
 							<a4j:outputPanel layout="block" styleClass="rich-progress-bar-width rich-progress-bar-done rich-progress-bar-mockup">
