@@ -1,0 +1,20 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/layout/template.xhtml">
+
+	<ui:define name="body">
+		
+		<h:outputText value="Some information can be found on the  "/><h:outputLink value="http://voparis-twiki.obspm.fr/twiki/bin/view/VAMDC/PortalHelp">VAMDC wiki</h:outputLink>
+		<br/>
+		<h:outputText
+			value="If you find a bug or a problem, please send an email to support@vamdc.org describing your issue." />
+	
+
+	</ui:define>
+</ui:composition>
