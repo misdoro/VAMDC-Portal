@@ -14,7 +14,7 @@ import org.vamdc.portal.session.queryBuilder.forms.Form;
 import org.vamdc.portal.session.queryBuilder.forms.MoleculesForm;
 import org.vamdc.portal.session.queryBuilder.forms.ParticlesForm;
 import org.vamdc.portal.session.queryBuilder.forms.QueryEditForm;
-import org.vamdc.portal.session.queryBuilder.forms.TransitionsForm;
+import org.vamdc.portal.session.queryBuilder.forms.RadiativeForm;
 import org.vamdc.tapservice.vss2.LogicNode;
 import org.vamdc.tapservice.vss2.LogicNode.Operator;
 import org.vamdc.tapservice.vss2.NodeFilter;
@@ -35,7 +35,7 @@ public class QueryLoader {
 		if (qp.getRestrictsTree()==null)
 			return false;
 
-		addSingleForm(queryData, qp, new TransitionsForm());
+		addSingleForm(queryData, qp, new RadiativeForm());
 		addSingleForm(queryData, qp, new CollisionsForm());
 		addSingleForm(queryData, qp, new EnvironmentForm());
 

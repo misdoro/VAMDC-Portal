@@ -21,7 +21,7 @@ import org.vamdc.portal.session.queryBuilder.forms.CollisionsForm.SpeciesFacade;
 import org.vamdc.portal.session.queryBuilder.forms.Form;
 import org.vamdc.portal.session.queryBuilder.forms.MoleculesForm;
 import org.vamdc.portal.session.queryBuilder.forms.ParticlesForm;
-import org.vamdc.portal.session.queryBuilder.forms.TransitionsForm;
+import org.vamdc.portal.session.queryBuilder.forms.RadiativeForm;
 
 public class QueryDataSerializableTest {
 
@@ -120,7 +120,7 @@ public class QueryDataSerializableTest {
 	}
 	
 	private void addTransitionsForm() {
-		Form form = new TransitionsForm();
+		Form form = new RadiativeForm();
 		RangeField wavelength = (RangeField) form.getFields().iterator().next();
 		wavelength.setHiValue("5010");
 		wavelength.setLoValue("5008");

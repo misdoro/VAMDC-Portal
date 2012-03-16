@@ -26,7 +26,7 @@ import org.vamdc.portal.session.queryBuilder.forms.EnvironmentForm;
 import org.vamdc.portal.session.queryBuilder.forms.MoleculesForm;
 import org.vamdc.portal.session.queryBuilder.forms.ParticlesForm;
 import org.vamdc.portal.session.queryBuilder.forms.QueryEditForm;
-import org.vamdc.portal.session.queryBuilder.forms.TransitionsForm;
+import org.vamdc.portal.session.queryBuilder.forms.RadiativeForm;
 import org.vamdc.portal.session.queryLog.QueryLog;
 import org.vamdc.portal.session.security.UserInfo;
 
@@ -132,8 +132,8 @@ public class QueryController {
 		queryData.addForm(new ParticlesForm());
 	}
 	
-	public void addFormTransitions(){
-		queryData.addForm(new TransitionsForm());
+	public void addFormRadiative(){
+		queryData.addForm(new RadiativeForm());
 	}
 	
 	public void addFormCollisions(){

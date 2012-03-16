@@ -28,7 +28,7 @@ public class CustomConverters implements Serializable{
 	}
 	public static RydToWnConverter RydToWn(){ return new CustomConverters().new RydToWnConverter(); }
 	
-	class FreqToWavenumberConverter implements Converter{
+	class FreqToWavelengthConverter implements Converter{
 		public Double convert(Double value) {
 			if (value!=null && value!=0)
 				return C*1e7/value;
@@ -36,6 +36,16 @@ public class CustomConverters implements Serializable{
 		}
 	}
 	
-	public static FreqToWavenumberConverter MHzToWn(){ return new CustomConverters().new FreqToWavenumberConverter(); }
+	public static FreqToWavelengthConverter MHzToWl(){ return new CustomConverters().new FreqToWavelengthConverter(); }
+	
+	class WavenumberToWavelengthConverter implements Converter{
+		public Double convert(Double value) {
+			if (value!=null && value!=0)
+				return 1e8/value;
+			else return Double.NaN;
+		}
+	}
+	
+	public static WavenumberToWavelengthConverter WnToWl(){ return new CustomConverters().new WavenumberToWavelengthConverter(); }
 	
 }

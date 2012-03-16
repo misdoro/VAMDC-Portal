@@ -9,18 +9,20 @@ import org.vamdc.portal.session.queryBuilder.unitConv.CustomConverters;
 import org.vamdc.portal.session.queryBuilder.unitConv.EnergyUnitConverter;
 import org.vamdc.portal.session.queryBuilder.unitConv.FrequencyUnitConverter;
 import org.vamdc.portal.session.queryBuilder.unitConv.WavelengthUnitConverter;
+import org.vamdc.portal.session.queryBuilder.unitConv.WavenumberUnitConverter;
 
-public class TransitionsForm extends AbstractForm implements Form{
+public class RadiativeForm extends AbstractForm implements Form{
 
 	private static final long serialVersionUID = 3472732538919812959L;
 	public String getTitle() { return "Transitions"; }
 	public Integer getOrder() { return Order.Process; }
 	public String getView() { return "/xhtml/query/forms/standardForm.xhtml"; }
 	
-	public TransitionsForm(){
+	public RadiativeForm(){
 		super();
 		ProxyRangeField wlField = new ProxyRangeField(Restrictable.RadTransWavelength,"Wavelength", new WavelengthUnitConverter());
-		wlField.addProxyField(new UnitConvRangeField(Restrictable.RadTransFrequency,"Frequency",new FrequencyUnitConverter()), CustomConverters.MHzToWn());
+		wlField.addProxyField(new UnitConvRangeField(Restrictable.RadTransFrequency,"Frequency",new FrequencyUnitConverter()), CustomConverters.MHzToWl());
+		wlField.addProxyField(new UnitConvRangeField(Restrictable.RadTransWavenumber,"Wavenumber",new WavenumberUnitConverter()), CustomConverters.WnToWl());
 		
 		addField(wlField);
 		AbstractField field = new UnitConvRangeField(Restrictable.StateEnergy, "Upper state energy", new EnergyUnitConverter());
