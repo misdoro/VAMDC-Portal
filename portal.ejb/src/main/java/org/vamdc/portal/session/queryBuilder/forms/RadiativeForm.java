@@ -14,7 +14,7 @@ import org.vamdc.portal.session.queryBuilder.unitConv.WavenumberUnitConverter;
 public class RadiativeForm extends AbstractForm implements Form{
 
 	private static final long serialVersionUID = 3472732538919812959L;
-	public String getTitle() { return "Transitions"; }
+	public String getTitle() { return "Radiative"; }
 	public Integer getOrder() { return Order.Process; }
 	public String getView() { return "/xhtml/query/forms/standardForm.xhtml"; }
 	
