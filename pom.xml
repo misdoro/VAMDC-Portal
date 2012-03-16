@@ -24,7 +24,6 @@
 		<context>portal</context>
 		<junit.version>4.10</junit.version>
 		<hibernate-commons-annotations.version>3.3.0.ga</hibernate-commons-annotations.version>
-		<servlet.version>2.5</servlet.version>
 		<registry-client.version>11.12-SNAPSHOT</registry-client.version>
 		<query-parser.version>2.0-r2-SNAPSHOT</query-parser.version>
 		
