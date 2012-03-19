@@ -13,6 +13,7 @@ public abstract class SuggestionImpl implements SuggestionField.Suggestion{
 		this.values= getValues();
 	}
 	
+	@Override
 	public Collection<String> options(Object input) {
 		String in = (String)input;
 		Collection<String> result = new ArrayList<String>();
@@ -24,6 +25,8 @@ public abstract class SuggestionImpl implements SuggestionField.Suggestion{
 		return result;
 	}
 
+	@Override
 	public String getIllegalLabel() { return "Illegal value"; }
+	@Override
 	public abstract void selected();
 }

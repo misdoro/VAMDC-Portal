@@ -115,6 +115,7 @@ public class PreviewManager implements Serializable{
 
 	private class HttpHeadResponseComparator implements Comparator<HttpHeadResponse>{
 
+		@Override
 		public int compare(HttpHeadResponse o1, HttpHeadResponse o2) {
 			if (o1==null || o2==null)
 				return 0;
@@ -149,7 +150,7 @@ public class PreviewManager implements Serializable{
 			result=101L;
 		else{
 			Long now = new Date().getTime();
-			result = (100L*(Long)(now-startTime)/Settings.HTTP_HEAD_TIMEOUT.getInt());
+			result = (100L*(now-startTime)/Settings.HTTP_HEAD_TIMEOUT.getInt());
 		}
 		return result;
 	}

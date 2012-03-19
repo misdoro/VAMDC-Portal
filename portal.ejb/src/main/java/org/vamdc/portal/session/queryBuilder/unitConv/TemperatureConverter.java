@@ -18,9 +18,12 @@ public class TemperatureConverter extends AbstractUnitConverter{
 			this.convert = converter;
 		}
 		
+		@Override
 		public String getDisplay(){ return this.display; }
+		@Override
 		public EnumConverter[] getValues() { return TempConvert.values(); }
 		
+		@Override
 		public Double convert(Double value){
 			if (convert == null || value==null)
 				return value;

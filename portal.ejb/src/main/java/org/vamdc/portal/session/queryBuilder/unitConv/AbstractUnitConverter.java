@@ -29,14 +29,17 @@ public abstract class AbstractUnitConverter implements UnitConverter{
 		}
 	}
 	
+	@Override
 	public List<SelectItem> getOptions() {
 		return options;
 	}
 
+	@Override
 	public String getSelectedOption() {
 		return converter.getDisplay();
 	}
 	
+	@Override
 	public void setSelectedOption(String option) {
 		converter=valueOfShort(option);
 		if (converter == null)
@@ -51,6 +54,7 @@ public abstract class AbstractUnitConverter implements UnitConverter{
 		return null;
 	}
 
+	@Override
 	public Double convert (Double value) {
 		if (converter!=null && value!=null)
 			return converter.convert(value);

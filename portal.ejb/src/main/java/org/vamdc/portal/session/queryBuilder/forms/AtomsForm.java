@@ -10,8 +10,11 @@ public class AtomsForm extends AbstractForm implements Form {
 
 
 	private static final long serialVersionUID = -795296288400049729L;
+	@Override
 	public String getTitle() { return "Atoms"; }
+	@Override
 	public Integer getOrder() { return Order.Atoms; }
+	@Override
 	public String getView() { return "/xhtml/query/forms/standardForm.xhtml"; }
 	
 	public AtomsForm(){

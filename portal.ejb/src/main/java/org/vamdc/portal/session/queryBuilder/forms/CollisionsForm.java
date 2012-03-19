@@ -18,8 +18,11 @@ public class CollisionsForm extends AbstractForm implements Form{
 
 
 	private static final long serialVersionUID = -2400424219243476027L;
+	@Override
 	public String getTitle() { return "Collisions"; }
+	@Override
 	public Integer getOrder() { return Order.Process; }
+	@Override
 	public String getView() { return "/xhtml/query/forms/collisionsForm.xhtml"; }
 
 	
@@ -95,6 +98,7 @@ public class CollisionsForm extends AbstractForm implements Form{
 			return result;
 		}
 		
+		@Override
 		public void selected() {
 			String process = processName.getValue();
 			

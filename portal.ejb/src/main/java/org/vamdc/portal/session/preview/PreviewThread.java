@@ -23,6 +23,7 @@ public class PreviewThread implements Callable<HttpHeadResponse>{
 		
 	}
 	
+	@Override
 	public HttpHeadResponse call() throws Exception {
 		
 		HttpURLConnection connection = (HttpURLConnection) queryURL.openConnection();

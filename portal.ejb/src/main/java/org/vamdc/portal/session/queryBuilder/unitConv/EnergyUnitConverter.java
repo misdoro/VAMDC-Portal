@@ -19,9 +19,12 @@ public class EnergyUnitConverter extends AbstractUnitConverter{
 		
 		private Converter convert;
 		private String display;
+		@Override
 		public String getDisplay() { return display; }
+		@Override
 		public EnumConverter[] getValues() {return EnergyConvert.values();}
 
+		@Override
 		public Double convert(Double value) {
 			return convert.convert(value);
 		}

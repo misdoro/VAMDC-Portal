@@ -19,10 +19,13 @@ public class WavenumberUnitConverter extends AbstractUnitConverter{
 		}
 		
 		private String display;
+		@Override
 		public String getDisplay() { return display; }
 
+		@Override
 		public Double convert(Double value) { return value; }
 
+		@Override
 		public EnumConverter[] getValues() { return WavenumberConvert.values(); }
 		
 		

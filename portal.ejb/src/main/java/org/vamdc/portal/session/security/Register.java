@@ -36,6 +36,7 @@ public class Register
 		registered=false;
 		try {
 			new RunAsOperation() {
+				@Override
 				public void execute() {
 					if (!identityManager.userExists(username)){
 						identityManager.createUser(username,password);

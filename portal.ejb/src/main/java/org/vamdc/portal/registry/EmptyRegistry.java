@@ -18,31 +18,37 @@ import org.vamdc.registry.client.RegistryCommunicationException;
  */
 public class EmptyRegistry implements Registry{
 
+	@Override
 	public URL getAvailabilityURL(String arg0)
 			throws RegistryCommunicationException {
 		throw new RegistryCommunicationException("Please wait for querying registry");
 	}
 
+	@Override
 	public URL getCapabilitiesURL(String arg0)
 			throws RegistryCommunicationException {
 		throw new RegistryCommunicationException("Please wait for querying registry");
 	}
 
+	@Override
 	public Collection<String> getIVOAIDs(Service arg0)
 			throws RegistryCommunicationException {
 		return Collections.emptyList();
 	}
 
+	@Override
 	public Resource getResourceMetadata(String arg0)
 			throws RegistryCommunicationException {
 		throw new RegistryCommunicationException("Please wait for querying registry");
 	}
 
+	@Override
 	public Set<Restrictable> getRestrictables(String arg0)
 			throws RegistryCommunicationException {
 		return Collections.emptySet();
 	}
 
+	@Override
 	public URL getVamdcTapURL(String arg0)
 			throws RegistryCommunicationException {
 		throw new RegistryCommunicationException("Please wait for querying registry");

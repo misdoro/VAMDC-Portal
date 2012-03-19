@@ -9,8 +9,11 @@ public class EnvironmentForm extends AbstractForm implements Form{
 
 
 	private static final long serialVersionUID = -2779854273259772288L;
+	@Override
 	public String getTitle() { return "Environment"; }
+	@Override
 	public Integer getOrder() { return Order.Environment; }
+	@Override
 	public String getView() { return "/xhtml/query/forms/standardForm.xhtml"; }
 	
 	public EnvironmentForm(){

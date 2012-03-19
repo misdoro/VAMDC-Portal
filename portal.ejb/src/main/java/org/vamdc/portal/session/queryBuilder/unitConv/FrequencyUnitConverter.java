@@ -27,10 +27,13 @@ public class FrequencyUnitConverter extends AbstractUnitConverter{
 		
 		private javax.measure.converter.UnitConverter convert;
 		private String display;
+		@Override
 		public String getDisplay() { return display; }
 
+		@Override
 		public Double convert(Double value) { return convert.convert(value); }
 
+		@Override
 		public EnumConverter[] getValues() { return FrequencyConvert.values(); }
 		
 		

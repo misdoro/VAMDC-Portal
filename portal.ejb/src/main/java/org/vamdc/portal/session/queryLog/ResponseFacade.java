@@ -13,20 +13,24 @@ public class ResponseFacade implements ResponseInterface {
 			throw new IllegalArgumentException("Response is null!");
 	}
 
+	@Override
 	public String getNodeIVOAId(){
 		return response.getIvoaID();
 	}
 	
+	@Override
 	public String getStatsString(){
 		if (response!=null)
 			return "Sp: "+response.getSpecies()+" -st:"+response.getStates()+" - Pr:"+response.getProcesses();
 		return "?";
 	}
 	
+	@Override
 	public String getFullQueryURL(){
 		return response.getFullQueryURL();
 	}
 	
+	@Override
 	public String getId(){
 		String result=null;
 		if (response!=null && response.getRecordID()!=null){

@@ -7,8 +7,11 @@ public class QueryEditForm extends AbstractForm implements Form{
 
 
 	private static final long serialVersionUID = 1038458921184436210L;
+	@Override
 	public String getTitle() { return "Query editor"; }
+	@Override
 	public Integer getOrder() { return Order.Query; }
+	@Override
 	public String getView() { return "/xhtml/query/forms/editorForm.xhtml"; }
 	
 	private String queryString = "";

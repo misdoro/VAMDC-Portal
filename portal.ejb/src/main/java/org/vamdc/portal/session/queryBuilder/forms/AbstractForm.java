@@ -35,6 +35,7 @@ public abstract class AbstractForm implements Form{
 		this.supportedKeywords = EnumSet.noneOf(Restrictable.class);
 	}
 
+	@Override
 	public void setQueryData(QueryData queryData){ 
 		this.queryData = queryData;
 	}
@@ -45,6 +46,7 @@ public abstract class AbstractForm implements Form{
 			supportedKeywords.add(field.getKeyword());
 	}
 
+	@Override
 	public String getQueryPart() {
 		String query="";
 		for (AbstractField field:fields){
@@ -58,8 +60,10 @@ public abstract class AbstractForm implements Form{
 		return query;
 	}
 
+	@Override
 	public Collection<AbstractField> getFields() { return fields; }
 
+	@Override
 	public Collection<Restrictable> getKeywords() {
 		EnumSet<Restrictable> keywords = EnumSet.noneOf(Restrictable.class);
 		for (AbstractField field:fields){
@@ -70,26 +74,33 @@ public abstract class AbstractForm implements Form{
 		return keywords;
 	}
 
+	@Override
 	public Collection<Restrictable> getSupportedKeywords(){
 		return supportedKeywords;
 	}
 
+	@Override
 	public void clear(){
 		for (AbstractField field:fields){
 			field.clear();
 		}
 	}
 
+	@Override
 	public void delete(){
 		queryData.deleteForm(this);
 	}
 
+	@Override
 	public String getId(){ return this.id; }
 
+	@Override
 	public Integer getInsertOrder() { return insertOrder; }
 
+	@Override
 	public void setInsertOrder(Integer insertOrder) { this.insertOrder = insertOrder; }
 
+	@Override
 	public void setPrefix(String prefix){
 		if (prefix==null)
 			prefix="";
@@ -99,6 +110,7 @@ public abstract class AbstractForm implements Form{
 			field.setPrefix(prefix);
 		}
 	}
+	@Override
 	public void setPrefixIndex(Integer index){
 		String prefix = this.prefix;
 		if (index!=null && prefix!=null && prefix.length()>0){
@@ -109,13 +121,16 @@ public abstract class AbstractForm implements Form{
 		}
 	}
 
+	@Override
 	public String getPrefix(){ return this.prefix; }
 
+	@Override
 	public String getValue(){
 		return "";
 	}
 
 
+	@Override
 	public int loadFromQuery(LogicNode branch){
 		int loadedFieldsCount=0;
 		for (AbstractField field:fields){
