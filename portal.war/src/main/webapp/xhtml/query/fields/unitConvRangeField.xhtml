@@ -16,18 +16,18 @@
 	</h:panelGroup>
 	<h:panelGroup>
 		<rich:spacer width="" />
-		<h:inputText value="#{field.userLoValue}" styleClass="narrowfield">
+		<h:inputText value="#{field.userLoValue}" styleClass="narrowfield" tabindex="#{form.listOrder}#{field.insertOrder}1">
 			<a4j:support event="onchange"
 				reRender="nodeTree,buttonArea,conv#{field.id}" />
 		</h:inputText>
 		<h:outputText value="to" />
-		<h:inputText value="#{field.userHiValue}" styleClass="narrowfield">
+		<h:inputText value="#{field.userHiValue}" styleClass="narrowfield" tabindex="#{form.listOrder}#{field.insertOrder}2">
 			<a4j:support event="onchange"
 				reRender="nodeTree,buttonArea,conv#{field.id}" />
 		</h:inputText>
 
 		<h:selectOneMenu value="#{field.converter.selectedOption}"
-			valueChangeListener="#{field.update}">
+			valueChangeListener="#{field.update}" tabindex="#{form.listOrder}#{field.insertOrder}3">
 			<f:selectItems value="#{field.converter.options}" />
 			<a4j:support event="onchange" reRender="conv#{field.id}" />
 		</h:selectOneMenu>

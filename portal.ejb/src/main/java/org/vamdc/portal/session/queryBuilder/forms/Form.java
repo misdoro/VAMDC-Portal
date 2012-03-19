@@ -38,4 +38,7 @@ public interface Form extends Serializable{
 	public String getValue();
 	
 	public int loadFromQuery(LogicNode branch);
+	
+	public int getListOrder();
+	public void setListOrder(int order);
 }

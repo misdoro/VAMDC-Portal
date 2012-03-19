@@ -26,6 +26,7 @@ public abstract class AbstractForm implements Form{
 	private final String id;
 	protected String prefix;
 	private Integer insertOrder;
+	private int listOrder;
 
 
 	public AbstractForm(){ 
@@ -42,6 +43,7 @@ public abstract class AbstractForm implements Form{
 
 	void addField(AbstractField field){
 		fields.add(field);
+		field.setInsertOrder(fields.size());
 		if (field.getKeyword()!=null)
 			supportedKeywords.add(field.getKeyword());
 	}
@@ -185,5 +187,8 @@ public abstract class AbstractForm implements Form{
 
 		}
 	}
+
+	public int getListOrder() { return listOrder; }
+	public void setListOrder(int listOrder) { this.listOrder = listOrder; }
 
 }

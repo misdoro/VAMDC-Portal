@@ -144,6 +144,14 @@ public class QueryData implements Serializable{
 
 	private void rebuildLists() {
 		formsList = Collections.synchronizedList(new ArrayList<Form>(forms));
+		enumerateForms(formsList);
+	}
+
+	private static void enumerateForms(Collection<Form> formsList) {
+		int i=0;
+		for (Form form:formsList){
+			form.setListOrder(i++);
+		}
 	}
 	
 	private boolean quickAddForm(Form form){

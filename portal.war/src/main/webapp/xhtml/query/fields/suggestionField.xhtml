@@ -14,7 +14,7 @@
 				direction="bottom-left" rendered="#{field.description.length()>0}" />
 		</h:outputText>
 	</h:panelGroup>
-	<h:inputText value="#{field.value}" id="field#{field.id}">
+	<h:inputText value="#{field.value}" id="field#{field.id}" tabindex="#{form.listOrder}#{field.insertOrder}1">
 		<rich:suggestionbox for="field#{field.id}"
 			suggestionAction="#{field.suggestion.options}" var="opt"
 			nothingLabel="#{field.suggestion.illegalLabel}">
