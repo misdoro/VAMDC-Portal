@@ -45,7 +45,7 @@
 
 		<h:column>
 			<h:selectBooleanCheckbox value="#{consumers.queries[node.fullQueryURL]}" 
-				disabled="#{!preview.done}" rendered="#{node.isOk()}" id="process#{node.recordID}">
+				disabled="#{!preview.done}" rendered="#{node.isOk()}" id="process#{node.recordID}" tabindex="10">
 					<rich:toolTip value="Select for processing" styleClass="toolTip"
 					direction="bottom-right"/>
 			</h:selectBooleanCheckbox>

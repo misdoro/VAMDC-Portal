@@ -16,7 +16,7 @@
 		<h:panelGrid columns="2">
 			<rich:panel bodyClass="scrollPanel consumersList">
 				<h:selectOneRadio value="#{consumers.selectedConsumer}"
-					layout="pageDirection">
+					layout="pageDirection" tabindex="20">
 					<f:selectItems value="#{consumers.consumers}" />
 					<a4j:support event="onclick" reRender="consumerInfo"></a4j:support>
 				</h:selectOneRadio>
@@ -26,7 +26,7 @@
 
 				<h:panelGroup>
 					<a4j:commandButton value="Process" action="#{consumers.process}"
-						disabled="#{consumers.processing}" reRender="consumers" />
+						disabled="#{consumers.processing}" reRender="consumers" tabindex="25"/>
 					<a4j:region>
 						<a4j:poll id="consumerPoll" interval="1000"
 							enabled="#{consumers.processing}" reRender="consumers" />
@@ -39,7 +39,7 @@
 							direction="top-left" id="consumerErrorText" />
 					</h:graphicImage>
 					<h:outputLink value="#{consumers.location}" target="_blank"
-						rendered="#{consumers.ok}">
+						rendered="#{consumers.ok}" tabindex="30">
 						<h:outputText value="Result" />
 					</h:outputLink>
 				</h:panelGroup>

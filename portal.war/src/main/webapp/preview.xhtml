@@ -36,13 +36,13 @@
 					<h:panelGrid id="statusPanel" columns="4">
 
 						<a4j:commandButton value="Modify query"
-							action="#{preview.refine()}" styleClass="roundButton" />
+							action="#{preview.refine()}" styleClass="roundButton" tabindex="1"/>
 
 						<a4j:commandButton value="Stop waiting" action="#{preview.cancel}"
-							styleClass="roundButton" disabled="#{preview.done}" />
+							styleClass="roundButton" disabled="#{preview.done}" tabindex="2"/>
 						<a4j:commandButton value="Save query"
 							action="#{query.saveQuery()}" styleClass="roundButton"
-							disabled="#{!preview.done}" />
+							disabled="#{!preview.done}" tabindex="3"/>
 					</h:panelGrid>
 
 					<h:outputText value="#{queryData.queryString}" />
