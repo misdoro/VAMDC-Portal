@@ -15,8 +15,6 @@ public class ParticlesForm extends AbstractForm implements Form{
 	public String getTitle() { return "Particles"; }
 	@Override
 	public Integer getOrder() { return Order.Particles; }
-	@Override
-	public String getView() { return "/xhtml/query/forms/standardForm.xhtml"; }
 	
 	public ParticlesForm(){
 		addField(

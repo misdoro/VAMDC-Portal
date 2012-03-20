@@ -14,8 +14,6 @@ public class AtomsForm extends AbstractForm implements Form {
 	public String getTitle() { return "Atoms"; }
 	@Override
 	public Integer getOrder() { return Order.Atoms; }
-	@Override
-	public String getView() { return "/xhtml/query/forms/standardForm.xhtml"; }
 	
 	public AtomsForm(){
 		super();

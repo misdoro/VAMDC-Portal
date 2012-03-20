@@ -1,0 +1,36 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<a4j:form ajaxSubmit="true">
+		<rich:dataTable value="#{form.molecules}" var="molecule">
+			<f:facet name="header">
+				<rich:columnGroup>
+					<h:column>
+						<h:outputText styleClass="headerText" value="Formula" />
+					</h:column>
+					<h:column>
+						<h:outputText styleClass="headerText" value="InChIKey" />
+					</h:column>
+				</rich:columnGroup>
+			</f:facet>
+
+			<h:column>
+				<h:selectBooleanCheckbox value="#{form.inchis[molecule.inchikey]}"
+					id="select#{molecule.inchikey}">
+				</h:selectBooleanCheckbox>
+				<h:outputText value="#{molecule.formula}" />
+			</h:column>
+
+			<h:column>
+				<h:outputText value="#{molecule.inchikey}" />
+			</h:column>
+
+		</rich:dataTable>
+	</a4j:form>
+</ui:composition>

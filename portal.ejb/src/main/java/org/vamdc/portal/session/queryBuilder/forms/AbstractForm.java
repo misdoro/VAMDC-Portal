@@ -97,6 +97,12 @@ public abstract class AbstractForm implements Form{
 	public String getId(){ return this.id; }
 
 	@Override
+	public String getView() { return "/xhtml/query/forms/standardForm.xhtml"; }
+	
+	@Override
+	public String getExtraView(){ return "/xhtml/query/forms/extra/empty.xhtml"; }
+	
+	@Override
 	public Integer getInsertOrder() { return insertOrder; }
 
 	@Override
@@ -125,11 +131,6 @@ public abstract class AbstractForm implements Form{
 
 	@Override
 	public String getPrefix(){ return this.prefix; }
-
-	@Override
-	public String getValue(){
-		return "";
-	}
 
 
 	@Override
