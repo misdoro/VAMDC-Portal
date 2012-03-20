@@ -20,7 +20,6 @@ public abstract class AbstractField implements Serializable{
 	private String title;
 	private String id;
 	protected String prefix;
-	private int insertOrder;
 
 	public AbstractField(Restrictable keyword, String title){
 		this.keyword = keyword;
@@ -159,9 +158,4 @@ public abstract class AbstractField implements Serializable{
 			break;	
 		}
 	}
-
-	public int getInsertOrder() { return insertOrder; }
-
-	public void setInsertOrder(int insertOrder) { this.insertOrder = insertOrder; }
-
 }
