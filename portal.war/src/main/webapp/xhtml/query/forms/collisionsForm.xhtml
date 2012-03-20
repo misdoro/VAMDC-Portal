@@ -15,43 +15,41 @@
 		<a4j:form ajaxSubmit="true">
 			<c:forEach items="#{form.fields}" var="field">
 				<h:panelGrid columns="2" columnClasses="leftColumn,rightColumn">
-					<rich:spacer width="150" />
-					<rich:spacer width="250" />
 					<ui:include src="#{field.view}" />
 				</h:panelGrid>
 			</c:forEach>
 		</a4j:form>
 
 		<a4j:form ajaxSubmit="true">
-		<rich:dataTable id="collisionTable" value="#{form.species}"
-			var="species">
-			<f:facet name="header">
-				<rich:columnGroup>
-					<h:column>
-						<h:outputText styleClass="headerText" value="Species" />
-					</h:column>
-					<h:column>
-						<h:outputText styleClass="headerText" value="Role" />
-					</h:column>
-				</rich:columnGroup>
-			</f:facet>
+			<rich:dataTable id="collisionTable" value="#{form.species}"
+				var="species">
+				<f:facet name="header">
+					<rich:columnGroup>
+						<h:column>
+							<h:outputText styleClass="headerText" value="Species" />
+						</h:column>
+						<h:column>
+							<h:outputText styleClass="headerText" value="Role" />
+						</h:column>
+					</rich:columnGroup>
+				</f:facet>
 
-			<h:column>
-				<h:outputText value="#{species.title}" />
-			</h:column>
+				<h:column>
+					<h:outputText value="#{species.title}" />
+				</h:column>
 
-			<h:column>
-				<a4j:region>
-					<h:outputText value="Role" />
-					<h:selectOneMenu value="#{species.role}" 
-						valueChangeListener="#{species.roleChanged}" tabindex="10">
-						<f:selectItems value="#{species.roles}" />
-						<a4j:support event="onchange" reRender="form#{species.id}"/>
-					</h:selectOneMenu>
-				</a4j:region>
-			</h:column>
+				<h:column>
+					<a4j:region>
+						<h:outputText value="Role" />
+						<h:selectOneMenu value="#{species.role}"
+							valueChangeListener="#{species.roleChanged}" tabindex="10">
+							<f:selectItems value="#{species.roles}" />
+							<a4j:support event="onchange" reRender="form#{species.id}" />
+						</h:selectOneMenu>
+					</a4j:region>
+				</h:column>
 
-		</rich:dataTable>
+			</rich:dataTable>
 		</a4j:form>
 	</rich:simpleTogglePanel>
 

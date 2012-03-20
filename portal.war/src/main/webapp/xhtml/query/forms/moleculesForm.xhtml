@@ -15,42 +15,42 @@
 		<a4j:form ajaxSubmit="true">
 			<c:forEach items="#{form.fields}" var="field">
 				<h:panelGrid columns="2" columnClasses="leftColumn,rightColumn">
-					<rich:spacer width="150" />
-					<rich:spacer width="250" />
 					<ui:include src="#{field.view}" />
 				</h:panelGrid>
 			</c:forEach>
 		</a4j:form>
 
 		<a4j:form ajaxSubmit="true">
-		<rich:dataTable id="moleculesTable#{form.id}" value="#{form.molecules}"
-			var="molecule">
-			<f:facet name="header">
-				<rich:columnGroup>
-					<h:column>
-						<h:outputText styleClass="headerText" value="Formula" />
-					</h:column>
-					<h:column>
-						<h:outputText styleClass="headerText" value="InChIKey" />
-					</h:column>
-				</rich:columnGroup>
-			</f:facet>
+			<rich:dataTable id="moleculesTable#{form.id}"
+				value="#{form.molecules}" var="molecule">
+				<f:facet name="header">
+					<rich:columnGroup>
+						<h:column>
+							<h:outputText styleClass="headerText" value="Formula" />
+						</h:column>
+						<h:column>
+							<h:outputText styleClass="headerText" value="InChIKey" />
+						</h:column>
+					</rich:columnGroup>
+				</f:facet>
 
-			<h:column>
-				<h:selectBooleanCheckbox value="#{form.selectedInchikeys[molecule.inchikey]}" 
-					id="molec#{molecule.inchikey}" tabindex="10">
-					<rich:toolTip value="Use for query" styleClass="toolTip"
-					direction="bottom-right"/>
-					<a4j:support event="onchange" action="#{form.selectedInchi()}" reRender="form#{form.id}" />
-				</h:selectBooleanCheckbox>
-				<h:outputText value="#{molecule.formula}" />
-			</h:column>
+				<h:column>
+					<h:selectBooleanCheckbox
+						value="#{form.selectedInchikeys[molecule.inchikey]}"
+						id="molec#{molecule.inchikey}" tabindex="10">
+						<rich:toolTip value="Use for query" styleClass="toolTip"
+							direction="bottom-right" />
+						<a4j:support event="onchange" action="#{form.selectedInchi()}"
+							reRender="form#{form.id}" />
+					</h:selectBooleanCheckbox>
+					<h:outputText value="#{molecule.formula}" />
+				</h:column>
 
-			<h:column>
-				<h:outputText value="#{molecule.inchikey}" />
-			</h:column>
+				<h:column>
+					<h:outputText value="#{molecule.inchikey}" />
+				</h:column>
 
-		</rich:dataTable>
+			</rich:dataTable>
 		</a4j:form>
 	</rich:simpleTogglePanel>
 

@@ -15,7 +15,6 @@
 		<a4j:form ajaxSubmit="true">
 			<c:forEach items="#{form.fields}" var="field">
 				<h:panelGrid columns="2" columnClasses="leftColumn,rightColumn">
-					<rich:spacer width="150"/><rich:spacer width="250"/>
 					<ui:include src="#{field.view}" />
 				</h:panelGrid>
 			</c:forEach>
