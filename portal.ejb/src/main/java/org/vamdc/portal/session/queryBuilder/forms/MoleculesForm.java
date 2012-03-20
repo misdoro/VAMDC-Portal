@@ -54,9 +54,28 @@ public class MoleculesForm extends AbstractForm implements Form{
 
 	public List<IsotopologueFacade> getMolecules() { return molecules; }
 	
-	public Map<String,Boolean> getInchikeys() {	return inchikeys; }
-	public void setInchikeys(Map<String,Boolean> inchikeys) { this.inchikeys = inchikeys; }
+	//Isotopologue checkboxes
+	public Map<String,Boolean> getSelectedInchikeys() {	return inchikeys; }
+	public void setSelectedInchikeys(Map<String,Boolean> inchikeys) { this.inchikeys = inchikeys; }
+	
+	private String buildInchiList(Map<String, Boolean> inchikeys) {
+		String result = "";
+		for (String inchikey:inchikeys.keySet()){
+			if (inchikeys.get(inchikey))
+				result+=inchikey+", ";
+		}
+		return result;
+	}
 
+	public void selectedInchi(){
+		this.inchikey.setValue(buildInchiList(inchikeys));
+	}
+	
+	private void resetInchiKeys(){
+		inchikeys = new HashMap<String,Boolean>();
+		inchikey.setValue("");
+	}
+	
 	public class IsotopologueFacade {
 		private Isotopologues molecule;
 		public IsotopologueFacade(Isotopologues molecule){
@@ -147,6 +166,7 @@ public class MoleculesForm extends AbstractForm implements Form{
 		public void selected() {
 			Integer molecId=getMolecIDfromName(molChemName.getValue());
 			molecules = loadMolecules(molecId);
+			resetInchiKeys();
 		}
 	}
 
@@ -189,6 +209,7 @@ public class MoleculesForm extends AbstractForm implements Form{
 		public void selected() {
 			Integer molecId=getMolecIDfromStoichForm(molStoichForm.getValue());
 			molecules = loadMolecules(molecId);
+			resetInchiKeys();
 		}
 	}
 
