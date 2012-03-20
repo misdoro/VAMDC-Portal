@@ -33,9 +33,9 @@
 					submitMode="ajax" direction="bottom-right" jointPoint="tr">
 					<rich:menuItem value="Atom" reRender="formPanel,nodeTree,buttonArea"
 						action="#{query.addFormAtoms}" />
-					<rich:menuItem value="Molecule" reRender="formPanel,nodeTree,buttonArea"
+					<rich:menuItem value="Molecule" reRender="formPanel"
 						action="#{query.addFormMolecules}" />
-					<rich:menuItem value="Particle" reRender="formPanel,nodeTree,buttonArea"
+					<rich:menuItem value="Particle" reRender="formPanel"
 						action="#{query.addFormParticles}" />
 				</rich:dropDownMenu>
 
@@ -44,26 +44,26 @@
 				<rich:dropDownMenu style="background-color:#B5DAFF;"
 					value="Processes" submitMode="ajax" direction="bottom-right"
 					jointPoint="tr">
-					<rich:menuItem value="Radiative" reRender="formPanel,nodeTree,buttonArea"
+					<rich:menuItem value="Radiative" reRender="formPanel"
 						action="#{query.addFormRadiative}" />
-					<rich:menuItem value="Collision" reRender="formPanel,nodeTree,buttonArea"
+					<rich:menuItem value="Collision" reRender="formPanel"
 						action="#{query.addFormCollisions}" />
 				</rich:dropDownMenu>
 
 				<a4j:commandButton value="Environment" action="#{query.addFormEnvironment()}"
 					style="background-color:#B5DAFF; color:black"
-					styleClass="roundButton" reRender="formPanel,nodeTree,buttonArea" />
+					styleClass="roundButton" reRender="formPanel" />
 
 				<br />
 				<rich:spacer height="5" />
 
 				<rich:dropDownMenu style="background-color:#B5DAFF; " value="Advanced"
 					submitMode="ajax" direction="bottom-right" jointPoint="tr">
-					<rich:menuItem value="Query editor" reRender="formPanel,nodeTree,buttonArea"
+					<rich:menuItem value="Query editor" reRender="formPanel"
 						action="#{query.addFormQueryEditor}" />
-					<rich:menuItem value="Request" reRender="formPanel,nodeTree,buttonArea"
+					<rich:menuItem value="Request" reRender="formPanel"
 						action="#{query.action}" />
-					<rich:menuItem value="Comments" reRender="formPanel,nodeTree,buttonArea"
+					<rich:menuItem value="Comments" reRender="formPanel"
 						action="#{query.addFormComments}" />
 				</rich:dropDownMenu>
 

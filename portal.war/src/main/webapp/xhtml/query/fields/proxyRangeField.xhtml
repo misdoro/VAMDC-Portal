@@ -9,22 +9,22 @@
 
 
 	<h:panelGroup>
-		<h:selectOneMenu value="#{field.selectedField}" valueChangeListener="#{field.selectField}" tabindex="#{form.listOrder}#{field.insertOrder}1">
+		<h:selectOneMenu value="#{field.selectedField}" valueChangeListener="#{field.selectField}" tabindex="10">
 			<f:selectItems value="#{field.options}" />
 			<a4j:support event="onchange" reRender="conv#{field.id},units#{field.id}"/>
 		</h:selectOneMenu>
 	</h:panelGroup>
 	<h:panelGroup>
 		<rich:spacer width="" />
-		<h:inputText value="#{field.userLoValue}" styleClass="narrowfield" tabindex="#{form.listOrder}#{field.insertOrder}2">
+		<h:inputText value="#{field.userLoValue}" styleClass="narrowfield" tabindex="10">
 			<a4j:support event="onchange" reRender="nodeTree,buttonArea,conv#{field.id}" />
 		</h:inputText>
 		<h:outputText value="to" />
-		<h:inputText value="#{field.userHiValue}" styleClass="narrowfield" tabindex="#{form.listOrder}#{field.insertOrder}3">
+		<h:inputText value="#{field.userHiValue}" styleClass="narrowfield" tabindex="10">
 			<a4j:support event="onchange" reRender="nodeTree,buttonArea,conv#{field.id}" />
 		</h:inputText>
 	
-		<h:selectOneMenu value="#{field.converter.selectedOption}" valueChangeListener="#{field.update}" id="units#{field.id}" tabindex="#{form.listOrder}#{field.insertOrder}4">
+		<h:selectOneMenu value="#{field.converter.selectedOption}" valueChangeListener="#{field.update}" id="units#{field.id}" tabindex="10">
 			<f:selectItems value="#{field.converter.options}" />
 			<a4j:support event="onchange" reRender="conv#{field.id}"/>
 		</h:selectOneMenu>

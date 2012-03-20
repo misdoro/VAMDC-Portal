@@ -44,7 +44,7 @@
 				<a4j:region>
 					<h:outputText value="Role" />
 					<h:selectOneMenu value="#{species.role}" 
-						valueChangeListener="#{species.roleChanged}">
+						valueChangeListener="#{species.roleChanged}" tabindex="10">
 						<f:selectItems value="#{species.roles}" />
 						<a4j:support event="onchange" reRender="form#{species.id}"/>
 					</h:selectOneMenu>
