@@ -23,32 +23,30 @@
 		</a4j:form>
 
 		<a4j:form ajaxSubmit="true">
-		<rich:dataTable id="collisionTable" value="#{form.species}"
-			var="species">
+		<rich:dataTable id="moleculesTable#{form.id}" value="#{form.molecules}"
+			var="molecule">
 			<f:facet name="header">
 				<rich:columnGroup>
 					<h:column>
-						<h:outputText styleClass="headerText" value="Species" />
+						<h:outputText styleClass="headerText" value="Formula" />
 					</h:column>
 					<h:column>
-						<h:outputText styleClass="headerText" value="Role" />
+						<h:outputText styleClass="headerText" value="InChIKey" />
 					</h:column>
 				</rich:columnGroup>
 			</f:facet>
 
 			<h:column>
-				<h:outputText value="#{species.title}" />
+				<h:selectBooleanCheckbox value="#{form.inchikeys[molecule.inchikey]}" 
+					id="molec#{molecule.inchikey}" tabindex="10">
+					<rich:toolTip value="Use for query" styleClass="toolTip"
+					direction="bottom-right"/>
+				</h:selectBooleanCheckbox>
+				<h:outputText value="#{molecule.formula}" />
 			</h:column>
 
 			<h:column>
-				<a4j:region>
-					<h:outputText value="Role" />
-					<h:selectOneMenu value="#{species.role}" 
-						valueChangeListener="#{species.roleChanged}">
-						<f:selectItems value="#{species.roles}" />
-						<a4j:support event="onchange" reRender="form#{species.id}"/>
-					</h:selectOneMenu>
-				</a4j:region>
+				<h:outputText value="#{molecule.inchikey}" />
 			</h:column>
 
 		</rich:dataTable>
