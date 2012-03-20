@@ -10,6 +10,10 @@ public class CommentsForm extends AbstractForm implements Form{
 	@Override
 	public String getView() { return "/xhtml/query/forms/editorForm.xhtml"; }
 	
+	public CommentsForm(){
+	}
+	
+	@Override
 	public String getValue(){
 		return queryData.getComments();
 	}

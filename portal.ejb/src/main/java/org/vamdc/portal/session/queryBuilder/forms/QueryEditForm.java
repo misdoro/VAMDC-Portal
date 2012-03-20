@@ -19,6 +19,7 @@ public class QueryEditForm extends AbstractForm implements Form{
 	public QueryEditForm(){
 	}
 	
+	@Override
 	public String getValue(){
 		if (queryString.length()>0)
 			return queryString;

@@ -13,30 +13,29 @@ import org.vamdc.tapservice.vss2.LogicNode;
  * @author doronin
  */
 public interface Form extends Serializable{
-	public String getTitle();//Form title
-	public String getView();//Form view
-	public String getExtraView();//Extra include
-	public String getId();//UUID
-	public Collection<AbstractField> getFields();//All form fields
+	public String getTitle();
+	public String getView();
+	public String getId();
+	public Collection<AbstractField> getFields();
 	
-	public String getQueryPart();//Query string
-	public Collection<Restrictable> getKeywords();//Used keywords
-	public Collection<Restrictable> getSupportedKeywords();//All possible keywords
+	public String getQueryPart();
+	public Collection<Restrictable> getKeywords();
+	public Collection<Restrictable> getSupportedKeywords();
 
-	public void setQueryData(QueryData data);//Attach form, called when the form is added to the queryData
-	public Integer getInsertOrder();//Increasing integer, unique form number
-	public void setInsertOrder(Integer insertOrder);//Setter
+	public void setQueryData(QueryData data);
+	public Integer getInsertOrder();
+	public void setInsertOrder(Integer insertOrder);
 	
 	
-	public void clear();//Clear all form fields
-	public void delete();//Delete form
+	public void clear();
+	public void delete();
+	public void setPrefix(String prefix);
+	public String getPrefix();
 	
-	public void setPrefix(String prefix);//Set form prefix
-	public String getPrefix();//Get form prefix
-	public void setPrefixIndex(Integer integer);//Set prefix index, for reactants and products
+	public Integer getOrder();
+	public void setPrefixIndex(Integer integer);
 	
-	
-	public Integer getOrder();//Get form order, as it should be. The higher the number, the lower form will be on the page
+	public String getValue();
 	
 	public int loadFromQuery(LogicNode branch);
 	

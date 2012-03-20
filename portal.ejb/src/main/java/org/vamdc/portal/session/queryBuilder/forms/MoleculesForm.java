@@ -23,6 +23,8 @@ public class MoleculesForm extends AbstractForm implements Form{
 	public String getTitle() { return "Molecules"; }
 	@Override
 	public Integer getOrder() { return Order.Molecules; }
+	@Override
+	public String getView() { return "/xhtml/query/forms/standardForm.xhtml"; }
 
 	public MoleculesForm(){
 

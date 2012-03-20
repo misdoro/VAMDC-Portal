@@ -23,7 +23,7 @@ public class CollisionsForm extends AbstractForm implements Form{
 	@Override
 	public Integer getOrder() { return Order.Process; }
 	@Override
-	public String getExtraView() { return "/xhtml/query/forms/extra/reactantsTable.xhtml"; }
+	public String getView() { return "/xhtml/query/forms/collisionsForm.xhtml"; }
 
 	
 	private AbstractField processName;
