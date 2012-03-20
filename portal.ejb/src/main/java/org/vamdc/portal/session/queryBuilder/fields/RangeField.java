@@ -46,6 +46,8 @@ public class RangeField extends AbstractField{
 
 	@Override
 	public String getQuery(){
+		if (ignoreField)
+			return "";
 		fixCompareOrder();
 		String result = "";
 		if (hiValue!=null && hiValue.equals(loValue)){
@@ -91,7 +93,7 @@ public class RangeField extends AbstractField{
 
 	@Override
 	public boolean hasValue(){
-		return (fieldIsSet(hiValue)|| fieldIsSet(loValue));
+		return !ignoreField && (fieldIsSet(hiValue)|| fieldIsSet(loValue));
 	}
 
 	@Override

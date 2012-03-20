@@ -17,7 +17,6 @@ import org.vamdc.portal.entity.molecules.MoleculeNames;
 import org.vamdc.portal.entity.molecules.Molecules;
 import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 import org.vamdc.portal.session.queryBuilder.fields.RangeField;
-import org.vamdc.portal.session.queryBuilder.fields.SimpleField;
 import org.vamdc.portal.session.queryBuilder.fields.SuggestionField;
 import org.vamdc.portal.session.queryBuilder.fields.TextField;
 
@@ -70,11 +69,15 @@ public class MoleculesForm extends AbstractForm implements Form{
 
 	public void selectedInchi(){
 		this.inchikey.setValue(buildInchiList(inchikeys));
+		this.molChemName.setIgnoreField(true);
+		this.molStoichForm.setIgnoreField(true);
 	}
 	
 	private void resetInchiKeys(){
 		inchikeys = new HashMap<String,Boolean>();
 		inchikey.setValue("");
+		this.molChemName.setIgnoreField(false);
+		this.molStoichForm.setIgnoreField(false);
 	}
 	
 	public class IsotopologueFacade {

@@ -20,7 +20,8 @@ public abstract class AbstractField implements Serializable{
 	private String title;
 	private String id;
 	protected String prefix;
-
+	protected boolean ignoreField=false;
+	
 	public AbstractField(Restrictable keyword, String title){
 		this.keyword = keyword;
 		this.title = title;
@@ -35,6 +36,10 @@ public abstract class AbstractField implements Serializable{
 		this.value = value;
 	}
 
+	public void setIgnoreField(boolean flag){
+		this.ignoreField=flag;
+	}
+	
 	public Restrictable getKeyword() {
 		return keyword;
 	}
@@ -45,7 +50,7 @@ public abstract class AbstractField implements Serializable{
 	
 	
 	public String getQuery(){
-		if (keyword==null || value==null || value.trim().length()==0)
+		if (ignoreField || keyword==null || value==null || value.trim().length()==0)
 			return "";
 		String value = this.value.trim();
 
@@ -109,7 +114,7 @@ public abstract class AbstractField implements Serializable{
 	}
 
 	public boolean hasValue(){
-		return this.value!=null && this.value.length()>0;
+		return !ignoreField && this.value!=null && this.value.length()>0;
 	}
 
 	/**
