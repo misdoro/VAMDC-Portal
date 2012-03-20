@@ -19,6 +19,7 @@ import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 import org.vamdc.portal.session.queryBuilder.fields.RangeField;
 import org.vamdc.portal.session.queryBuilder.fields.SimpleField;
 import org.vamdc.portal.session.queryBuilder.fields.SuggestionField;
+import org.vamdc.portal.session.queryBuilder.fields.TextField;
 
 public class MoleculesForm extends AbstractForm implements Form{
 
@@ -48,7 +49,7 @@ public class MoleculesForm extends AbstractForm implements Form{
 		
 		addField(new RangeField(Restrictable.IonCharge,"Ion charge"));
 		
-		inchikey = new SimpleField(Restrictable.InchiKey,"InChIKey");
+		inchikey = new TextField(Restrictable.InchiKey,"InChIKey");
 		addField(inchikey);
 	}
 
