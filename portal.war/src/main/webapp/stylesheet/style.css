@@ -45,6 +45,28 @@
 	padding: 3px;
 }
 
+.queryMenuPanel{
+	position: fixed;
+	top: 195px;
+}
+
+.queryMenu{
+	width: 120px;
+	height: 100%;
+}
+
+.queryForms{
+	height: 100%;
+	vertical-align: top;
+	width: 450px;
+}
+
+.queryRight{
+	height: 100%;
+	vertical-align: top;
+	width: 450px;
+}
+
 .consumerPanel{
 	width: 400px;
 	height: 175px;

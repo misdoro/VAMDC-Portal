@@ -7,22 +7,7 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j">
 
-
-	<style>
-.panelClass {
-	top: 190px;
-	position: fixed;
-	valign: top;
-}
-
-.roundButton {
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-}
-</style>
-
-	<h:panelGrid styleClass="panelClass">
-		<rich:panel>
+		<rich:panel styleClass="queryMenuPanel">
 			<f:facet name="header">
 				<h:outputText value="Query by..." />
 			</f:facet>
@@ -51,8 +36,7 @@
 				</rich:dropDownMenu>
 
 				<a4j:commandButton value="Environment" action="#{query.addFormEnvironment()}"
-					style="background-color:#B5DAFF; color:black"
-					styleClass="roundButton" reRender="formPanel" />
+					style="background-color:#B5DAFF; color:black" reRender="formPanel" />
 
 				<br />
 				<rich:spacer height="5" />
@@ -70,7 +54,5 @@
 			</a4j:form>
 
 		</rich:panel>
-
-	</h:panelGrid>
 
 </ui:composition>

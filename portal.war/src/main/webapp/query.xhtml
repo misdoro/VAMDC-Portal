@@ -11,27 +11,21 @@
 	template="/layout/template.xhtml">
 
 	<ui:define name="body">
-		<table>
-			<tr>
-				<td><ui:include src="/xhtml/query/formMenu.xhtml" />
-					<rich:spacer width="140" /></td>
-
-				<td style="vertical-align: top; horizontal-align: left">
-					<a4j:outputPanel id="formPanel">
-						<h:panelGrid>
-							<c:forEach items="#{queryData.forms}" var="form">
-								<a4j:include viewId="#{form.view}" />
-							</c:forEach>
-							<rich:spacer width="400" />
-						</h:panelGrid> 
-					</a4j:outputPanel>
-					</td>
-				<td style="vertical-align: top">
-					<ui:include	src="/xhtml/query/actionButtons.xhtml" />
-					<ui:include	src="/xhtml/query/nodeTree.xhtml" /> 
-				</td>
-			</tr>
-		</table>
+		<h:panelGrid columns="3" columnClasses="queryMenu,queryForms,queryRight">
+			<ui:include src="/xhtml/query/formMenu.xhtml" />
+			<a4j:outputPanel id="formPanel">
+				<h:panelGrid>
+					<c:forEach items="#{queryData.forms}" var="form">
+						<a4j:include viewId="#{form.view}" />
+					</c:forEach>
+					<rich:spacer width="440" />
+				</h:panelGrid>
+			</a4j:outputPanel>
+			<h:panelGroup>
+				<ui:include src="/xhtml/query/actionButtons.xhtml" />
+				<ui:include src="/xhtml/query/nodeTree.xhtml" />
+			</h:panelGroup>
+		</h:panelGrid>
 	</ui:define>
 
 
