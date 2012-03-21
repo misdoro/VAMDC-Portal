@@ -56,6 +56,7 @@ public class MoleculesForm extends AbstractForm implements Form{
 	public void clear(){
 		super.clear();
 		resetInchiKeys();
+		molecules = Collections.emptyList();
 	}
 	
 	public List<IsotopologueFacade> getMolecules() { return molecules; }
