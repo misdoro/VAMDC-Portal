@@ -90,3 +90,23 @@
 	height: 135px;
 	width: 100%;
 }
+
+.logActionButton{
+	width: 60px;
+}
+
+.logQueryText{
+	width: 350px;
+	border-style: none;
+	vertical-align: middle;
+	background-color: inherit;
+	overflow-y: auto;
+}
+
+.logQueryComments{
+	width: 150px;
+	border-style: none;
+	vertical-align: middle;
+	overflow-y: auto;
+	background-color: inherit;
+}
