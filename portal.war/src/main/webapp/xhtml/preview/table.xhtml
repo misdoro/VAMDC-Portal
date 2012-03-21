@@ -8,7 +8,9 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j">
 
-	<rich:dataTable id="previewTable" value="#{preview.nodes}" var="node">
+	<rich:dataTable id="previewTable" value="#{preview.nodes}" var="node"
+		onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+		onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
 		<f:facet name="header">
 			<rich:columnGroup>
 				<h:column>
@@ -44,10 +46,12 @@
 		</f:facet>
 
 		<h:column>
-			<h:selectBooleanCheckbox value="#{consumers.queries[node.fullQueryURL]}" 
-				disabled="#{!preview.done}" rendered="#{node.isOk()}" id="process#{node.recordID}" tabindex="10">
-					<rich:toolTip value="Select for processing" styleClass="toolTip"
-					direction="bottom-right"/>
+			<h:selectBooleanCheckbox
+				value="#{consumers.queries[node.fullQueryURL]}"
+				disabled="#{!preview.done}" rendered="#{node.isOk()}"
+				id="process#{node.recordID}" tabindex="10">
+				<rich:toolTip value="Select for processing" styleClass="toolTip"
+					direction="bottom-right" />
 			</h:selectBooleanCheckbox>
 			<h:outputText value="#{registryFacade.getResourceTitle(node.ivoaID)}" />
 		</h:column>
@@ -55,9 +59,10 @@
 		<h:column>
 			<h:outputText value="#{node.status}" id="st#{node.recordID}">
 				<rich:toolTip value="#{node.statusDescription}" styleClass="toolTip"
-					direction="bottom-right"/>
+					direction="bottom-right" />
 			</h:outputText>
-			<h:outputText value=" (#{node.truncated}%)" rendered="#{node.status=='TRUNCATED'}"/>
+			<h:outputText value=" (#{node.truncated}%)"
+				rendered="#{node.status=='TRUNCATED'}" />
 		</h:column>
 
 		<h:column>
