@@ -12,7 +12,10 @@
 
 	<ui:define name="body">
 		<h:panelGrid columns="3" columnClasses="queryMenu,queryForms,queryRight">
-			<ui:include src="/xhtml/query/formMenu.xhtml" />
+			<h:panelGroup>
+				<rich:spacer width="120"/>
+				<ui:include src="/xhtml/query/formMenu.xhtml" />
+			</h:panelGroup>
 			<a4j:outputPanel id="formPanel">
 				<h:panelGrid>
 					<c:forEach items="#{queryData.forms}" var="form">
