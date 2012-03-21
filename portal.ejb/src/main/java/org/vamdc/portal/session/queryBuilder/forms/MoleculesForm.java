@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.persistence.EntityManager;
 
 import org.vamdc.dictionary.Restrictable;
+import org.vamdc.portal.entity.molecules.EntityQuery;
 import org.vamdc.portal.entity.molecules.Isotopologues;
 import org.vamdc.portal.entity.molecules.MoleculeNames;
 import org.vamdc.portal.entity.molecules.Molecules;
@@ -86,55 +87,14 @@ public class MoleculesForm extends AbstractForm implements Form{
 		return result;
 	}
 	
+	
 	public class IsotopologueFacade {
 		private Isotopologues molecule;
 		public IsotopologueFacade(Isotopologues molecule){
-			this.molecule=molecule; 
-			System.out.println("Loaded isotopologue"+molecule.getIsoName()+molecule.getInChIkey());
+			this.molecule=molecule;
 		}
 		public String getFormula(){ return molecule.getIsoName(); }
 		public String getInchikey(){ return molecule.getInChIkey();	}
-	}
-	
-	private Integer getMolecIDfromName(String name){
-		EntityManager entityManager = queryData.getEntityManager();
-		if (entityManager==null)
-			return 0;
-		MoleculeNames molec = (MoleculeNames) entityManager.createNamedQuery("MoleculeNames.findByMolecName")
-				.setParameter("molecName", name).getSingleResult();
-		if (molec!=null)
-			return molec.getMolecId();
-		return 0;
-	}
-	
-	private Integer getMolecIDfromStoichForm(String formula){
-		EntityManager entityManager = queryData.getEntityManager();
-		if (entityManager==null)
-			return 0;
-		Molecules molec = (Molecules) entityManager.createNamedQuery("Molecules.findByStoichiometricFormula")
-				.setParameter("stoichiometricFormula", formula)
-				.getSingleResult();
-		if (molec!=null)
-			return molec.getId();
-		return 0;
-	}
-	
-	
-	private List<IsotopologueFacade> loadMolecules(Integer molecID){
-		EntityManager entityManager = queryData.getEntityManager();
-
-		if (entityManager==null)
-			return Collections.emptyList();
-		ArrayList<IsotopologueFacade> result = new ArrayList<IsotopologueFacade>();
-		for (Object isotopologue:
-			entityManager.createNamedQuery("Isotopologues.findByMolecID")
-			.setParameter("molecId", molecID)
-			.getResultList()){
-			System.out.println(isotopologue);
-			Isotopologues isot=(Isotopologues) isotopologue;
-			result.add(new IsotopologueFacade(isot));
-		}
-		return result;
 	}
 	
 
@@ -149,21 +109,10 @@ public class MoleculesForm extends AbstractForm implements Form{
 				return Collections.emptyList();
 
 			Collection<String> result = new ArrayList<String>();
-
-			EntityManager entityManager = queryData.getEntityManager();
-
-			if (entityManager==null)
-				return Collections.emptyList();
-
-			for (Object molecule:entityManager
-					.createNamedQuery("MoleculeNames.findByMolecNameWildcard")
-					.setParameter("molecName", "%"+value+"%")
-					.setMaxResults(20)
-					.getResultList()){
+			for (Object molecule:EntityQuery.getMolecsFromNameWild(queryData.getEntityManager(), value.trim())){
 				MoleculeNames molec = (MoleculeNames)molecule;
 				result.add(molec.getMolecName());
 			}
-
 			return result;
 		}
 
@@ -179,9 +128,9 @@ public class MoleculesForm extends AbstractForm implements Form{
 			resetInchiKeys();
 		}
 	}
+	
 
 	public class StoichFormSuggestion implements SuggestionField.Suggestion{
-
 
 		private static final long serialVersionUID = -1570905697531370200L;
 
@@ -193,16 +142,7 @@ public class MoleculesForm extends AbstractForm implements Form{
 
 			Collection<String> result = new ArrayList<String>();
 
-			EntityManager entityManager = queryData.getEntityManager();
-
-			if (entityManager==null)
-				return Collections.emptyList();
-
-			for (Object molecule:entityManager
-					.createNamedQuery("Molecules.findByStoichiometricFormulaWildcard")
-					.setParameter("stoichiometricFormula", "%"+value+"%")
-					.setMaxResults(20)
-					.getResultList()){
+			for (Object molecule:EntityQuery.getMolecsFromFormulaWild(queryData.getEntityManager(), value.trim())){
 				Molecules molec = (Molecules)molecule;
 				result.add(molec.getStoichiometricFormula());
 			}
@@ -221,6 +161,29 @@ public class MoleculesForm extends AbstractForm implements Form{
 			molecules = loadMolecules(molecId);
 			resetInchiKeys();
 		}
+	}
+	
+	private Integer getMolecIDfromName(String name){
+		MoleculeNames molec = EntityQuery.getMolecNamesFromName(queryData.getEntityManager(), name);
+		if (molec!=null)
+			return molec.getMolecId();
+		return 0;
+	}
+	
+	private Integer getMolecIDfromStoichForm(String formula){
+		Molecules molec = EntityQuery.getMoleculeFromFormula(queryData.getEntityManager(), formula);
+		if (molec!=null)
+			return molec.getId();
+		return 0;
+	}
+	
+	
+	private List<IsotopologueFacade> loadMolecules(Integer molecID){
+		ArrayList<IsotopologueFacade> result = new ArrayList<IsotopologueFacade>();
+		for (Object isotopologue:EntityQuery.getIsotopologuesByMolecId(queryData.getEntityManager(), molecID)){
+			result.add(new IsotopologueFacade((Isotopologues) isotopologue));
+		}
+		return result;
 	}
 
 }
