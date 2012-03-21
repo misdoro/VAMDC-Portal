@@ -1,15 +1,11 @@
 package org.vamdc.portal.session.queryBuilder.forms;
 
-
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.persistence.EntityManager;
 
 import org.vamdc.dictionary.Restrictable;
 import org.vamdc.portal.entity.molecules.EntityQuery;
