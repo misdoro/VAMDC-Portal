@@ -1,11 +1,12 @@
-package org.vamdc.portal.entity.molecules;
+package org.vamdc.portal.entity;
 
+import org.vamdc.portal.entity.species.SpeciesIso;
 import org.vamdc.portal.session.queryBuilder.forms.MoleculesForm.MoleculeInfo;
 
 public class IsotopologueFacade implements MoleculeInfo{
-	private Isotopologues molecule;
-	public IsotopologueFacade(Isotopologues molecule){
-		this.molecule=molecule;
+	private SpeciesIso molecule;
+	public IsotopologueFacade(SpeciesIso iso){
+		this.molecule=iso;
 	}
 	
 	@Override

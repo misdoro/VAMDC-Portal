@@ -7,10 +7,9 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import org.vamdc.portal.entity.molecules.IsotopologueFacade;
-import org.vamdc.portal.entity.molecules.Isotopologues;
-import org.vamdc.portal.entity.molecules.MoleculeNames;
-import org.vamdc.portal.entity.molecules.Molecules;
+import org.vamdc.portal.entity.species.SpeciesIso;
+import org.vamdc.portal.entity.species.SpeciesSpecies;
+import org.vamdc.portal.entity.species.SpeciesSpeciesname;
 import org.vamdc.portal.session.queryBuilder.forms.MoleculesForm.MoleculeInfo;
 
 /**
@@ -25,27 +24,40 @@ public class EntityFacade {
 			EntityManager entityManager, String value) {
 		if (!checkValue(value))
 			return Collections.emptyList();
-
 		
 		Collection<String> result = new ArrayList<String>();
-		for (Molecules molecule:EntityQuery.getMolecsFromFormulaWild(entityManager, value.trim())){
-			result.add(molecule.getStoichiometricFormula());
+		for (SpeciesSpecies species:EntityQuery.getSpeciesFromStoichFormulaWild(entityManager, value.trim())){
+			result.add(species.getStoichiometricFormula());
 		}
-
 		return result;
 	}
 
+
+	public static Collection<String> suggestOrdinaryFormula(
+			EntityManager entityManager, String value) {
+		if (!checkValue(value))
+			return Collections.emptyList();
+
+		Collection<String> result = new ArrayList<String>();
+		for (SpeciesSpecies species:EntityQuery.getSpeciesFromOrdinaryFormulaWild(entityManager, value.trim())){
+			result.add(species.getOrdinaryFormula());
+		}
+		return result;
+	}
+	
+	
 	public static Collection<String> suggestChemicalName(
 			EntityManager entityManager, String value) {
 		if (!checkValue(value))
 			return Collections.emptyList();
 
 		Collection<String> result = new ArrayList<String>();
-		for (MoleculeNames molecule:EntityQuery.getMolecsFromNameWild(entityManager, value.trim())){
-			result.add(molecule.getMolecName());
+		for (SpeciesSpeciesname element:EntityQuery.getSpeciesFromNameWild(entityManager, value.trim())){
+			result.add(element.getName());
 		}
 		return result;
 	}
+	
 	
 	private static boolean checkValue(String value){
 		return (value!=null && value.length()>0 && value.trim().length()>0);
@@ -53,36 +65,47 @@ public class EntityFacade {
 
 	public static List<MoleculeInfo> loadMoleculesFromName(
 			EntityManager entityManager, String value) {
-		Integer molecID = getMolecIDfromName(entityManager, value);
-		return loadMolecules(entityManager,molecID);
+		Integer speciesID = getSpeciesIDfromName(entityManager, value);
+		return loadMolecules(entityManager,speciesID);
 	}
 
 	public static List<MoleculeInfo> loadMoleculesFromStoichForm(
 			EntityManager entityManager, String value) {
-		Integer molecID = getMolecIDfromStoichForm(entityManager, value);
+		Integer molecID = getSpeciesIDfromStoichForm(entityManager, value);
 		return loadMolecules(entityManager,molecID);
-		
 	}
 	
-	private static Integer getMolecIDfromName(EntityManager entityManager, String name){
-		MoleculeNames molec = EntityQuery.getMolecNamesFromName(entityManager, name);
+	public static List<MoleculeInfo> loadMoleculesFromOrdForm(
+			EntityManager entityManager, String value) {
+		Integer molecID = getSpeciesIDfromOrdForm(entityManager, value);
+		return loadMolecules(entityManager,molecID);
+	}
+	
+	private static Integer getSpeciesIDfromName(EntityManager entityManager, String name){
+		SpeciesSpeciesname molec = EntityQuery.getSpeciesFromName(entityManager, name);
 		if (molec!=null)
-			return molec.getMolecId();
+			return molec.getSpeciesId();
 		return 0;
 	}
 	
-	private static Integer getMolecIDfromStoichForm(EntityManager entityManager, String formula){
-		Molecules molec = EntityQuery.getMoleculeFromFormula(entityManager, formula);
+	private static Integer getSpeciesIDfromStoichForm(EntityManager entityManager, String formula){
+		SpeciesSpecies molec = EntityQuery.getSpeciesFromStoichFormula(entityManager, formula);
 		if (molec!=null)
 			return molec.getId();
 		return 0;
 	}
 	
+	private static Integer getSpeciesIDfromOrdForm(EntityManager entityManager, String formula){
+		SpeciesSpecies molec = EntityQuery.getSpeciesFromOrdFormula(entityManager, formula);
+		if (molec!=null)
+			return molec.getId();
+		return 0;
+	}
 	
 	private static List<MoleculeInfo> loadMolecules(EntityManager entityManager, Integer molecID){
 		ArrayList<MoleculeInfo> result = new ArrayList<MoleculeInfo>();
-		for (Object isotopologue:EntityQuery.getIsotopologuesByMolecId(entityManager, molecID)){
-			result.add(new IsotopologueFacade((Isotopologues) isotopologue));
+		for (Object iso:EntityQuery.getIsotopologuesByspeciesId(entityManager, molecID)){
+			result.add(new IsotopologueFacade((SpeciesIso) iso));
 		}
 		return result;
 	}

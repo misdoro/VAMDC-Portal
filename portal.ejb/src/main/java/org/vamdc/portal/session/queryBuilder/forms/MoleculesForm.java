@@ -29,6 +29,7 @@ public class MoleculesForm extends AbstractForm implements Form{
 
 	private AbstractField molChemName;
 	private AbstractField molStoichForm;
+	private AbstractField molOrdForm;
 	private AbstractField inchikey;
 
 	private Map<String,Boolean> inchikeys = new HashMap<String,Boolean>();
@@ -47,6 +48,9 @@ public class MoleculesForm extends AbstractForm implements Form{
 
 		molStoichForm = new SuggestionField(Restrictable.MoleculeStoichiometricFormula,"Stoichiometric formula", new StoichFormSuggestion()); 
 		addField(molStoichForm);
+		
+		molOrdForm = new SuggestionField(null,"Structural formula", new StructFormSuggestion());
+		addField(molOrdForm);
 
 		addField(new RangeField(Restrictable.IonCharge,"Ion charge"));
 
@@ -108,6 +112,7 @@ public class MoleculesForm extends AbstractForm implements Form{
 		public void selected() {
 			molecules = EntityFacade.loadMoleculesFromName(queryData.getEntityManager(), molChemName.getValue());
 			molStoichForm.clear();
+			molOrdForm.clear();
 			resetInchiKeys();
 		}
 	}
@@ -131,6 +136,30 @@ public class MoleculesForm extends AbstractForm implements Form{
 		public void selected() {
 			molecules = EntityFacade.loadMoleculesFromStoichForm(queryData.getEntityManager(), molStoichForm.getValue());
 			molChemName.clear();
+			molOrdForm.clear();
+			resetInchiKeys();
+		}
+	}
+	
+	public class StructFormSuggestion implements SuggestionField.Suggestion{
+
+		private static final long serialVersionUID = -1570905697531370201L;
+
+		@Override
+		public Collection<String> options(Object input) {
+			return EntityFacade.suggestOrdinaryFormula(queryData.getEntityManager(),(String)input);
+		}
+
+		@Override
+		public String getIllegalLabel() {
+			return "not found in the database";
+		}
+
+		@Override
+		public void selected() {
+			molecules = EntityFacade.loadMoleculesFromOrdForm(queryData.getEntityManager(), molOrdForm.getValue());
+			molChemName.clear();
+			molStoichForm.clear();
 			resetInchiKeys();
 		}
 	}

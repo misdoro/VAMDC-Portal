@@ -5,52 +5,74 @@ import java.util.Collections;
 
 import javax.persistence.EntityManager;
 
-import org.vamdc.portal.entity.molecules.Isotopologues;
-import org.vamdc.portal.entity.molecules.MoleculeNames;
-import org.vamdc.portal.entity.molecules.Molecules;
+import org.vamdc.portal.entity.species.SpeciesIso;
+import org.vamdc.portal.entity.species.SpeciesSpecies;
+import org.vamdc.portal.entity.species.SpeciesSpeciesname;
 
 /**
  * Collection of static methods to get some species objects
  * @author doronin
  *
  */
-public class EntityQuery{
-	public static Molecules getMoleculeFromFormula(EntityManager em, String formula){
+class EntityQuery{
+
+	@SuppressWarnings("unchecked")
+	static Collection<SpeciesSpeciesname> getSpeciesFromNameWild(EntityManager em, String name){
+		if (em==null) return Collections.emptyList();
+		return em.createQuery("SELECT s FROM SpeciesSpeciesname s WHERE s.name LIKE :molecName")
+				.setParameter("molecName", "%"+name+"%")
+				.setMaxResults(20)
+				.getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	static Collection<SpeciesSpecies> getSpeciesFromStoichFormulaWild(EntityManager em, String formula){
+		if (em==null) return Collections.emptyList();
+		return em.createQuery("SELECT s FROM SpeciesSpecies s WHERE s.stoichiometricFormula LIKE :formula")
+				.setParameter("formula", "%"+formula+"%")
+				.setMaxResults(20)
+				.getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	static Collection<SpeciesSpecies> getSpeciesFromOrdinaryFormulaWild(EntityManager em, String formula){
+		if (em==null) return Collections.emptyList();
+		return em.createQuery("SELECT s FROM SpeciesSpecies s WHERE s.ordinaryFormula LIKE :formula")
+				.setParameter("formula", "%"+formula+"%")
+				.setMaxResults(20)
+				.getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	static Collection<SpeciesIso> getIsotopologuesByspeciesId(
+			EntityManager em, Integer speciesID) {
+		if (em==null) return Collections.emptyList();
+		return em.createQuery("SELECT i from SpeciesIso i where i.speciesId = :speciesId")
+				.setParameter("speciesId", speciesID)
+				.getResultList();
+	}
+
+	static SpeciesSpeciesname getSpeciesFromName(
+			EntityManager em, String name) {
 		if (em==null) return null;
-		return (Molecules) em.createNamedQuery("Molecules.findByStoichiometricFormula")
-		.setParameter("stoichiometricFormula", formula)
-		.getSingleResult();
+		return (SpeciesSpeciesname) em.createQuery("SELECT s FROM SpeciesSpeciesname s WHERE s.name = :molecName")
+				.setParameter("molecName", name)
+				.getSingleResult();
 	}
-	
-	public static MoleculeNames getMolecNamesFromName(EntityManager em, String name){
+
+	public static SpeciesSpecies getSpeciesFromStoichFormula(
+			EntityManager em, String formula) {
 		if (em==null) return null;
-		return (MoleculeNames) em.createNamedQuery("MoleculeNames.findByMolecName")
-		.setParameter("molecName", name).getSingleResult();
+		return (SpeciesSpecies) em.createQuery("SELECT s FROM SpeciesSpecies s WHERE s.stoichiometricFormula = :formula")
+				.setParameter("formula",formula)
+				.getSingleResult();
 	}
-	
-	@SuppressWarnings("unchecked")
-	public static Collection<Isotopologues> getIsotopologuesByMolecId(EntityManager em,Integer molecID){
-		if (em==null) return Collections.emptyList();
-		return em.createNamedQuery("Isotopologues.findByMolecID")
-		.setParameter("molecId", molecID)
-		.getResultList();
-	}
-	
-	@SuppressWarnings("unchecked")
-	public static Collection<MoleculeNames> getMolecsFromNameWild(EntityManager em, String name){
-		if (em==null) return Collections.emptyList();
-		return em.createNamedQuery("MoleculeNames.findByMolecNameWildcard")
-		.setParameter("molecName", "%"+name+"%")
-		.setMaxResults(20)
-		.getResultList();
-	}
-	
-	@SuppressWarnings("unchecked")
-	public static Collection<Molecules> getMolecsFromFormulaWild(EntityManager em, String formula){
-		if (em==null) return Collections.emptyList();
-		return em.createNamedQuery("Molecules.findByStoichiometricFormulaWildcard")
-		.setParameter("stoichiometricFormula", "%"+formula+"%")
-		.setMaxResults(20)
-		.getResultList();
+
+	public static SpeciesSpecies getSpeciesFromOrdFormula(
+			EntityManager em, String formula) {
+		if (em==null) return null;
+		return (SpeciesSpecies) em.createQuery("SELECT s FROM SpeciesSpecies s WHERE s.ordinaryFormula = :formula")
+				.setParameter("formula",formula)
+				.getSingleResult();
 	}
 }
