@@ -60,7 +60,7 @@ class EntityQuery{
 				.getSingleResult();
 	}
 
-	public static SpeciesSpecies getSpeciesFromStoichFormula(
+	static SpeciesSpecies getSpeciesFromStoichFormula(
 			EntityManager em, String formula) {
 		if (em==null) return null;
 		return (SpeciesSpecies) em.createQuery("SELECT s FROM SpeciesSpecies s WHERE s.stoichiometricFormula = :formula")
@@ -68,11 +68,19 @@ class EntityQuery{
 				.getSingleResult();
 	}
 
-	public static SpeciesSpecies getSpeciesFromOrdFormula(
+	static SpeciesSpecies getSpeciesFromOrdFormula(
 			EntityManager em, String formula) {
 		if (em==null) return null;
 		return (SpeciesSpecies) em.createQuery("SELECT s FROM SpeciesSpecies s WHERE s.ordinaryFormula = :formula")
 				.setParameter("formula",formula)
+				.getSingleResult();
+	}
+
+	static SpeciesSpecies getSpeciesFromID(EntityManager em,
+			Integer speciesID) {
+		if (em==null) return null;
+		return (SpeciesSpecies) em.createQuery("SELECT s FROM SpeciesSpecies s WHERE s.id = :id")
+				.setParameter("id",speciesID)
 				.getSingleResult();
 	}
 }

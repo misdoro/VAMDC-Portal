@@ -102,10 +102,15 @@ public class EntityFacade {
 		return 0;
 	}
 	
-	private static List<MoleculeInfo> loadMolecules(EntityManager entityManager, Integer molecID){
+	private static List<MoleculeInfo> loadMolecules(EntityManager entityManager, Integer speciesID){
 		ArrayList<MoleculeInfo> result = new ArrayList<MoleculeInfo>();
-		for (Object iso:EntityQuery.getIsotopologuesByspeciesId(entityManager, molecID)){
+		for (Object iso:EntityQuery.getIsotopologuesByspeciesId(entityManager, speciesID)){
 			result.add(new IsotopologueFacade((SpeciesIso) iso));
+		}
+		if (result.size()==0){
+			SpeciesSpecies molecule = EntityQuery.getSpeciesFromID(entityManager, speciesID);
+			if (molecule!=null)
+				result.add(new SpeciesFacade(molecule));
 		}
 		return result;
 	}
