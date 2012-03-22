@@ -1,6 +1,7 @@
 package org.vamdc.portal.entity.query;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -27,6 +28,7 @@ public class Query implements Serializable{
 	private String comments;
 	private User user;
 	private List<HttpHeadResponse> responses;
+	private Date date;
 	
 	@ManyToOne(optional=false) 
     @JoinColumn(name="user_id", nullable=false, updatable=false)
@@ -50,5 +52,8 @@ public class Query implements Serializable{
 	@OneToMany(mappedBy="query")
 	public List<HttpHeadResponse> getResponses() { return responses; }
 	public void setResponses(List<HttpHeadResponse> responses) { this.responses = responses; }
+	
+	public Date getDate() { return date; }
+	public void setDate(Date queryDate) { this.date = queryDate; } 
 	
 }
