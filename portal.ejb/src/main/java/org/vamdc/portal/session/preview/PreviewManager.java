@@ -38,9 +38,9 @@ public class PreviewManager implements Serializable{
 	@Logger
 	Log log;
 
-	@In QueryData queryData;
+	@In transient QueryData queryData;
 
-	@In(create=true) RegistryFacade registryFacade;
+	@In(create=true) transient RegistryFacade registryFacade;
 	
 	private Collection<Future<HttpHeadResponse>> nodeFutureResponses = new ArrayList<Future<HttpHeadResponse>>();
 	private long startTime;
