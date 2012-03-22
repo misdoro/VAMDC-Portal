@@ -1,4 +1,4 @@
-package org.vamdc.portal.entity.molecules;
+package org.vamdc.portal.entity;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,6 +7,10 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.vamdc.portal.entity.molecules.IsotopologueFacade;
+import org.vamdc.portal.entity.molecules.Isotopologues;
+import org.vamdc.portal.entity.molecules.MoleculeNames;
+import org.vamdc.portal.entity.molecules.Molecules;
 import org.vamdc.portal.session.queryBuilder.forms.MoleculesForm.MoleculeInfo;
 
 /**

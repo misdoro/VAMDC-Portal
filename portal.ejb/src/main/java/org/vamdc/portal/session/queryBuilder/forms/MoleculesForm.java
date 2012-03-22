@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.vamdc.dictionary.Restrictable;
-import org.vamdc.portal.entity.molecules.EntityFacade;
+import org.vamdc.portal.entity.EntityFacade;
 import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 import org.vamdc.portal.session.queryBuilder.fields.RangeField;
 import org.vamdc.portal.session.queryBuilder.fields.SuggestionField;

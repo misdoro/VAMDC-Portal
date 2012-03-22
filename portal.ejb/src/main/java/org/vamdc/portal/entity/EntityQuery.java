@@ -1,9 +1,13 @@
-package org.vamdc.portal.entity.molecules;
+package org.vamdc.portal.entity;
 
 import java.util.Collection;
 import java.util.Collections;
 
 import javax.persistence.EntityManager;
+
+import org.vamdc.portal.entity.molecules.Isotopologues;
+import org.vamdc.portal.entity.molecules.MoleculeNames;
+import org.vamdc.portal.entity.molecules.Molecules;
 
 /**
  * Collection of static methods to get some species objects
