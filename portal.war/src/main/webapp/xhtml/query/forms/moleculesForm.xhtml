@@ -36,8 +36,8 @@
 
 				<h:column>
 					<h:selectBooleanCheckbox
-						value="#{form.selectedInchikeys[molecule.inchikey]}"
-						id="molec#{molecule.inchikey}" tabindex="10">
+						value="#{form.selectedInchikeys[molecule.inchiKey]}"
+						id="molec#{molecule.inchiKey}" tabindex="10">
 						<rich:toolTip value="Use for query" styleClass="toolTip"
 							direction="bottom-right" />
 						<a4j:support event="onchange" action="#{form.selectedInchi()}"
@@ -47,7 +47,7 @@
 				</h:column>
 
 				<h:column>
-					<h:outputText value="#{molecule.inchikey}" />
+					<h:outputText value="#{molecule.inchiKey}" />
 				</h:column>
 
 			</rich:dataTable>

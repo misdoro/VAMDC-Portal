@@ -6,7 +6,7 @@ import java.util.Collections;
 import javax.persistence.EntityManager;
 
 /**
- * Collection of static methods to get 
+ * Collection of static methods to get some species objects
  * @author doronin
  *
  */
@@ -33,7 +33,7 @@ public class EntityQuery{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static Collection<Molecules> getMolecsFromNameWild(EntityManager em, String name){
+	public static Collection<MoleculeNames> getMolecsFromNameWild(EntityManager em, String name){
 		if (em==null) return Collections.emptyList();
 		return em.createNamedQuery("MoleculeNames.findByMolecNameWildcard")
 		.setParameter("molecName", "%"+name+"%")
