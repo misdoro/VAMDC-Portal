@@ -1,6 +1,8 @@
 package org.vamdc.portal.session.queryLog;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.vamdc.portal.entity.query.HttpHeadResponse;
@@ -24,6 +26,13 @@ public class QueryFacade {
 	
 	public String getComments(){
 		return query.getComments();
+	}
+	
+	public String getDate(){
+		Date queryDate = query.getDate(); 
+		if (queryDate!=null)
+			return DateFormat.getDateInstance(DateFormat.MEDIUM).format(queryDate);
+		return "";
 	}
 	
 	public  List<ResponseInterface> getResponses(){

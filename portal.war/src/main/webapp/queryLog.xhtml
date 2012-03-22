@@ -27,6 +27,9 @@
 								<h:outputText styleClass="headerText" value="Comments" />
 							</h:column>
 							<h:column>
+								<h:outputText styleClass="headerText" value="Date" />
+							</h:column>
+							<h:column>
 								<h:outputText styleClass="headerText" value="Database" />
 							</h:column>
 							<h:column>
@@ -71,6 +74,11 @@
 							<rich:panel styleClass="logQueryComments">
 								<h:outputText value="#{savedQuery.comments}" />
 							</rich:panel>
+						</rich:column>
+						
+						<rich:column rowspan="#{savedQuery.responses.size()}"
+							rendered="#{rowKey eq 0}">
+							<h:outputText value="#{savedQuery.date}" />
 						</rich:column>
 
 						<rich:column>

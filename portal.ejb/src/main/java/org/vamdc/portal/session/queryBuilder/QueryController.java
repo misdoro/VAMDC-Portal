@@ -3,6 +3,7 @@ package org.vamdc.portal.session.queryBuilder;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.jboss.seam.ScopeType;
@@ -84,6 +85,7 @@ public class QueryController {
 		result.setQueryString(queryData.getQueryString());
 		result.setResponses(selectRespondedNodes());
 		result.setUser(auth.getUser());
+		result.setDate(new Date());
 		return result;
 	}
 
