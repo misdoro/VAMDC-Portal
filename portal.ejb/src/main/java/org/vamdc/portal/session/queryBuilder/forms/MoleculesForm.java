@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
+
 import org.vamdc.dictionary.Restrictable;
 import org.vamdc.portal.entity.EntityFacade;
 import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
@@ -16,11 +18,13 @@ import org.vamdc.portal.session.queryBuilder.fields.TextField;
 public class MoleculesForm extends AbstractForm implements Form{
 
 	/**
-	 * Molecule info for isotopologues table
+	 * Molecule info from species database
 	 * 
 	 */
 	public interface MoleculeInfo{
+		public String getName();
 		public String getFormula();
+		public String getOrdinaryFormula();
 		public String getInchiKey();
 		public String getDescription();
 	}
@@ -48,7 +52,7 @@ public class MoleculesForm extends AbstractForm implements Form{
 
 		molStoichForm = new SuggestionField(Restrictable.MoleculeStoichiometricFormula,"Stoichiometric formula", new StoichFormSuggestion()); 
 		addField(molStoichForm);
-		
+
 		molOrdForm = new SuggestionField(null,"Structural formula", new StructFormSuggestion());
 		addField(molOrdForm);
 
@@ -70,17 +74,31 @@ public class MoleculesForm extends AbstractForm implements Form{
 	public Map<String,Boolean> getSelectedInchikeys() {	return inchikeys; }
 	public void setSelectedInchikeys(Map<String,Boolean> inchikeys) { this.inchikeys = inchikeys; }
 
+	private void fillFromMolecule(MoleculeInfo molecule){
+		this.molChemName.setValue(molecule.getName());
+		this.molStoichForm.setValue(molecule.getFormula());
+		this.molOrdForm.setValue(molecule.getOrdinaryFormula());
+	}
+
 	public void selectedInchi(){
 		this.inchikey.setValue(buildInchiList(inchikeys));
-		this.molChemName.setIgnoreField(true);
-		this.molStoichForm.setIgnoreField(true);
+		ignoreNameFields(this.inchikey.getValue().length()>0);
+	}
+
+	private void ignoreNameFields(boolean ignore){
+		this.molChemName.setIgnoreField(ignore);
+		this.molStoichForm.setIgnoreField(ignore);
 	}
 
 	private void resetInchiKeys(){
 		inchikeys = new HashMap<String,Boolean>();
 		inchikey.setValue("");
-		this.molChemName.setIgnoreField(false);
-		this.molStoichForm.setIgnoreField(false);
+		if (molecules.size()==1){
+			inchikey.setValue(molecules.get(0).getInchiKey());
+			molecules = Collections.emptyList();
+			ignoreNameFields(true);
+		}else
+			ignoreNameFields(false);
 	}
 
 	private String buildInchiList(Map<String, Boolean> inchikeys) {
@@ -112,9 +130,9 @@ public class MoleculesForm extends AbstractForm implements Form{
 
 		@Override
 		public void selected() {
-			molecules = EntityFacade.loadMoleculesFromName(queryData.getEntityManager(), molChemName.getValue());
-			molStoichForm.clear();
-			molOrdForm.clear();
+			EntityManager em = queryData.getEntityManager();
+			molecules = EntityFacade.loadMoleculesFromName(em, molChemName.getValue());
+			fillFromMolecule(EntityFacade.getMolecInfoFromID(em, EntityFacade.getSpeciesIDfromName(em, molChemName.getValue())));
 			resetInchiKeys();
 		}
 	}
@@ -136,13 +154,13 @@ public class MoleculesForm extends AbstractForm implements Form{
 
 		@Override
 		public void selected() {
-			molecules = EntityFacade.loadMoleculesFromStoichForm(queryData.getEntityManager(), molStoichForm.getValue());
-			molChemName.clear();
-			molOrdForm.clear();
+			EntityManager em = queryData.getEntityManager();
+			molecules = EntityFacade.loadMoleculesFromStoichForm(em, molStoichForm.getValue());
+			fillFromMolecule(EntityFacade.getMolecInfoFromID(em, EntityFacade.getSpeciesIDfromStoichForm(em, molStoichForm.getValue())));
 			resetInchiKeys();
 		}
 	}
-	
+
 	public class StructFormSuggestion implements SuggestionField.Suggestion{
 
 		private static final long serialVersionUID = -1570905697531370201L;
@@ -159,9 +177,9 @@ public class MoleculesForm extends AbstractForm implements Form{
 
 		@Override
 		public void selected() {
-			molecules = EntityFacade.loadMoleculesFromOrdForm(queryData.getEntityManager(), molOrdForm.getValue());
-			molChemName.clear();
-			molStoichForm.clear();
+			EntityManager em = queryData.getEntityManager();
+			molecules = EntityFacade.loadMoleculesFromOrdForm(em, molOrdForm.getValue());
+			fillFromMolecule(EntityFacade.getMolecInfoFromID(em, EntityFacade.getSpeciesIDfromOrdForm(em, molOrdForm.getValue())));
 			resetInchiKeys();
 		}
 	}

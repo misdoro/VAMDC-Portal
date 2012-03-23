@@ -47,7 +47,10 @@
 				</h:column>
 
 				<h:column>
-					<h:outputText value="#{molecule.inchiKey}" />
+					<h:outputText value="#{molecule.inchiKey}" id="inchi#{molecule.inchiKey}">
+						<rich:toolTip value="#{molecule.description}" styleClass="toolTip"
+							direction="bottom-right" />
+					</h:outputText>
 				</h:column>
 
 			</rich:dataTable>

@@ -15,4 +15,9 @@ public class SpeciesFacade implements MoleculeInfo{
 	public String getInchiKey() { return molecule.getInChIkey(); }
 	@Override
 	public String getDescription() { return molecule.getCommonName(); }
+	@Override
+	public String getName() { return molecule.getCommonName(); }
+	@Override
+	public String getOrdinaryFormula() { return molecule.getOrdinaryFormula(); }
+
 }

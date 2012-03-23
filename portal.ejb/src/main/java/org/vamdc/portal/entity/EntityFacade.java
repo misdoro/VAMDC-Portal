@@ -81,21 +81,21 @@ public class EntityFacade {
 		return loadMolecules(entityManager,molecID);
 	}
 	
-	private static Integer getSpeciesIDfromName(EntityManager entityManager, String name){
+	public static Integer getSpeciesIDfromName(EntityManager entityManager, String name){
 		SpeciesSpeciesname molec = EntityQuery.getSpeciesFromName(entityManager, name);
 		if (molec!=null)
 			return molec.getSpeciesId();
 		return 0;
 	}
 	
-	private static Integer getSpeciesIDfromStoichForm(EntityManager entityManager, String formula){
+	public static Integer getSpeciesIDfromStoichForm(EntityManager entityManager, String formula){
 		SpeciesSpecies molec = EntityQuery.getSpeciesFromStoichFormula(entityManager, formula);
 		if (molec!=null)
 			return molec.getId();
 		return 0;
 	}
 	
-	private static Integer getSpeciesIDfromOrdForm(EntityManager entityManager, String formula){
+	public static Integer getSpeciesIDfromOrdForm(EntityManager entityManager, String formula){
 		SpeciesSpecies molec = EntityQuery.getSpeciesFromOrdFormula(entityManager, formula);
 		if (molec!=null)
 			return molec.getId();
@@ -108,11 +108,20 @@ public class EntityFacade {
 			result.add(new IsotopologueFacade((SpeciesIso) iso));
 		}
 		if (result.size()==0){
-			SpeciesSpecies molecule = EntityQuery.getSpeciesFromID(entityManager, speciesID);
-			if (molecule!=null)
-				result.add(new SpeciesFacade(molecule));
+			MoleculeInfo species = EntityFacade.getMolecInfoFromID(entityManager, speciesID);
+			if (species!=null)
+				result.add(species);
 		}
 		return result;
+	}
+
+
+	public static MoleculeInfo getMolecInfoFromID(EntityManager entityManager,
+			Integer speciesID) {
+		SpeciesSpecies molecule = EntityQuery.getSpeciesFromID(entityManager, speciesID);
+		if (molecule!=null)
+			return new SpeciesFacade(molecule);
+		return null;
 	}
 	
 }

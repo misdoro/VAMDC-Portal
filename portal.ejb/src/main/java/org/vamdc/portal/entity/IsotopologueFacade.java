@@ -15,4 +15,8 @@ public class IsotopologueFacade implements MoleculeInfo{
 	public String getInchiKey() { return molecule.getInChIkey(); }
 	@Override
 	public String getDescription() { return molecule.getIsoNameHtml(); }
+	@Override
+	public String getName() { return molecule.getIsoName(); }
+	@Override
+	public String getOrdinaryFormula() { return molecule.getIsoName(); }
 }
