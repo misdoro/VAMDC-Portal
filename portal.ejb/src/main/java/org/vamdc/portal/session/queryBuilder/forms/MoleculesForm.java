@@ -89,6 +89,8 @@ public class MoleculesForm extends AbstractForm implements Form{
 			if (inchikeys.get(inchikey))
 				result+=inchikey+", ";
 		}
+		if (result.length()>2)
+			result = result.substring(0, result.length()-2);
 		return result;
 	}
 
