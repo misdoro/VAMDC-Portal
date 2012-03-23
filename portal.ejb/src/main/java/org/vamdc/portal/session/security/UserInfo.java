@@ -7,6 +7,7 @@ import org.jboss.seam.annotations.AutoCreate;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
+import org.jboss.seam.faces.Redirect;
 import org.jboss.seam.security.Credentials;
 import org.jboss.seam.security.Identity;
 import org.vamdc.portal.entity.security.User;
@@ -33,5 +34,15 @@ public class UserInfo {
 			return (User) entityManager.createQuery("from User where username =:username").setParameter("username", user).getSingleResult();
 		}
 		return null;
+	}
+	
+	
+	@In private Redirect redirect;
+	public String login(){
+		if (identity !=null && !identity.isLoggedIn()){
+			redirect.captureCurrentView();
+			return "login";
+		}
+		return "";
 	}
 }

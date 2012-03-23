@@ -18,6 +18,9 @@
 			<rule if-outcome="queryLog">
 				<redirect view-id="/queryLog.xhtml" />
 			</rule>
+			<rule if-outcome="login">
+				<redirect view-id="/login.xhtml" />
+			</rule>
 		</navigation>
 	</page>
 
