@@ -88,6 +88,7 @@ public abstract class AbstractForm implements Form{
 
 	@Override
 	public void delete(){
+		clear();
 		queryData.deleteForm(this);
 	}
 

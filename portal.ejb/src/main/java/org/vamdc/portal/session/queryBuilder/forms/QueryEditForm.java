@@ -1,10 +1,6 @@
 package org.vamdc.portal.session.queryBuilder.forms;
 
-
-import org.vamdc.portal.session.queryBuilder.QueryData;
-
 public class QueryEditForm extends AbstractForm implements Form{
-
 
 	private static final long serialVersionUID = 1038458921184436210L;
 	@Override
@@ -14,38 +10,21 @@ public class QueryEditForm extends AbstractForm implements Form{
 	@Override
 	public String getView() { return "/xhtml/query/forms/editorForm.xhtml"; }
 	
-	private String queryString = "";
-	
-	public QueryEditForm(){
-	}
-	
 	public String getValue(){
-		if (queryString.length()>0)
-			return queryString;
-		return queryData.buildQueryString();
+		if (queryData!=null)
+			return queryData.getQueryString();
+		return "";
 	}
 	
 	public void setValue(String newQueryString){
-		if (queryData==null || !newQueryString.equals(queryData.buildQueryString()))
-				queryString=newQueryString;
+		if (queryData!=null && !newQueryString.equals(queryData.getQueryString()))
+			queryData.setCustomQueryString(newQueryString);
 	}
 	
-	@Override
-	public void setQueryData(QueryData queryData){
-		super.setQueryData(queryData);
-		queryData.setQueryEditForm(this);
-	}
-	
-	@Override
-	public void delete(){
-		queryData.setQueryEditForm(null);
-		super.delete();
-	}
-
 	@Override
 	public void clear(){
 		super.clear();
-		queryString="";
+		queryData.setCustomQueryString("");
 	}
 	
 }

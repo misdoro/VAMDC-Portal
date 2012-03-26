@@ -21,7 +21,6 @@ import org.vamdc.dictionary.Requestable;
 import org.vamdc.dictionary.Restrictable;
 import org.vamdc.portal.session.queryBuilder.forms.Form;
 import org.vamdc.portal.session.queryBuilder.forms.Order;
-import org.vamdc.portal.session.queryBuilder.forms.QueryEditForm;
 import org.vamdc.tapservice.vss2.Query;
 import org.vamdc.tapservice.vss2.RestrictExpression;
 import org.vamdc.tapservice.vss2.impl.QueryImpl;
@@ -38,12 +37,12 @@ public class QueryData implements Serializable{
 	
 	//Species-related forms
 	private transient Collection<Form> speciesForms;
-	private transient QueryEditForm queryEditForm=null;
 	
 	private Collection<Requestable> request;
 	
 	private String comments="";
 	private String editedQueryId;
+	private String customQueryString;
 	
 	private volatile Integer lastInsertOrder=0;
 
@@ -59,7 +58,7 @@ public class QueryData implements Serializable{
 	
 	public Collection<Restrictable> getKeywords(){
 		if (isUserModified()){
-			return getKeywordsFromQuery(queryEditForm.getValue());
+			return getKeywordsFromQuery(customQueryString);
 		}
 		return getKeywordsFromForms();
 	}
@@ -98,12 +97,13 @@ public class QueryData implements Serializable{
 	
 	public String getQueryString(){
 		if (isUserModified())
-			return queryEditForm.getValue();
+			return customQueryString;
 		return buildQueryString(); 
 	}
 	
+	
 	private boolean isUserModified(){
-		return (queryEditForm!=null && queryEditForm.getValue().length()>0);
+		return (customQueryString!=null && customQueryString.length()>0);
 	}
 
 	public boolean isValid(){
@@ -159,10 +159,6 @@ public class QueryData implements Serializable{
 		return false;
 	}
 	
-	public void setQueryEditForm(QueryEditForm form){
-		this.queryEditForm = form;
-	}
-	
 	public void deleteForm(Form form){
 		forms.remove(form);
 		if (form.getOrder()<Order.SPECIES_LIMIT)
@@ -208,6 +204,10 @@ public class QueryData implements Serializable{
 
 	public void setRequest(Collection<Requestable> request) {
 		this.request = request;
+	}
+
+	public void setCustomQueryString(String customQueryString) {
+		this.customQueryString = customQueryString;
 	}
 	
 }

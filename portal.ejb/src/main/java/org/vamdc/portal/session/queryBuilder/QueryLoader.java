@@ -51,9 +51,8 @@ public class QueryLoader {
 			queryData.addForm(new CommentsForm());
 		
 		if (!queryString.equals(queryData.getQueryString())){
-			QueryEditForm qe = new QueryEditForm();
-			qe.setValue(queryString);
-			queryData.addForm(qe);
+			queryData.addForm(new QueryEditForm());
+			queryData.setCustomQueryString(queryString);
 		}
 
 		return true;
