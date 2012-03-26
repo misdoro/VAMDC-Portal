@@ -21,6 +21,7 @@ import org.vamdc.dictionary.Requestable;
 import org.vamdc.dictionary.Restrictable;
 import org.vamdc.portal.session.queryBuilder.forms.Form;
 import org.vamdc.portal.session.queryBuilder.forms.Order;
+import org.vamdc.portal.session.queryBuilder.forms.QueryEditForm;
 import org.vamdc.tapservice.vss2.Query;
 import org.vamdc.tapservice.vss2.RestrictExpression;
 import org.vamdc.tapservice.vss2.impl.QueryImpl;
@@ -37,7 +38,7 @@ public class QueryData implements Serializable{
 	
 	//Species-related forms
 	private transient Collection<Form> speciesForms;
-	private transient Form queryEditForm=null;
+	private transient QueryEditForm queryEditForm=null;
 	
 	private Collection<Requestable> request;
 	
@@ -158,7 +159,7 @@ public class QueryData implements Serializable{
 		return false;
 	}
 	
-	public void setQueryEditForm(Form form){
+	public void setQueryEditForm(QueryEditForm form){
 		this.queryEditForm = form;
 	}
 	

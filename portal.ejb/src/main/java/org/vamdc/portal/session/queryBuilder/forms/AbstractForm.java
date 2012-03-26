@@ -125,12 +125,6 @@ public abstract class AbstractForm implements Form{
 	public String getPrefix(){ return this.prefix; }
 
 	@Override
-	public String getValue(){
-		return "";
-	}
-
-
-	@Override
 	public int loadFromQuery(LogicNode branch){
 		int loadedFieldsCount=0;
 		for (AbstractField field:fields){

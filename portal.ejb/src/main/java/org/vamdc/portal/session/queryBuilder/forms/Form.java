@@ -35,7 +35,5 @@ public interface Form extends Serializable{
 	public Integer getOrder();
 	public void setPrefixIndex(Integer integer);
 	
-	public String getValue();
-	
 	public int loadFromQuery(LogicNode branch);
 }

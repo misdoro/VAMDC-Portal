@@ -13,7 +13,6 @@ public class CommentsForm extends AbstractForm implements Form{
 	public CommentsForm(){
 	}
 	
-	@Override
 	public String getValue(){
 		return queryData.getComments();
 	}
