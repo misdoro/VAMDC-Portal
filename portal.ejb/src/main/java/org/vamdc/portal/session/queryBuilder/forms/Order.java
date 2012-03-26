@@ -12,6 +12,7 @@ public class Order implements Comparator<Form>{
 
 	public final static Integer SINGLE_LIMIT=10;//Forms above this number can occur once
 	final static Integer Process=12;
+	final static Integer Branches=13;
 	final static Integer Query=14;
 	static final Integer Comments = 15;
 	

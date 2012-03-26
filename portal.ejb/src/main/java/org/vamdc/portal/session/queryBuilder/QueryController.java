@@ -21,6 +21,7 @@ import org.vamdc.portal.entity.query.HttpHeadResponse.Response;
 import org.vamdc.portal.entity.query.Query;
 import org.vamdc.portal.session.preview.PreviewManager;
 import org.vamdc.portal.session.queryBuilder.forms.AtomsForm;
+import org.vamdc.portal.session.queryBuilder.forms.BranchesForm;
 import org.vamdc.portal.session.queryBuilder.forms.CollisionsForm;
 import org.vamdc.portal.session.queryBuilder.forms.CommentsForm;
 import org.vamdc.portal.session.queryBuilder.forms.EnvironmentForm;
@@ -154,8 +155,8 @@ public class QueryController {
 		queryData.addForm(new QueryEditForm());
 	}
 	
-	public void action(){
-		
+	public void addFormBranches(){
+		queryData.addForm(new BranchesForm());
 	}
 
 	
