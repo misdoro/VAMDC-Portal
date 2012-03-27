@@ -18,16 +18,16 @@
 					reRender="form#{form.id}" />
 			</h:panelGrid>
 
-			<rich:tree value="#{form.tree}" var="node" mode="ajax"
-				adviseNodeOpened="true">
+			<rich:tree value="#{branches.root}" var="node" mode="ajax"
+				adviseNodeOpened="#{node.isActive()}">
 				<rich:treeNode iconLeaf="/img/tree_on.png" icon="/img/tree_on.png"
-					rendered="#{node.active}">
-					<a4j:commandLink value="#{node.data.name}" action="#{node.disable}"
+					rendered="#{node.isActive()}">
+					<a4j:commandLink value="#{node.name()}" action="#{node.disable}"
 						reRender="branchPanel,freeFormPanel" />
 				</rich:treeNode>
 				<rich:treeNode iconLeaf="/img/tree_off.png" icon="/img/tree_off.png"
-					rendered="#{not node.active}">
-					<a4j:commandLink value="#{node.data.name}" action="#{node.enable}"
+					rendered="#{not node.isActive()}">
+					<a4j:commandLink value="#{node.name()}" action="#{node.enable}"
 						reRender="branchPanel,freeFormPanel" />
 				</rich:treeNode>
 
