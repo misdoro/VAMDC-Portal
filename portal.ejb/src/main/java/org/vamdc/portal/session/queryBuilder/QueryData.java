@@ -93,9 +93,9 @@ public class QueryData implements Serializable{
 	}
 
 	public String buildQueryString(){
-		String result = "SELECT ";
+		String result = "select ";
 		result+=QueryGenerator.getRequestPart(request);
-		result+=" WHERE ";
+		result+=" where ";
 		result+=QueryGenerator.getFormsQuery(getForms());
 		return result;
 	}
