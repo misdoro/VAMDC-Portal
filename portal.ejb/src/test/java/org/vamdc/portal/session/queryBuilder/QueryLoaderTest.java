@@ -116,6 +116,12 @@ public class QueryLoaderTest {
 
 	}
 	
+	@Test
+	public void testLoadRequestables(){
+		String query = "select Species where ((AtomSymbol LIKE '%'))";
+		assertQueryLoadsFine(query);
+	}
+	
 	private void assertQueryLoadsFine(String query) {
 		assertTrue(QueryLoader.loadQuery(queryData, query));
 		System.out.println("---------- Testing queryLoader");

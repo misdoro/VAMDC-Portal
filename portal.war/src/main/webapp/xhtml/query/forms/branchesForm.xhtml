@@ -21,7 +21,6 @@
 			<rich:tree value="#{branches.root}" var="node" mode="ajax" adviseNodeOpened="#{branchesController.isOpen()}">
 				<rich:treeNode iconLeaf="/img/tree_on.png" icon="/img/tree_on.png"
 					rendered="#{branchesController.isActive(node.name())}">
-					<h:outputText value="+"/>
 					<a4j:commandLink value="#{node.name()}" action="#{branchesController.disable(node)}"
 						reRender="formPanel" >
 						<rich:toolTip value="#{node.description}" styleClass="toolTip"
@@ -30,7 +29,6 @@
 				</rich:treeNode>
 				<rich:treeNode iconLeaf="/img/tree_off.png" icon="/img/tree_off.png"
 					rendered="#{not branchesController.isActive(node.name())}">
-					<h:outputText value="-"/>
 					<a4j:commandLink value="#{node.name()}" 
 						reRender="formPanel" action="#{branchesController.enable(node)}">
 						<rich:toolTip value="#{node.description}" styleClass="toolTip"

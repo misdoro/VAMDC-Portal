@@ -41,10 +41,14 @@ public class BranchesController {
 	}
 	
 	public void enable(Object node){
+		if (queryData.getRequest()==null)
+			queryData.setRequest(EnumSet.of((Requestable)node));
 		queryData.setRequest(logic.enableKey(queryData.getRequest(), (Requestable) node));
 	}
 	
 	public void disable(Object node){
+		if (queryData.getRequest()==null)
+			queryData.setRequest(EnumSet.of((Requestable)node));
 		queryData.setRequest(logic.disableKey(queryData.getRequest(), (Requestable) node));
 	}
 	

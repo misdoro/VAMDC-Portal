@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EnumSet;
 
+import org.vamdc.dictionary.Requestable;
+import org.vamdc.dictionary.RequestableLogicImpl;
 import org.vamdc.dictionary.Restrictable;
 import org.vamdc.dictionary.VSSPrefix;
 import org.vamdc.portal.session.queryBuilder.forms.AtomsForm;
+import org.vamdc.portal.session.queryBuilder.forms.BranchesForm;
 import org.vamdc.portal.session.queryBuilder.forms.CollisionsForm;
 import org.vamdc.portal.session.queryBuilder.forms.CommentsForm;
 import org.vamdc.portal.session.queryBuilder.forms.EnvironmentForm;
@@ -54,8 +57,28 @@ public class QueryLoader {
 			queryData.addForm(new QueryEditForm());
 			queryData.setCustomQueryString(queryString);
 		}
+		
+		Collection<Requestable> keys = loadRequestables(qp);
+		queryData.setRequest(keys);
+		if (keys!=null && keys.size()>0)
+			queryData.addForm(new BranchesForm());
 
 		return true;
+	}
+
+	private static Collection<Requestable> loadRequestables(Query qp) {
+		Collection<Requestable> keys = EnumSet.noneOf(Requestable.class);
+		boolean missed = false;
+		for (Requestable key:Requestable.values()){
+			if (qp.checkSelectBranch(key))
+				keys.add(key);
+			else
+				missed = true;
+		}
+		if (missed)
+			return new RequestableLogicImpl().normalizeKeys(keys);
+		else 
+			return EnumSet.noneOf(Requestable.class);
 	}
 
 	private static Form findBestMatchingForm(LogicNode subtree) {
