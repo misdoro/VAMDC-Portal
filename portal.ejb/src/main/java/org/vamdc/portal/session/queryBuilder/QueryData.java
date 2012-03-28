@@ -54,6 +54,7 @@ public class QueryData implements Serializable{
 		forms=Collections.synchronizedSet(new TreeSet<Form>(new Order()));
 		formsList = Collections.synchronizedList(new ArrayList<Form>());
 		speciesForms=Collections.synchronizedSet(new TreeSet<Form>(new Order()));
+		request = EnumSet.noneOf(Requestable.class);
 	}
 	
 	public Collection<Restrictable> getKeywords(){
@@ -92,7 +93,11 @@ public class QueryData implements Serializable{
 	}
 
 	public String buildQueryString(){
-		return "select * where "+QueryGenerator.getFormsQuery(getForms());
+		String result = "SELECT ";
+		result+=QueryGenerator.getRequestPart(request);
+		result+=" WHERE ";
+		result+=QueryGenerator.getFormsQuery(getForms());
+		return result;
 	}
 	
 	public String getQueryString(){

@@ -85,7 +85,7 @@ public class QueryGenerator {
 	
 	public static String getRequestPart(Collection<Requestable> keywords){
 		
-		if (keywords.isEmpty())
+		if (keywords==null || keywords.isEmpty())
 			return "*";
 		else{
 			String result = "";
