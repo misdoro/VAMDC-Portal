@@ -39,7 +39,6 @@ public class VamdcNode extends TreeNodeImpl<TreeNodeElement> implements TreeNode
 		this.registry=registryFacade;
 		this.setData(this);
 		
-		this.active = query.getActiveNodes().contains(ivoaID);
 		
 		Collection<Restrictable> queryKeywords = query.getActiveKeywords();
 		
@@ -50,20 +49,20 @@ public class VamdcNode extends TreeNodeImpl<TreeNodeElement> implements TreeNode
 			missingKeywords = EnumSet.noneOf(Restrictable.class);
 		}
 		
-		Set<Restrictable> keys = new TreeSet<Restrictable>(new RestrictableComparator());
+		Set<Restrictable> keys = new TreeSet<Restrictable>();
 		keys.addAll(registry.getRestrictables(ivoaID));
 		missingKeywords.removeAll(keys);
 		
+		this.active = (keys!=null && queryKeywords!=null && queryKeywords.size()>0 && keys.containsAll(queryKeywords));
+		
 		for (Restrictable key:keys){
-			boolean active = queryKeywords.contains(key);
-			this.addChild(key, new RestrictableNode(key,active,false));
+			boolean keyIsActive = queryKeywords.contains(key);
+			this.addChild(key, new RestrictableNode(key,keyIsActive,false));
 		}
 		
 		for (Restrictable key:missingKeywords)
 			this.addChild(key, new RestrictableNode(key,false,true));
 	}
-
-
 
 	public String getDescription(){ 
 		if (description==null) 
@@ -85,6 +84,10 @@ public class VamdcNode extends TreeNodeImpl<TreeNodeElement> implements TreeNode
 	
 	public boolean isActive(){
 		return active;
+	}
+	
+	public boolean isMissing(){
+		return false;
 	}
 
 	@Override

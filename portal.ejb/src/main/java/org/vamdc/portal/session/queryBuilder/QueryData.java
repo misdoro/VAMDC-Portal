@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
-import java.util.HashSet;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -91,7 +90,7 @@ public class QueryData implements Serializable{
 	}
 
 	private Collection<String> loadActiveNodes() {
-		Collection<String> result = new HashSet<String>();
+		Collection<String> result = new TreeSet<String>();
 
 		Collection<Restrictable> keywords = getActiveKeywords();
 		for (String ivoaID:registryFacade.getTapIvoaIDs()){
