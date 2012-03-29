@@ -18,12 +18,12 @@
 		<rich:spacer width="" />
 		<h:inputText value="#{field.userLoValue}" styleClass="narrowfield" tabindex="10">
 			<a4j:support event="onchange"
-				reRender="nodeTree,buttonArea,conv#{field.id}" />
+				reRender="nodeTree,buttonArea,conv#{field.id}" action="#{queryData.resetCaches}"/>
 		</h:inputText>
 		<h:outputText value="to" />
 		<h:inputText value="#{field.userHiValue}" styleClass="narrowfield" tabindex="10">
 			<a4j:support event="onchange"
-				reRender="nodeTree,buttonArea,conv#{field.id}" />
+				reRender="nodeTree,buttonArea,conv#{field.id}" action="#{queryData.resetCaches}"/>
 		</h:inputText>
 
 		<h:selectOneMenu value="#{field.converter.selectedOption}"

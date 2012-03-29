@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -15,10 +16,12 @@ import javax.persistence.EntityManager;
 
 import org.jboss.seam.Component;
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.vamdc.dictionary.Requestable;
 import org.vamdc.dictionary.Restrictable;
+import org.vamdc.portal.registry.RegistryFacade;
 import org.vamdc.portal.session.queryBuilder.forms.Form;
 import org.vamdc.portal.session.queryBuilder.forms.Order;
 import org.vamdc.tapservice.vss2.Query;
@@ -45,6 +48,11 @@ public class QueryData implements Serializable{
 	private String customQueryString;
 	
 	private volatile Integer lastInsertOrder=0;
+	
+	private transient Collection<Restrictable> activeKeywords;
+	private transient Collection<String> activeNodes;
+	
+	@In(create=true) private transient RegistryFacade registryFacade;
 
 	public QueryData(){
 		initCollections();
@@ -57,7 +65,47 @@ public class QueryData implements Serializable{
 		request = EnumSet.noneOf(Requestable.class);
 	}
 	
-	public Collection<Restrictable> getKeywords(){
+	public Collection<Restrictable> getActiveKeywords(){
+		if (activeKeywords==null)
+			activeKeywords=loadActiveKeywords();
+		return activeKeywords;
+	}
+	
+	public boolean containsKey(String name){
+		try{
+			return getActiveKeywords().contains(Restrictable.valueOf(name));
+		}catch (IllegalArgumentException e){
+			return false;
+		}
+	}
+	
+	public Collection<String> getActiveNodes(){
+		if (activeNodes==null) 
+			activeNodes = loadActiveNodes();
+		return activeNodes;
+	}
+	
+	public void resetCaches(){
+		System.out.println("reset caches");
+		activeNodes=null;
+		activeKeywords=null;
+	}
+
+	private Collection<String> loadActiveNodes() {
+		System.out.println("load active nodes");
+		Collection<String> result = new HashSet<String>();
+
+		Collection<Restrictable> keywords = getActiveKeywords();
+		for (String ivoaID:registryFacade.getTapIvoaIDs()){
+			if (keywords.size()>0 && registryFacade.getRestrictables(ivoaID).containsAll(keywords))
+				result.add(ivoaID);
+		}
+		
+		return result;
+	}
+	
+	private Collection<Restrictable> loadActiveKeywords(){
+		System.out.println("load active keywords");
 		if (isUserModified()){
 			return getKeywordsFromQuery(customQueryString);
 		}
@@ -112,7 +160,7 @@ public class QueryData implements Serializable{
 	}
 
 	public boolean isValid(){
-		return getKeywords().size()>0;
+		return getActiveKeywords().size()>0;
 	}
 
 	/**
@@ -150,6 +198,7 @@ public class QueryData implements Serializable{
 
 	private void rebuildLists() {
 		formsList = Collections.synchronizedList(new ArrayList<Form>(forms));
+		resetCaches();
 	}
 	
 	private boolean quickAddForm(Form form){
@@ -181,6 +230,11 @@ public class QueryData implements Serializable{
 		return (EntityManager) Component.getInstance("entityManager");
 	}
 	
+	/**
+	 * custom serialization method
+	 * @param s
+	 * @throws IOException
+	 */
 	private void writeObject(ObjectOutputStream s) throws IOException{
 		s.defaultWriteObject();
 		
@@ -191,6 +245,12 @@ public class QueryData implements Serializable{
 		}
 	}
 	
+	/**
+	 * Custom deserialization method
+	 * @param s
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	private void readObject(ObjectInputStream s) throws IOException, ClassNotFoundException{
 		s.defaultReadObject();
 		int numForms = s.readInt();

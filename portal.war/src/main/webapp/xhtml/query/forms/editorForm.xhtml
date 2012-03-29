@@ -12,7 +12,7 @@
 		<rich:panel id="form#{form.id}">
 			<ui:include src="/xhtml/query/forms/formTitle.xhtml" />
 			<h:inputTextarea cols="60" rows="10" value="#{form.value}">
-				<a4j:support event="onchange" reRender="nodeTree,buttonArea" />
+				<a4j:support event="onchange" reRender="nodeTree,buttonArea" action="#{queryData.resetCaches}"/>
 			</h:inputTextarea>
 		</rich:panel>
 	</a4j:form>

@@ -55,6 +55,8 @@ public class QueryController {
 	
 	@In(create=true) private QueryLog queryLog;
 	
+
+	
 	@End
 	public String saveQuery(){
 		
@@ -90,6 +92,8 @@ public class QueryController {
 		return result;
 	}
 
+
+	
 	private List<HttpHeadResponse> selectRespondedNodes() {
 		ArrayList<HttpHeadResponse> responses = new ArrayList<HttpHeadResponse>();
 		

@@ -9,14 +9,12 @@ import java.util.TreeSet;
 import org.richfaces.model.TreeNodeImpl;
 import org.vamdc.dictionary.Restrictable;
 import org.vamdc.portal.registry.RegistryFacade;
-import org.vamdc.portal.session.queryBuilder.QueryData;
 
 
 public class VamdcNode extends TreeNodeImpl<TreeNodeElement> implements TreeNodeElement{
 
 	private static final long serialVersionUID = 7577402632944052661L;
 	
-	private QueryData queryData;
 	
 	private final String ivoaID;
 	private final RegistryFacade registry;
@@ -31,16 +29,15 @@ public class VamdcNode extends TreeNodeImpl<TreeNodeElement> implements TreeNode
 		
 	}
 
-	public VamdcNode(RegistryFacade registryFacade, String id, QueryData queryData){
+	public VamdcNode(RegistryFacade registryFacade, String id, Collection<Restrictable> queryKeywords){
 		this.ivoaID = id;
 		this.registry=registryFacade;
-		this.queryData = queryData;
 		this.setData(this);
 		
 		
 		Set<Restrictable> missingKeywords;
-		if (queryData.getKeywords().size()>0){
-			missingKeywords = EnumSet.copyOf(queryData.getKeywords());
+		if (queryKeywords.size()>0){
+			missingKeywords = EnumSet.copyOf(queryKeywords);
 		}else{
 			missingKeywords = EnumSet.noneOf(Restrictable.class);
 		}
@@ -50,10 +47,10 @@ public class VamdcNode extends TreeNodeImpl<TreeNodeElement> implements TreeNode
 		missingKeywords.removeAll(keys);
 		
 		for (Restrictable key:keys)
-			this.addChild(key, new RestrictableNode(key,queryData));
+			this.addChild(key, new RestrictableNode(key,false));
 		
 		for (Restrictable key:missingKeywords)
-			this.addChild(key, new RestrictableNode(key,null));
+			this.addChild(key, new RestrictableNode(key,true));
 	}
 
 
@@ -61,15 +58,8 @@ public class VamdcNode extends TreeNodeImpl<TreeNodeElement> implements TreeNode
 	public String getDescription(){ return registry.getResourceDescription(ivoaID); }
 
 	public String getName(){ return registry.getResourceTitle(ivoaID); }
-
-	public boolean isActive() {
-		Collection<Restrictable> keywords = queryData.getKeywords();
-		return (keywords.size()>0 && registry.getRestrictables(ivoaID).containsAll(keywords));
-	}
-
-	public boolean isMissing() {
-		return false;
-	}
+	
+	public String getIvoaId(){ return this.ivoaID; }
 
 	public boolean hasDescription() {
 		return (getDescription()!=null && getDescription().trim().length()>0);

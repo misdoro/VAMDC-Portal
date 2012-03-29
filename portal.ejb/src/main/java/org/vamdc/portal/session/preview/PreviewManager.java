@@ -21,7 +21,6 @@ import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.log.Log;
-import org.vamdc.dictionary.Restrictable;
 import org.vamdc.portal.RedirectPage;
 import org.vamdc.portal.Settings;
 import org.vamdc.portal.entity.query.HttpHeadResponse;
@@ -49,7 +48,7 @@ public class PreviewManager implements Serializable{
 		if (nodeFutureResponses.size()>0)
 			return;
 
-		Collection<String> activeNodes = getActiveNodes();
+		Collection<String> activeNodes = queryData.getActiveNodes();
 
 		if (activeNodes.size()==0)
 			return;
@@ -65,18 +64,6 @@ public class PreviewManager implements Serializable{
 		
 		executor.shutdown();
 		startTime = new Date().getTime();
-	}
-
-	public Collection<String> getActiveNodes(){
-		Collection<String> result = new ArrayList<String>();
-
-		Collection<Restrictable> keywords = queryData.getKeywords();
-		for (String ivoaID:registryFacade.getTapIvoaIDs()){
-			if (keywords.size()>0 && registryFacade.getRestrictables(ivoaID).containsAll(keywords))
-				result.add(ivoaID);
-		}
-		
-		return result;
 	}
 
 	private URL getQuery(String ivoaID) {

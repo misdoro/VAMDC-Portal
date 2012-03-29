@@ -83,6 +83,7 @@ public class MoleculesForm extends AbstractForm implements Form{
 	public void selectedInchi(){
 		this.inchikey.setValue(buildInchiList(inchikeys));
 		ignoreNameFields(this.inchikey.getValue().length()>0);
+		queryData.resetCaches();
 	}
 
 	private void ignoreNameFields(boolean ignore){

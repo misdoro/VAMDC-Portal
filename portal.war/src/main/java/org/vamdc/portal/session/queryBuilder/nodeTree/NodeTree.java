@@ -31,7 +31,7 @@ public class NodeTree{
 	private TreeNode<TreeNodeElement> setupTree() {
 		TreeNode<TreeNodeElement> root = new TreeNodeImpl<TreeNodeElement>();
 		for (String ivoaID:registryFacade.getTapIvoaIDs()){
-			root.addChild(ivoaID, new VamdcNode(registryFacade,ivoaID,queryData));
+			root.addChild(ivoaID, new VamdcNode(registryFacade,ivoaID,queryData.getActiveKeywords()));
 		}
 		return root;
 	}

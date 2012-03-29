@@ -8,6 +8,4 @@ public interface TreeNodeElement {
 	public String getType();
 	public String getDescription();
 	public boolean hasDescription();
-	public boolean isActive();
-	public boolean isMissing();
 }

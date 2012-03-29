@@ -4,7 +4,6 @@ import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Scope;
 import org.richfaces.model.TreeNodeImpl;
 import org.vamdc.dictionary.Restrictable;
-import org.vamdc.portal.session.queryBuilder.QueryData;
 
 /**
  * Tree node corresponding to a restrictable keyword
@@ -16,7 +15,7 @@ public class RestrictableNode extends TreeNodeImpl<TreeNodeElement> implements T
 	private static final long serialVersionUID = 8930608280461610995L;
 
 	private final Restrictable key;
-	private final QueryData queryData;
+	private final boolean isMissing;
 	
 	/**
 	 * 
@@ -24,9 +23,9 @@ public class RestrictableNode extends TreeNodeImpl<TreeNodeElement> implements T
 	 * @param parent
 	 * @param queryData null means that this keyword is actually missing from the node but is expected by the query
 	 */
-	public RestrictableNode(Restrictable key, QueryData queryData) {
+	public RestrictableNode(Restrictable key, boolean missing) {
 		this.key = key;
-		this.queryData = queryData;
+		this.isMissing = missing;
 		this.setData(this);
 	}
 	
@@ -38,19 +37,13 @@ public class RestrictableNode extends TreeNodeImpl<TreeNodeElement> implements T
 	public String getName(){
 		return key.name();
 	}
-	
-	public boolean isActive() {
-		return queryData!=null && queryData.getKeywords().contains(key);
-	}
-
-
-	public boolean isMissing() {
-		return queryData==null;
-	}
-
 
 	public boolean hasDescription() {
 		return (getDescription()!=null && getDescription().trim().length()>0);
+	}
+
+	public boolean isMissing() {
+		return isMissing;
 	}
 
 }
