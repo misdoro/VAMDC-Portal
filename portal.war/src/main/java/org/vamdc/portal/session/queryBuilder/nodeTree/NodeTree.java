@@ -28,10 +28,10 @@ public class NodeTree{
 
 
 
-	private TreeNodeImpl<TreeNodeElement> setupTree() {
-		TreeNodeImpl<TreeNodeElement> root = new TreeNodeImpl<TreeNodeElement>();
+	private TreeNode<TreeNodeElement> setupTree() {
+		TreeNode<TreeNodeElement> root = new TreeNodeImpl<TreeNodeElement>();
 		for (String ivoaID:registryFacade.getTapIvoaIDs()){
-			root.addChild(ivoaID, new VamdcNode(root,registryFacade,ivoaID,queryData));
+			root.addChild(ivoaID, new VamdcNode(registryFacade,ivoaID,queryData));
 		}
 		return root;
 	}
