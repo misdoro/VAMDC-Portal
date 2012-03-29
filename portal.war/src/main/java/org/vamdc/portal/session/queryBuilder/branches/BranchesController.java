@@ -53,7 +53,7 @@ public class BranchesController {
 	}
 	
 	public void enableAll(){
-		queryData.setRequest(logic.normalizeKeys(EnumSet.allOf(Requestable.class)));
+		queryData.setRequest(EnumSet.noneOf(Requestable.class));
 	}
 	public void disableAll(){
 		queryData.setRequest(null);

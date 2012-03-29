@@ -1,5 +1,9 @@
 package org.vamdc.portal.session.queryBuilder.forms;
 
+import java.util.EnumSet;
+
+import org.vamdc.dictionary.Requestable;
+
 public class BranchesForm extends AbstractForm implements Form{
 
 	private static final long serialVersionUID = 8345255113788420868L;
@@ -13,4 +17,8 @@ public class BranchesForm extends AbstractForm implements Form{
 	//Tree representation of requestable keywords (XSAMS branches) is called from WAR package, org.vamdc.portal.session.queryBuilder.branches
 	//Here we only attach the appropriate face.
 	
+	@Override
+	public void clear() {
+		queryData.setRequest(EnumSet.noneOf(Requestable.class));
+	}
 }
