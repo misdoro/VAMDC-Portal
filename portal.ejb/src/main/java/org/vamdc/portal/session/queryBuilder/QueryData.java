@@ -86,13 +86,11 @@ public class QueryData implements Serializable{
 	}
 	
 	public void resetCaches(){
-		System.out.println("reset caches");
 		activeNodes=null;
 		activeKeywords=null;
 	}
 
 	private Collection<String> loadActiveNodes() {
-		System.out.println("load active nodes");
 		Collection<String> result = new HashSet<String>();
 
 		Collection<Restrictable> keywords = getActiveKeywords();
@@ -105,7 +103,6 @@ public class QueryData implements Serializable{
 	}
 	
 	private Collection<Restrictable> loadActiveKeywords(){
-		System.out.println("load active keywords");
 		if (isUserModified()){
 			return getKeywordsFromQuery(customQueryString);
 		}

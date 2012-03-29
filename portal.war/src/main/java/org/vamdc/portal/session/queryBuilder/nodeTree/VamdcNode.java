@@ -9,6 +9,7 @@ import java.util.TreeSet;
 import org.richfaces.model.TreeNodeImpl;
 import org.vamdc.dictionary.Restrictable;
 import org.vamdc.portal.registry.RegistryFacade;
+import org.vamdc.portal.session.queryBuilder.QueryData;
 
 
 public class VamdcNode extends TreeNodeImpl<TreeNodeElement> implements TreeNodeElement{
@@ -18,6 +19,10 @@ public class VamdcNode extends TreeNodeImpl<TreeNodeElement> implements TreeNode
 	
 	private final String ivoaID;
 	private final RegistryFacade registry;
+	private final boolean active;
+	
+	private String name;
+	private String description;
 
 	public class RestrictableComparator implements Comparator<Restrictable>{
 
@@ -29,11 +34,14 @@ public class VamdcNode extends TreeNodeImpl<TreeNodeElement> implements TreeNode
 		
 	}
 
-	public VamdcNode(RegistryFacade registryFacade, String id, Collection<Restrictable> queryKeywords){
+	public VamdcNode(RegistryFacade registryFacade, String id, QueryData query){
 		this.ivoaID = id;
 		this.registry=registryFacade;
 		this.setData(this);
 		
+		this.active = query.getActiveNodes().contains(ivoaID);
+		
+		Collection<Restrictable> queryKeywords = query.getActiveKeywords();
 		
 		Set<Restrictable> missingKeywords;
 		if (queryKeywords.size()>0){
@@ -46,23 +54,37 @@ public class VamdcNode extends TreeNodeImpl<TreeNodeElement> implements TreeNode
 		keys.addAll(registry.getRestrictables(ivoaID));
 		missingKeywords.removeAll(keys);
 		
-		for (Restrictable key:keys)
-			this.addChild(key, new RestrictableNode(key,false));
+		for (Restrictable key:keys){
+			boolean active = queryKeywords.contains(key);
+			this.addChild(key, new RestrictableNode(key,active,false));
+		}
 		
 		for (Restrictable key:missingKeywords)
-			this.addChild(key, new RestrictableNode(key,true));
+			this.addChild(key, new RestrictableNode(key,false,true));
 	}
 
 
 
-	public String getDescription(){ return registry.getResourceDescription(ivoaID); }
+	public String getDescription(){ 
+		if (description==null) 
+			description = registry.getResourceDescription(ivoaID); 
+		return description;
+	}
 
-	public String getName(){ return registry.getResourceTitle(ivoaID); }
+	public String getName(){ 
+		if (name==null)
+			name= registry.getResourceTitle(ivoaID);
+		return name;
+	}
 	
 	public String getIvoaId(){ return this.ivoaID; }
 
 	public boolean hasDescription() {
-		return (getDescription()!=null && getDescription().trim().length()>0);
+		return (getDescription()!=null && getDescription().length()>0);
+	}
+	
+	public boolean isActive(){
+		return active;
 	}
 
 	@Override

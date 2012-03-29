@@ -1,10 +1,7 @@
 package org.vamdc.portal.session.queryBuilder.nodeTree;
 
-
-import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Scope;
 import org.richfaces.model.TreeNode;
 import org.richfaces.model.TreeNodeImpl;
 import org.vamdc.portal.registry.RegistryFacade;
@@ -19,7 +16,6 @@ import org.vamdc.portal.session.queryBuilder.QueryData;
  */
 
 @Name("nodeTree")
-@Scope(ScopeType.STATELESS)
 public class NodeTree{
 
 	@In(create=true) private RegistryFacade registryFacade;
@@ -31,7 +27,7 @@ public class NodeTree{
 	private TreeNode<TreeNodeElement> setupTree() {
 		TreeNode<TreeNodeElement> root = new TreeNodeImpl<TreeNodeElement>();
 		for (String ivoaID:registryFacade.getTapIvoaIDs()){
-			root.addChild(ivoaID, new VamdcNode(registryFacade,ivoaID,queryData.getActiveKeywords()));
+			root.addChild(ivoaID, new VamdcNode(registryFacade,ivoaID,queryData));
 		}
 		return root;
 	}

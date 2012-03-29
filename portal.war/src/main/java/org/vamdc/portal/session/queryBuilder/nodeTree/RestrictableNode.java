@@ -16,6 +16,7 @@ public class RestrictableNode extends TreeNodeImpl<TreeNodeElement> implements T
 
 	private final Restrictable key;
 	private final boolean isMissing;
+	private final boolean isActive;
 	
 	/**
 	 * 
@@ -23,20 +24,16 @@ public class RestrictableNode extends TreeNodeImpl<TreeNodeElement> implements T
 	 * @param parent
 	 * @param queryData null means that this keyword is actually missing from the node but is expected by the query
 	 */
-	public RestrictableNode(Restrictable key, boolean missing) {
+	public RestrictableNode(Restrictable key, boolean active, boolean missing) {
 		this.key = key;
 		this.isMissing = missing;
+		this.isActive = active;
 		this.setData(this);
 	}
 	
-	public String getDescription() { return key.getDescription(); };
-	public String getType(){
-		return TreeNodeElement.Restrictable;
-	}
-	
-	public String getName(){
-		return key.name();
-	}
+	public String getDescription() { return key.getDescription(); }
+	public String getType(){ return TreeNodeElement.Restrictable; }
+	public String getName(){ return key.name(); }
 
 	public boolean hasDescription() {
 		return (getDescription()!=null && getDescription().trim().length()>0);
@@ -44,6 +41,10 @@ public class RestrictableNode extends TreeNodeImpl<TreeNodeElement> implements T
 
 	public boolean isMissing() {
 		return isMissing;
+	}
+	
+	public boolean isActive() {
+		return isActive;
 	}
 
 }
