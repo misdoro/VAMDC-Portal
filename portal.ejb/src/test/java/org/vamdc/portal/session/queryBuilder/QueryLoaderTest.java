@@ -60,7 +60,7 @@ public class QueryLoaderTest {
 	
 	@Test
 	public void testLoadEnvironment(){
-		query = "select * where (Temperature >= 1.0 AND Temperature <= 23.0 AND Pressure >= 10000.0 AND Pressure <= 10100.0)";
+		query = "select * where (EnvironmentTemperature >= 1.0 AND EnvironmentTemperature <= 23.0 AND EnvironmentTotalPressure >= 10000.0 AND EnvironmentTotalPressure <= 10100.0)";
 		assertQueryLoadsFine(query);
 	}
 	
