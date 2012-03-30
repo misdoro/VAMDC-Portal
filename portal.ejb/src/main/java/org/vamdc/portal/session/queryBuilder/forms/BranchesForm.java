@@ -9,7 +9,7 @@ public class BranchesForm extends AbstractForm implements Form{
 	private static final long serialVersionUID = 8345255113788420868L;
 	
 	@Override
-	public String getTitle() { return "Request branches"; }
+	public String getTitle() { return "Request"; }
 	@Override
 	public Integer getOrder() { return Order.Branches; }
 	@Override
