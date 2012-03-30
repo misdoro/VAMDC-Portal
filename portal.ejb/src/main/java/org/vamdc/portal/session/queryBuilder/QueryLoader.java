@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EnumSet;
 
+import org.vamdc.dictionary.Factory;
 import org.vamdc.dictionary.Requestable;
-import org.vamdc.dictionary.RequestableLogicImpl;
 import org.vamdc.dictionary.Restrictable;
 import org.vamdc.dictionary.VSSPrefix;
 import org.vamdc.portal.session.queryBuilder.forms.AtomsForm;
@@ -76,7 +76,7 @@ public class QueryLoader {
 				missed = true;
 		}
 		if (missed)
-			return new RequestableLogicImpl().normalizeKeys(keys);
+			return Factory.getRequestableLogic().normalizeKeys(keys);
 		else 
 			return EnumSet.noneOf(Requestable.class);
 	}

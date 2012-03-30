@@ -94,7 +94,7 @@ public class CollisionsForm extends AbstractForm implements Form{
 		protected Collection<String> getValues() {
 			Collection<String> result = new ArrayList<String>();
 			for (XsamsProcessCode code:XsamsProcessCode.values())
-				result.add(code.processName());
+				result.add(code.getProcessName());
 			return result;
 		}
 		
@@ -104,7 +104,7 @@ public class CollisionsForm extends AbstractForm implements Form{
 			
 			XsamsProcessCode code = getCodeFromName(process);
 			if (code!=null){
-				processDescription.setValue(code.processDesc());
+				processDescription.setValue(code.getDescription());
 				xsamsProcCode.setValue(code.name());
 			}
 			
@@ -113,7 +113,7 @@ public class CollisionsForm extends AbstractForm implements Form{
 		
 		private XsamsProcessCode getCodeFromName(String name){
 			for (XsamsProcessCode code:XsamsProcessCode.values()){
-				if (code.processName().equals(name))
+				if (code.getProcessName().equals(name))
 					return code;
 			}
 			return null;

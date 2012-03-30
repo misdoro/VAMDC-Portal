@@ -8,7 +8,6 @@ import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.vamdc.dictionary.Requestable;
 import org.vamdc.dictionary.RequestableLogic;
-import org.vamdc.dictionary.RequestableLogicImpl;
 import org.vamdc.portal.session.queryBuilder.QueryData;
 
 
@@ -22,7 +21,7 @@ public class BranchesController {
 	
 
 	@In QueryData queryData;
-	private RequestableLogic logic = new RequestableLogicImpl(); 
+	private RequestableLogic logic = org.vamdc.dictionary.Factory.getRequestableLogic(); 
 	
 	public boolean isOpen(){
 		return true;

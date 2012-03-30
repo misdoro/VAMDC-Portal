@@ -7,7 +7,6 @@ import org.richfaces.model.TreeNode;
 import org.richfaces.model.TreeNodeImpl;
 import org.vamdc.dictionary.Requestable;
 import org.vamdc.dictionary.RequestableLogic;
-import org.vamdc.dictionary.RequestableLogicImpl;
 import org.vamdc.dictionary.Keyword;
 /**
  * Class implementing branches selector tree view
@@ -19,7 +18,7 @@ public class BranchesTree {
 	
 	public TreeNode<Keyword> getRequestNode(Requestable key){
 		TreeNode<Keyword> result = new TreeNodeImpl<Keyword>();
-		RequestableLogic logic = new RequestableLogicImpl();
+		RequestableLogic logic = org.vamdc.dictionary.Factory.getRequestableLogic();
 		result.setData(key);
 		for (Requestable children:logic.getLogicChildren(key)){
 			result.addChild(children, getRequestNode(children));

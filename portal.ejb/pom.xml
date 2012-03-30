@@ -83,7 +83,7 @@
 		<dependency>
 			<groupId>org.vamdc</groupId>
 			<artifactId>Dictionaries</artifactId>
-			<version>11.12-r1-SNAPSHOT</version>
+			<version>${dictionary.version}</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
