@@ -13,16 +13,16 @@
 			<ui:include src="/xhtml/query/forms/formTitle.xhtml" />
 			<h:panelGrid columns="2">
 				<a4j:commandButton value="Select All" action="#{branchesController.enableAll}"
-					reRender="form#{form.id}" />
+					reRender="formPanel, buttonArea, nodeTree" />
 				<a4j:commandButton value="None" action="#{branchesController.disableAll}"
-					reRender="form#{form.id}" />
+					reRender="formPanel, buttonArea, nodeTree" />
 			</h:panelGrid>
 
 			<rich:tree value="#{branches.root}" var="node" mode="ajax" adviseNodeOpened="#{branchesController.isOpen()}">
 				<rich:treeNode iconLeaf="/img/tree_on.png" icon="/img/tree_on.png"
 					rendered="#{branchesController.isActive(node.name())}">
 					<a4j:commandLink value="#{node.name()}" action="#{branchesController.disable(node)}"
-						reRender="formPanel" >
+						reRender="formPanel, buttonArea, nodeTree" >
 						<rich:toolTip value="#{node.description}" styleClass="toolTip"
 							direction="bottom-right" />
 						</a4j:commandLink>
@@ -30,7 +30,7 @@
 				<rich:treeNode iconLeaf="/img/tree_off.png" icon="/img/tree_off.png"
 					rendered="#{not branchesController.isActive(node.name())}">
 					<a4j:commandLink value="#{node.name()}" 
-						reRender="formPanel" action="#{branchesController.enable(node)}">
+						reRender="formPanel, buttonArea, nodeTree" action="#{branchesController.enable(node)}">
 						<rich:toolTip value="#{node.description}" styleClass="toolTip"
 							direction="bottom-right" />
 						</a4j:commandLink>
