@@ -156,7 +156,7 @@ public class QueryData implements Serializable{
 	}
 
 	public boolean isValid(){
-		return getActiveKeywords().size()>0;
+		return getActiveKeywords().size()>0 || (request!=null && request.size()>0);
 	}
 
 	/**
