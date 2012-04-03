@@ -25,7 +25,7 @@ import org.vamdc.portal.session.queryBuilder.forms.Form;
 import org.vamdc.portal.session.queryBuilder.forms.Order;
 import org.vamdc.tapservice.vss2.Query;
 import org.vamdc.tapservice.vss2.RestrictExpression;
-import org.vamdc.tapservice.vss2.impl.QueryImpl;
+import org.vamdc.tapservice.vss2.VSSParser;
 
 @Name("queryData")
 @Scope(ScopeType.CONVERSATION)
@@ -119,14 +119,14 @@ public class QueryData implements Serializable{
 	
 	private Collection<Restrictable> getKeywordsFromQuery(String query){
 		EnumSet<Restrictable> result = EnumSet.noneOf(Restrictable.class);
-		Query parser;
+		Query parsedQuery;
 		try{
-			parser = new QueryImpl(getQueryString(),null);
+			parsedQuery = VSSParser.parse(query);
 		}catch (IllegalArgumentException e){
 			return result;
 		}
 		
-		Collection<RestrictExpression> keywords = parser.getRestrictsList();
+		Collection<RestrictExpression> keywords = parsedQuery.getRestrictsList();
 		if (keywords!=null){
 			for (RestrictExpression keyword:keywords){
 				result.add(keyword.getColumn());

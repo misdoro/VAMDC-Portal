@@ -23,14 +23,14 @@ import org.vamdc.tapservice.vss2.LogicNode.Operator;
 import org.vamdc.tapservice.vss2.NodeFilter;
 import org.vamdc.tapservice.vss2.Prefix;
 import org.vamdc.tapservice.vss2.Query;
-import org.vamdc.tapservice.vss2.impl.QueryImpl;
+import org.vamdc.tapservice.vss2.VSSParser;
 
 public class QueryLoader {
 
 	public static boolean loadQuery(QueryData queryData,String queryString) {
 		Query qp;
 		try{
-			qp = new QueryImpl(queryString,null);
+			qp = VSSParser.parse(queryString);
 		}catch (IllegalArgumentException e){
 			return false;
 		}
