@@ -92,12 +92,19 @@ public class QueryData implements Serializable{
 	private Collection<String> loadActiveNodes() {
 		Collection<String> result = new TreeSet<String>();
 
-		Collection<Restrictable> keywords = getActiveKeywords();
-		for (String ivoaID:registryFacade.getTapIvoaIDs()){
-			if (keywords.size()>0 && registryFacade.getRestrictables(ivoaID).containsAll(keywords))
-				result.add(ivoaID);
+		Collection<String> ivoaIDs = registryFacade.getTapIvoaIDs();
+		
+
+		Collection<Restrictable> activeKeywords = getActiveKeywords();
+		if (activeKeywords.size()==0 && request!=null && request.size()>0){
+			result=ivoaIDs;
+			return result;
 		}
 		
+		for (String ivoaID:ivoaIDs){
+			if (activeKeywords.size()>0 && registryFacade.getRestrictables(ivoaID).containsAll(activeKeywords))
+				result.add(ivoaID);
+		}
 		return result;
 	}
 	
