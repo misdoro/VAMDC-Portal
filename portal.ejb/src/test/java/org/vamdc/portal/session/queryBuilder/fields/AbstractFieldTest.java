@@ -42,6 +42,14 @@ public class AbstractFieldTest {
 	public void getInQuery(){
 		assertQueryEquals("Fe, Co",KEYWORD+" IN ('Fe','Co')");
 	}
+	
+	@Test
+	public void testNullKeyword() {
+		field = new SimpleField(null, "Atom Symbol");
+		field.setValue("Fe");
+		assertFalse(field.hasValue());
+		assertQueryEquals("Fe","");
+	}
 
 	private final static String KEYWORD = "AtomSymbol";
 	@Before
