@@ -47,7 +47,7 @@ public class MoleculesForm extends AbstractForm implements Form{
 	public String getView() { return "/xhtml/query/forms/moleculesForm.xhtml"; }
 
 	public MoleculesForm(){
-		molChemName = new SuggestionField(Restrictable.MoleculeChemicalName,"Chemical name", new ChemNameSuggestion());
+		molChemName = new SuggestionField(null,"Chemical name", new ChemNameSuggestion());
 		addField(molChemName);
 
 		molStoichForm = new SuggestionField(Restrictable.MoleculeStoichiometricFormula,"Stoichiometric formula", new StoichFormSuggestion()); 

@@ -50,8 +50,9 @@ public abstract class AbstractField implements Serializable{
 	
 	
 	public String getQuery(){
-		if (ignoreField || keyword==null || value==null || value.trim().length()==0)
+		if (!hasValue())
 			return "";
+		
 		String value = this.value.trim();
 
 		StringBuilder result = new StringBuilder();
@@ -114,7 +115,7 @@ public abstract class AbstractField implements Serializable{
 	}
 
 	public boolean hasValue(){
-		return !ignoreField && this.value!=null && this.value.length()>0;
+		return !ignoreField && this.keyword !=null && this.value!=null && this.value.trim().length()>0;
 	}
 
 	/**

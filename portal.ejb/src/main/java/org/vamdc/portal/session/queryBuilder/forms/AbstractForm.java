@@ -67,7 +67,7 @@ public abstract class AbstractForm implements Form{
 	public Collection<Restrictable> getKeywords() {
 		EnumSet<Restrictable> keywords = EnumSet.noneOf(Restrictable.class);
 		for (AbstractField field:fields){
-			if (field.hasValue() && field.getKeyword()!=null){
+			if (field.hasValue()){
 				keywords.add(field.getKeyword());
 			}
 		}
