@@ -10,7 +10,7 @@ public class SpeciesFacade implements MoleculeInfo{
 	}
 	
 	@Override
-	public String getFormula(){ return molecule.getOrdinaryFormula(); }
+	public String getFormula(){ return molecule.getStoichiometricFormula(); }
 	@Override
 	public String getInchiKey() { return molecule.getInChIkey(); }
 	@Override
