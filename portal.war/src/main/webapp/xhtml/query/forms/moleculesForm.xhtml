@@ -20,7 +20,15 @@
 			</c:forEach>
 		</a4j:form>
 
-		<a4j:form ajaxSubmit="true">
+		<a4j:form ajaxSubmit="true" rendered="#{! form.molecules.isEmpty()}">
+			
+			<rich:panel >
+				<a4j:commandLink action="#{form.selectAllInchi()}" value="Select All" reRender="form#{form.id},nodeTree,buttonArea" />
+				<h:outputText value=" "/>
+				<a4j:commandLink action="#{form.selectNoneInchi()}" value="None" reRender="form#{form.id},nodeTree,buttonArea"/>
+				<h:outputText value=" Search by stoichiometric formula if no inchikey is selected." />
+			</rich:panel>
+			
 			<rich:dataTable id="moleculesTable#{form.id}"
 				value="#{form.molecules}" var="molecule">
 				<f:facet name="header">

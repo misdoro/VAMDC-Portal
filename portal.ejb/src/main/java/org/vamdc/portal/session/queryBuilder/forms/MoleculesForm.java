@@ -107,6 +107,23 @@ public class MoleculesForm extends AbstractForm implements Form{
 			ignoreNameFields(false);
 		queryData.resetCaches();
 	}
+	
+	public String selectAllInchi(){
+		inchikeys = new HashMap<String,Boolean>();
+		for (MoleculeInfo molecule:molecules){
+			inchikeys.put(molecule.getInchiKey(), true);
+		}
+		selectedInchi();
+		return "";
+	}
+	
+	public void selectNoneInchi(){
+		inchikeys = new HashMap<String,Boolean>();
+		for (MoleculeInfo molecule:molecules){
+			inchikeys.put(molecule.getInchiKey(), false);
+		}
+		selectedInchi();
+	}
 
 	private String buildInchiList(Map<String, Boolean> inchikeys) {
 		String result = "";
