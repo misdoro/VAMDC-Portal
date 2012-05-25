@@ -14,7 +14,7 @@
 
 
 			<a4j:form ajaxSubmit="true">
-				<rich:dropDownMenu style="background-color:#B5DAFF;" value="Species"
+				<rich:dropDownMenu styleClass="queryMenuBlock" value="Species"
 					submitMode="ajax" direction="bottom-right" jointPoint="tr">
 					<rich:menuItem value="Atom" reRender="formPanel"
 						action="#{query.addFormAtoms}" />
@@ -24,9 +24,7 @@
 						action="#{query.addFormParticles}" />
 				</rich:dropDownMenu>
 
-				<rich:spacer height="10" />
-
-				<rich:dropDownMenu style="background-color:#B5DAFF;"
+				<rich:dropDownMenu styleClass="queryMenuBlock"
 					value="Processes" submitMode="ajax" direction="bottom-right"
 					jointPoint="tr">
 					<rich:menuItem value="Radiative" reRender="formPanel"
@@ -35,13 +33,13 @@
 						action="#{query.addFormCollisions}" />
 				</rich:dropDownMenu>
 
-				<a4j:commandButton value="Environment" action="#{query.addFormEnvironment()}"
-					style="background-color:#B5DAFF; color:black" reRender="formPanel" />
+				<div class="queryMenuBlock">
+					<a4j:commandLink value="Environment" 
+					action="#{query.addFormEnvironment()}"
+					styleClass="queryMenuButton" reRender="formPanel" />
+				</div>				
 
-				<br />
-				<rich:spacer height="5" />
-
-				<rich:dropDownMenu style="background-color:#B5DAFF; " value="Advanced"
+				<rich:dropDownMenu styleClass="queryMenuBlock" value="Advanced"
 					submitMode="ajax" direction="bottom-right" jointPoint="tr">
 					<rich:menuItem value="Query editor" reRender="formPanel"
 						action="#{query.addFormQueryEditor}" />

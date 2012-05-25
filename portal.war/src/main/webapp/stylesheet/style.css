@@ -60,6 +60,27 @@
 	height: 100%;
 }
 
+.queryMenuButton{
+	background-color:#B5DAFF;
+	border-style: none;
+	white-space: nowrap;
+	font-family: Arial,Verdana,sans-serif;
+	font-weight: bold;
+    font-size: 11px;
+	margin: 3px;
+	line-height: 20px;
+	text-decoration: none;
+	color: black;
+	margin-left: 6px;
+}
+
+.queryMenuBlock{
+	margin-top:5px;
+	margin-bottom:5px;
+	vertical-align: middle;
+	background-color:#B5DAFF;
+}
+
 .queryForms{
 	height: 100%;
 	vertical-align: top;
