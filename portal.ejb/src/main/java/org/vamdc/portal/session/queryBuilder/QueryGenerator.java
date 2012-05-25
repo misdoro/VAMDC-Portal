@@ -101,7 +101,7 @@ public class QueryGenerator {
 		result+=QueryGenerator.getRequestPart(requestables);
 		
 		String formsQuery = QueryGenerator.getFormsQuery(forms);
-		if (formsQuery!=null && formsQuery.length()>0){
+		if (formsQuery!=null && !formsQuery.isEmpty()){
 			result+=" where "+formsQuery;
 		}
 		
