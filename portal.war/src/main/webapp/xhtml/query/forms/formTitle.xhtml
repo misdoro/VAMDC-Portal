@@ -7,21 +7,23 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j">
 	<f:facet name="header">
-		<rich:toolBar itemSeparator="none" style="border: none;">
+		<rich:toolBar itemSeparator="none" width="95%" style="border: none;">
 			<rich:toolBarGroup>
 				<h:outputText value="#{form.title}" />
 				<h:outputText value=" (#{form.prefix}) " rendered="#{form.prefix.length()>0}" />
 			</rich:toolBarGroup>
 			<rich:toolBarGroup location="right">
-				<a4j:commandLink ajaxSingle="true" reRender="form#{form.id},nodeTree,buttonArea"
+				<a4j:commandLink ajaxSingle="true" 
+				reRender="form#{form.id},nodeTree,buttonArea"
 					action="#{form.clear}"
-					value="Clear" />
+					value="Clear"
+					 />
 				
 				<a4j:commandLink id="form#{form.id}Remove" ajaxSingle="true" reRender="formPanel,nodeTree,buttonArea"
 					action="#{form.delete}"
-					value="Remove" immediate="true"/>
+					value="Remove" immediate="true">
 					<rich:componentControl for="form#{form.id}" attachTo="form#{form.id}Remove" operation="hide" event="onclick"/>
-					<rich:spacer widh="20"/>
+				</a4j:commandLink>
 			</rich:toolBarGroup>
 		</rich:toolBar>
 	</f:facet>
