@@ -126,8 +126,9 @@ public class QueryLoaderTest {
 		assertTrue(QueryLoader.loadQuery(queryData, query));
 		System.out.println("---------- Testing queryLoader");
 		System.out.println("original: "+query);
-		System.out.println("rebuilt : "+queryData.buildQueryString());
-		assertEquals(query,queryData.buildQueryString());
+		String rebuilt = QueryGenerator.buildQueryString(queryData.getRequest(),queryData.getForms());
+		System.out.println("rebuilt : "+rebuilt);
+		assertEquals(query,rebuilt);
 	}
 	
 	
