@@ -1,5 +1,6 @@
 package org.vamdc.portal.session.queryBuilder.forms;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import org.vamdc.portal.entity.EntityFacade;
 import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 import org.vamdc.portal.session.queryBuilder.fields.RangeField;
 import org.vamdc.portal.session.queryBuilder.fields.SuggestionField;
+import org.vamdc.portal.session.queryBuilder.fields.SuggestionImpl;
 import org.vamdc.portal.session.queryBuilder.fields.TextField;
 
 public class MoleculesForm extends AbstractForm implements Form{
@@ -57,6 +59,8 @@ public class MoleculesForm extends AbstractForm implements Form{
 		addField(molOrdForm);
 
 		addField(new RangeField(Restrictable.IonCharge,"Ion charge"));
+		
+		addField(new SuggestionField(Restrictable.MoleculeStateNuclearSpinIsomer,"Spin isomer",new SymmetrySuggest()));
 
 		inchikey = new TextField(Restrictable.InchiKey,"InChIKey");
 		addField(inchikey);
@@ -183,6 +187,21 @@ public class MoleculesForm extends AbstractForm implements Form{
 			fillFromMolecule(EntityFacade.getMolecInfoFromID(em, EntityFacade.getSpeciesIDfromOrdForm(em, molOrdForm.getValue())));
 			resetInchiKeys();
 		}
+	}
+	
+	public class SymmetrySuggest extends SuggestionImpl{
+		private static final long serialVersionUID = 8382996745391164997L;
+
+		@Override
+		protected Collection<String> loadValues() {
+			Collection<String> result = new ArrayList<String>();
+			result.add("ortho");
+			result.add("para");
+			result.add("A");
+			result.add("E");
+			return result;
+		}
+		
 	}
 
 
