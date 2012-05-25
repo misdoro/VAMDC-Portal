@@ -1,11 +1,13 @@
 package org.vamdc.portal.session.queryBuilder.nodeTree;
 
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.EnumSet;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.richfaces.model.TreeNode;
 import org.richfaces.model.TreeNodeImpl;
 import org.vamdc.dictionary.Restrictable;
 import org.vamdc.portal.registry.RegistryFacade;
@@ -21,46 +23,41 @@ public class VamdcNode extends TreeNodeImpl<TreeNodeElement> implements TreeNode
 	private final RegistryFacade registry;
 	private final boolean active;
 	
+	private final Collection<Restrictable> queryKeywords;
+	private final Set<Restrictable> nodeKeywords;
+	private final Set<Restrictable> missing;
+	
 	private String name;
 	private String description;
-
-	public class RestrictableComparator implements Comparator<Restrictable>{
-
-		@Override
-		public int compare(org.vamdc.dictionary.Restrictable o1,
-				org.vamdc.dictionary.Restrictable o2) {
-			return o1.name().compareTo(o2.name());
-		}
-		
-	}
 
 	public VamdcNode(RegistryFacade registryFacade, String id, QueryData query){
 		this.ivoaID = id;
 		this.registry=registryFacade;
 		this.setData(this);
 		
+		nodeKeywords = new TreeSet<Restrictable>();
+		nodeKeywords.addAll(registry.getRestrictables(ivoaID));
 		
-		Collection<Restrictable> queryKeywords = query.getActiveKeywords();
+		queryKeywords = query.getActiveKeywords();
 		
-		Set<Restrictable> missingKeywords;
 		if (queryKeywords.size()>0){
-			missingKeywords = EnumSet.copyOf(queryKeywords);
+			missing = EnumSet.copyOf(queryKeywords);
 		}else{
-			missingKeywords = EnumSet.noneOf(Restrictable.class);
+			missing = EnumSet.noneOf(Restrictable.class);
 		}
 		
-		Set<Restrictable> keys = new TreeSet<Restrictable>();
-		keys.addAll(registry.getRestrictables(ivoaID));
-		missingKeywords.removeAll(keys);
+		missing.removeAll(nodeKeywords);
 		
-		this.active = (keys!=null && queryKeywords!=null && queryKeywords.size()>0 && keys.containsAll(queryKeywords));
-		
-		for (Restrictable key:keys){
+		this.active = (nodeKeywords!=null && queryKeywords!=null && queryKeywords.size()>0 && nodeKeywords.containsAll(queryKeywords));
+	}
+
+	private void initChildren() {
+		for (Restrictable key:nodeKeywords){
 			boolean keyIsActive = queryKeywords.contains(key);
 			this.addChild(key, new RestrictableNode(key,keyIsActive,false));
 		}
 		
-		for (Restrictable key:missingKeywords)
+		for (Restrictable key:missing)
 			this.addChild(key, new RestrictableNode(key,false,true));
 	}
 
@@ -94,4 +91,17 @@ public class VamdcNode extends TreeNodeImpl<TreeNodeElement> implements TreeNode
 	public String getType() {
 		return TreeNodeElement.VAMDCNode;
 	}
+	
+	@Override
+	public boolean isLeaf(){
+		return false;
+	}
+	
+	@Override
+	public Iterator<Map.Entry<Object, TreeNode<TreeNodeElement>>> getChildren() {
+		initChildren();
+		return super.getChildren();
+	}
+	
+		
 }
