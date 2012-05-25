@@ -105,6 +105,13 @@
 							<value>${context}EntityManagerFactory</value>
 						</replacement>
 					</replacements>
+					<file>target/${project.artifactId}-${project.version}/help.xhtml</file>
+					<replacements>
+						<replacement>
+							<token>\[BUILDDATE\]</token>
+							<value>${maven.build.timestamp}</value>
+						</replacement>
+					</replacements>
 				</configuration>
 			</plugin>
 
