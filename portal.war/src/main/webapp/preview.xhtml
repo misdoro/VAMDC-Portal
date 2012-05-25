@@ -15,15 +15,16 @@
 				<h:panelGrid>
 
 					<rich:progressBar id="previewProgress" styleClass="#{preview.done? 'rich-progress-bar-done':''}"
-						value="#{preview.percentsDone}" interval="1000" minValue="0"
-						maxValue="100" reRenderAfterComplete="previewProgress,previewTable,statusPanel,commentsPanel"
+						value="#{preview.percentsDone}" interval="987" minValue="0"
+						maxValue="100" 
+						reRenderAfterComplete="previewProgress,previewTable,statusPanel,commentsPanel"
 						reRender="previewTable,statusPanel,commentsPanel" >
 						<f:facet name="initial">
 							<a4j:outputPanel layout="block" styleClass="rich-progress-bar-width rich-progress-bar-mockup">
 								<h:outputText value="Starting preview..." />
 							</a4j:outputPanel>
 							<a4j:region>                       
-								<a4j:poll id="previewTablePoll" interval="1000" enabled="#{!preview.done}" reRender="previewTable,statusPanel,commentsPanel" />
+								<a4j:poll id="previewTablePoll" interval="1234" enabled="#{!preview.done}" reRender="previewTable,statusPanel,commentsPanel" />
 							</a4j:region>
 						</f:facet>
 						<f:facet name="complete">

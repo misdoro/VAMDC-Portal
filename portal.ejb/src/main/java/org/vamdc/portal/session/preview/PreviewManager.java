@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import java.util.TreeSet;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -24,7 +25,9 @@ import org.jboss.seam.log.Log;
 import org.vamdc.portal.RedirectPage;
 import org.vamdc.portal.Settings;
 import org.vamdc.portal.entity.query.HttpHeadResponse;
+import org.vamdc.portal.entity.query.HttpHeadResponse.Response;
 import org.vamdc.portal.registry.RegistryFacade;
+import org.vamdc.portal.session.consumers.Consumers;
 import org.vamdc.portal.session.queryBuilder.QueryData;
 
 @Name("preview")
@@ -40,6 +43,10 @@ public class PreviewManager implements Serializable{
 	@In transient QueryData queryData;
 
 	@In(create=true) transient RegistryFacade registryFacade;
+	
+	@In(create=true) transient Consumers consumers;
+	
+	private volatile boolean completeEventCalled=false;
 	
 	private Collection<Future<HttpHeadResponse>> nodeFutureResponses = new ArrayList<Future<HttpHeadResponse>>();
 	private long startTime;
@@ -81,7 +88,7 @@ public class PreviewManager implements Serializable{
 	}
 
 
-	public Collection<HttpHeadResponse> getNodes(){
+	public List<HttpHeadResponse> getNodes(){
 		TreeSet<HttpHeadResponse> nodes = new TreeSet<HttpHeadResponse>(new HttpHeadResponseComparator());
 		for (Future<HttpHeadResponse> task:nodeFutureResponses){
 			if (task.isDone()&& !task.isCancelled()){
@@ -128,6 +135,8 @@ public class PreviewManager implements Serializable{
 			if (!task.isDone())
 				return false;
 		}
+		if (!completeEventCalled)
+			completeEvent();
 		return true;
 	}
 	
@@ -165,4 +174,19 @@ public class PreviewManager implements Serializable{
 		return RedirectPage.QUERY;
 	}
 
+	/**
+	 * Action that is called when the preview is complete.
+	 */
+	public void completeEvent(){
+		this.completeEventCalled=true;
+		List<HttpHeadResponse> results = getNodes();
+		int numActive=0;
+		for (HttpHeadResponse node:results){
+			if (node.isOk() && node.getStatus()==Response.OK)
+				numActive++;
+		}
+		if (numActive==1 && consumers!=null)
+			consumers.getQueries().put(results.get(0).getFullQueryURL(), true);
+	}
+	
 }
