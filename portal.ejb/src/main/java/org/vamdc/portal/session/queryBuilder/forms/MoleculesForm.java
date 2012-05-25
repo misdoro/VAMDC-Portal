@@ -82,6 +82,7 @@ public class MoleculesForm extends AbstractForm implements Form{
 		this.molChemName.setValue(molecule.getName());
 		this.molStoichForm.setValue(molecule.getFormula());
 		this.molOrdForm.setValue(molecule.getOrdinaryFormula());
+		queryData.resetCaches();
 	}
 
 	public void selectedInchi(){
@@ -104,6 +105,7 @@ public class MoleculesForm extends AbstractForm implements Form{
 			ignoreNameFields(true);
 		}else
 			ignoreNameFields(false);
+		queryData.resetCaches();
 	}
 
 	private String buildInchiList(Map<String, Boolean> inchikeys) {

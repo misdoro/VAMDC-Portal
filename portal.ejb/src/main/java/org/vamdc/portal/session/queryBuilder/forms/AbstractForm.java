@@ -81,6 +81,7 @@ public abstract class AbstractForm implements Form{
 
 	@Override
 	public void clear(){
+		queryData.resetCaches();
 		for (AbstractField field:fields){
 			field.clear();
 		}

@@ -115,7 +115,7 @@ public abstract class AbstractField implements Serializable{
 	}
 
 	public boolean hasValue(){
-		return !ignoreField && this.keyword !=null && this.value!=null && this.value.trim().length()>0;
+		return !ignoreField && this.keyword !=null && this.value!=null && !this.value.isEmpty();
 	}
 
 	/**
