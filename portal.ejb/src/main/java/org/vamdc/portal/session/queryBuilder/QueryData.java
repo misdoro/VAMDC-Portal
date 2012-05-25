@@ -143,18 +143,12 @@ public class QueryData implements Serializable{
 		return result;
 	}
 
-	public String buildQueryString(){
-		String result = "select ";
-		result+=QueryGenerator.getRequestPart(request);
-		result+=" where ";
-		result+=QueryGenerator.getFormsQuery(getForms());
-		return result;
-	}
+	
 	
 	public String getQueryString(){
 		if (isUserModified())
 			return customQueryString;
-		return buildQueryString(); 
+		return QueryGenerator.buildQueryString(request,formsList); 
 	}
 	
 	

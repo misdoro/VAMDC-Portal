@@ -95,4 +95,16 @@ public class QueryGenerator {
 			return result.substring(0,result.length()-1);
 		}
 	}
+	
+	public static String buildQueryString(Collection<Requestable> requestables,Collection<Form> forms){
+		String result = "select ";
+		result+=QueryGenerator.getRequestPart(requestables);
+		
+		String formsQuery = QueryGenerator.getFormsQuery(forms);
+		if (formsQuery!=null && formsQuery.length()>0){
+			result+=" where "+formsQuery;
+		}
+		
+		return result;
+	}
 }
