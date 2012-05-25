@@ -33,7 +33,10 @@ public abstract class AbstractField implements Serializable{
 		return value;
 	}
 	public void setValue(String value){
-		this.value = value;
+		if (value!=null)
+			this.value = value.trim();
+		else
+			this.value = value;
 	}
 
 	public void setIgnoreField(boolean flag){

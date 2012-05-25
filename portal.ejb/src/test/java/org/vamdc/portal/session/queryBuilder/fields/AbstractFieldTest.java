@@ -65,6 +65,9 @@ public class AbstractFieldTest {
 	private void assertQueryEquals(String parameter, String supposedResult){
 		field.setValue(parameter);
 		String query = field.getQuery();
+		System.out.println("Equals?");
+		System.out.println(query);
+		System.out.println(supposedResult);
 		assertTrue(query.equals(supposedResult));
 	}
 	
