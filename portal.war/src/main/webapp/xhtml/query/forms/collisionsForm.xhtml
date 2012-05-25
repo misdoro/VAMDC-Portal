@@ -35,7 +35,10 @@
 				</f:facet>
 
 				<h:column>
-					<h:outputText value="#{species.title}" />
+					<h:outputText value="#{species.title}" id="cspecies#{species.id}">
+						<rich:toolTip value="#{species.summary}" styleClass="toolTip"
+						direction="bottom-left" />
+					</h:outputText>
 				</h:column>
 
 				<h:column>

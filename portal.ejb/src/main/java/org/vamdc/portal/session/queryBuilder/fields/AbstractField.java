@@ -164,4 +164,11 @@ public abstract class AbstractField implements Serializable{
 			break;	
 		}
 	}
+	
+	public String getSummary(){
+		if (!this.hasValue())
+			return "";
+		
+		return this.getTitle()+" "+this.getValue();
+	}
 }

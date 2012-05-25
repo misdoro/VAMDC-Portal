@@ -124,6 +124,18 @@ public abstract class AbstractForm implements Form{
 
 	@Override
 	public String getPrefix(){ return this.prefix; }
+	
+	@Override
+	public String getSummary(){
+		StringBuilder result = new StringBuilder();
+		result.append(this.getTitle()).append("<br>");
+		for (AbstractField field:fields){
+			String fieldVal=field.getSummary();
+			if (fieldVal.length()>0)
+			result.append("<br>").append(fieldVal).append(field.getUnits());
+		}
+		return result.toString();
+	}
 
 	@Override
 	public int loadFromQuery(LogicNode branch){

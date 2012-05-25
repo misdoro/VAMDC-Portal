@@ -134,5 +134,12 @@ public class RangeField extends AbstractField{
 
 		}
 	}
+	
+	@Override
+	public String getSummary(){
+		if (!this.hasValue())
+			return "";
+		return this.getTitle()+" from "+this.loValue+" to "+this.hiValue;
+	}
 
 }

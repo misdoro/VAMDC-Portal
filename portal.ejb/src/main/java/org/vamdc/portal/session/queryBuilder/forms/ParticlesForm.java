@@ -27,7 +27,7 @@ public class ParticlesForm extends AbstractForm implements Form{
 
 		private static final long serialVersionUID = 8545624978301193585L;
 		@Override
-		protected Collection<String> getValues() {
+		protected Collection<String> loadValues() {
 			Collection<String> result = new ArrayList<String>(){
 				private static final long serialVersionUID = -7876192603503355123L;
 			{
@@ -40,10 +40,6 @@ public class ParticlesForm extends AbstractForm implements Form{
 			    add("cosmic");
 			}};
 			return result;
-		}
-
-		@Override
-		public void selected() {
 		}
 	}
 	

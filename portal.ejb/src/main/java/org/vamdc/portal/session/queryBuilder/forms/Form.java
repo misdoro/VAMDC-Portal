@@ -15,6 +15,7 @@ import org.vamdc.tapservice.vss2.LogicNode;
 public interface Form extends Serializable{
 	public String getTitle();
 	public String getView();
+	public String getSummary();
 	public String getId();
 	public Collection<AbstractField> getFields();
 	

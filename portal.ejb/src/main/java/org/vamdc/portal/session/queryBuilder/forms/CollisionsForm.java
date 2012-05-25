@@ -51,7 +51,7 @@ public class CollisionsForm extends AbstractForm implements Form{
 
 		private static final long serialVersionUID = 7850044834682292686L;
 		@Override
-		protected Collection<String> getValues() {
+		protected Collection<String> loadValues() {
 			Collection<String> result = new ArrayList<String>();
 			for (XsamsProcessCode key:XsamsProcessCode.values())
 				result.add(key.name());
@@ -69,7 +69,7 @@ public class CollisionsForm extends AbstractForm implements Form{
 
 		private static final long serialVersionUID = 4808699657011895289L;
 		@Override
-		protected Collection<String> getValues() {
+		protected Collection<String> loadValues() {
 			Collection<String> result = new ArrayList<String>();
 			for (IAEAProcessCode key:IAEAProcessCode.values())
 				result.add(key.name());
@@ -91,7 +91,7 @@ public class CollisionsForm extends AbstractForm implements Form{
 		ProcessNameSuggest() { super(); }
 
 		@Override
-		protected Collection<String> getValues() {
+		protected Collection<String> loadValues() {
 			Collection<String> result = new ArrayList<String>();
 			for (XsamsProcessCode code:XsamsProcessCode.values())
 				result.add(code.getProcessName());
@@ -161,6 +161,10 @@ public class CollisionsForm extends AbstractForm implements Form{
 		
 		public String getId(){
 			return speciesForm.getId();
+		}
+		
+		public String getSummary(){
+			return speciesForm.getSummary();
 		}
 	}
 

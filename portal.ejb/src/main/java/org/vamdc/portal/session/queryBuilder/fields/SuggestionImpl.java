@@ -6,11 +6,15 @@ import java.util.Collection;
 public abstract class SuggestionImpl implements SuggestionField.Suggestion{
 
 	private static final long serialVersionUID = 8835812132003605567L;
-	protected abstract Collection<String> getValues();
+	
+	/**
+	 * @return a collection that will be used for suggestion lookup
+	 */
+	protected abstract Collection<String> loadValues();
 
-	protected Collection<String> values;
+	protected final Collection<String> values;
 	public SuggestionImpl(){
-		this.values= getValues();
+		this.values= loadValues();
 	}
 	
 	@Override
@@ -26,7 +30,7 @@ public abstract class SuggestionImpl implements SuggestionField.Suggestion{
 	}
 
 	@Override
-	public String getIllegalLabel() { return "Illegal value"; }
+	public String getIllegalLabel() { return "No suggestion available"; }
 	@Override
-	public abstract void selected();
+	public void selected() {};
 }
