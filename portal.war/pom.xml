@@ -98,15 +98,12 @@
 					</execution>
 				</executions>
 				<configuration>
-					<file>target/${project.artifactId}-${project.version}/WEB-INF/components.xml</file>
+					<filesToInclude>target/${project.artifactId}-${project.version}/WEB-INF/components.xml,target/${project.artifactId}-${project.version}/help.xhtml</filesToInclude>
 					<replacements>
 						<replacement>
 							<token>portalEntityManagerFactory</token>
 							<value>${context}EntityManagerFactory</value>
 						</replacement>
-					</replacements>
-					<file>target/${project.artifactId}-${project.version}/help.xhtml</file>
-					<replacements>
 						<replacement>
 							<token>\[BUILDDATE\]</token>
 							<value>${maven.build.timestamp}</value>
