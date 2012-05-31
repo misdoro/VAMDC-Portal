@@ -12,7 +12,6 @@ import javax.persistence.EntityManager;
 import org.vamdc.dictionary.Restrictable;
 import org.vamdc.portal.entity.EntityFacade;
 import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
-import org.vamdc.portal.session.queryBuilder.fields.RangeField;
 import org.vamdc.portal.session.queryBuilder.fields.SuggestionField;
 import org.vamdc.portal.session.queryBuilder.fields.SuggestionImpl;
 import org.vamdc.portal.session.queryBuilder.fields.TextField;
@@ -57,8 +56,6 @@ public class MoleculesForm extends AbstractForm implements Form{
 
 		molOrdForm = new SuggestionField(null,"Structural formula", new StructFormSuggestion());
 		addField(molOrdForm);
-
-		addField(new RangeField(Restrictable.IonCharge,"Ion charge"));
 		
 		addField(new SuggestionField(Restrictable.MoleculeStateNuclearSpinIsomer,"Spin isomer",new SymmetrySuggest()));
 
