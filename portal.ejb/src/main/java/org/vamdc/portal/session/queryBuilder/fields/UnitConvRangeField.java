@@ -18,8 +18,8 @@ public class UnitConvRangeField extends RangeField{
 	public String getView() { return "/xhtml/query/fields/unitConvRangeField.xhtml"; }
 
 	private UnitConverter converter;
-	private String userHiValue="";
-	private String userLoValue="";
+	protected String userHiValue="";
+	protected String userLoValue="";
 	
 	public UnitConverter getConverter(){
 		return converter;

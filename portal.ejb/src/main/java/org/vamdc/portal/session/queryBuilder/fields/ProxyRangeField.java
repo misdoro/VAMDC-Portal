@@ -51,16 +51,17 @@ public class ProxyRangeField extends UnitConvRangeField{
 	
 	@Override
 	public void setUserHiValue(String userHiValue) {
+		this.userHiValue = userHiValue;
 		if (selectedField!=0){
 			convertFromForm(userHiValue,false);
 		}else{
 			super.setUserHiValue(userHiValue);
 		}
-
 	}
 	
 	@Override
-	public void setUserLoValue(String userLoValue) { 
+	public void setUserLoValue(String userLoValue) {
+		this.userLoValue=userLoValue;
 		if (selectedField!=0){
 			convertFromForm(userLoValue,true);
 		}else{
