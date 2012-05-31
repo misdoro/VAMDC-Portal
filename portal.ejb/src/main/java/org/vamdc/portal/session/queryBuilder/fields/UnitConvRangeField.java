@@ -68,4 +68,11 @@ public class UnitConvRangeField extends RangeField{
 			this.userHiValue = hiValue;
 	}
 	
+	@Override
+	public void clear(){
+		super.clear();
+		this.userHiValue = "";
+		this.userLoValue = "";
+	}
+	
 }

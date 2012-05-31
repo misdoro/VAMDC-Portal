@@ -105,6 +105,12 @@ public class ProxyRangeField extends UnitConvRangeField{
 			return super.getConverter();
 	}
 
+	@Override
+	public void clear(){
+		for (AbstractField field:proxyFields){
+			field.clear();
+		}
+	}
 
 
 }
