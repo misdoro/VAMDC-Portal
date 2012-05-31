@@ -28,15 +28,64 @@ public class testWLFieldSetup {
 	
 	@Test
 	public void testGHzToWlEqual(){
-		field.setSelectedField(1);
-		field.getConverter().setSelectedOption("GHz");
+		setFreqGHZ();
 		
-		field.setUserLoValue("0");
-		field.setUserHiValue("10");
+		field.setUserLoValue("100");
+		field.setUserHiValue("100");
 		
 		
 		String query = field.getQuery();
-		//assertTrue(query.contains("RadTransWavelength ="));
+		assertTrue(query.contains("RadTransWavelength ="));
+		
+		System.out.println(query);
+	}
+
+	private void setFreqGHZ() {
+		field.setSelectedField(1);
+		field.getConverter().setSelectedOption("GHz");
+	}
+	
+	@Test
+	public void testGHzToWlFromZero(){
+		setFreqGHZ();
+		field.setUserLoValue("0");
+		field.setUserHiValue("100");
+		
+		String query = field.getQuery();
+		assertTrue(query.contains("RadTransWavelength >="));
+		
+		System.out.println(query);
+	}
+	
+	@Test
+	public void testGHzToWlInverse(){
+		setFreqGHZ();
+		
+		field.setUserLoValue("198");
+		field.setUserHiValue("98");
+		
+		String query = field.getQuery();
+		assertTrue(query.contains("RadTransWavelength >="));
+		assertTrue(query.contains("RadTransWavelength <="));
+		
+		assertTrue(query.contains(">= 1.5"));
+		assertTrue(query.contains("<= 3"));
+		
+		System.out.println(query);
+	}
+	
+	@Test
+	public void testGHzToWlOne(){
+		setFreqGHZ();
+		
+		field.setUserLoValue("98");
+		
+		String query = field.getQuery();
+		//assertTrue(query.contains("RadTransWavelength >="));
+		//assertTrue(query.contains("RadTransWavelength <="));
+		
+		//assertTrue(query.contains(">= 1.5"));
+		assertTrue(query.contains("<= 3"));
 		
 		System.out.println(query);
 	}

@@ -25,7 +25,7 @@ public class UnitConvRangeField extends RangeField{
 		return converter;
 	}
 	
-	private String doConv(String value) {
+	String doConv(String value) {
 		String result ="";
 		if (value==null || value.length()==0)
 			return result;

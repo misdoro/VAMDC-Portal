@@ -51,39 +51,42 @@ public class ProxyRangeField extends UnitConvRangeField{
 	
 	@Override
 	public void setUserHiValue(String userHiValue) {
-		super.setUserHiValue(userHiValue);
 		if (selectedField!=0){
-			UnitConvRangeField proxied = proxyFields.get(selectedField);
-			Converter conv = fieldConverters.get(selectedField);
-			proxied.setUserHiValue(userHiValue);
-			try{
-				this.setHiValue(
-						conv.convert(Double.valueOf(proxied.getHiValue())).toString()
-						);
-			}catch (NumberFormatException e){
-				this.setHiValue("");
-			}
-		};
+			convertFromForm(userHiValue,false);
+		}else{
+			super.setUserHiValue(userHiValue);
+		}
 
 	}
-
+	
 	@Override
 	public void setUserLoValue(String userLoValue) { 
-		super.setUserLoValue(userLoValue);
 		if (selectedField!=0){
-			UnitConvRangeField proxied = proxyFields.get(selectedField);
-			Converter conv = fieldConverters.get(selectedField);
-			proxied.setUserLoValue(userLoValue);
-			try{
-				this.setLoValue(
-						conv.convert(Double.valueOf(proxied.getLoValue())).toString()
-						);
-			}catch (NumberFormatException e){
-				this.setLoValue("");
-			}
-		};
+			convertFromForm(userLoValue,true);
+		}else{
+			super.setUserLoValue(userLoValue);
+		}
 	}
 
+	private void convertFromForm(String inputValue,boolean isLoValue) {
+		UnitConvRangeField proxied = proxyFields.get(selectedField);
+		Converter conv = fieldConverters.get(selectedField);
+		proxied.setUserLoValue(inputValue);
+		String newValue="";
+		try{
+			if (!(conv.isInverting() && inputValue.trim().equals("0")))
+				newValue=conv.convert(Double.valueOf(proxied.doConv(inputValue))).toString();
+		}catch (NumberFormatException e){}
+		this.setBorderValue(newValue,conv.isInverting()^isLoValue);
+	}
+
+	private void setBorderValue(String value, boolean isLoValue){
+		if (isLoValue)
+			this.setLoValue(value);
+		else
+			this.setHiValue(value);
+		
+	}
 
 	@Override
 	public void update(ValueChangeEvent event){
