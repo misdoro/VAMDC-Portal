@@ -131,3 +131,8 @@
 	overflow-y: auto;
 	background-color: inherit;
 }
+
+.collisionSpecies{
+	text-decoration:none;
+	border-bottom:1px dotted gray;
+}
