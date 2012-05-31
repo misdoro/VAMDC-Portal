@@ -16,18 +16,24 @@ public class CustomConverters implements Serializable{
 	class DirectConverter implements Converter{
 		@Override
 		public Double convert(Double value) { return value; }
+		@Override
+		public boolean isInverting(){ return false;};
 	}
 	public static DirectConverter Direct(){ return new CustomConverters().new DirectConverter(); }
 	
 	class EVToWnConverter implements Converter{
 		@Override
 		public Double convert(Double value) { return 8065.54429*value; }
+		@Override
+		public boolean isInverting(){ return false;};
 	}
 	public static EVToWnConverter EVToWn(){ return new CustomConverters().new EVToWnConverter(); }
 	
 	class RydToWnConverter implements Converter{
 		@Override
 		public Double convert(Double value) { return 109737.31568539*value; }
+		@Override
+		public boolean isInverting(){ return false;};
 	}
 	public static RydToWnConverter RydToWn(){ return new CustomConverters().new RydToWnConverter(); }
 	
@@ -38,6 +44,8 @@ public class CustomConverters implements Serializable{
 				return C*1e7/value;
 			else return Double.NaN;
 		}
+		@Override
+		public boolean isInverting(){ return true;};
 	}
 	
 	public static FreqToWavelengthConverter MHzToWl(){ return new CustomConverters().new FreqToWavelengthConverter(); }
@@ -49,6 +57,9 @@ public class CustomConverters implements Serializable{
 				return 1e8/value;
 			else return Double.NaN;
 		}
+		@Override
+		public boolean isInverting(){ return true;};
+
 	}
 	
 	public static WavenumberToWavelengthConverter WnToWl(){ return new CustomConverters().new WavenumberToWavelengthConverter(); }

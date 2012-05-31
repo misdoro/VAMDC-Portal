@@ -61,4 +61,7 @@ public abstract class AbstractUnitConverter implements UnitConverter{
 		return Double.MIN_NORMAL;
 	}
 	
+	@Override
+	public boolean isInverting(){ return false;};
+
 }
