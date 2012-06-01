@@ -14,10 +14,27 @@ public class QueryGenerator {
 	private final static String OR = " OR ";
 	private final static String AND = " AND ";
 
+	/**
+	 * Another comparator to ensure that unprefixed species forms go after prefixed
+	 * 
+	 */
+	public final static class NewOrder extends Order{
+
+		@Override
+		public int compare(Form o1, Form o2) {
+			if (o1==null || o2==null)
+				return 0;
+			if (o1.getPrefix().equals(o2.getPrefix())){
+				return super.compare(o1, o2);
+			}
+			return o2.getPrefix().compareTo(o1.getPrefix());
+		}
+		
+	}
 
 	public static String getFormsQuery(Collection<Form> forms){
 
-		SortedSet<Form> sorted = new TreeSet<Form>(new Order()); 
+		SortedSet<Form> sorted = new TreeSet<Form>(new NewOrder()); 
 		sorted.addAll(forms);
 
 		String result = "";

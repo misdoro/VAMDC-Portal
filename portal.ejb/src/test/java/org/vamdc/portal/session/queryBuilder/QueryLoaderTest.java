@@ -98,7 +98,7 @@ public class QueryLoaderTest {
 	
 	@Test
 	public void testLoadCollision(){
-		String query = "select * where ((collider.AtomSymbol = 'He')) AND ((target.MoleculeStoichiometricFormula = 'CO')) AND (CollisionCode = 'inel')";
+		String query = "select * where ((target.MoleculeStoichiometricFormula = 'CO')) AND ((collider.AtomSymbol = 'He')) AND (CollisionCode = 'inel')";
 		assertQueryLoadsFine(query);
 	}
 	
