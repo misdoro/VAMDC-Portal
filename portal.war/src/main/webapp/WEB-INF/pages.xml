@@ -5,7 +5,7 @@
 	no-conversation-view-id="/home.xhtml" login-view-id="/login.xhtml">
 
 	<page view-id="*">
-		<header name="Cache-Control">no-cache, no-store, max-age=0, must-revalidate</header> 
+		<header name="Cache-Control" value="no-cache, no-store, max-age=0, must-revalidate" /> 
 		<navigation>
 			<rule if-outcome="home">
 				<redirect view-id="/home.xhtml" />
