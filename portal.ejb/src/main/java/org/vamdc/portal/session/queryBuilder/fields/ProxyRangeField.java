@@ -108,8 +108,10 @@ public class ProxyRangeField extends UnitConvRangeField{
 	@Override
 	public void clear(){
 		for (AbstractField field:proxyFields){
-			field.clear();
+			if (field!=this)
+				field.clear();
 		}
+		super.clear();
 	}
 
 
