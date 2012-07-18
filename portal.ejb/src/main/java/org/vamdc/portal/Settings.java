@@ -21,7 +21,7 @@ public enum Settings {
 	
 	private final String key;
 	private final String defValue;
-	private String value;
+	private String value=null;
 	
 	Settings(String key, String def){
 		this.key = key;
