@@ -59,7 +59,7 @@ public class MoleculesForm extends AbstractForm implements Form{
 		
 		addField(new SuggestionField(Restrictable.MoleculeStateNuclearSpinIsomer,"Spin isomer",new SymmetrySuggest()));
 
-		inchikey = new TextField(Restrictable.InchiKey,"InChIKey");
+		inchikey = new TextField(Restrictable.InchiKey,"Standard InChIKey");
 		addField(inchikey);
 	}
 
