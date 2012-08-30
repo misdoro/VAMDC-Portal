@@ -3,6 +3,7 @@ package org.vamdc.portal.entity.query;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.HttpURLConnection;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -39,6 +40,7 @@ public class HttpHeadResponse implements Serializable{
 	private String ivoaID;
 	private String fullQueryURL;
 	private Response status;
+	private Date lastmodified;
 	private Query query;
 
 	private Integer recordID;
@@ -73,6 +75,14 @@ public class HttpHeadResponse implements Serializable{
 		nonRadiative = getValue(connection,"VAMDC-COUNT-NONRADIATIVE");
 		processes = collisions+radiative+nonRadiative;
 		truncated = getTruncatedValue(connection,"VAMDC-TRUNCATED");
+		lastmodified = extractLastModified(connection);
+	}
+
+	private Date extractLastModified(HttpURLConnection connection) {
+		long lastmod = connection.getLastModified();
+		if (lastmod>0)
+			return new Date(lastmod);
+		return null;
 	}
 
 	private int getValue( HttpURLConnection connection,String headerName){
@@ -127,6 +137,14 @@ public class HttpHeadResponse implements Serializable{
 	public void setStatus(Response status) { this.status = status; }
 	@Transient
 	public String getStatusDescription() {return status.getDescription();}
+	@Transient
+	public Date getModifyDate(){
+		return this.lastmodified;
+	}
+	@Transient
+	public boolean isLastModSet(){
+		return (this.lastmodified!=null);
+	}
 
 	public int getSpecies() { return species; }	
 	public int getStates() { return states; }
