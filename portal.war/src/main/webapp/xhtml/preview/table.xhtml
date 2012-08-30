@@ -61,7 +61,9 @@
 				<rich:toolTip value="#{node.statusDescription}" styleClass="toolTip"
 					direction="bottom-right" />
 			</h:outputText>
-			<h:outputText value=" (#{node.modifyDate})" rendered="#{node.lastModSet}"  />
+			<h:outputText value="#{node.modifyDate}" rendered="#{node.lastModSet}">
+				<s:convertDateTime type="both" pattern=" (dd/MM/yyyy HH:mm)" />
+			</h:outputText>
 			<h:outputText value=" (#{node.truncated}%)"
 				rendered="#{node.status=='TRUNCATED'}" />
 		</h:column>
