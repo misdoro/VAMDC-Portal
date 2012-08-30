@@ -10,15 +10,11 @@ import net.ivoa.xml.voresource.v1.Interface;
 import net.ivoa.xml.voresource.v1.Resource;
 
 import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
-import org.jboss.seam.international.StatusMessages;
-import org.jboss.seam.log.Log;
 import org.vamdc.dictionary.Restrictable;
+import org.vamdc.portal.registry.Client;
 import org.vamdc.registry.client.Registry;
-import org.vamdc.registry.client.RegistryCommunicationException;
 import org.vamdc.registry.client.Registry.Service;
 
 
@@ -31,63 +27,36 @@ import org.vamdc.registry.client.Registry.Service;
  */
 public class RegistryFacade {
 
-	@In private StatusMessages statusMessages;
-	@Logger private Log log;
 
 	private Registry registry = Client.INSTANCE.get();
 
 	public Collection<String> getTapIvoaIDs(){
-		try {
-			return Collections.unmodifiableCollection(registry.getIVOAIDs(Service.VAMDC_TAP));
-		}catch (RegistryCommunicationException e) {
-			logError(e);
-		}
-		return Collections.emptyList();
+		return Collections.unmodifiableCollection(registry.getIVOAIDs(Service.VAMDC_TAP));
 	}
 
 	public Collection<Restrictable> getRestrictables(String ivoaID){
-		try {
-			return Collections.unmodifiableSet(registry.getRestrictables(ivoaID));
-		}catch (RegistryCommunicationException e) {
-			logError(e);
-		}
-		return Collections.emptyList();
+		return Collections.unmodifiableSet(registry.getRestrictables(ivoaID));
 	}
 
 	
 	public String getResourceTitle(String ivoaID){
-		try {
-			Resource res = registry.getResourceMetadata(ivoaID);
-			if (res!=null)
-				return res.getTitle();
-		} catch (RegistryCommunicationException e) {
-			logError(e);
-		} 
+		Resource res = registry.getResourceMetadata(ivoaID);
+		if (res!=null)
+			return res.getTitle();
 		return "";
 	}
 	
 	public String getResourceDescription(String ivoaID){
-		try {
-			Resource res = registry.getResourceMetadata(ivoaID);
-			if (res!=null && res.getContent()!=null)
-				return res.getContent().getDescription();
-		} catch (RegistryCommunicationException e) {
-			logError(e);
-		} 
+		Resource res = registry.getResourceMetadata(ivoaID);
+		if (res!=null && res.getContent()!=null)
+			return res.getContent().getDescription();
 		return "";
-	}
-	
-	private void logError(RegistryCommunicationException e) {
-		statusMessages.add("Error communicating with the registry! "+e.getMessage());
-		log.error("Error communicating with the registry! "+e.getMessage());
 	}
 
 	public URL getVamdcTapURL(String ivoaID) {
-		try {
-			return registry.getVamdcTapURL(ivoaID);
-		}catch (RegistryCommunicationException e) {
-			logError(e);
-		} 
+		URL result = registry.getVamdcTapURL(ivoaID);
+		if (result!=null)
+			return result;
 		try {
 			return new URL("http://vamdc.org/");
 		} catch (MalformedURLException e) {
@@ -96,21 +65,12 @@ public class RegistryFacade {
 	}
 
 	public Collection<String> getConsumerIvoaIDs() {
-		try {
-			return Collections.unmodifiableCollection(registry.getIVOAIDs(Service.CONSUMER));
-		}catch (RegistryCommunicationException e) {
-			logError(e);
-		}
-		return Collections.emptyList();
+		return Collections.unmodifiableCollection(registry.getIVOAIDs(Service.CONSUMER));
+		
 	}
 
 	public Resource getResource(String ivoaID) {
-		try {
-			return registry.getResourceMetadata(ivoaID);
-		} catch (RegistryCommunicationException e) {
-			logError(e);
-		}
-		return null;
+		return registry.getResourceMetadata(ivoaID);
 	}
 	
 	public URL getConsumerService(String ivoaID){

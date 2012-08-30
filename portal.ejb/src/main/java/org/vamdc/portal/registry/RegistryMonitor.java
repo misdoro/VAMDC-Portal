@@ -6,7 +6,6 @@ import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.Startup;
 import org.vamdc.registry.client.Registry.Service;
-import org.vamdc.registry.client.RegistryCommunicationException;
 
 /**
  * 
@@ -25,11 +24,7 @@ public class RegistryMonitor
 	
     public int getCount(){
     	if (Client.INSTANCE.get()!=null)
-    		try {
-    			return Client.INSTANCE.get().getIVOAIDs(Service.VAMDC_TAP).size();
-    		} catch (RegistryCommunicationException e) {
-    			return -1;
-    		}
+    		return Client.INSTANCE.get().getIVOAIDs(Service.VAMDC_TAP).size();
     	return -1;
     }
     

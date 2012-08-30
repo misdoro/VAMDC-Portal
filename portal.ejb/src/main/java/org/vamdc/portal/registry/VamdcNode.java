@@ -3,7 +3,6 @@ package org.vamdc.portal.registry;
 import net.ivoa.xml.voresource.v1.Resource;
 
 import org.vamdc.registry.client.Registry;
-import org.vamdc.registry.client.RegistryCommunicationException;
 
 /**
  * Class providing getters for some of node registration points of interest
@@ -20,11 +19,8 @@ public class VamdcNode {
 		
 		this.ivoaID = id;
 		
-		try {
-			this.node=registry.getResourceMetadata(ivoaID);
-		} catch (RegistryCommunicationException e) {
-			this.node=null;
-		}
+		this.node=registry.getResourceMetadata(ivoaID);
+		
 	}
 	
 	public String getName(){

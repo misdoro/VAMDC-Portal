@@ -24,22 +24,17 @@
 		<context>portal</context>
 		<junit.version>4.10</junit.version>
 		<hibernate-commons-annotations.version>3.3.0.ga</hibernate-commons-annotations.version>
-		<registry-client.version>11.12</registry-client.version>
-		<query-parser.version>11.12</query-parser.version>
-		<dictionary.version>11.12-r1</dictionary.version>
+		<registry-client.version>12.07</registry-client.version>
+		<query-parser.version>12.07</query-parser.version>
+		<dictionary.version>12.07</dictionary.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 		
 	<repositories>
 		<repository>
-			<id>jboss-public-repository-group</id>
-			<name>JBoss Public Maven Repository Group</name>
-			<url>http://repository.jboss.org/nexus/content/groups/public</url>
-		</repository>
-		<repository>
 			<id>vamdc repository</id>
-			<name>VAMDC stuff for Maven</name>
-			<url>http://vamdc.doronin.org/maven/</url>
+			<name>VAMDC repository</name>
+			<url>http://dev.vamdc.org/nexus/content/groups/public/</url>
 			<layout>default</layout>
 		</repository>
 	</repositories>
