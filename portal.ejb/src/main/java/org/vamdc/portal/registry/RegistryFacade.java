@@ -2,6 +2,7 @@ package org.vamdc.portal.registry;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -16,6 +17,7 @@ import org.vamdc.dictionary.Restrictable;
 import org.vamdc.portal.registry.Client;
 import org.vamdc.registry.client.Registry;
 import org.vamdc.registry.client.Registry.Service;
+import org.vamdc.registry.client.VamdcTapService;
 
 
 @Name("registryFacade")
@@ -93,5 +95,14 @@ public class RegistryFacade {
 		}
 		return result;
 		
+	}
+
+	public Collection<URL> getMirrors(String ivoaID) {
+		Collection<VamdcTapService> mirrors = registry.getMirrors(ivoaID);
+		Collection<URL> result = new ArrayList<URL>(mirrors.size());
+		for (VamdcTapService mirror:mirrors){
+			result.add(mirror.TAPEndpoint);
+		}
+		return result;
 	}
 }

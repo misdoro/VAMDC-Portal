@@ -64,27 +64,13 @@ public class PreviewManager implements Serializable{
 
 		for (String ivoaID:activeNodes){
 			try{
-				nodeFutureResponses.add(executor.submit(new PreviewThread(ivoaID,getQuery(ivoaID))));
+				nodeFutureResponses.add(executor.submit(new PreviewThread(ivoaID,registryFacade.getMirrors(ivoaID),queryData.getQueryString())));
 			}catch (IllegalArgumentException e){
 			}
 		}
 		
 		executor.shutdown();
 		startTime = new Date().getTime();
-	}
-
-	private URL getQuery(String ivoaID) {
-		String query = queryData.getQueryString();
-		URL baseURL;
-		URL queryURL=null;
-		try {
-			baseURL = registryFacade.getVamdcTapURL(ivoaID);
-			queryURL = new URL(baseURL+"sync?LANG=VSS2&REQUEST=doQuery&FORMAT=XSAMS&QUERY="+URLEncoder.encode(query,"UTF-8"));
-		} catch (MalformedURLException e) {
-		} catch (UnsupportedEncodingException e) {
-		}
-
-		return queryURL;
 	}
 
 
