@@ -1,10 +1,6 @@
 package org.vamdc.portal.session.preview;
 
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
