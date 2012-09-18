@@ -27,6 +27,7 @@ public class MoleculesForm extends AbstractForm implements Form{
 		public String getFormula();
 		public String getOrdinaryFormula();
 		public String getInchiKey();
+		public String getVamdcSpeciesID();
 		public String getDescription();
 	}
 

@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import org.vamdc.portal.entity.species.SpeciesIso;
 import org.vamdc.portal.entity.species.SpeciesSpecies;
 import org.vamdc.portal.entity.species.SpeciesSpeciesname;
+import org.vamdc.portal.entity.species.VamdcSpeciesNames;
 import org.vamdc.portal.session.queryBuilder.forms.MoleculesForm.MoleculeInfo;
 
 /**
@@ -52,8 +53,8 @@ public class EntityFacade {
 			return Collections.emptyList();
 
 		Collection<String> result = new ArrayList<String>();
-		for (SpeciesSpeciesname element:EntityQuery.getSpeciesFromNameWild(entityManager, value.trim())){
-			result.add(element.getName());
+		for (VamdcSpeciesNames vsn:EntityQuery.getSpeciesFromNameWild(entityManager, value.trim())){
+			result.add(vsn.getName());
 		}
 		return result;
 	}
@@ -114,7 +115,6 @@ public class EntityFacade {
 		}
 		return result;
 	}
-
 
 	public static MoleculeInfo getMolecInfoFromID(EntityManager entityManager,
 			Integer speciesID) {

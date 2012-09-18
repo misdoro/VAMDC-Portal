@@ -19,4 +19,6 @@ public class IsotopologueFacade implements MoleculeInfo{
 	public String getName() { return molecule.getIsoName(); }
 	@Override
 	public String getOrdinaryFormula() { return molecule.getIsoName(); }
+	@Override
+	public String getVamdcSpeciesID() { return ""; }
 }

@@ -20,4 +20,7 @@ public class SpeciesFacade implements MoleculeInfo{
 	@Override
 	public String getOrdinaryFormula() { return molecule.getOrdinaryFormula(); }
 
+	@Override
+	public String getVamdcSpeciesID() {	return ""; }
+
 }

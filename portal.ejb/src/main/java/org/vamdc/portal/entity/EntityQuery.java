@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import org.vamdc.portal.entity.species.SpeciesIso;
 import org.vamdc.portal.entity.species.SpeciesSpecies;
 import org.vamdc.portal.entity.species.SpeciesSpeciesname;
+import org.vamdc.portal.entity.species.VamdcSpeciesNames;
 
 /**
  * Collection of static methods to get some species objects
@@ -17,13 +18,24 @@ import org.vamdc.portal.entity.species.SpeciesSpeciesname;
 class EntityQuery{
 
 	@SuppressWarnings("unchecked")
+	static Collection<VamdcSpeciesNames> getSpeciesFromNameWild(EntityManager em,
+			String name) {
+		if (em==null) return Collections.emptyList();
+		return em.createQuery("SELECT s from VamdcSpeciesNames s WHERE s.name LIKE :molecName")
+				.setParameter("molecName", "%"+name+"%")
+				.setMaxResults(20)
+				.getResultList();
+				
+	}
+	/*
+	@SuppressWarnings("unchecked")
 	static Collection<SpeciesSpeciesname> getSpeciesFromNameWild(EntityManager em, String name){
 		if (em==null) return Collections.emptyList();
 		return em.createQuery("SELECT s FROM SpeciesSpeciesname s WHERE s.name LIKE :molecName")
 				.setParameter("molecName", "%"+name+"%")
 				.setMaxResults(20)
 				.getResultList();
-	}
+	}*/
 
 	@SuppressWarnings("unchecked")
 	static Collection<SpeciesSpecies> getSpeciesFromStoichFormulaWild(EntityManager em, String formula){
@@ -83,4 +95,6 @@ class EntityQuery{
 				.setParameter("id",speciesID)
 				.getSingleResult();
 	}
+
+	
 }
