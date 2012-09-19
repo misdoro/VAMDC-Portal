@@ -1,0 +1,56 @@
+package org.vamdc.portal.entity;
+
+import org.vamdc.portal.entity.species.VamdcSpecies;
+import org.vamdc.portal.entity.species.VamdcSpeciesNames;
+import org.vamdc.portal.entity.species.VamdcSpeciesStructFormulae;
+import org.vamdc.portal.session.queryBuilder.forms.MoleculesForm.MoleculeInfo;
+
+public class VamdcSpeciesFacade implements MoleculeInfo{
+
+	private final VamdcSpecies element;
+	
+	public VamdcSpeciesFacade(VamdcSpecies element){
+		this.element = element;
+	}
+	
+	@Override
+	public String getName() {
+		for (VamdcSpeciesNames vsn:element.getVamdcSpeciesNameses()){
+			if (vsn.getVamdcMarkupTypes().getId()==1)
+				return vsn.getName();
+		}
+		return "";
+	}
+
+	@Override
+	public String getFormula() {return element.getStoichiometricFormula();}
+
+	@Override
+	public String getOrdinaryFormula() { 
+		for (VamdcSpeciesStructFormulae vsff:element.getVamdcSpeciesStructFormulaes()){
+			if (vsff.getVamdcMarkupTypes().getId()==1)
+				return vsff.getFormula();
+		}
+		return "";
+			
+	}
+
+	@Override
+	public String getInchiKey() { return element.getInchikey(); }
+
+	@Override
+	public String getVamdcSpeciesID() {	return element.getId(); }
+
+	@Override
+	public String getDescription() {
+		String result = "";
+		for(VamdcSpeciesStructFormulae vsff: element.getVamdcSpeciesStructFormulaes()){
+			if (vsff.getVamdcMarkupTypes().getId()==2)
+				return vsff.getFormula();
+			else result=vsff.getFormula();
+		}
+		return result;
+	
+	}
+
+}

@@ -154,7 +154,7 @@ public class MoleculesForm extends AbstractForm implements Form{
 		public void selected() {
 			EntityManager em = queryData.getEntityManager();
 			molecules = EntityFacade.loadMoleculesFromName(em, molChemName.getValue());
-			fillFromMolecule(EntityFacade.getMolecInfoFromID(em, EntityFacade.getSpeciesIDfromName(em, molChemName.getValue())));
+			fillFromMolecule(molecules.get(0));
 			resetInchiKeys();
 		}
 	}
@@ -178,7 +178,7 @@ public class MoleculesForm extends AbstractForm implements Form{
 		public void selected() {
 			EntityManager em = queryData.getEntityManager();
 			molecules = EntityFacade.loadMoleculesFromStoichForm(em, molStoichForm.getValue());
-			fillFromMolecule(EntityFacade.getMolecInfoFromID(em, EntityFacade.getSpeciesIDfromStoichForm(em, molStoichForm.getValue())));
+			fillFromMolecule(molecules.get(0));
 			resetInchiKeys();
 		}
 	}
@@ -201,7 +201,7 @@ public class MoleculesForm extends AbstractForm implements Form{
 		public void selected() {
 			EntityManager em = queryData.getEntityManager();
 			molecules = EntityFacade.loadMoleculesFromOrdForm(em, molOrdForm.getValue());
-			fillFromMolecule(EntityFacade.getMolecInfoFromID(em, EntityFacade.getSpeciesIDfromOrdForm(em, molOrdForm.getValue())));
+			fillFromMolecule(molecules.get(0));
 			resetInchiKeys();
 		}
 	}
@@ -214,6 +214,7 @@ public class MoleculesForm extends AbstractForm implements Form{
 			Collection<String> result = new ArrayList<String>();
 			result.add("ortho");
 			result.add("para");
+			result.add("meta");
 			result.add("A");
 			result.add("E");
 			return result;
