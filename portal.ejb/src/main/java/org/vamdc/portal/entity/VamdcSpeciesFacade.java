@@ -53,7 +53,7 @@ public class VamdcSpeciesFacade implements MoleculeInfo{
 	
 	}
 	private String appendName(String data){
-		return getName()+" ("+data+")";
+		return getName()+" "+data+"";
 	}
 
 }

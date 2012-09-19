@@ -76,12 +76,7 @@ public class MoleculesForm extends AbstractForm implements Form{
 	public Map<String,Boolean> getSelectedInchikeys() {	return inchikeys; }
 	public void setSelectedInchikeys(Map<String,Boolean> inchikeys) { this.inchikeys = inchikeys; }
 
-	private void fillFromMolecule(MoleculeInfo molecule){
-		this.molChemName.setValue(molecule.getName());
-		this.molStoichForm.setValue(molecule.getFormula());
-		this.molOrdForm.setValue(molecule.getOrdinaryFormula());
-		queryData.resetCaches();
-	}
+
 
 	public void selectedInchi(){
 		this.inchikey.setValue(buildInchiList(inchikeys));
@@ -154,7 +149,7 @@ public class MoleculesForm extends AbstractForm implements Form{
 		public void selected() {
 			EntityManager em = queryData.getEntityManager();
 			molecules = EntityFacade.loadMoleculesFromName(em, molChemName.getValue());
-			fillFromMolecule(molecules.get(0));
+			fillFromMolecules();
 			resetInchiKeys();
 		}
 	}
@@ -178,7 +173,7 @@ public class MoleculesForm extends AbstractForm implements Form{
 		public void selected() {
 			EntityManager em = queryData.getEntityManager();
 			molecules = EntityFacade.loadMoleculesFromStoichForm(em, molStoichForm.getValue());
-			fillFromMolecule(molecules.get(0));
+			fillFromMolecules();
 			resetInchiKeys();
 		}
 	}
@@ -201,9 +196,39 @@ public class MoleculesForm extends AbstractForm implements Form{
 		public void selected() {
 			EntityManager em = queryData.getEntityManager();
 			molecules = EntityFacade.loadMoleculesFromOrdForm(em, molOrdForm.getValue());
-			fillFromMolecule(molecules.get(0));
+			fillFromMolecules();
 			resetInchiKeys();
 		}
+	}
+	
+	/**
+	 * Fill fields from molecules list
+	 */
+	private void fillFromMolecules(){
+		if (molecules.isEmpty()){
+			this.molChemName.setValue("");
+			this.molStoichForm.setValue("");
+			this.molOrdForm.setValue("");
+		}
+		if (molecules.size()==1||moleculesContainSameName()){
+			this.molChemName.setValue(molecules.get(0).getName());
+		}else{
+			this.molChemName.setValue("");
+		}
+		this.molStoichForm.setValue(molecules.get(0).getFormula());
+		if (molecules.size()==1)
+			this.molOrdForm.setValue(molecules.get(0).getOrdinaryFormula());
+		else
+			this.molOrdForm.setValue("");
+	}
+	
+	private boolean moleculesContainSameName(){
+		String firstName=molecules.get(0).getName();
+		for(MoleculeInfo mol:molecules){
+			if (!firstName.equalsIgnoreCase(mol.getName()))
+				return false;
+		}
+		return true;
 	}
 	
 	public class SymmetrySuggest extends SuggestionImpl{
