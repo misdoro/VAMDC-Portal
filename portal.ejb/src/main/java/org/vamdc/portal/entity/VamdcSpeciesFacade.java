@@ -45,12 +45,15 @@ public class VamdcSpeciesFacade implements MoleculeInfo{
 	public String getDescription() {
 		String result = "";
 		for(VamdcSpeciesStructFormulae vsff: element.getVamdcSpeciesStructFormulaes()){
+			result=vsff.getFormula();
 			if (vsff.getVamdcMarkupTypes().getId()==2)
-				return vsff.getFormula();
-			else result=vsff.getFormula();
+				break;
 		}
-		return result;
+		return appendName(result);
 	
+	}
+	private String appendName(String data){
+		return getName()+" ("+data+")";
 	}
 
 }
