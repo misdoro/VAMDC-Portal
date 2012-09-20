@@ -158,13 +158,20 @@ public abstract class AbstractField implements Serializable{
 		if (part==null || part.getOperator()== null)
 			return;
 		Operator clause = part.getOperator();
+		RestrictExpression key = (RestrictExpression) part;
 		switch(clause){
 		case EQUAL_TO:
-		case IN:
 		case LIKE:
-			RestrictExpression key = (RestrictExpression) part;
 			this.setValue((String)key.getValue());
-			break;	
+			break;
+		case IN:
+			StringBuilder sb = new StringBuilder();
+			for (Object val:key.getValues()){
+				sb.append(val).append(", ");
+			}
+			sb.delete(sb.length()-2, sb.length());
+			this.setValue(sb.toString());
+			break;
 		}
 	}
 	

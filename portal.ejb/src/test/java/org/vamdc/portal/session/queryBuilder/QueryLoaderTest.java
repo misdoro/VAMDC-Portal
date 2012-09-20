@@ -29,6 +29,12 @@ public class QueryLoaderTest {
 	}
 	
 	@Test
+	public void testLoadInQuery(){
+		query = "select * where ((AtomSymbol IN ('Fe','Ni','Cr')))";
+		assertQueryLoadsFine(query);
+	}
+	
+	@Test
 	public void testLoadTransitionsWavelengthProbability(){
 		query = "select * where (RadTransWavelength >= 100.0 AND RadTransWavelength <= 500.0 AND RadTransProbabilityA >= 1 AND RadTransProbabilityA <= 2)";
 		assertQueryLoadsFine(query);
