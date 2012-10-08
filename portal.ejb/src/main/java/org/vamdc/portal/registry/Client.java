@@ -1,5 +1,8 @@
 package org.vamdc.portal.registry;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -59,15 +62,50 @@ public enum Client {
 		
 		private void reloadRegistry() throws RegistryCommunicationException {
 			try{
-				Registry newInstance = RegistryFactory.getClient(Settings.REGISTRY_URL.get());
-				if (newInstance!=null && newInstance.getIVOAIDs(Service.VAMDC_TAP).size()>0)
+				Registry newInstance = getRegistry();
+				if (verifyRegistry(newInstance))
 					Client.INSTANCE.set(newInstance);
 			}catch (Exception e){
-				if (!(e instanceof RegistryCommunicationException))
+				if (!(e instanceof RegistryCommunicationException)){
+					e.printStackTrace();
 					throw new RegistryCommunicationException(e.getMessage());
+				}
 				else 
 					throw (RegistryCommunicationException)e;
 			}
+		}
+		
+		private Registry getRegistry() throws Exception{
+			Registry result = null;
+			Exception err = null;
+			for (String registryUrl:getRegistryMirrors()){
+				try{
+					result = RegistryFactory.getClient(registryUrl);
+				}catch (Exception e){
+					err=e;
+				}
+				if (verifyRegistry(result))
+					return result;
+			}
+			if (err==null)
+				throw new RegistryCommunicationException("There was some problem to connect to the registry");
+			throw err;
+		}
+
+		private boolean verifyRegistry(Registry newInstance) {
+			return newInstance!=null && newInstance.getIVOAIDs(Service.VAMDC_TAP).size()>0;
+		}
+		
+		private Collection<String> getRegistryMirrors(){
+			List<String> result = new ArrayList<String>();
+			String line = Settings.REGISTRY_URL.get();
+			
+			for (String url:line.split(";")){
+				String tmp = url.trim();
+				if (!tmp.isEmpty())
+					result.add(tmp);
+			}
+			return result;
 		}
 		
 	}
