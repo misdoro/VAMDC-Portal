@@ -11,10 +11,11 @@ public class Order implements Comparator<Form>{
 	final static Integer Environment=7;
 
 	public final static Integer SINGLE_LIMIT=10;//Forms above this number can occur once
-	final static Integer Process=12;
-	final static Integer Branches=13;
-	final static Integer Query=14;
-	static final Integer Comments = 15;
+	final static Integer Process = 12;
+	final static Integer Util = 15;
+	final static Integer Branches = 18;
+	final static Integer Query = 19;
+	static final Integer Comments = 20;
 	
 	@Override
 	public int compare(Form o1, Form o2) {

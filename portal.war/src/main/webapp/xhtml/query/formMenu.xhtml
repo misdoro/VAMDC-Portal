@@ -41,6 +41,8 @@
 
 				<rich:dropDownMenu styleClass="queryMenuBlock" value="Advanced"
 					submitMode="ajax" direction="bottom-right" jointPoint="tr">
+					<rich:menuItem value="Util" reRender="formPanel"
+						action="#{query.addFormUtil()}" />
 					<rich:menuItem value="Query editor" reRender="formPanel"
 						action="#{query.addFormQueryEditor}" />
 					<rich:menuItem value="Request" reRender="formPanel"
