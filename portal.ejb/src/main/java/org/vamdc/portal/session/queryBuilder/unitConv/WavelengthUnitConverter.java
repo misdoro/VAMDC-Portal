@@ -18,7 +18,7 @@ public class WavelengthUnitConverter extends AbstractUnitConverter{
 		ANGSTROM("A",NonSI.ANGSTROM.getConverterTo(NonSI.ANGSTROM)),
 		NM("nm",METRE.times(1e-9).getConverterTo(NonSI.ANGSTROM)),
 		UM("um",METRE.times(1e-6).getConverterTo(NonSI.ANGSTROM)),
-		MM("mm",METRE.times(1e-6).getConverterTo(NonSI.ANGSTROM)),
+		MM("mm",METRE.times(1e-3).getConverterTo(NonSI.ANGSTROM)),
 		;
 
 		WavelengthConvert(String display,javax.measure.converter.UnitConverter converter){
