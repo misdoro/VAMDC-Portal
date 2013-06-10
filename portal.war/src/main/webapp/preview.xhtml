@@ -13,51 +13,56 @@
 		<a4j:form>
 			<h:panelGrid columns="2">
 				<h:panelGrid>
+                    <rich:panel>
+                      <f:facet name="header">
+                            <h:outputText value="1 : Query Execution"/>
+                      </f:facet>
 
-					<rich:progressBar id="previewProgress" styleClass="#{preview.done? 'rich-progress-bar-done':''}"
-						value="#{preview.percentsDone}" interval="987" minValue="0"
-						maxValue="100" 
-						reRenderAfterComplete="previewProgress,previewTable,statusPanel,commentsPanel"
-						reRender="previewTable,statusPanel,commentsPanel" >
-						<f:facet name="initial">
-							<a4j:outputPanel layout="block" styleClass="rich-progress-bar-width rich-progress-bar-mockup">
-								<h:outputText value="Starting preview..." />
-							</a4j:outputPanel>
-							<a4j:region>                       
-								<a4j:poll id="previewTablePoll" interval="1234" enabled="#{!preview.done}" reRender="previewTable,statusPanel,commentsPanel" />
-							</a4j:region>
-						</f:facet>
-						<f:facet name="complete">
-							<a4j:outputPanel layout="block" styleClass="rich-progress-bar-width rich-progress-bar-done rich-progress-bar-mockup">
-								<h:outputText value="Done" />
-							</a4j:outputPanel>
-						</f:facet>
-						<h:outputText value="#{preview.stringStatus}" />
-					</rich:progressBar>
-					<h:panelGrid id="statusPanel" columns="4">
+                        <rich:progressBar id="previewProgress" styleClass="#{preview.done? 'rich-progress-bar-done':''}"
+                            value="#{preview.percentsDone}" interval="987" minValue="0"
+                            maxValue="100" 
+                            reRenderAfterComplete="previewProgress,previewTable,statusPanel,commentsPanel"
+                            reRender="previewTable,statusPanel,commentsPanel" >
+                            <f:facet name="initial">
+                                <a4j:outputPanel layout="block" styleClass="rich-progress-bar-width rich-progress-bar-mockup">
+                                    <h:outputText value="Starting preview..." />
+                                </a4j:outputPanel>
+                                <a4j:region>                       
+                                    <a4j:poll id="previewTablePoll" interval="1234" enabled="#{!preview.done}" reRender="previewTable,statusPanel,commentsPanel" />
+                                </a4j:region>
+                            </f:facet>
+                            <f:facet name="complete">
+                                <a4j:outputPanel layout="block" styleClass="rich-progress-bar-width rich-progress-bar-done rich-progress-bar-mockup">
+                                    <h:outputText value="Done" />
+                                </a4j:outputPanel>
+                            </f:facet>
+                            <h:outputText value="#{preview.stringStatus}" />
+                        </rich:progressBar>
+                        <h:panelGrid id="statusPanel" columns="4">
 
-						<a4j:commandButton value="Modify query"
-							action="#{preview.refine()}" styleClass="roundButton" tabindex="1"/>
+                            <a4j:commandButton value="Modify query"
+                                action="#{preview.refine()}" styleClass="roundButton" tabindex="1"/>
 
-						<a4j:commandButton value="Stop waiting" action="#{preview.cancel}"
-							styleClass="roundButton" disabled="#{preview.done}" tabindex="2"/>
-						<a4j:commandButton value="Save query"
-							action="#{query.saveQuery()}" styleClass="roundButton"
-							disabled="#{!preview.done}" tabindex="3"/>
-					</h:panelGrid>
+                            <a4j:commandButton value="Stop waiting" action="#{preview.cancel}"
+                                styleClass="roundButton" disabled="#{preview.done}" tabindex="2"/>
+                            <a4j:commandButton value="Save query"
+                                action="#{query.saveQuery()}" styleClass="roundButton"
+                                disabled="#{!preview.done}" tabindex="3"/>
+                        </h:panelGrid>
 
-					<h:outputText value="#{queryData.queryString}" />
+                        <h:outputText value="#{queryData.queryString}" />
 
-					<rich:panel id="commentsPanel">
-						<f:facet name="header">
-							<h:outputText value="Comments"></h:outputText>
-						</f:facet>
+                        <rich:panel id="commentsPanel">
+                            <f:facet name="header">
+                                <h:outputText value="Comments"></h:outputText>
+                            </f:facet>
 
-						<h:inputTextarea cols="55" rows="3" value="#{queryData.comments}"
-							disabled="#{!(preview.done)}">
-							<a4j:support event="onchange" reRender="commentsPanel" />
-						</h:inputTextarea>
-					</rich:panel>
+                            <h:inputTextarea cols="55" rows="3" value="#{queryData.comments}"
+                                disabled="#{!(preview.done)}">
+                                <a4j:support event="onchange" reRender="commentsPanel" />
+                            </h:inputTextarea>
+                        </rich:panel>
+                    </rich:panel>
 
 
 				</h:panelGrid>
