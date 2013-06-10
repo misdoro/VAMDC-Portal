@@ -11,7 +11,7 @@
 
 	<rich:panel id="consumers" styleClass="consumerPanel">
 		<f:facet name="header">
-			<h:outputText value="XSAMS processors" />
+			<h:outputText value="3 : Results Conversion (select in table below)" />
 		</f:facet>
 		<h:panelGrid columns="2">
 			<rich:panel bodyClass="scrollPanel consumersList">
@@ -26,7 +26,7 @@
 
 				<h:panelGroup>
 					<a4j:commandButton value="Process" action="#{consumers.process}"
-						disabled="#{consumers.processing}" reRender="consumers" tabindex="25"/>
+						disabled="#{consumers.selectedNodesCount == 0}" reRender="consumers" tabindex="25"/>
 					<a4j:region>
 						<a4j:poll id="consumerPoll" interval="1000"
 							enabled="#{consumers.processing}" reRender="consumers" />

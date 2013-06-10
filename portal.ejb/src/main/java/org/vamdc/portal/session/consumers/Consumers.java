@@ -36,7 +36,7 @@ public class Consumers implements Serializable{
 	private Map<String,Boolean> queries = new HashMap<String,Boolean>();
 	
 	private Future<URL> consumerLocation;
-
+    
 	public List<SelectItem> getConsumers(){
 		List<SelectItem> result = new ArrayList<SelectItem>();
 		for (String ivoaID:registryFacade.getConsumerIvoaIDs()){
@@ -44,7 +44,16 @@ public class Consumers implements Serializable{
 		}
 		return result;
 	}
-
+    
+    public Integer getSelectedNodesCount(){
+        int result = 0;
+        for (Map.Entry<String, Boolean> entry : this.queries.entrySet()){
+            if((Boolean)entry.getValue())
+                result++;
+        }
+        return result;
+    }
+    
 	public void setSelectedConsumer(String ivoaID){
 		this.selectedIvoaID = ivoaID;
 	}
