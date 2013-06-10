@@ -7,94 +7,107 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j">
+    
+    <rich:panel>
+        <f:facet name="header">
+        <h:outputText value="2 : Results by node"/>
+        </f:facet>
 
-	<rich:dataTable id="previewTable" value="#{preview.nodes}" var="node"
-		onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
-		onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
-		<f:facet name="header">
-			<rich:columnGroup>
-				<h:column>
-					<h:outputText styleClass="headerText" value="Name" />
-				</h:column>
-				<h:column>
-					<h:outputText styleClass="headerText" value="Response" />
-				</h:column>
-				<h:column>
-					<h:outputText styleClass="headerText" value="Download" />
-				</h:column>
+        <rich:dataTable id="previewTable" value="#{preview.nodes}" var="node"
+            onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+            onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+            columnClasses=",alignCenter,alignCenter,alignCenter,alignCenter,alignCenter,alignCenter,alignCenter,alignCenter,alignCenter" >
+            <f:facet name="header">
+                <rich:columnGroup>
+                    <h:column>
+                        <h:outputText styleClass="headerText" value="Name" />
+                    </h:column>                
+                    <h:column>
+                        <h:outputText styleClass="headerText" value="Convert" />
+                    </h:column>
+                    <h:column>
+                        <h:outputText styleClass="headerText" value="Response" />
+                    </h:column>
+                    <h:column>
+                        <h:outputText styleClass="headerText" value="Download" />
+                    </h:column>
 
-				<h:column>
-					<h:outputText styleClass="headerText" value="Species" />
-				</h:column>
-				<h:column>
-					<h:outputText styleClass="headerText" value="States" />
-				</h:column>
-				<h:column>
-					<h:outputText styleClass="headerText" value="Processes" />
-				</h:column>
-				<h:column>
-					<h:outputText styleClass="headerText" value="Radiative" />
-				</h:column>
-				<h:column>
-					<h:outputText styleClass="headerText" value="Collisions" />
-				</h:column>
-				<h:column>
-					<h:outputText styleClass="headerText" value="Non Radiative" />
-				</h:column>
+                    <h:column>
+                        <h:outputText styleClass="headerText" value="Species" />
+                    </h:column>
+                    <h:column>
+                        <h:outputText styleClass="headerText" value="States" />
+                    </h:column>
+                    <h:column>
+                        <h:outputText styleClass="headerText" value="Processes" />
+                    </h:column>
+                    <h:column>
+                        <h:outputText styleClass="headerText" value="Radiative" />
+                    </h:column>
+                    <h:column>
+                        <h:outputText styleClass="headerText" value="Collisions" />
+                    </h:column>
+                    <h:column>
+                        <h:outputText styleClass="headerText" value="Non Radiative" />
+                    </h:column>
 
-			</rich:columnGroup>
-		</f:facet>
+                </rich:columnGroup>
+            </f:facet>
+            
+            <h:column>
+                <h:outputText value="#{registryFacade.getResourceTitle(node.ivoaID)}" />
+            </h:column>
 
-		<h:column>
-			<h:selectBooleanCheckbox
-				value="#{consumers.queries[node.fullQueryURL]}"
-				disabled="#{!preview.done}" rendered="#{node.isOk()}"
-				id="process#{node.recordID}" tabindex="10">
-				<rich:toolTip value="Select for processing" styleClass="toolTip"
-					direction="bottom-right" />
-			</h:selectBooleanCheckbox>
-			<h:outputText value="#{registryFacade.getResourceTitle(node.ivoaID)}" />
-		</h:column>
+            <h:column>
+                <h:selectBooleanCheckbox
+                    value="#{consumers.queries[node.fullQueryURL]}"
+                    disabled="#{!preview.done}" rendered="#{node.isOk()}"
+                    id="process#{node.recordID}" tabindex="10" >
+                    <a4j:support event="onchange" reRender="consumerLocation" />
+                    <rich:toolTip value="Select for processing" styleClass="toolTip"
+                        direction="bottom-right" />
+                </h:selectBooleanCheckbox>
+            </h:column>
 
-		<h:column>
-			<h:outputText value="#{node.status}" id="st#{node.recordID}">
-				<rich:toolTip value="#{node.statusDescription}" styleClass="toolTip"
-					direction="bottom-right" />
-			</h:outputText>
-			<h:outputText value="#{node.modifyDate}" rendered="#{node.lastModSet}">
-				<s:convertDateTime type="both" pattern=" (dd/MM/yyyy HH:mm)" />
-			</h:outputText>
-			<h:outputText value=" (#{node.truncated}%)"
-				rendered="#{node.status=='TRUNCATED'}" />
-		</h:column>
+            <h:column>
+                <h:outputText value="#{node.status}" id="st#{node.recordID}">
+                    <rich:toolTip value="#{node.statusDescription}" styleClass="toolTip"
+                        direction="bottom-right" />
+                </h:outputText>
+                <h:outputText value="#{node.modifyDate}" rendered="#{node.lastModSet}">
+                    <s:convertDateTime type="both" pattern=" (dd/MM/yyyy HH:mm)" />
+                </h:outputText>
+                <h:outputText value=" (#{node.truncated}%)"
+                    rendered="#{node.status=='TRUNCATED'}" />
+            </h:column>
 
-		<h:column>
-			<h:outputLink value="#{node.fullQueryURL}" target="_blank"
-				rendered="#{node.isOk()}">
-				<h:outputText value="XSAMS" />
-			</h:outputLink>
-		</h:column>
+            <h:column>
+                <h:outputLink value="#{node.fullQueryURL}" target="_blank"
+                    rendered="#{node.isOk()}">
+                    <h:outputText value="XSAMS" />
+                </h:outputLink>
+            </h:column>
 
-		<h:column>
-			<h:outputText value="#{node.species}" />
-		</h:column>
-		<h:column>
-			<h:outputText value="#{node.states}" />
-		</h:column>
-		<h:column>
-			<h:outputText value="#{node.processes}" />
-		</h:column>
-		<h:column>
-			<h:outputText value="#{node.radiative}" />
-		</h:column>
-		<h:column>
-			<h:outputText value="#{node.collisions}" />
-		</h:column>
-		<h:column>
-			<h:outputText value="#{node.nonRadiative}" />
-		</h:column>
+            <h:column>
+                <h:outputText value="#{node.species}" />
+            </h:column>
+            <h:column>
+                <h:outputText value="#{node.states}" />
+            </h:column>
+            <h:column>
+                <h:outputText value="#{node.processes}" />
+            </h:column>
+            <h:column>
+                <h:outputText value="#{node.radiative}" />
+            </h:column>
+            <h:column>
+                <h:outputText value="#{node.collisions}" />
+            </h:column>
+            <h:column>
+                <h:outputText value="#{node.nonRadiative}" />
+            </h:column>
 
-
-	</rich:dataTable>
+        </rich:dataTable>
+    </rich:panel>
 
 </ui:composition>
