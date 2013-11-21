@@ -45,7 +45,6 @@ public class QueryGenerator {
 		String orGroup="";
 
 		for (Form form:sorted){
-			
 			if (form.getPrefix().equals("reactant")){
 				form.setPrefixIndex(reactantIndex++);
 			}else if (form.getPrefix().equals("product")){
@@ -69,6 +68,9 @@ public class QueryGenerator {
 		}
 		//Add the last orGroup, if any
 		result = addQueryPart(result, AND, orGroup);
+        
+        
+
 		
 		return result;
 	}
