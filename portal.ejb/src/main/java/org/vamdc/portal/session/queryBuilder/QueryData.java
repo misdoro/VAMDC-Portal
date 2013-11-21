@@ -9,6 +9,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import javax.persistence.EntityManager;
@@ -21,11 +23,8 @@ import org.jboss.seam.annotations.Scope;
 import org.vamdc.dictionary.Requestable;
 import org.vamdc.dictionary.Restrictable;
 import org.vamdc.portal.registry.RegistryFacade;
-import org.vamdc.portal.session.queryBuilder.forms.AtomsForm;
 import org.vamdc.portal.session.queryBuilder.forms.Form;
-import org.vamdc.portal.session.queryBuilder.forms.MoleculesForm;
 import org.vamdc.portal.session.queryBuilder.forms.Order;
-import org.vamdc.portal.session.queryBuilder.forms.ParticlesForm;
 import org.vamdc.portal.session.queryBuilder.forms.SpeciesForm;
 import org.vamdc.tapservice.vss2.Query;
 import org.vamdc.tapservice.vss2.RestrictExpression;
@@ -44,13 +43,13 @@ public class QueryData implements Serializable{
 	//Species-related forms
 	private transient Collection<SpeciesForm> speciesForms;
 	
+	private transient Map<Integer,Integer> formCounts;
+	
 	private Collection<Requestable> request;
 	
 	private String comments="";
 	private String editedQueryId;
 	private String customQueryString;
-	
-	private volatile Integer lastInsertOrder=0;
 	
 	private transient Collection<Restrictable> activeKeywords;
 	private transient Collection<String> activeNodes;
@@ -62,9 +61,7 @@ public class QueryData implements Serializable{
 	}
 	
 	private void initCollections(){
-        MoleculesForm.initFormCount();
-        AtomsForm.initFormCount();
-        ParticlesForm.initFormCount();
+		formCounts=Collections.synchronizedMap(new TreeMap<Integer,Integer>());
 		forms=Collections.synchronizedSet(new TreeSet<Form>(new Order()));
 		formsList = Collections.synchronizedList(new ArrayList<Form>());
 		speciesForms=Collections.synchronizedSet(new TreeSet<SpeciesForm>(new Order()));
@@ -187,11 +184,9 @@ public class QueryData implements Serializable{
 	private boolean canAdd(Form newForm){
 		if (newForm.getOrder()<Order.SINGLE_LIMIT)
 			return true;
-		for (Form form:forms){
-			if (form.getOrder().equals(newForm.getOrder()))
-				return false;
-		}
-		return true;
+		//If the order of the form is greater than Order.SINGLE_LIMIT, 
+		//we should return true only if we have no form of that kind 
+		return getFormTypeCount(newForm)==0;
 	}
 	
 	public void addForm(Form form){
@@ -207,9 +202,9 @@ public class QueryData implements Serializable{
 	
 	private boolean quickAddForm(Form form){
 		if (canAdd(form)){
-			form.setInsertOrder(lastInsertOrder++);
-			forms.add(form);
 			form.setQueryData(this);
+			forms.add(form);
+			formCounts.put(form.getOrder(), getFormTypeCount(form)+1);
 			if (form instanceof SpeciesForm)
 				speciesForms.add((SpeciesForm) form);
 			return true;
@@ -217,15 +212,23 @@ public class QueryData implements Serializable{
 		return false;
 	}
 	
+	public Integer getFormTypeCount(Form form){
+		Integer count;
+		if ((count=formCounts.get(form.getOrder()))!=null){
+			return count;
+		}else
+			return 0;
+	}
+	
 	public void deleteForm(Form form){   
         if(form instanceof SpeciesForm){
             Integer position = ((SpeciesForm)form).getPosition();
             for (SpeciesForm currentForm:speciesForms) {
-                if(currentForm.getClass() == form.getClass()&&currentForm.getPosition()<position){
+                if(currentForm.getClass() == form.getClass()&&currentForm.getPosition()>position){
                 	currentForm.decreasePosition();
                 }
             }
-            ((SpeciesForm)form).decreaseFormCount();    
+            formCounts.put(form.getOrder(), getFormTypeCount(form)-1);
         }
         
 		forms.remove(form);

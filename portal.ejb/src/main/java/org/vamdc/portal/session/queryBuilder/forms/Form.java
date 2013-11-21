@@ -24,8 +24,6 @@ public interface Form extends Serializable{
 	public Collection<Restrictable> getSupportedKeywords();
 
 	public void setQueryData(QueryData data);
-	public Integer getInsertOrder();
-	public void setInsertOrder(Integer insertOrder);
 	
 	
 	public void clear();
@@ -34,7 +32,9 @@ public interface Form extends Serializable{
 	public String getPrefix();
 	
 	public Integer getOrder();
+	public Integer getPosition();
 	public void setPrefixIndex(Integer integer);
 	
 	public int loadFromQuery(LogicNode branch);
+	
 }

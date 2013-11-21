@@ -25,7 +25,7 @@ public abstract class AbstractForm implements Form{
 	protected transient QueryData queryData;
 	private final String id;
 	protected String prefix;
-	private Integer insertOrder;
+	protected Integer position;
 
 
 	public AbstractForm(){ 
@@ -38,6 +38,7 @@ public abstract class AbstractForm implements Form{
 	@Override
 	public void setQueryData(QueryData queryData){ 
 		this.queryData = queryData;
+		this.position=queryData.getFormTypeCount(this)+1;
 	}
 
 	void addField(AbstractField field){
@@ -78,6 +79,15 @@ public abstract class AbstractForm implements Form{
 	public Collection<Restrictable> getSupportedKeywords(){
 		return supportedKeywords;
 	}
+	
+	@Override
+	public Integer getPosition(){
+        return position;
+    }
+    
+    public void decreasePosition(){
+        position -= 1;
+    }
 
 	@Override
 	public void clear(){
@@ -95,12 +105,6 @@ public abstract class AbstractForm implements Form{
 
 	@Override
 	public String getId(){ return this.id; }
-
-	@Override
-	public Integer getInsertOrder() { return insertOrder; }
-
-	@Override
-	public void setInsertOrder(Integer insertOrder) { this.insertOrder = insertOrder; }
 
 	@Override
 	public void setPrefix(String prefix){
