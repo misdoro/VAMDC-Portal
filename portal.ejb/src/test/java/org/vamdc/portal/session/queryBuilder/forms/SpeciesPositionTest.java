@@ -2,7 +2,6 @@ package org.vamdc.portal.session.queryBuilder.forms;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
 import org.junit.Test;
 import org.vamdc.portal.session.queryBuilder.QueryData;
 

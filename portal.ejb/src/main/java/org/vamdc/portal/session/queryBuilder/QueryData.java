@@ -221,16 +221,15 @@ public class QueryData implements Serializable{
 	}
 	
 	public void deleteForm(Form form){   
-        if(form instanceof SpeciesForm){
-            Integer position = ((SpeciesForm)form).getPosition();
+        if(form instanceof SpeciesForm){//Decrease form positions only for species forms
+            Integer position = form.getPosition();
             for (SpeciesForm currentForm:speciesForms) {
                 if(currentForm.getClass() == form.getClass()&&currentForm.getPosition()>position){
                 	currentForm.decreasePosition();
                 }
             }
-            formCounts.put(form.getOrder(), getFormTypeCount(form)-1);
         }
-        
+        formCounts.put(form.getOrder(), getFormTypeCount(form)-1);
 		forms.remove(form);
 		if (form.getOrder()<Order.SPECIES_LIMIT)
 			speciesForms.remove(form);
