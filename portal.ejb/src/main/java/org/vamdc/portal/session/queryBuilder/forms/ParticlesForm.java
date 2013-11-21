@@ -11,8 +11,6 @@ public class ParticlesForm extends SpeciesForm implements Form{
 
 
 	private static final long serialVersionUID = 6076734404479237682L;
-    private static Integer formCount = null;
-    private int position;
 	@Override
 	public String getTitle() { return "Particle "+ position; }
 	@Override
@@ -22,7 +20,6 @@ public class ParticlesForm extends SpeciesForm implements Form{
 	
 	public ParticlesForm(){
 		super();
-        position = formCount.intValue();
 		addField(
 				new SuggestionField(Restrictable.ParticleName,"Particle name",new ParticleNameSuggest()));
 	}
