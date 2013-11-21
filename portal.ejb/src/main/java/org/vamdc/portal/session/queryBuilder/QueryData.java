@@ -21,19 +21,15 @@ import org.jboss.seam.annotations.Scope;
 import org.vamdc.dictionary.Requestable;
 import org.vamdc.dictionary.Restrictable;
 import org.vamdc.portal.registry.RegistryFacade;
+import org.vamdc.portal.session.queryBuilder.forms.AtomsForm;
 import org.vamdc.portal.session.queryBuilder.forms.Form;
+import org.vamdc.portal.session.queryBuilder.forms.MoleculesForm;
 import org.vamdc.portal.session.queryBuilder.forms.Order;
+import org.vamdc.portal.session.queryBuilder.forms.ParticlesForm;
+import org.vamdc.portal.session.queryBuilder.forms.SpeciesForm;
 import org.vamdc.tapservice.vss2.Query;
 import org.vamdc.tapservice.vss2.RestrictExpression;
 import org.vamdc.tapservice.vss2.VSSParser;
-
-import java.util.Iterator;
-import java.lang.Integer;
-import org.vamdc.portal.session.queryBuilder.forms.SpeciesForm;
-import org.vamdc.portal.session.queryBuilder.forms.AbstractForm;
-import org.vamdc.portal.session.queryBuilder.forms.AtomsForm;
-import org.vamdc.portal.session.queryBuilder.forms.MoleculesForm;
-import org.vamdc.portal.session.queryBuilder.forms.ParticlesForm;
 
 @Name("queryData")
 @Scope(ScopeType.CONVERSATION)
@@ -46,7 +42,7 @@ public class QueryData implements Serializable{
 	private transient List<Form> formsList;
 	
 	//Species-related forms
-	private transient Collection<Form> speciesForms;
+	private transient Collection<SpeciesForm> speciesForms;
 	
 	private Collection<Requestable> request;
 	
@@ -71,7 +67,7 @@ public class QueryData implements Serializable{
         ParticlesForm.initFormCount();
 		forms=Collections.synchronizedSet(new TreeSet<Form>(new Order()));
 		formsList = Collections.synchronizedList(new ArrayList<Form>());
-		speciesForms=Collections.synchronizedSet(new TreeSet<Form>(new Order()));
+		speciesForms=Collections.synchronizedSet(new TreeSet<SpeciesForm>(new Order()));
 		request = EnumSet.noneOf(Requestable.class);
 	}
 	
@@ -179,8 +175,8 @@ public class QueryData implements Serializable{
 		return formsList;
 	}
 	
-	public Collection<Form> getSpeciesForms(){
-		return new ArrayList<Form>(speciesForms);
+	public Collection<SpeciesForm> getSpeciesForms(){
+		return new ArrayList<SpeciesForm>(speciesForms);
 	}
 	
 	/**
@@ -214,8 +210,8 @@ public class QueryData implements Serializable{
 			form.setInsertOrder(lastInsertOrder++);
 			forms.add(form);
 			form.setQueryData(this);
-			if (form.getOrder()<Order.SPECIES_LIMIT)
-				speciesForms.add(form);
+			if (form instanceof SpeciesForm)
+				speciesForms.add((SpeciesForm) form);
 			return true;
 		}
 		return false;
@@ -224,13 +220,9 @@ public class QueryData implements Serializable{
 	public void deleteForm(Form form){   
         if(form instanceof SpeciesForm){
             Integer position = ((SpeciesForm)form).getPosition();
-            for (Iterator iterator = forms.iterator(); iterator.hasNext();) {
-                AbstractForm currentForm = (AbstractForm)iterator.next();
-                if(currentForm.getClass() == form.getClass()){
-                    SpeciesForm spForm = (SpeciesForm)currentForm;
-                    if(spForm.getPosition() > position ){
-                        spForm.decreasePosition();    
-                    }   
+            for (SpeciesForm currentForm:speciesForms) {
+                if(currentForm.getClass() == form.getClass()&&currentForm.getPosition()<position){
+                	currentForm.decreasePosition();
                 }
             }
             ((SpeciesForm)form).decreaseFormCount();    

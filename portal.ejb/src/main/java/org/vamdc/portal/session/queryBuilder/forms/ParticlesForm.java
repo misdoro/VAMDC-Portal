@@ -7,7 +7,7 @@ import org.vamdc.dictionary.Restrictable;
 import org.vamdc.portal.session.queryBuilder.fields.SuggestionField;
 import org.vamdc.portal.session.queryBuilder.fields.SuggestionImpl;
 
-public class ParticlesForm extends AbstractForm implements Form, SpeciesForm{
+public class ParticlesForm extends SpeciesForm implements Form{
 
 
 	private static final long serialVersionUID = 6076734404479237682L;
@@ -21,34 +21,11 @@ public class ParticlesForm extends AbstractForm implements Form, SpeciesForm{
 	public String getView() { return "/xhtml/query/forms/standardForm.xhtml"; }
 	
 	public ParticlesForm(){
-        addForm();
+		super();
         position = formCount.intValue();
 		addField(
 				new SuggestionField(Restrictable.ParticleName,"Particle name",new ParticleNameSuggest()));
 	}
-
-    public static void addForm(){
-        if( formCount == null){
-            formCount = 1;        
-        }else
-            formCount += 1;
-    }
-    
-    public Integer getPosition(){
-        return position;
-    }
-    
-    public void decreasePosition(){
-        position -= 1;
-    }
-    
-    public void decreaseFormCount(){
-        ParticlesForm.formCount -= 1;
-    }    
-    
-    public static void initFormCount(){
-        formCount = null;
-    }
 	
 	public class ParticleNameSuggest extends SuggestionImpl{
 
