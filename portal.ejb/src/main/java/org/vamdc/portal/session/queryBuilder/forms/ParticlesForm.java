@@ -12,7 +12,7 @@ public class ParticlesForm extends SpeciesForm implements Form{
 
 	private static final long serialVersionUID = 6076734404479237682L;
 	@Override
-	public String getTitle() { return "Particle "+ position; }
+	public String getTitle() { return "Particle "+ this.getPosition(); }
 	@Override
 	public Integer getOrder() { return Order.Particles; }
 	@Override

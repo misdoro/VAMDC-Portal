@@ -25,7 +25,7 @@ public abstract class AbstractForm implements Form{
 	protected transient QueryData queryData;
 	private final String id;
 	protected String prefix;
-	protected Integer position;
+	private Integer position;
 
 
 	public AbstractForm(){ 

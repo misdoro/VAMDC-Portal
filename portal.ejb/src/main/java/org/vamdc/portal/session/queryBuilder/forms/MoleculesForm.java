@@ -43,7 +43,7 @@ public class MoleculesForm extends SpeciesForm implements Form{
 	private static final long serialVersionUID = 3499663104107031985L;
    
 	@Override
-	public String getTitle() { return "Molecule "+ position; }
+	public String getTitle() { return "Molecule "+ this.getPosition(); }
 	@Override
 	public Integer getOrder() { return Order.Molecules; }
 	@Override

@@ -13,7 +13,7 @@ public class AtomsForm extends SpeciesForm implements Form {
 
 	private static final long serialVersionUID = -795296288400049729L;
 	@Override
-	public String getTitle() { return "Atom "+ position; }
+	public String getTitle() { return "Atom "+ this.getPosition(); }
 	@Override
 	public Integer getOrder() { return Order.Atoms; }
 	@Override
