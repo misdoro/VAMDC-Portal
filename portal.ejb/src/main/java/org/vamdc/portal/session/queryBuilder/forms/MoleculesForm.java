@@ -16,7 +16,7 @@ import org.vamdc.portal.session.queryBuilder.fields.SuggestionField;
 import org.vamdc.portal.session.queryBuilder.fields.SuggestionImpl;
 import org.vamdc.portal.session.queryBuilder.fields.TextField;
 
-public class MoleculesForm extends AbstractForm implements Form{
+public class MoleculesForm extends AbstractForm implements Form, SpeciesForm{
 
 	/**
 	 * Molecule info from species database
@@ -41,14 +41,19 @@ public class MoleculesForm extends AbstractForm implements Form{
 	private Map<String,Boolean> inchikeys = new HashMap<String,Boolean>();
 
 	private static final long serialVersionUID = 3499663104107031985L;
+    private static Integer formCount = null;
+    private int position;
 	@Override
-	public String getTitle() { return "Molecules"; }
+	public String getTitle() { return "Molecule "+ position; }
 	@Override
 	public Integer getOrder() { return Order.Molecules; }
 	@Override
 	public String getView() { return "/xhtml/query/forms/moleculesForm.xhtml"; }
 
 	public MoleculesForm(){
+        addForm();
+        position = formCount.intValue();
+        
 		molChemName = new SuggestionField(null,"Chemical name", new ChemNameSuggestion());
 		addField(molChemName);
 
@@ -63,6 +68,29 @@ public class MoleculesForm extends AbstractForm implements Form{
 		inchikey = new TextField(Restrictable.InchiKey,"Standard InChIKey");
 		addField(inchikey);
 	}
+    
+    public static void initFormCount(){
+        formCount = null;
+    }
+    
+    public static void addForm(){
+        if( formCount == null){
+            formCount = 1;        
+        }else
+            formCount += 1;
+    }
+    
+    public Integer getPosition(){
+        return position;
+    }
+    
+    public void decreasePosition(){
+        position -= 1;
+    }
+    
+    public void decreaseFormCount(){
+        MoleculesForm.formCount -= 1;
+    }    
 
 	@Override
 	public void clear(){

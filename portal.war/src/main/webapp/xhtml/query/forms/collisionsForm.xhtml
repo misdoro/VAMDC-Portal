@@ -19,8 +19,16 @@
 				</h:panelGrid>
 			</c:forEach>
 		</a4j:form>
-
-		<a4j:form ajaxSubmit="true">
+        
+        <s:div rendered="#{form.species.size == 0 }">
+            <p>
+                <strong>
+                    <h:outputText styleClass="headerText" value="Choose colliding Species in the Species menu and define their role below" />
+                </strong>
+            </p>
+        </s:div>
+        
+		<a4j:form ajaxSubmit="true">            
 			<rich:dataTable id="collisionTable" value="#{form.species}"
 				var="species">
 				<f:facet name="header">

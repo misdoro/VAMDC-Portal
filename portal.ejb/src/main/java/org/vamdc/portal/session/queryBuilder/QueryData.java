@@ -27,6 +27,14 @@ import org.vamdc.tapservice.vss2.Query;
 import org.vamdc.tapservice.vss2.RestrictExpression;
 import org.vamdc.tapservice.vss2.VSSParser;
 
+import java.util.Iterator;
+import java.lang.Integer;
+import org.vamdc.portal.session.queryBuilder.forms.SpeciesForm;
+import org.vamdc.portal.session.queryBuilder.forms.AbstractForm;
+import org.vamdc.portal.session.queryBuilder.forms.AtomsForm;
+import org.vamdc.portal.session.queryBuilder.forms.MoleculesForm;
+import org.vamdc.portal.session.queryBuilder.forms.ParticlesForm;
+
 @Name("queryData")
 @Scope(ScopeType.CONVERSATION)
 public class QueryData implements Serializable{
@@ -58,6 +66,9 @@ public class QueryData implements Serializable{
 	}
 	
 	private void initCollections(){
+        MoleculesForm.initFormCount();
+        AtomsForm.initFormCount();
+        ParticlesForm.initFormCount();
 		forms=Collections.synchronizedSet(new TreeSet<Form>(new Order()));
 		formsList = Collections.synchronizedList(new ArrayList<Form>());
 		speciesForms=Collections.synchronizedSet(new TreeSet<Form>(new Order()));
@@ -210,7 +221,21 @@ public class QueryData implements Serializable{
 		return false;
 	}
 	
-	public void deleteForm(Form form){
+	public void deleteForm(Form form){   
+        if(form instanceof SpeciesForm){
+            Integer position = ((SpeciesForm)form).getPosition();
+            for (Iterator iterator = forms.iterator(); iterator.hasNext();) {
+                AbstractForm currentForm = (AbstractForm)iterator.next();
+                if(currentForm.getClass() == form.getClass()){
+                    SpeciesForm spForm = (SpeciesForm)currentForm;
+                    if(spForm.getPosition() > position ){
+                        spForm.decreasePosition();    
+                    }   
+                }
+            }
+            ((SpeciesForm)form).decreaseFormCount();    
+        }
+        
 		forms.remove(form);
 		if (form.getOrder()<Order.SPECIES_LIMIT)
 			speciesForms.remove(form);
