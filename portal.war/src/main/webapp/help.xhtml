@@ -9,13 +9,16 @@
 	template="/layout/template.xhtml">
 
 	<ui:define name="body">
-		
-		<h:outputText value="Some information can be found on the  "/><h:outputLink value="http://voparis-twiki.obspm.fr/twiki/bin/view/VAMDC/PortalHelp">VAMDC wiki</h:outputLink>
-		<br/>
-		<h:outputText
-			value="If you find a bug or a problem, please send an email to support@vamdc.org describing your issue." />
-	
-		<br/>
+		<p>
+            <h:outputText value="Some information can be found on the  "/><h:outputLink value="http://voparis-twiki.obspm.fr/twiki/bin/view/VAMDC/PortalHelp" target="_blank">VAMDC wiki</h:outputLink>
+		</p>
+        <p>
+            <h:outputText value="Any topic related to the portal or VAMDC can be discussed on the "/><h:outputLink value="http://forum.vamdc.eu/" target="_blank">VAMDC forum</h:outputLink>
+        </p>
+        <p>
+            <h:outputText
+                value="If you find a bug or a problem, please send an email to support@vamdc.org describing your issue." />	
+		</p>
 		<h:outputText value="Build date: [BUILDDATE]" />
 
 	</ui:define>
