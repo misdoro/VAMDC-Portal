@@ -21,7 +21,12 @@ public abstract class AbstractField implements Serializable{
 	private String id;
 	protected String prefix;
 	protected boolean ignoreField=false;
+	private String inSeparators="[,.:_]";
 	
+	public void setInSeparators(String inSeparators) {
+		this.inSeparators = inSeparators;
+	}
+
 	public AbstractField(Restrictable keyword, String title){
 		this.keyword = keyword;
 		this.title = title;
@@ -97,12 +102,12 @@ public abstract class AbstractField implements Serializable{
 		return "";
 	}
 
-	private static String tryIn(String value){
+	private String tryIn(String value){
 		String result ="";
 		result+=" IN (";
 		String in = "";
 		int numRes=0;
-		for (String part:value.split("[,.:_]")){
+		for (String part:value.split(this.inSeparators)){
 			String val = part.trim();
 			if (val.length()>0){
 				numRes++;
