@@ -42,7 +42,7 @@
 						rendered="#{consumers.ok}" tabindex="30">
 						<h:outputText value="Result" />
 					</h:outputLink>
-					<h:graphicImage value="/img/stat.png?mode=proc&q=#{queryData.queryString}&nodeurls=#{consumers.selectedNodes}&pivoaid=#{consumers.selectedConsumer}" height="1px" width="1px" rendered="#{consumers.ok}"/>
+					<h:graphicImage value="/img/stat.png?mode=proc&amp;q=#{queryData.queryString}&amp;nodeurl=#{consumers.selectedNodes}&amp;pivoaid=#{consumers.selectedConsumer}" height="1px" width="1px" rendered="#{consumers.ok}"/>
 				</h:panelGroup>
 				<rich:panel id="consumerInfo" styleClass="consumerDescription">
 					<h:outputText
