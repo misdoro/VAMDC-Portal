@@ -54,6 +54,15 @@ public class Consumers implements Serializable{
         return result;
     }
     
+    public String getSelectedNodes(){
+    	StringBuilder ret=new StringBuilder();
+    	for (Map.Entry<String, Boolean> entry : this.queries.entrySet()){
+            if((Boolean)entry.getValue())
+                ret.append(entry.getKey()+";");
+        }
+    	return ret.toString();
+    }
+    
 	public void setSelectedConsumer(String ivoaID){
 		this.selectedIvoaID = ivoaID;
 	}
