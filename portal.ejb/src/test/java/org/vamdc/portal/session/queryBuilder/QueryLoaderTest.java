@@ -128,6 +128,13 @@ public class QueryLoaderTest {
 		assertQueryLoadsFine(query);
 	}
 	
+	@Test
+	public void testLoadTargetColliderQuery(){
+		String query = "select * where ((target.MoleculeStoichiometricFormula = 'H2O')) AND ((collider.AtomSymbol = 'He') OR (collider.AtomSymbol = 'Ar')) AND (CollisionCode = 'chem')";
+		assertQueryLoadsFine(query);
+	}
+	
+	
 	private void assertQueryLoadsFine(String query) {
 		assertTrue(QueryLoader.loadQuery(queryData, query));
 		System.out.println("---------- Testing queryLoader");

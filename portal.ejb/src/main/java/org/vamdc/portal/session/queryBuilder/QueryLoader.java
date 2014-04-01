@@ -108,24 +108,35 @@ public class QueryLoader {
 
 		LogicNode speciesFilteredTree = NodeFilter.filterKeywords(parsedQuery.getRestrictsTree(), getSpeciesFormsKeywords());
 
-		Collection<VSSPrefix> speciesPrefixes = EnumSet.of(VSSPrefix.COLLIDER,VSSPrefix.TARGET,VSSPrefix.PRODUCT,VSSPrefix.REACTANT);
+		Collection<VSSPrefix> speciesPrefixes = EnumSet.of(
+				VSSPrefix.COLLIDER,
+				VSSPrefix.TARGET,
+				VSSPrefix.PRODUCT,
+				VSSPrefix.REACTANT);
 
 		for (Prefix pref:parsedQuery.getPrefixes()){
 			if (speciesPrefixes.contains(pref.getPrefix())){
-				result.add(NodeFilter.filterPrefix(speciesFilteredTree, pref));
+				addSubOr(result,NodeFilter.filterPrefix(speciesFilteredTree, pref));
 			}
 		}
 
 		LogicNode unprefixed = (NodeFilter.filterPrefix(speciesFilteredTree, new Prefix(null,0)));
+		addSubOr(result,unprefixed);
 		
-		if (unprefixed!=null && unprefixed.getOperator().equals(Operator.OR)){
-			for (Object sub :unprefixed.getValues()){
-				result.add((LogicNode) sub);
-			}
-		}else if (unprefixed!=null){
-			result.add(unprefixed);
-		}
 		return result;
+	}
+	
+	private static void addSubOr(Collection<LogicNode> collection,LogicNode node){
+		if (node==null)
+			return;
+		if (node.getOperator().equals(Operator.OR)){
+			for (Object sub :node.getValues()){
+				collection.add((LogicNode) sub);
+			}
+		}else{
+			collection.add(node);
+		}
+		
 	}
 
 	private static Collection<Restrictable> getSpeciesFormsKeywords() {
