@@ -140,3 +140,8 @@
 .alignCenter{
     text-align : center;
 }
+
+.roundButton {
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
