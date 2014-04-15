@@ -25,7 +25,9 @@
 					<h:column>
 						<h:outputText styleClass="headerText" value="Status" />
 					</h:column>
-
+					<h:column>
+						<h:outputText styleClass="headerText" value="Availables species" />
+					</h:column>
 				</rich:columnGroup>
 			</f:facet>
 
@@ -47,6 +49,18 @@
 			<h:column>
 				<h:outputText value="#{node.status}" />
 			</h:column>
+
+			<h:column>
+       <h:form>
+            
+			<h:commandLink action="#{nodespecies.displaySpecies(node.ivoaID)}" value="Show" target="_blank" propagation="none">    
+
+			</h:commandLink>
+        
+        </h:form>       
+
+			</h:column>
+			
 
 		</rich:dataTable>
 

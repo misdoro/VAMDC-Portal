@@ -22,6 +22,10 @@ public class VamdcNode {
 		this.node=registry.getResourceMetadata(ivoaID);
 		
 	}
+  
+  public String getIvoaID(){
+    return this.ivoaID;
+  }
 	
 	public String getName(){
 		if (node!=null)
