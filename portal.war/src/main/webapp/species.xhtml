@@ -8,8 +8,9 @@
     xmlns:rich="http://richfaces.org/rich"
     template="/layout/template.xhtml">
 
-    <ui:define name="body">		
-     	<h:outputText value="#{nodespecies.formatedResult}" escape="false" rendered="#{nodespecies.displayable}"></h:outputText>           
+    <ui:define name="body">
+    	<h4><h:outputText value="#{registryFacade.getResourceTitle(nodespecies.ivoaId)}" escape="false"></h:outputText> species</h4>
+     	<h:outputText value="#{nodespecies.formattedResult}" escape="false" rendered="#{nodespecies.displayable}"></h:outputText>           
 		<h:outputText value="#{nodespecies.message}" escape="false" rendered="#{!nodespecies.displayable}"></h:outputText>   
     </ui:define>
 </ui:composition>

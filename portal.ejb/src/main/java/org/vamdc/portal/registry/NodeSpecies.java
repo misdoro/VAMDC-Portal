@@ -28,11 +28,11 @@ public class NodeSpecies {
     //tap request parameters
     private String query = "sync?LANG=VSS2&REQUEST=doQuery&FORMAT=XSAMS&QUERY=Select+Species";
     //contains printable results
-    private String formatedResult= "";
+    private String formattedResult= "";
     //true if node results are valid
     private Boolean displayable = false;
     //message describing request status
-    private String message = "";
+    private String message = "Please wait for the document to get ready";
     //xsl stylesheet name
     private String xslFile = "getspecies.xsl";
     
@@ -53,8 +53,8 @@ public class NodeSpecies {
     	return RedirectPage.SPECIES;
     }
     
-    public String getFormatedResult(){
-		return this.formatedResult; 
+    public String getFormattedResult(){
+		return this.formattedResult; 
     }  
     
     public boolean isDisplayable(){
@@ -67,11 +67,11 @@ public class NodeSpecies {
     
     public void querySpecies(String id){
     	setIvoaId(id);
-    	RegistryFacade rf = new RegistryFacade();    	
-    	URL node = rf.getVamdcTapURL(this.ivoaId);    	
+    	RegistryFacade rf = new RegistryFacade();
+    	URL node = rf.getVamdcTapURL(this.ivoaId);
     	try {
 			URL url = new URL(node.toExternalForm()+query);
-			this.formatedResult = formatRequestResult(url);
+			this.formattedResult = formatRequestResult(url);
 			this.message = "Request completed";
 			this.displayable = true;
 		} catch (MalformedURLException e) {
@@ -79,11 +79,11 @@ public class NodeSpecies {
 			this.message = "Incorrect service URL";
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			this.message = "Timeout error. Informations could not be loaded";
+			this.message = "Network error. Informations could not be loaded.";
 		} catch (TransformerException e) {
 			// TODO Auto-generated catch block
 			this.message = "XSAMS file could not be parsed.";
-		}   	
+		}
     }
     
     /**
@@ -96,7 +96,7 @@ public class NodeSpecies {
     private String formatRequestResult(URL url) throws IOException, TransformerException{
 		URLConnection c = url.openConnection();
 		c.setConnectTimeout(3000);
-		c.setReadTimeout(5000);
+		c.setReadTimeout(10000);
 		
 		Source xmlSource = new StreamSource(new InputStreamReader(c.getInputStream()));		
 		Source xsltSource = new StreamSource(ResourceLoader.instance().getResourceAsStream(this.xslFile));
