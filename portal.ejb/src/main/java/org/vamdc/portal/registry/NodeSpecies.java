@@ -34,7 +34,7 @@ public class NodeSpecies {
     //message describing request status
     private String message = "";
     //xsl stylesheet name
-    private String xslFile = "stylesheet.xsl";
+    private String xslFile = "getspecies.xsl";
     
     public NodeSpecies(){
     	
