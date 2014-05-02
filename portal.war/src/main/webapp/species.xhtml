@@ -6,11 +6,28 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:rich="http://richfaces.org/rich"
+    xmlns:a4j="http://richfaces.org/a4j"
     template="/layout/template.xhtml">
 
-    <ui:define name="body">
+    <ui:define name="body">    
     	<h4><h:outputText value="#{registryFacade.getResourceTitle(nodespecies.ivoaId)}" escape="false"></h:outputText> species</h4>
-     	<h:outputText value="#{nodespecies.formattedResult}" escape="false" rendered="#{nodespecies.displayable}"></h:outputText>           
-		<h:outputText value="#{nodespecies.message}" escape="false" rendered="#{!nodespecies.displayable}"></h:outputText>   
+   
+		<h:form>
+        	<a4j:outputPanel id="progressPanel">
+            	<rich:progressBar value="#{progressbarbean.currentValue}"
+                	interval="1000" label="Before timeout : #{progressbarbean.maxValue - progressbarbean.currentValue} s"
+                	enabled="true" minValue="-1" maxValue="#{progressbarbean.maxValue}"
+                	reRenderAfterComplete="progressPanel">
+
+                	<f:facet name="initial">
+		                <br />
+        	            <h:outputText value="Process doesn't started yet" />
+	                </f:facet>
+    	            <f:facet name="complete">
+    	            	<h:outputText value="#{progressbarbean.message} #{progressbarbean.formattedResult} " escape="false" />
+        	        </f:facet>
+	            </rich:progressBar>
+    	    </a4j:outputPanel>
+		</h:form>
     </ui:define>
 </ui:composition>
