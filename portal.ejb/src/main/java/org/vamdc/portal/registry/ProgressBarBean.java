@@ -5,7 +5,6 @@ import java.util.Date;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.Scope;
 
 @Name("progressbarbean")
@@ -33,14 +32,13 @@ public class ProgressBarBean {
     	return this.maxValue;
     }
     
-    public String startProcess() {
+    public void startProcess() {
         setStartTime(new Date().getTime());
         nodeSpecies.querySpecies(nodeSpecies.getIvoaId(), speciesResult);
-        return null;
     }
 
     public Long getCurrentValue(){
-    	if(started == false){
+    	if(!started){
     		this.startProcess();
     		started = true;    		
     	}
@@ -49,13 +47,11 @@ public class ProgressBarBean {
     		return this.maxValue+1;
     	}
     	
-        if (started){
+        if (startTime != null){
             return (new Date().getTime() - startTime)/1000;
-        } if (startTime == null) {
+        }else{
             return Long.valueOf(-1);
         }
-        else
-            return Long.valueOf(this.maxValue+1);
     }
     
     public String getMessage(){
