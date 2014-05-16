@@ -15,13 +15,13 @@
 		<h:form>
         	<a4j:outputPanel id="progressPanel">
             	<rich:progressBar value="#{progressbarbean.currentValue}"
-                	interval="1000" label="Before timeout : #{progressbarbean.maxValue - progressbarbean.currentValue} s"
+                	interval="1000" label="Mirror #{progressbarbean.mirrorIndex}/#{progressbarbean.mirrorCount}. Timeout in: #{progressbarbean.maxValue - progressbarbean.currentValue} s"
                 	enabled="true" minValue="-1" maxValue="#{progressbarbean.maxValue}"
                 	reRenderAfterComplete="progressPanel">
 
                 	<f:facet name="initial">
 		                <br />
-        	            <h:outputText value="Process doesn't started yet" />
+        	            <h:outputText value="Process has not started yet" />
 	                </f:facet>
     	            <f:facet name="complete">
     	            	<h:outputText value="#{progressbarbean.message} #{progressbarbean.formattedResult} " escape="false" />

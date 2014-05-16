@@ -4,9 +4,6 @@ import org.apache.http.HttpException;
 
 public class PortalHttpException extends HttpException{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private Integer code;
 	

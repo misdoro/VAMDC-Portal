@@ -60,7 +60,7 @@ public class PreviewManager implements Serializable{
 
 		for (String ivoaID:activeNodes){
 			try{
-				nodeFutureResponses.add(executor.submit(new PreviewThread(ivoaID,registryFacade.getMirrors(ivoaID),queryData.getQueryString())));
+				nodeFutureResponses.add(executor.submit(new PreviewThread(ivoaID,registryFacade.getVamdcTapMirrors(ivoaID),queryData.getQueryString())));
 			}catch (IllegalArgumentException e){
 			}
 		}

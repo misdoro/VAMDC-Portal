@@ -1,4 +1,4 @@
-package org.vamdc.portal.registry;
+package org.vamdc.portal.species;
 
 import java.util.Date;
 
@@ -6,6 +6,7 @@ import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
+import org.vamdc.portal.Settings;
 
 @Name("progressbarbean")
 @Scope(ScopeType.CONVERSATION)
@@ -23,7 +24,7 @@ public class ProgressBarBean {
     /**
      * Duration in seconds before timeout
      */
-    private Long maxValue = 30L;
+    private Long maxValue = (long) Settings.HTTP_DATA_TIMEOUT.getInt()/1000;
     
     public ProgressBarBean() {
     }
@@ -60,6 +61,14 @@ public class ProgressBarBean {
     
     public String getFormattedResult(){
     	return speciesResult.getFormattedResult();
+    }
+    
+    public Integer getMirrorIndex(){
+    	return speciesResult.getMirrorIndex();
+    }
+    
+    public Integer getMirrorCount(){
+    	return speciesResult.getMirrorCount();
     }
 
     public Long getStartTime() {

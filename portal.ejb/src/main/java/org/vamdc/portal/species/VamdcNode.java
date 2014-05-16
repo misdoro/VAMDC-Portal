@@ -1,7 +1,8 @@
-package org.vamdc.portal.registry;
+package org.vamdc.portal.species;
 
 import net.ivoa.xml.voresource.v1.Resource;
 
+import org.vamdc.portal.registry.Client;
 import org.vamdc.registry.client.Registry;
 
 /**

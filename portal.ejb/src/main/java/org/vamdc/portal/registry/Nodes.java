@@ -9,6 +9,7 @@ import java.util.List;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
+import org.vamdc.portal.species.VamdcNode;
 import org.vamdc.registry.client.Registry;
 import org.vamdc.registry.client.Registry.Service;
 

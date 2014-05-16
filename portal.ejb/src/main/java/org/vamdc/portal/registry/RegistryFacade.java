@@ -55,17 +55,6 @@ public class RegistryFacade {
 		return "";
 	}
 
-	public URL getVamdcTapURL(String ivoaID) {
-		URL result = registry.getVamdcTapURL(ivoaID);
-		if (result!=null)
-			return result;
-		try {
-			return new URL("http://vamdc.org/");
-		} catch (MalformedURLException e) {
-			return null;
-		}
-	}
-
 	public Collection<String> getConsumerIvoaIDs() {
 		return Collections.unmodifiableCollection(registry.getIVOAIDs(Service.CONSUMER));
 		
@@ -97,7 +86,9 @@ public class RegistryFacade {
 		
 	}
 
-	public Collection<URL> getMirrors(String ivoaID) {
+	public Collection<URL> getVamdcTapMirrors(String ivoaID) {
+		if (ivoaID==null)
+			return Collections.emptyList();
 		Collection<VamdcTapService> mirrors = registry.getMirrors(ivoaID);
 		Collection<URL> result = new ArrayList<URL>(mirrors.size());
 		for (VamdcTapService mirror:mirrors){
