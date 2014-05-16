@@ -4,12 +4,12 @@ public class SpeciesResult {
 	private String message;
 	private String formattedResult;
 	private Integer mirrorIndex=0;
+	private Integer mirrorCount=0;
 	
 	/**
 	 * True when result can be displayed
 	 */
 	private Boolean ready = false;
-	private Integer mirrorCount;
 	
 	public String getMessage() {
 		return this.message;
