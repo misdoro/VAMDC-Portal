@@ -54,4 +54,9 @@ public class EmptyRegistry implements Registry{
 		return Collections.emptyList();
 	}
 
+	@Override
+	public List<String> getProcessors(String ivoaid) {
+		return null;
+	}
+
 }
