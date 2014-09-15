@@ -93,9 +93,14 @@
 	width: 450px;
 }
 
+.queryProgressPanel{
+	width: 450px;
+	height: 200px;
+}
+
 .consumerPanel{
 	width: 400px;
-	height: 175px;
+	height: 200px;
 }
 
 .consumerDescription{

@@ -5,6 +5,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import net.ivoa.xml.voresource.v1.Capability;
 import net.ivoa.xml.voresource.v1.Interface;
@@ -40,14 +42,14 @@ public class RegistryFacade {
 		return Collections.unmodifiableSet(registry.getRestrictables(ivoaID));
 	}
 
-	
+
 	public String getResourceTitle(String ivoaID){
 		Resource res = registry.getResourceMetadata(ivoaID);
 		if (res!=null)
 			return res.getTitle();
 		return "";
 	}
-	
+
 	public String getResourceDescription(String ivoaID){
 		Resource res = registry.getResourceMetadata(ivoaID);
 		if (res!=null && res.getContent()!=null)
@@ -57,13 +59,21 @@ public class RegistryFacade {
 
 	public Collection<String> getConsumerIvoaIDs() {
 		return Collections.unmodifiableCollection(registry.getIVOAIDs(Service.CONSUMER));
-		
+
 	}
 
 	public Resource getResource(String ivoaID) {
 		return registry.getResourceMetadata(ivoaID);
 	}
+
+	public Collection<String> getNodeConsumers(String ivoaId){
+		return registry.getProcessors(ivoaId);		
+	}
 	
+	public String getNumberOfInputs(String consumerId){
+		return registry.getNumberOfInputs(consumerId);
+	}
+
 	public URL getConsumerService(String ivoaID){
 		URL result = null;
 		net.ivoa.xml.voresource.v1.Service consumer = (net.ivoa.xml.voresource.v1.Service) getResource(ivoaID);
@@ -83,7 +93,7 @@ public class RegistryFacade {
 			}
 		}
 		return result;
-		
+
 	}
 
 	public Collection<URL> getVamdcTapMirrors(String ivoaID) {
