@@ -38,7 +38,7 @@ public class Consumers implements Serializable{
 	private Map<String,Boolean> queries = new HashMap<String,Boolean>();
 	
 	// selected nodes ids
-	private Map<String, Boolean> nodeIds = new HashMap<String, Boolean>();
+	private Map<String, Boolean> selectedNodes = new HashMap<String, Boolean>();
 	
 	private Future<URL> consumerLocation;
 	
@@ -69,24 +69,18 @@ public class Consumers implements Serializable{
 		List<SelectItem> result = new ArrayList<SelectItem>();
 		if(getSelectedNodesCount() > 0){	
 			//search processors for selected nodes	
-			Collection<String> consumers = new ArrayList<String>();
-			int i = 0;
-			for (Map.Entry<String,Boolean> node : nodeIds.entrySet()){
-				//display processors only when they are available for all selected nodes
-				if(i == 0){
-					if(node.getValue()){
-						consumers.addAll(registryFacade.getNodeConsumers(node.getKey()));
-						i++;
-					}
-				}else{
-					if(node.getValue()){						
-						Collection<String> tmpConsumers = registryFacade.getNodeConsumers(node.getKey());
-						consumers.retainAll(tmpConsumers);
-					}
-				}				
-			}	
+			Collection<String> visibleConsumers = new ArrayList<String>(registryFacade.getConsumerIvoaIDs());
+			for (Map.Entry<String,Boolean> node : selectedNodes.entrySet()){
+				if (node.getValue()){
+					Collection<String> nodeConsumers=registryFacade.getNodeConsumers(node.getKey());
+					if (nodeConsumers.size()==0)
+						nodeConsumers=registryFacade.getConsumerIvoaIDs();
+					//Retain only available consumers
+					visibleConsumers.retainAll(nodeConsumers);
+				}
+			}
 			
-			for (String ivoaID:consumers){
+			for (String ivoaID:visibleConsumers){
 				result.add(new SelectItem(ivoaID,registryFacade.getResourceTitle(ivoaID)));
 			}
 
@@ -208,10 +202,10 @@ public class Consumers implements Serializable{
 	}
 	
 	public void updateNodeIds(String text){
-		if(nodeIds.containsKey(text)){
-			nodeIds.put(text, !nodeIds.get(text));
+		if(selectedNodes.containsKey(text)){
+			selectedNodes.put(text, !selectedNodes.get(text));
 		}else{
-			nodeIds.put(text, true);
+			selectedNodes.put(text, true);
 		}		
 	}
 	
