@@ -13,7 +13,7 @@ public enum Settings {
 
 	HTTP_CONNECT_TIMEOUT("HTTPConnTimeout", "2000"),
 	HTTP_DATA_TIMEOUT("HTTPDataTimeout","30000"),
-	REGISTRY_URL("registryURL","http://casx019-zone1.ast.cam.ac.uk/registry/services/RegistryQueryv1_0"),
+	REGISTRY_URL("registryURL","http://registry.vamdc.eu/registry-12.07/services/RegistryQueryv1_0"),
 	REGISTRY_UPDATE_INTERVAL("registryUpdateInterval","300000"),
 	AVAILABILITY_MONITOR_INTERVAL("availabilityMonitorInterval","300000"),
 	REGISTRY_RETRY_INTERVAL("registryRetryInterval","10000"),
