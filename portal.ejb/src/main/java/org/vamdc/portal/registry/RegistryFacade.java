@@ -5,8 +5,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 import net.ivoa.xml.voresource.v1.Capability;
 import net.ivoa.xml.voresource.v1.Interface;
@@ -20,6 +18,7 @@ import org.vamdc.portal.registry.Client;
 import org.vamdc.registry.client.Registry;
 import org.vamdc.registry.client.Registry.Service;
 import org.vamdc.registry.client.VamdcTapService;
+import org.vamdc.xml.xsams_consumer.v1.XsamsConsumer;
 
 
 @Name("registryFacade")
@@ -33,6 +32,14 @@ public class RegistryFacade {
 
 
 	private Registry registry = Client.INSTANCE.get();
+	
+	/**
+	 * Used only for test purposes
+	 */
+	void forceUpdate(){
+		Client.INSTANCE.forceUpdate();
+		registry=Client.INSTANCE.get();
+	}
 
 	public Collection<String> getTapIvoaIDs(){
 		return Collections.unmodifiableCollection(registry.getIVOAIDs(Service.VAMDC_TAP));
@@ -70,11 +77,26 @@ public class RegistryFacade {
 		return registry.getProcessors(ivoaId);		
 	}
 	
-	public String getNumberOfInputs(String consumerId){
-		return registry.getNumberOfInputs(consumerId);
+	public Integer getConsumerNumberOfInputs(String consumerId){
+		Integer result=null;
+		System.out.println(getResource(consumerId).getClass());
+		net.ivoa.xml.voresource.v1.Service consumer = (net.ivoa.xml.voresource.v1.Service) getResource(consumerId);
+		for (Capability cap:consumer.getCapability()){
+			if (cap!= null && cap.getStandardID()!=null && cap.getStandardID().equalsIgnoreCase(
+					Registry.Service.CONSUMER.getStandardID())){
+				XsamsConsumer thisConsumer=(XsamsConsumer) cap;
+				try{
+					result=Integer.valueOf(thisConsumer.getNumberOfInputs());
+				}catch(NumberFormatException e){
+					result=1;
+				}
+			}
+		}
+		
+		return result;
 	}
 
-	public URL getConsumerService(String ivoaID){
+	public URL getConsumerServiceURL(String ivoaID){
 		URL result = null;
 		net.ivoa.xml.voresource.v1.Service consumer = (net.ivoa.xml.voresource.v1.Service) getResource(ivoaID);
 		if (ivoaID==null || ivoaID.length()==0 || consumer==null)

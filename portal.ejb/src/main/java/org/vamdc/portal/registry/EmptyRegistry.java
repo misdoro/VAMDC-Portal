@@ -59,10 +59,4 @@ public class EmptyRegistry implements Registry{
 		return null;
 	}
 
-	@Override
-	public String getNumberOfInputs(String arg0) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
