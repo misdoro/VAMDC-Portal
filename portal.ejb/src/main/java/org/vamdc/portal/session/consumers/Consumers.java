@@ -27,7 +27,6 @@ import org.vamdc.portal.registry.RegistryFacade;
 @Scope(ScopeType.PAGE)
 public class Consumers implements Serializable{
 
-	//TODO: create meaningful test to check the serializability
 	private static final long serialVersionUID = -4206391044359168710L;
 
 	@In(create=true) RegistryFacade registryFacade;
@@ -129,11 +128,8 @@ public class Consumers implements Serializable{
 	}
 	
 	
-	public String getSelectedConsumerNumberOfInput(){
-		String inputs = registryFacade.getNumberOfInputs(selectedIvoaID);
-		if(inputs == null)
-			return "";
-		return inputs;
+	public Integer getSelectedConsumerNumberOfInput(){
+		return registryFacade.getConsumerNumberOfInputs(selectedIvoaID);
 	}
 
 	public Map<String,Boolean> getQueries() {
@@ -154,7 +150,7 @@ public class Consumers implements Serializable{
 			}
 		}
 		
-		URL consumer = registryFacade.getConsumerService(selectedIvoaID);
+		URL consumer = registryFacade.getConsumerServiceURL(selectedIvoaID);
 		
 		if (nodes.size()>0 && consumer!=null){
 			ExecutorService executor = Executors.newSingleThreadExecutor();
