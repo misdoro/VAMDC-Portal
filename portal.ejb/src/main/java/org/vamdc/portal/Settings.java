@@ -1,5 +1,7 @@
 package org.vamdc.portal;
 
+import javax.servlet.ServletContext;
+
 import org.jboss.seam.contexts.ServletLifecycle;
 
 /**
@@ -42,7 +44,10 @@ public enum Settings {
 	
 	private final String loadValue(){
 		String specificValue="";
-		String path = ServletLifecycle.getServletContext().getContextPath();
+		ServletContext ctx=ServletLifecycle.getServletContext();
+		String path = null;
+		if (ctx!=null)
+			path = ctx.getContextPath();
 		if (path!=null && path.length()>1){
 			path=path.substring(1)+"."+this.key;
 			specificValue = System.getProperty(path);
