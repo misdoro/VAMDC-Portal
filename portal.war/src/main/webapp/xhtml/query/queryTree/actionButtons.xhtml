@@ -7,13 +7,13 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j">
 
-	<h:panelGrid id="buttonArea" rendered="#{queryTree.done}">
+	<h:panelGrid id="buttonArea">
 		<a4j:form ajaxSubmit="true">
-			<h:commandButton value="Save query" width="120"action="#{query.saveQuery}"
-				styleClass="roundButton" disabled="#{!queryTree.done}" tabindex="20"/>
+			<h:commandButton value="Save query" width="120" action="#{queryTree.saveQuery}"
+				styleClass="roundButton" tabindex="20"/>
 			<h:commandButton value="Submit query and find data" 
-				width="120" action="#{query.preview}"
-				styleClass="roundButton" disabled="#{!queryTree.done}" tabindex="20"/>
+				width="120" action="#{queryTree.preview}"
+				styleClass="roundButton" tabindex="20"/>
 		</a4j:form>
 	</h:panelGrid>
 
