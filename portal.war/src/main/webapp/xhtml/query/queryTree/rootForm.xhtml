@@ -15,5 +15,10 @@
 		</f:facet>
 		
 		<h:outputText value="Request VAMDC"></h:outputText>
+			<h:selectOneRadio value="#{form.selectedMode}"
+					layout="pageDirection" tabindex="20">
+				<f:selectItems value="#{form.nextOptions}" />
+				<a4j:support event="onclick" reRender="treeForms"></a4j:support>
+			</h:selectOneRadio>
 	</rich:panel>
 </ui:composition>

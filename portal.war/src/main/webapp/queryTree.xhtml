@@ -9,8 +9,9 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:c="http://java.sun.com/jstl/core"
 	template="/layout/template.xhtml">
+	
 	<ui:define name="body">
-		<h:panelGroup width="460">
+		<h:panelGroup width="460" id="treeForms">
 			<h:panelGrid>
 				<c:forEach items="#{queryTree.forms}" var="form">
 					<a4j:include viewId="#{form.view}" />
