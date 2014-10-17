@@ -14,8 +14,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import javax.faces.model.SelectItem;
-
-
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
@@ -45,6 +43,7 @@ public class Consumers implements Serializable{
 	//list of processors
 	private List<SelectItem> consumers = new ArrayList<SelectItem>();
 	
+	
 	public List<SelectItem> getConsumers(){
 		return consumers;
 	}	
@@ -72,18 +71,22 @@ public class Consumers implements Serializable{
 			Collection<String> visibleConsumers = new ArrayList<String>(registryFacade.getConsumerIvoaIDs());
 			for (Map.Entry<String,Boolean> node : selectedNodes.entrySet()){
 				if (node.getValue()){
-					Collection<String> nodeConsumers=registryFacade.getNodeConsumers(node.getKey());
-					if (nodeConsumers.size()==0)
-						nodeConsumers=registryFacade.getConsumerIvoaIDs();
-					//Retain only available consumers
-					visibleConsumers.retainAll(nodeConsumers);
+					//Retain available consumers	
+					visibleConsumers.retainAll(registryFacade.getNodeConsumers(node.getKey()));
 				}
 			}
 			
+			//recommended consumers
 			for (String ivoaID:visibleConsumers){
-				result.add(new SelectItem(ivoaID,registryFacade.getResourceTitle(ivoaID)));
+				result.add(new SelectItem(ivoaID,registryFacade.getResourceTitle(ivoaID)+" *"));
 			}
-
+			
+			//other consumers
+			for(String ivoaID : registryFacade.getConsumerIvoaIDs()){
+				if(visibleConsumers.contains(ivoaID) == false){
+					result.add(new SelectItem(ivoaID,registryFacade.getResourceTitle(ivoaID)));
+				}
+			}
 		}	
 		
 		this.consumers = result;
