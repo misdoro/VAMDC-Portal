@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import org.vamdc.dictionary.Restrictable;
 import org.vamdc.dictionary.VSSPrefix;
+import org.vamdc.portal.session.queryBuilder.FormHolder;
 import org.vamdc.portal.session.queryBuilder.QueryData;
 import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 import org.vamdc.tapservice.vss2.LogicNode;
@@ -22,7 +23,7 @@ public abstract class AbstractForm implements Form{
 	private static final long serialVersionUID = -2420596698571830221L;
 	protected List<AbstractField> fields;
 	private Set<Restrictable> supportedKeywords;
-	protected transient QueryData queryData;
+	protected transient FormHolder queryData;
 	private final String id;
 	protected String prefix;
 	private Integer position;

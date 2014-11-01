@@ -1,8 +1,12 @@
 package org.vamdc.portal.session.queryBuilder.formsTree;
 
+import org.vamdc.portal.session.queryBuilder.QueryTreeInterface;
+
 public abstract class TreeForm implements TreeFormInterface{
-	/**
-	 * Action for the "validate and continue" button 
-	 */
-	public abstract void showNext();
+	
+	QueryTreeInterface tree;
+	public TreeForm(QueryTreeInterface tree){
+		this.tree=tree;
+	}
+	
 }

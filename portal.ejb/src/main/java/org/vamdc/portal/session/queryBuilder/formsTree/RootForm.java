@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.model.SelectItem;
 
+import org.vamdc.portal.session.queryBuilder.QueryTreeInterface;
+
 public class RootForm extends TreeForm{
 
-	
 	private NextForm selectedMode;
 	private enum NextForm{
 		collision,
@@ -14,10 +15,8 @@ public class RootForm extends TreeForm{
 		species
 	}
 	
-	private List<SelectItem> nextOptions = new ArrayList<SelectItem>(){/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
+	private List<SelectItem> nextOptions = new ArrayList<SelectItem>(){
+	private static final long serialVersionUID = -8406069388034760380L;
 
 	{
 		add(new SelectItem(NextForm.collision,"For collisional process"));
@@ -26,9 +25,8 @@ public class RootForm extends TreeForm{
 	}
 	};
 	
-	@Override
-	public void showNext() {
-		
+	public RootForm(QueryTreeInterface tree) {
+		super(tree);
 	}
 
 	public List<SelectItem> getNextOptions(){
@@ -40,8 +38,24 @@ public class RootForm extends TreeForm{
 	}
 
 	public void setSelectedMode(NextForm selectedMode) {
+		System.err.println("Set form "+selectedMode.name());
 		this.selectedMode = selectedMode;
-		System.out.println(selectedMode);
+	}
+	
+	@Override
+	public void validate(){
+		if (this.selectedMode == null)
+			return;
+		System.err.println("Adding next form "+selectedMode.name());
+		switch(this.selectedMode){
+		case collision:
+			break;
+		case radiative:
+			tree.addForm(new RadiativeForm(tree));
+			break;
+		case species:
+			break;
+		}
 	}
 
 	@Override

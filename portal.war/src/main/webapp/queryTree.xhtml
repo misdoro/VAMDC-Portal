@@ -11,15 +11,18 @@
 	template="/layout/template.xhtml">
 	
 	<ui:define name="body">
-		<h:panelGroup width="460" id="treeForms">
+		<a4j:outputPanel width="460" id="treeForms">
 			<h:panelGrid>
+			<a4j:form ajaxSubmit="true">
 				<c:forEach items="#{queryTree.forms}" var="form">
 					<a4j:include viewId="#{form.view}" />
 				</c:forEach>
+				
 				<rich:spacer width="460" />
 				<ui:include src="/xhtml/query/queryTree/actionButtons.xhtml" />
+				</a4j:form>
 			</h:panelGrid>
-		</h:panelGroup>
+		</a4j:outputPanel>
 	</ui:define>
 
 </ui:composition>

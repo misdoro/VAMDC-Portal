@@ -32,7 +32,7 @@ import org.vamdc.tapservice.vss2.VSSParser;
 
 @Name("queryData")
 @Scope(ScopeType.CONVERSATION)
-public class QueryData implements Serializable{
+public class QueryData implements FormHolder,Serializable{
 
 	private static final long serialVersionUID = -6797195825696968172L;
 	

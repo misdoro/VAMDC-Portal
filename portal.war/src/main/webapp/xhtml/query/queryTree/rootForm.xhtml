@@ -16,9 +16,10 @@
 		
 		<h:outputText value="Request VAMDC"></h:outputText>
 			<h:selectOneRadio value="#{form.selectedMode}"
-					layout="pageDirection" tabindex="20">
-				<f:selectItems value="#{form.nextOptions}" />
-				<a4j:support event="onclick" reRender="treeForms"></a4j:support>
-			</h:selectOneRadio>
+					layout="pageDirection" tabindex="10">
+			<f:selectItems value="#{form.nextOptions}" />
+		</h:selectOneRadio>
+		<a4j:commandButton value="Next" width="120" action="#{form.validate}"
+				styleClass="roundButton" tabindex="20" reRender="treeForms"/>
 	</rich:panel>
 </ui:composition>

@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.persistence.EntityManager;
 
+import org.jboss.seam.Component;
 import org.vamdc.dictionary.Restrictable;
 import org.vamdc.portal.entity.EntityFacade;
 import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
@@ -142,7 +143,8 @@ public class MoleculesForm extends SpeciesForm implements Form{
 
 		@Override
 		public Collection<String> options(Object input) {
-			return EntityFacade.suggestChemicalName(queryData.getEntityManager(),(String)input);
+			EntityManager em= (EntityManager) Component.getInstance("entityManager");
+			return EntityFacade.suggestChemicalName(em,(String)input);
 		}
 
 		@Override
@@ -152,7 +154,7 @@ public class MoleculesForm extends SpeciesForm implements Form{
 
 		@Override
 		public void selected() {
-			EntityManager em = queryData.getEntityManager();
+			EntityManager em = (EntityManager) Component.getInstance("entityManager");
 			molecules = EntityFacade.loadMoleculesFromName(em, molChemName.getValue());
 			fillFromMolecules();
 			resetInchiKeys();
@@ -166,7 +168,8 @@ public class MoleculesForm extends SpeciesForm implements Form{
 
 		@Override
 		public Collection<String> options(Object input) {
-			return EntityFacade.suggestStoichiometricFormula(queryData.getEntityManager(),(String)input);
+			EntityManager em = (EntityManager) Component.getInstance("entityManager");
+			return EntityFacade.suggestStoichiometricFormula(em,(String)input);
 		}
 
 		@Override
@@ -176,7 +179,7 @@ public class MoleculesForm extends SpeciesForm implements Form{
 
 		@Override
 		public void selected() {
-			EntityManager em = queryData.getEntityManager();
+			EntityManager em = (EntityManager) Component.getInstance("entityManager");
 			molecules = EntityFacade.loadMoleculesFromStoichForm(em, molStoichForm.getValue());
 			fillFromMolecules();
 			resetInchiKeys();
@@ -189,7 +192,8 @@ public class MoleculesForm extends SpeciesForm implements Form{
 
 		@Override
 		public Collection<String> options(Object input) {
-			return EntityFacade.suggestOrdinaryFormula(queryData.getEntityManager(),(String)input);
+			EntityManager em = (EntityManager) Component.getInstance("entityManager");
+			return EntityFacade.suggestOrdinaryFormula(em,(String)input);
 		}
 
 		@Override
@@ -199,7 +203,7 @@ public class MoleculesForm extends SpeciesForm implements Form{
 
 		@Override
 		public void selected() {
-			EntityManager em = queryData.getEntityManager();
+			EntityManager em = (EntityManager) Component.getInstance("entityManager");
 			molecules = EntityFacade.loadMoleculesFromOrdForm(em, molOrdForm.getValue());
 			fillFromMolecules();
 			resetInchiKeys();
