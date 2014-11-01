@@ -12,10 +12,9 @@
 
 	<rich:panel id="radiative">
 		<f:facet name="header">
-			<h:outputText value="Radiative form" />
+			<h:outputText value="Define radiative configuration" />
 		</f:facet>
 		<a4j:form>
-			<h:outputText value="Request VAMDC"></h:outputText>
 			<c:forEach items="#{form.fields}" var="field">
 				<h:panelGrid columns="2" columnClasses="leftColumn,rightColumn">
 					<ui:include src="#{field.view}" />
