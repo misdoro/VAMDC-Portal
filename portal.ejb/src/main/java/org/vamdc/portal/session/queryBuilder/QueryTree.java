@@ -53,6 +53,8 @@ public class QueryTree implements QueryTreeInterface {
 
 	@Override
 	public void addForm(TreeFormInterface form) {
+		System.out.println("Adding a form "+form.getView());
 		forms.add(form);
+		System.out.println("New forms size is "+forms.size());
 	}
 }

@@ -23,7 +23,10 @@
 				</a4j:form>
 			</h:panelGrid>
 		</a4j:outputPanel>
-		<a4j:outputPanel id="nodeTree"/>
+		<a4j:outputPanel id="nodeTree">
+			<rich:spacer width="460" />
+			<h:outputText value="#{queryTree.forms.size()}" />
+		</a4j:outputPanel>
 	</ui:define>
 
 </ui:composition>

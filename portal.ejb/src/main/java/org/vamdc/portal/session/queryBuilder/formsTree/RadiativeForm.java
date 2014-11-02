@@ -8,14 +8,17 @@ import org.vamdc.dictionary.Restrictable;
 import org.vamdc.portal.session.queryBuilder.QueryTreeInterface;
 import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 import org.vamdc.portal.session.queryBuilder.fields.ProxyRangeField;
+import org.vamdc.portal.session.queryBuilder.fields.RangeField;
+import org.vamdc.portal.session.queryBuilder.fields.SimpleField;
 import org.vamdc.portal.session.queryBuilder.fields.UnitConvRangeField;
+import org.vamdc.portal.session.queryBuilder.forms.FormForFields;
 import org.vamdc.portal.session.queryBuilder.unitConv.CustomConverters;
 import org.vamdc.portal.session.queryBuilder.unitConv.EnergyUnitConverter;
 import org.vamdc.portal.session.queryBuilder.unitConv.FrequencyUnitConverter;
 import org.vamdc.portal.session.queryBuilder.unitConv.WavelengthUnitConverter;
 import org.vamdc.portal.session.queryBuilder.unitConv.WavenumberUnitConverter;
 
-public class RadiativeForm extends TreeForm{
+public class RadiativeForm extends TreeForm implements FormForFields{
 
 	protected List<AbstractField> fields;
 	public RadiativeForm(QueryTreeInterface tree) {
@@ -24,9 +27,14 @@ public class RadiativeForm extends TreeForm{
 		//ProxyRangeField wlField = setupWLField();
 		//fields.add(wlField);
 		
-		AbstractField field = new UnitConvRangeField(Restrictable.StateEnergy, "Lower state energy", new EnergyUnitConverter());
-		field.setPrefix("lower");
+		//AbstractField field = new UnitConvRangeField(Restrictable.StateEnergy, "Lower state energy", new EnergyUnitConverter());
+		//field.setPrefix("lower");
+		AbstractField field=new SimpleField(Restrictable.AtomSymbol,"Test field");
 		fields.add(field);
+		field.setParentForm(this);
+		field=new SimpleField(Restrictable.AtomMass,"massatom");
+		fields.add(field);
+		field.setParentForm(this);
 	}
 	
 	public Collection<AbstractField> getFields() { return fields; }
@@ -47,6 +55,11 @@ public class RadiativeForm extends TreeForm{
 		wlField.addProxyField(new UnitConvRangeField(Restrictable.RadTransWavenumber,"Wavenumber",new WavenumberUnitConverter()), CustomConverters.WnToWl());
 		wlField.addProxyField(new UnitConvRangeField(Restrictable.RadTransEnergy,"Energy",new EnergyUnitConverter()), CustomConverters.WnToWl());
 		return wlField;
+	}
+
+	@Override
+	public void fieldUpdated(AbstractField field) {
+		System.out.println("Field "+field.getTitle()+" was updated!");
 	}
 	
 }
