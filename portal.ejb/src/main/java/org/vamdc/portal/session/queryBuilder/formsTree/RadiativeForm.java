@@ -21,8 +21,12 @@ public class RadiativeForm extends TreeForm{
 	public RadiativeForm(QueryTreeInterface tree) {
 		super(tree);
 		this.fields = new ArrayList<AbstractField>();
-		ProxyRangeField wlField = setupWLField();
-		fields.add(wlField);
+		//ProxyRangeField wlField = setupWLField();
+		//fields.add(wlField);
+		
+		AbstractField field = new UnitConvRangeField(Restrictable.StateEnergy, "Lower state energy", new EnergyUnitConverter());
+		field.setPrefix("lower");
+		fields.add(field);
 	}
 	
 	public Collection<AbstractField> getFields() { return fields; }

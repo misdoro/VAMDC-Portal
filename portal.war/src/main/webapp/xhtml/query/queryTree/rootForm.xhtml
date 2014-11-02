@@ -19,7 +19,7 @@
 					layout="pageDirection" tabindex="10">
 			<f:selectItems value="#{form.nextOptions}" />
 		</h:selectOneRadio>
-		<a4j:commandButton value="Next" width="120" action="#{form.validate}"
-				styleClass="roundButton" tabindex="20" reRender="treeForms"/>
+		<a4j:commandButton value="Next ->" align="right" width="200" action="#{form.validate}"
+				styleClass="roundButton" tabindex="20" reRender="formPanel"/>
 	</rich:panel>
 </ui:composition>

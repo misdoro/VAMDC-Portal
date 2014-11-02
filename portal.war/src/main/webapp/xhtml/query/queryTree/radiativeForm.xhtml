@@ -14,7 +14,7 @@
 		<f:facet name="header">
 			<h:outputText value="Define radiative configuration" />
 		</f:facet>
-		<a4j:form>
+		<a4j:form ajaxSubmit="true">
 			<c:forEach items="#{form.fields}" var="field">
 				<h:panelGrid columns="2" columnClasses="leftColumn,rightColumn">
 					<ui:include src="#{field.view}" />
