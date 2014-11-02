@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.UUID;
 
 import org.vamdc.dictionary.Restrictable;
+import org.vamdc.portal.session.queryBuilder.forms.FormForFields;
 import org.vamdc.tapservice.vss2.LogicNode;
 import org.vamdc.tapservice.vss2.LogicNode.Operator;
 import org.vamdc.tapservice.vss2.RestrictExpression;
@@ -12,7 +13,7 @@ import org.vamdc.tapservice.vss2.RestrictExpression;
  * Base class for the form field
  * @author doronin
  */
-public abstract class AbstractField implements Serializable{
+public abstract class AbstractField implements Field,Serializable{
 
 	private static final long serialVersionUID = 5518997643252666012L;
 	private String value;
@@ -22,6 +23,7 @@ public abstract class AbstractField implements Serializable{
 	protected String prefix;
 	protected boolean ignoreField=false;
 	private String inSeparators="[,.:_]";
+	protected FormForFields parentForm;
 	
 	public void setInSeparators(String inSeparators) {
 		this.inSeparators = inSeparators;
@@ -42,6 +44,8 @@ public abstract class AbstractField implements Serializable{
 			this.value = value.trim();
 		else
 			this.value = value;
+		if (parentForm!=null)
+			parentForm.fieldUpdated();
 	}
 
 	public void setIgnoreField(boolean flag){
@@ -54,6 +58,11 @@ public abstract class AbstractField implements Serializable{
 
 	public void setKeyword(Restrictable keyword) {
 		this.keyword = keyword;
+	}
+	
+	@Override
+	public void setParentForm(FormForFields parent){
+		this.parentForm=parent;
 	}
 	
 	

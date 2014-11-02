@@ -17,7 +17,7 @@ import org.vamdc.tapservice.vss2.NodeFilter;
 import org.vamdc.tapservice.vss2.Prefix;
 import org.vamdc.tapservice.vss2.RestrictExpression;
 
-public abstract class AbstractForm implements Form{
+public abstract class AbstractForm implements Form,FormForFields{
 
 
 	private static final long serialVersionUID = -2420596698571830221L;
@@ -41,8 +41,15 @@ public abstract class AbstractForm implements Form{
 		this.queryData = queryData;
 		this.position=queryData.getFormTypeCount(this)+1;
 	}
+	
+	@Override
+	public void fieldUpdated(){
+		if (this.queryData!=null)
+			this.queryData.resetCaches();
+	}
 
 	void addField(AbstractField field){
+		field.setParentForm(this);
 		fields.add(field);
 		if (field.getKeyword()!=null)
 			supportedKeywords.add(field.getKeyword());

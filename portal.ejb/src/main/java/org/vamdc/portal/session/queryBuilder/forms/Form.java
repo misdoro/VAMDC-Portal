@@ -23,8 +23,12 @@ public interface Form extends Serializable{
 	public Collection<Restrictable> getKeywords();
 	public Collection<Restrictable> getSupportedKeywords();
 
+	/**
+	 * Set queryData when adding form to the querydata structure
+	 * @param data
+	 */
 	public void setQueryData(QueryData data);
-	
+
 	
 	public void clear();
 	public void delete();

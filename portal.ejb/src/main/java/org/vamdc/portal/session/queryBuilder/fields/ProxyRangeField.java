@@ -32,7 +32,7 @@ public class ProxyRangeField extends UnitConvRangeField{
 		proxyFields.add(field);
 		fieldConverters.add(fieldConverter);
 		options.add(new SelectItem(proxyFields.indexOf(field),field.getTitle(),field.getDescription()));
-
+		field.setParentForm(parentForm);
 	}
 
 	@Override

@@ -23,12 +23,18 @@ public class RangeField extends AbstractField{
 	public String getLoValue(){	return loValue; }
 
 	public void setHiValue(String value){
-		if (isValidValue(value)) 
-			this.hiValue = value; 
+		if (isValidValue(value)){
+			this.hiValue = value;
+			if (parentForm!=null)
+				parentForm.fieldUpdated();
+		}
 	}
 	public void setLoValue(String value){
-		if (isValidValue(value))
+		if (isValidValue(value)){
 			this.loValue = value;
+			if (parentForm!=null)
+				parentForm.fieldUpdated();
+		}
 	}
 
 	private boolean isValidValue(String value) {
