@@ -43,7 +43,7 @@ public abstract class AbstractForm implements Form,FormForFields{
 	}
 	
 	@Override
-	public void fieldUpdated(){
+	public void fieldUpdated(AbstractField field){
 		if (this.queryData!=null)
 			this.queryData.resetCaches();
 	}

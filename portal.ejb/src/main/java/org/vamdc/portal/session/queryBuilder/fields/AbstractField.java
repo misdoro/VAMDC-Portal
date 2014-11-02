@@ -45,7 +45,7 @@ public abstract class AbstractField implements Field,Serializable{
 		else
 			this.value = value;
 		if (parentForm!=null)
-			parentForm.fieldUpdated();
+			parentForm.fieldUpdated(this);
 	}
 
 	public void setIgnoreField(boolean flag){

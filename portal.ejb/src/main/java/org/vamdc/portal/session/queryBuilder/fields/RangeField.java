@@ -26,14 +26,14 @@ public class RangeField extends AbstractField{
 		if (isValidValue(value)){
 			this.hiValue = value;
 			if (parentForm!=null)
-				parentForm.fieldUpdated();
+				parentForm.fieldUpdated(this);
 		}
 	}
 	public void setLoValue(String value){
 		if (isValidValue(value)){
 			this.loValue = value;
 			if (parentForm!=null)
-				parentForm.fieldUpdated();
+				parentForm.fieldUpdated(this);
 		}
 	}
 
