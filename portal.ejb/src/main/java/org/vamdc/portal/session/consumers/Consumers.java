@@ -78,7 +78,7 @@ public class Consumers implements Serializable{
 			
 			//recommended consumers
 			for (String ivoaID:visibleConsumers){
-				result.add(new SelectItem(ivoaID,registryFacade.getResourceTitle(ivoaID)+" *"));
+				result.add(new SelectItem(ivoaID," ** "+registryFacade.getResourceTitle(ivoaID)));
 			}
 			
 			//other consumers
