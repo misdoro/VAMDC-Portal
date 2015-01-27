@@ -68,11 +68,16 @@
 
 				</h:panelGrid>
 
-				<ui:include src="/xhtml/consumer/consumerPanel.xhtml" />
+				<ui:include src="/xhtml/consumer/consumerPanel.xhtml" >
+					<ui:param name="titlePrefix" value="3 : " />
+				</ui:include>
+
 
 			</h:panelGrid>
+				<ui:include src="/xhtml/preview/table.xhtml" >
+					<ui:param name="titlePrefix" value="2 : " />
+				</ui:include>
 
-			<ui:include src="/xhtml/preview/table.xhtml" />
 
 		</a4j:form>
 
