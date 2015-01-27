@@ -10,7 +10,8 @@
     
     <rich:panel>
         <f:facet name="header">
-        <h:outputText value="2 : Results by node"/>
+        	<!-- titlePrefix defined in file including this one  -->
+        	<h:outputText value="#{titlePrefix} Results by node"/>
         </f:facet>
 
         <rich:dataTable id="previewTable" value="#{preview.nodes}" var="node"

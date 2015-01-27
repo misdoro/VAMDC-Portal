@@ -8,12 +8,13 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j">
 
-
 	<rich:panel id="consumers" styleClass="consumerPanel">
+	
 		<f:facet name="header">
-			<h:outputText value="3 : Results Conversion (entries starting with ** are recommended)" />
+			<!-- titlePrefix defined in file including this one  -->
+			<h:outputText value="#{titlePrefix} Results Conversion (entries starting with ** are recommended)" />
 		</f:facet>
-		
+
 		<h:panelGroup id="inputFilesInfo" layout="block">
 			<h:outputText  value="This transformation accepts #{ consumers.selectedConsumerNumberOfInput} input files(s)" rendered="#{ (not empty consumers.selectedConsumer) and (consumers.selectedNodesCount > 0)}"></h:outputText>
 			<br/>
