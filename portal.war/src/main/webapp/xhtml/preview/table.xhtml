@@ -30,6 +30,11 @@
                         <h:outputText styleClass="headerText" value="Response" />
                     </h:column>
                     <h:column>
+                        <h:outputLink styleClass="headerText" value="https://github.com/VAMDC/Standards/blob/master/doc/source/dataAccessProtocol/vamdctap.rst#data-modifcation-time" >
+                        Last database update
+                        </h:outputLink>
+                    </h:column>             
+                    <h:column>
                         <h:outputText styleClass="headerText" value="Download" />
                     </h:column>
 
@@ -74,11 +79,17 @@
                     <rich:toolTip value="#{node.statusDescription}" styleClass="toolTip"
                         direction="bottom-right" />
                 </h:outputText>
-                <h:outputText value="#{node.modifyDate}" rendered="#{node.lastModSet}">
-                    <s:convertDateTime type="both" pattern=" (dd/MM/yyyy HH:mm)" />
-                </h:outputText>
-                <h:outputText value=" (#{node.truncated}%)"
+                
+                <h:outputText value=" (#{node.truncated}% of data returned)"
                     rendered="#{node.status=='TRUNCATED'}" />
+
+            </h:column>
+            
+            <h:column>
+	           <h:outputText value="#{node.modifyDate}" rendered="#{node.lastModSet}">
+	               <s:convertDateTime type="both" pattern=" dd/MM/yyyy HH:mm " />
+	           </h:outputText>      
+	           <h:outputText value="Not available" rendered="#{!node.lastModSet}" />                
             </h:column>
 
             <h:column>
