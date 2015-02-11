@@ -44,6 +44,7 @@ public class RootForm extends TreeForm{
 	
 	@Override
 	public void validate(){
+		System.out.println("#### validate");
 		if (this.selectedMode == null)
 			return;
 		System.err.println("Adding next form "+selectedMode.name());
@@ -54,8 +55,10 @@ public class RootForm extends TreeForm{
 			tree.addForm(new RadiativeForm(tree));
 			break;
 		case species:
+			tree.addForm(new SpeciesSelectionForm(tree));
 			break;
 		}
+		this.setQueryable(false);
 	}
 
 	@Override

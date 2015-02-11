@@ -10,19 +10,19 @@
 	xmlns:c="http://java.sun.com/jstl/core">
 
 
-	<rich:panel id="radiative">
-
+	
+	<rich:panel id="species">
 		<f:facet name="header">
-			<h:outputText value="Define radiative configuration" />
-		</f:facet>
-
-		<a4j:form ajaxSubmit="true">	
-			<c:forEach items="#{form.fields}" var="field">
-				<h:panelGrid columns="2" columnClasses="leftColumn,rightColumn">
-					<ui:include src="#{field.view}" />
-				</h:panelGrid>
-			</c:forEach>
+			<h:outputText
+				value="Species" />
+		</f:facet>			
+		<a4j:form ajaxSubmit="true">
+		<!-- compare best solution -->
+			<ui:include src="#{field.view}" />
+			<ui:insert name="atoms"></ui:insert>
+			<ui:insert name="molecules"></ui:insert>
+			<ui:insert name="particles"></ui:insert>
+			
 		</a4j:form>
-		
 	</rich:panel>
 </ui:composition>

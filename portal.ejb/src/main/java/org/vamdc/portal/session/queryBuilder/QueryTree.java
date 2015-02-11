@@ -57,4 +57,10 @@ public class QueryTree implements QueryTreeInterface {
 		forms.add(form);
 		System.out.println("New forms size is "+forms.size());
 	}
+
+	@Override
+	public Integer getFormCount() {
+		// TODO Auto-generated method stub
+		return forms.size();
+	}
 }
