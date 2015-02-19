@@ -16,6 +16,7 @@ public class Order implements Comparator<Form>{
 	final static Integer Branches = 18;
 	final static Integer Query = 19;
 	static final Integer Comments = 20;
+	static final Integer Async = 21;
 	
 	@Override
 	public int compare(Form o1, Form o2) {

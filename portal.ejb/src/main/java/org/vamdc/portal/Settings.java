@@ -18,6 +18,7 @@ public enum Settings {
 	AVAILABILITY_MONITOR_INTERVAL("availabilityMonitorInterval","300000"),
 	REGISTRY_RETRY_INTERVAL("registryRetryInterval","10000"),
 	HTTP_HEAD_TIMEOUT("HTTPHeadTimeout","60000"),
+	PDL_SERVER_URL("pdlServerURL", "http://vm-euhoutestc62.obspm.fr/vamdc/OnlineCode?"),
 	;
 	
 	

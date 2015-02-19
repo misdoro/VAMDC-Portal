@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
@@ -20,6 +21,7 @@ import org.vamdc.portal.entity.query.HttpHeadResponse;
 import org.vamdc.portal.entity.query.HttpHeadResponse.Response;
 import org.vamdc.portal.entity.query.Query;
 import org.vamdc.portal.session.preview.PreviewManager;
+import org.vamdc.portal.session.queryBuilder.forms.AsyncForm;
 import org.vamdc.portal.session.queryBuilder.forms.AtomsForm;
 import org.vamdc.portal.session.queryBuilder.forms.BranchesForm;
 import org.vamdc.portal.session.queryBuilder.forms.CollisionsForm;
@@ -68,6 +70,18 @@ public class QueryController {
 			conversation.endAndRedirect();
 			log.info("Save action");
 			return RedirectPage.QUERY_LOG;
+		}else{
+			return RedirectPage.QUERY;
+		}
+			
+	}	
+	
+	@End
+	public String asyncQuery(){
+		if (queryData.isValid()){		
+			conversation.endAndRedirect();
+
+			return RedirectPage.ASYNC;
 		}else{
 			return RedirectPage.QUERY;
 		}
@@ -168,5 +182,8 @@ public class QueryController {
 		queryData.addForm(new UtilForm());
 	}
 
+	public void addFormAsync(){
+		queryData.addForm(new AsyncForm());
+	}
 	
 }
