@@ -15,11 +15,13 @@
 		<a4j:form ajaxSubmit="true" id="asyncForm">
 		<h:message for="email"/>	
 		<h:panelGrid columns="2" columnClasses="leftColumn,rightColumn">			
-			<h:outputLabel for="email" >Email</h:outputLabel>
+			<h:outputLabel for="email" id="emailLabel" >Email</h:outputLabel>
 			<h:inputText id="email" label="email" 
                               value="#{asyncbean.email}" required="true">
             	<s:validate/>
             </h:inputText>
+            <rich:toolTip for="emailLabel" styleClass="toolTip">Launch your request asynchronously : you will receive an email telling you when computation
+		is done and how to get your data.</rich:toolTip>
 			<a4j:commandButton value="Find data" action="#{query.asyncQuery}"
 				styleClass="roundButton" disabled="#{!queryData.valid}" tabindex="21" reRender="asyncForm"/>
 			</h:panelGrid>

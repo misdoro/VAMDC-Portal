@@ -7,7 +7,7 @@ public class AsyncForm extends AbstractForm{
 	private static final long serialVersionUID = 604009831586236633L;
 
 	@Override
-	public String getTitle() { return "Async"; }
+	public String getTitle() { return "Asynchronous request"; }
 
 	@Override
 	public String getView() { return "/xhtml/query/forms/asyncForm.xhtml"; }
