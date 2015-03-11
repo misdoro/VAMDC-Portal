@@ -34,10 +34,10 @@ public class MoleculesForm extends SpeciesForm implements Form{
 
 	private List<MoleculeInfo> molecules = Collections.emptyList();
 
-	private AbstractField molChemName;
-	private AbstractField molStoichForm;
-	private AbstractField molOrdForm;
-	private AbstractField inchikey;
+	protected AbstractField molChemName;
+	protected AbstractField molStoichForm;
+	protected AbstractField molOrdForm;
+	protected AbstractField inchikey;
 
 	private Map<String,Boolean> inchikeys = new HashMap<String,Boolean>();
 
@@ -52,6 +52,11 @@ public class MoleculesForm extends SpeciesForm implements Form{
 
 	public MoleculesForm(){
 		super();
+		init();
+
+	}
+	
+	protected void init(){
         
 		molChemName = new SuggestionField(null,"Chemical name", new ChemNameSuggestion());
 		addField(molChemName);
@@ -65,7 +70,8 @@ public class MoleculesForm extends SpeciesForm implements Form{
 		addField(new SuggestionField(Restrictable.MoleculeStateNuclearSpinIsomer,"Spin isomer",new SymmetrySuggest()));
 
 		inchikey = new TextField(Restrictable.InchiKey,"Standard InChIKey");
-		addField(inchikey);
+		addField(inchikey);	
+		
 	}
     
        
@@ -75,6 +81,10 @@ public class MoleculesForm extends SpeciesForm implements Form{
 		super.clear();
 		resetInchiKeys();
 		molecules = Collections.emptyList();
+	}
+	
+	public String info(){
+		return "test";
 	}
 
 	public List<MoleculeInfo> getMolecules() { return molecules; }
@@ -159,6 +169,7 @@ public class MoleculesForm extends SpeciesForm implements Form{
 			fillFromMolecules();
 			resetInchiKeys();
 		}
+
 	}
 
 
@@ -203,6 +214,7 @@ public class MoleculesForm extends SpeciesForm implements Form{
 
 		@Override
 		public void selected() {
+			
 			EntityManager em = (EntityManager) Component.getInstance("entityManager");
 			molecules = EntityFacade.loadMoleculesFromOrdForm(em, molOrdForm.getValue());
 			fillFromMolecules();

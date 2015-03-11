@@ -1,12 +1,14 @@
 package org.vamdc.portal.session.queryBuilder.forms;
 
 import org.vamdc.dictionary.Restrictable;
+import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 import org.vamdc.portal.session.queryBuilder.fields.RangeField;
 import org.vamdc.portal.session.queryBuilder.fields.SimpleField;
 import org.vamdc.portal.session.queryBuilder.fields.TextField;
 import org.vamdc.portal.session.queryBuilder.fields.UnitConvRangeField;
 import org.vamdc.portal.session.queryBuilder.unitConv.EnergyUnitConverter;
 import java.lang.Integer;
+import java.util.List;
 
 public class AtomsForm extends SpeciesForm implements Form {
 
@@ -29,6 +31,10 @@ public class AtomsForm extends SpeciesForm implements Form {
 		addField(new UnitConvRangeField(
 				Restrictable.StateEnergy, "State energy", new EnergyUnitConverter()));
    
+	}
+	
+	public List<AbstractField> getFields(){
+		return fields;
 	}
     
 }

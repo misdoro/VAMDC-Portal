@@ -11,14 +11,13 @@
 
 
 	<rich:panel id="speciesSelection">
-	
 		<f:facet name="header">
 			<h:outputText
-				value="Please, enter the number of species you wish to restrict on" />
+				value="Please, enter the number of species you wish to add" />
 		</f:facet>
-        
+        <a4j:form ajaxSubmit="true">		
 			<h:panelGrid id="panel" columns="2" border="0" cellpadding="10"
-				cellspacing="1">
+				cellspacing="1" columnClasses="leftColumn,rightColumn">
 
 				<h:outputLabel value="Number of atoms " />
 				<h:selectOneMenu value="#{form.atomCount}">
@@ -44,6 +43,7 @@
 				styleClass="roundButton" tabindex="20" reRender="formPanel" rendered="#{form.queryable}"/>
 
 			</h:panelGrid>
+		</a4j:form>
 	
 
 	</rich:panel>

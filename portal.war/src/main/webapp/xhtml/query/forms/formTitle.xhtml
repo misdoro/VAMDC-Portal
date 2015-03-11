@@ -6,7 +6,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j">
-	<f:facet name="header">
+	
+	<f:facet name="header">		
 		<rich:toolBar itemSeparator="none" width="95%" style="border: none;">
 			<rich:toolBarGroup>
 				<h:outputText value="#{form.title}" />
@@ -22,7 +23,7 @@
 				<a4j:commandLink id="form#{form.id}Remove"
 					reRender="formPanel,nodeTree,buttonArea"
 					action="#{form.delete}"
-					value="Remove" immediate="true">
+					value="Remove form" immediate="true">
 					<rich:componentControl for="form#{form.id}" attachTo="form#{form.id}Remove" operation="hide" event="onclick"/>
 				</a4j:commandLink>
 			</rich:toolBarGroup>

@@ -23,12 +23,16 @@ import org.jboss.seam.annotations.Scope;
 import org.vamdc.dictionary.Requestable;
 import org.vamdc.dictionary.Restrictable;
 import org.vamdc.portal.registry.RegistryFacade;
+import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
+import org.vamdc.portal.session.queryBuilder.forms.AbstractForm;
 import org.vamdc.portal.session.queryBuilder.forms.Form;
 import org.vamdc.portal.session.queryBuilder.forms.Order;
 import org.vamdc.portal.session.queryBuilder.forms.SpeciesForm;
+import org.vamdc.portal.session.queryBuilder.formsTree.RootForm;
 import org.vamdc.tapservice.vss2.Query;
 import org.vamdc.tapservice.vss2.RestrictExpression;
 import org.vamdc.tapservice.vss2.VSSParser;
+
 
 @Name("queryData")
 @Scope(ScopeType.CONVERSATION)
@@ -124,8 +128,7 @@ public class QueryData implements FormHolder,Serializable{
 		for (Form form:getForms()){
 			result.addAll(form.getKeywords());
 		}
-		return result;
-			
+		return result;			
 	}
 	
 	private Collection<Restrictable> getKeywordsFromQuery(String query){
@@ -148,12 +151,11 @@ public class QueryData implements FormHolder,Serializable{
 	}
 
 	
-	
 	public String getQueryString(){
 		if (isUserModified())
 			return customQueryString;
 		return QueryGenerator.buildQueryString(request,formsList); 
-	}
+ 	}
 	
 	
 	private boolean isUserModified(){
@@ -232,12 +234,13 @@ public class QueryData implements FormHolder,Serializable{
         formCounts.put(form.getOrder(), getFormTypeCount(form)-1);
 		forms.remove(form);
 		if (form.getOrder()<Order.SPECIES_LIMIT)
-			speciesForms.remove(form);
+			speciesForms.remove(form);		
+
 		rebuildLists();
 	}
 	
 	public String getComments() { return comments; }
-	public void setComments(String comments) { this.comments = comments; }
+	public void setComments(String comments) {this.comments = comments; }
 	
 	public String getEditQueryId() { return editedQueryId; }
 	public void setEditQueryId(String editQueryId) { this.editedQueryId = editQueryId; }

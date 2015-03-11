@@ -10,19 +10,15 @@
 	xmlns:c="http://java.sun.com/jstl/core">
 
 
-	<rich:panel id="atom#{form.position}">
-		<f:facet name="header">
-			<h:outputText
-				value="Atom" />
-		</f:facet>			
-		<a4j:form ajaxSubmit="true">
-
-			<c:forEach items="#{form.fields}" var="field">
-	
+	<rich:simpleTogglePanel id="form#{form.id}" switchType="client" >
+		<h:outputText value="position : #{form.position}" />
+		<ui:include src="/xhtml/query/forms/formTitle.xhtml" />
+		
+			<c:forEach items="#{form.fields}" var="field">	
 				<h:panelGrid columns="2" columnClasses="leftColumn,rightColumn">
 					<ui:include src="#{field.view}" />
 				</h:panelGrid>
 			</c:forEach>
-		</a4j:form>
-	</rich:panel>
+
+	</rich:simpleTogglePanel>
 </ui:composition>

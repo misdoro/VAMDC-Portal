@@ -26,6 +26,7 @@ public class SuggestionField extends AbstractField{
 	
 	public Suggestion getSuggestion(){ return this.suggestion; }
 	public void setSuggestion(Suggestion suggestion) { this.suggestion = suggestion; }
+
 	
 	
 	

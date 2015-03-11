@@ -9,17 +9,15 @@
 	xmlns:c="http://java.sun.com/jstl/core">
 
 	<rich:simpleTogglePanel id="form#{form.id}" switchType="client">
-
-		<ui:include src="/xhtml/query/forms/formTitle.xhtml" />
-
-		<a4j:form ajaxSubmit="true">
+		<ui:include src="/xhtml/query/forms/formTitle.xhtml" />		
+		
+		<a4j:form ajaxSubmit="true">		
 			<c:forEach items="#{form.fields}" var="field">
 				<h:panelGrid columns="2" columnClasses="leftColumn,rightColumn">
 					<ui:include src="#{field.view}" />
 				</h:panelGrid>
 			</c:forEach>
 		</a4j:form>
-
 	</rich:simpleTogglePanel>
 
 </ui:composition>

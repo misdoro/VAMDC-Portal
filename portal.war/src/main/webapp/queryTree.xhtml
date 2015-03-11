@@ -10,22 +10,22 @@
 	xmlns:c="http://java.sun.com/jstl/core"
 	template="/layout/template.xhtml">
 	
+	
 	<ui:define name="body">
 		<a4j:outputPanel width="460" id="formPanel">
 			<h:panelGrid>
-			<a4j:form ajaxSubmit="true">
 				<c:forEach items="#{queryTree.forms}" var="form">
 					<a4j:include viewId="#{form.view}" />
-				</c:forEach>
-				
-				<rich:spacer width="460" />
-				<ui:include src="/xhtml/query/queryTree/actionButtons.xhtml" />
-				</a4j:form>
+				</c:forEach>				
+				<rich:spacer width="460" />				
 			</h:panelGrid>
+			<a4j:outputPanel width="460" id="buttons">
+		<ui:include src="/xhtml/query/queryTree/actionButtons.xhtml" />
+		</a4j:outputPanel>
+		
 		</a4j:outputPanel>
 		<a4j:outputPanel id="nodeTree">
-			<rich:spacer width="460" />
-			<h:outputText value="#{queryTree.forms.size()}" />
+			<rich:spacer width="460" />			
 		</a4j:outputPanel>
 	</ui:define>
 

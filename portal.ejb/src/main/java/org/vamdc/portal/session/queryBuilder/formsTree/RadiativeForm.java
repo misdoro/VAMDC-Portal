@@ -8,10 +8,10 @@ import org.vamdc.dictionary.Restrictable;
 import org.vamdc.portal.session.queryBuilder.QueryTreeInterface;
 import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 import org.vamdc.portal.session.queryBuilder.fields.ProxyRangeField;
-import org.vamdc.portal.session.queryBuilder.fields.RangeField;
 import org.vamdc.portal.session.queryBuilder.fields.SimpleField;
 import org.vamdc.portal.session.queryBuilder.fields.UnitConvRangeField;
 import org.vamdc.portal.session.queryBuilder.forms.FormForFields;
+import org.vamdc.portal.session.queryBuilder.forms.Order;
 import org.vamdc.portal.session.queryBuilder.unitConv.CustomConverters;
 import org.vamdc.portal.session.queryBuilder.unitConv.EnergyUnitConverter;
 import org.vamdc.portal.session.queryBuilder.unitConv.FrequencyUnitConverter;
@@ -20,6 +20,10 @@ import org.vamdc.portal.session.queryBuilder.unitConv.WavenumberUnitConverter;
 
 public class RadiativeForm extends TreeForm implements FormForFields{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -621884685195400242L;
 	protected List<AbstractField> fields;
 	public RadiativeForm(QueryTreeInterface tree) {
 		super(tree);
@@ -59,7 +63,18 @@ public class RadiativeForm extends TreeForm implements FormForFields{
 
 	@Override
 	public void fieldUpdated(AbstractField field) {
-		System.out.println("Field "+field.getTitle()+" was updated!");
+	}
+
+	@Override
+	public String getTitle() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Integer getOrder() {
+		// TODO Auto-generated method stub
+		return Order.Process;
 	}
 	
 }

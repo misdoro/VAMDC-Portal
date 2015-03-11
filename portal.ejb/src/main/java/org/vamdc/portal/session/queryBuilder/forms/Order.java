@@ -3,19 +3,23 @@ package org.vamdc.portal.session.queryBuilder.forms;
 import java.util.Comparator;
 
 public class Order implements Comparator<Form>{
-	final static Integer Atoms=1;
-	final static Integer Molecules=2;
-	final static Integer Particles=3;
+	public final static Integer Atoms=1;
+	public final static Integer Molecules=2;
+	public final static Integer Particles=3;
 	public final static Integer SPECIES_LIMIT=4;//Species go below this number
 	
 	final static Integer Environment=7;
 
-	public final static Integer SINGLE_LIMIT=10;//Forms above this number can occur once
-	final static Integer Process = 12;
-	final static Integer Util = 15;
-	final static Integer Branches = 18;
-	final static Integer Query = 19;
-	static final Integer Comments = 20;
+	public final static Integer SINGLE_LIMIT=10;//Forms above this number can occur more than once
+	public final static Integer Process = 12;
+	public final static Integer Util = 15;
+	public final static Integer Branches = 18;
+	public final static Integer Query = 19;
+	public static final Integer Comments = 20;
+	
+	public static final Integer GuidedRequestType = 8;
+	public static final Integer GuidedSpeciesType = 9;
+	public static final Integer GuidedRoot = 9;
 	
 	@Override
 	public int compare(Form o1, Form o2) {

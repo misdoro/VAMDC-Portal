@@ -23,7 +23,7 @@ public abstract class AbstractField implements Field,Serializable{
 	protected String prefix;
 	protected boolean ignoreField=false;
 	private String inSeparators="[,.:_]";
-	protected FormForFields parentForm;
+	protected FormForFields parentForm;	
 	
 	public void setInSeparators(String inSeparators) {
 		this.inSeparators = inSeparators;

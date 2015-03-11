@@ -48,6 +48,7 @@ public class PreviewManager implements Serializable{
 	private long startTime;
 	
 	public void initiate(){
+		
 		if (nodeFutureResponses.size()>0)
 			return;
 
