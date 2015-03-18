@@ -17,8 +17,9 @@ import org.jboss.seam.core.Conversation;
 import org.jboss.seam.log.Log;
 import org.vamdc.portal.RedirectPage;
 import org.vamdc.portal.entity.query.HttpHeadResponse;
-import org.vamdc.portal.entity.query.HttpHeadResponse.Response;
 import org.vamdc.portal.entity.query.Query;
+import org.vamdc.portal.entity.security.User;
+import org.vamdc.portal.session.preview.PersistableQueryInterface;
 import org.vamdc.portal.session.preview.PreviewManager;
 import org.vamdc.portal.session.queryBuilder.forms.AtomsForm;
 import org.vamdc.portal.session.queryBuilder.forms.BranchesForm;
@@ -40,7 +41,7 @@ import org.vamdc.portal.session.security.UserInfo;
  */
 @Name("query")
 @Scope(ScopeType.EVENT)
-public class QueryController {
+public class QueryController implements PersistableQueryInterface{
 	
 	@Logger
 	Log log;
@@ -60,11 +61,8 @@ public class QueryController {
 	
 	@End
 	public String saveQuery(){
-		
 		if (queryData.isValid()){
-			persistQuery();
-			
-			
+			persistQuery();			
 			conversation.endAndRedirect();
 			log.info("Save action");
 			return RedirectPage.QUERY_LOG;
@@ -75,11 +73,12 @@ public class QueryController {
 	}
 	
 	private void persistQuery() {
-		Query query = constructQuery();
+		QueryPersister p = new QueryPersister(this);		
+		Query query = p.constructQuery();//constructQuery();
 		queryLog.save(query,queryData.getEditQueryId());
 	}
 	
-	private Query constructQuery(){
+	/*private Query constructQuery(){
 		Query result=null;
 		if (queryData.getEditQueryId()!=null)
 			result = queryLog.getQuery(queryData.getEditQueryId());
@@ -103,7 +102,7 @@ public class QueryController {
 				responses.add(response);
 		}
 		return responses;
-	}
+	}*/
 
 	
 	
@@ -111,8 +110,9 @@ public class QueryController {
 		
 		if (queryData.isValid()){
 			return RedirectPage.PREVIEW;
-		}else 
+		}else{
 			return RedirectPage.QUERY;
+		}
 	}
 	
 	public String edit(String queryID){
@@ -168,5 +168,24 @@ public class QueryController {
 		queryData.addForm(new UtilForm());
 	}
 
+	@Override
+	public List<HttpHeadResponse> getNodesResponse() {
+		return preview.getNodes();
+	}
+
+	@Override
+	public User getUser() {
+		return auth.getUser();
+	}
+
+	@Override
+	public QueryLog getQueryLog(){
+		return this.queryLog;
+	}
+	
+	@Override
+	public QueryData getQueryData(){
+		return this.queryData;
+	}
 	
 }

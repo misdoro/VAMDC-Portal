@@ -7,12 +7,19 @@ import java.util.List;
 
 import org.jboss.seam.Component;
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.log.Log;
 import org.vamdc.portal.RedirectPage;
+import org.vamdc.portal.entity.query.HttpHeadResponse;
+import org.vamdc.portal.entity.query.Query;
+import org.vamdc.portal.entity.security.User;
+import org.vamdc.portal.session.preview.PersistableQueryInterface;
+import org.vamdc.portal.session.preview.PreviewManager;
 import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 import org.vamdc.portal.session.queryBuilder.forms.AbstractForm;
 import org.vamdc.portal.session.queryBuilder.forms.Form;
@@ -20,19 +27,44 @@ import org.vamdc.portal.session.queryBuilder.forms.Order;
 import org.vamdc.portal.session.queryBuilder.formsTree.AtomsTreeForm;
 import org.vamdc.portal.session.queryBuilder.formsTree.RootForm;
 import org.vamdc.portal.session.queryBuilder.formsTree.TreeFormInterface;
+import org.vamdc.portal.session.queryLog.QueryLog;
+import org.vamdc.portal.session.security.UserInfo;
 
 @Name("queryTree")
 @Scope(ScopeType.CONVERSATION)
-public class QueryTree  implements QueryTreeInterface{
+public class QueryTreeController  implements QueryTreeInterface, PersistableQueryInterface{
 
-	@In(create=true) QueryData queryData;
+	@In(create=true) @Out QueryData queryData;
+	@In(create=true) UserInfo auth;
 	@Logger
 	transient private Log log;	
+	@In(create=true) private PreviewManager preview;
+	@In(create=true) private QueryLog queryLog;
 
-	public QueryTree(){
+	
+	public QueryTreeController(){
 		RootForm rootForm = new RootForm(this);
 		this.addForm(rootForm);
 	}	
+	
+	@End
+	public String saveQuery(){
+		if (queryData.isValid()){
+			persistQuery();			
+			//conversation.endAndRedirect();
+			log.info("Save action");
+			return RedirectPage.QUERY_LOG;
+		}else{
+			return RedirectPage.QUERYTREE;
+		}
+			
+	}
+	
+	private void persistQuery() {
+		QueryPersister p = new QueryPersister(this);		
+		Query query = p.constructQuery();//constructQuery();
+		queryLog.save(query,queryData.getEditQueryId());
+	}
 	
 	private Boolean isRequestable(Form f){
 		if(f.getOrder() != Order.GuidedRequestType
@@ -78,9 +110,6 @@ public class QueryTree  implements QueryTreeInterface{
 		return true;
 	}	
 
-	public String saveQuery() {
-		return RedirectPage.QUERY_LOG;
-	}
 
 	public String preview() {
 		if (isDone()) {
@@ -95,7 +124,7 @@ public class QueryTree  implements QueryTreeInterface{
 		this.getQueryData().addForm(form);	
 	}		
 	
-	private QueryData getQueryData(){
+	public QueryData getQueryData(){
 		if(queryData == null){
 			queryData = (QueryData)Component.getInstance("queryData"); 
 			queryData.setGuidedQuery(true);
@@ -114,6 +143,22 @@ public class QueryTree  implements QueryTreeInterface{
 			return true;
 		
 		return false;
+	}
+
+	@Override
+	public List<HttpHeadResponse> getNodesResponse() {
+		return preview.getNodes();
+	}
+
+	@Override
+	public User getUser() {
+		return auth.getUser();
+	}
+
+
+	@Override
+	public QueryLog getQueryLog() {
+		return this.queryLog;
 	}
 
 	
