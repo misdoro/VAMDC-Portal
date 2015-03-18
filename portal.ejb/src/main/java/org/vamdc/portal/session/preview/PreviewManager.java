@@ -154,7 +154,10 @@ public class PreviewManager implements Serializable{
 	
 	public String refine(){
 		clear();
-		return RedirectPage.QUERY;
+		if(!queryData.isGuidedQuery())
+			return RedirectPage.QUERY;
+		else
+			return RedirectPage.QUERYTREE;
 	}
 
 	/**

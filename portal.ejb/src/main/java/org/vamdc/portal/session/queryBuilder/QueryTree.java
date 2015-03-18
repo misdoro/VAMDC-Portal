@@ -98,6 +98,7 @@ public class QueryTree  implements QueryTreeInterface{
 	private QueryData getQueryData(){
 		if(queryData == null){
 			queryData = (QueryData)Component.getInstance("queryData"); 
+			queryData.setGuidedQuery(true);
 		}
 		return queryData;
 	}

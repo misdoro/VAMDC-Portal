@@ -58,6 +58,8 @@ public class QueryData implements FormHolder,Serializable{
 	private transient Collection<Restrictable> activeKeywords;
 	private transient Collection<String> activeNodes;
 	
+	private Boolean guidedQuery = false;
+	
 	@In(create=true) private transient RegistryFacade registryFacade;
 
 	public QueryData(){
@@ -293,5 +295,14 @@ public class QueryData implements FormHolder,Serializable{
 	public void setCustomQueryString(String customQueryString) {
 		this.customQueryString = customQueryString;
 	}
+	
+	public void setGuidedQuery(Boolean guidedQuery){
+		this.guidedQuery = guidedQuery;
+	}
+	
+	public Boolean isGuidedQuery(){
+		return this.guidedQuery;
+	}
+	
 	
 }
