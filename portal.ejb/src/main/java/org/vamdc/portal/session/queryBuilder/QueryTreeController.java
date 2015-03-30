@@ -153,7 +153,7 @@ public class QueryTreeController  implements QueryTreeInterface, PersistableQuer
 
 
 	public String preview() {
-		if (isDone()) {
+		if (queryData.isValid() && isDone()) {
 			return RedirectPage.PREVIEW;
 		} else
 			return RedirectPage.QUERYTREE;
