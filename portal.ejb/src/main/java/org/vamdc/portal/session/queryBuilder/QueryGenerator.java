@@ -33,7 +33,7 @@ public class QueryGenerator {
 	}
 
 	public static String getFormsQuery(Collection<Form> forms){
-
+		
 		SortedSet<Form> sorted = new TreeSet<Form>(new NewOrder()); 
 		sorted.addAll(forms);
 

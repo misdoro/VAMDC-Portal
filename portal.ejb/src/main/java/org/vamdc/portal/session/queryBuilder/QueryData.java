@@ -23,12 +23,9 @@ import org.jboss.seam.annotations.Scope;
 import org.vamdc.dictionary.Requestable;
 import org.vamdc.dictionary.Restrictable;
 import org.vamdc.portal.registry.RegistryFacade;
-import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
-import org.vamdc.portal.session.queryBuilder.forms.AbstractForm;
 import org.vamdc.portal.session.queryBuilder.forms.Form;
 import org.vamdc.portal.session.queryBuilder.forms.Order;
 import org.vamdc.portal.session.queryBuilder.forms.SpeciesForm;
-import org.vamdc.portal.session.queryBuilder.formsTree.RootForm;
 import org.vamdc.tapservice.vss2.Query;
 import org.vamdc.tapservice.vss2.RestrictExpression;
 import org.vamdc.tapservice.vss2.VSSParser;
@@ -43,6 +40,7 @@ public class QueryData implements FormHolder,Serializable{
 	//All forms and lists are serialized explicitly
 	private transient Collection<Form> forms;
 	private transient List<Form> formsList;
+	private transient List<Form> unsortedFormsList;
 	
 	//Species-related forms
 	private transient Collection<SpeciesForm> speciesForms;
@@ -58,6 +56,7 @@ public class QueryData implements FormHolder,Serializable{
 	private transient Collection<Restrictable> activeKeywords;
 	private transient Collection<String> activeNodes;
 	
+	private Integer speciesFormPosition;
 	private Boolean guidedQuery = false;
 	
 	@In(create=true) private transient RegistryFacade registryFacade;
@@ -69,6 +68,7 @@ public class QueryData implements FormHolder,Serializable{
 	private void initCollections(){
 		formCounts=Collections.synchronizedMap(new TreeMap<Integer,Integer>());
 		forms=Collections.synchronizedSet(new TreeSet<Form>(new Order()));
+		unsortedFormsList = Collections.synchronizedList(new ArrayList<Form>());
 		formsList = Collections.synchronizedList(new ArrayList<Form>());
 		speciesForms=Collections.synchronizedSet(new TreeSet<SpeciesForm>(new Order()));
 		request = EnumSet.noneOf(Requestable.class);
@@ -176,6 +176,10 @@ public class QueryData implements FormHolder,Serializable{
 		return formsList;
 	}
 	
+	public List<Form> getUnsortedForms(){
+		return this.unsortedFormsList;
+	}
+	
 	public Collection<SpeciesForm> getSpeciesForms(){
 		return new ArrayList<SpeciesForm>(speciesForms);
 	}
@@ -209,11 +213,34 @@ public class QueryData implements FormHolder,Serializable{
 			form.setQueryData(this);
 			forms.add(form);
 			formCounts.put(form.getOrder(), getFormTypeCount(form)+1);
+			
+			if(form.getOrder() == Order.GuidedSpeciesType)
+				this.speciesFormPosition = forms.size()-1;
+			
 			if (form instanceof SpeciesForm)
 				speciesForms.add((SpeciesForm) form);
+			else
+				unsortedFormsList.add(form);
+			
 			return true;
 		}
 		return false;
+	}
+	
+	public List<Form> getOrderedGuidedForm(){
+		if(this.getSpeciesForms().size() > 0 && this.speciesFormPosition != null){
+			List<Form> result = new ArrayList<Form>();
+			for(Form f : this.unsortedFormsList){
+				result.add(f);
+			}
+			int i = this.speciesFormPosition;
+			for(Form f : this.speciesForms){
+				result.add(i+1, f);
+				i++;
+			}
+			return result;
+		}else
+			return this.unsortedFormsList;
 	}
 	
 	public Integer getFormTypeCount(Form form){
@@ -235,6 +262,7 @@ public class QueryData implements FormHolder,Serializable{
         }
         formCounts.put(form.getOrder(), getFormTypeCount(form)-1);
 		forms.remove(form);
+		unsortedFormsList.remove(form);
 		if (form.getOrder()<Order.SPECIES_LIMIT)
 			speciesForms.remove(form);		
 

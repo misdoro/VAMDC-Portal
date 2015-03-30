@@ -26,6 +26,7 @@ import org.vamdc.portal.session.queryBuilder.forms.Form;
 import org.vamdc.portal.session.queryBuilder.forms.Order;
 import org.vamdc.portal.session.queryBuilder.formsTree.AtomsTreeForm;
 import org.vamdc.portal.session.queryBuilder.formsTree.RootForm;
+import org.vamdc.portal.session.queryBuilder.formsTree.SearchMode;
 import org.vamdc.portal.session.queryBuilder.formsTree.TreeFormInterface;
 import org.vamdc.portal.session.queryLog.QueryLog;
 import org.vamdc.portal.session.security.UserInfo;
@@ -40,11 +41,11 @@ public class QueryTreeController  implements QueryTreeInterface, PersistableQuer
 	transient private Log log;	
 	@In(create=true) private PreviewManager preview;
 	@In(create=true) private QueryLog queryLog;
-
+	
+	private SearchMode searchMode = SearchMode.species;	
 	
 	public QueryTreeController(){
-		RootForm rootForm = new RootForm(this);
-		this.addForm(rootForm);
+		this.addForm(new RootForm(this));
 	}	
 	
 	@End
@@ -87,8 +88,47 @@ public class QueryTreeController  implements QueryTreeInterface, PersistableQuer
 	/**
 	 * sort forms list to display menus at the top
 	 * @return
+	 * @throws Exception 
 	 */
 	public List<Form> getForms() {
+		List<Form> forms= new ArrayList<Form>();
+		switch(searchMode){
+			case collision :
+				forms = this.getCollisionForms();
+				break;
+			case radiative :
+				forms = this.getQueryData().getOrderedGuidedForm();
+				//forms = this.getRadiativeForms();
+				break;
+			case species :
+				//System.out.println(this.getQueryData().getSpeciesForms());
+				forms = this.getQueryData().getOrderedGuidedForm();
+				break;		
+		}		
+		//return queryData.getUnsortedForms();
+		return forms;
+	}
+	
+	private List<Form> getRadiativeForms(){
+		List<Form> formsList = this.getQueryData().getForms();
+		List<Form> result = new ArrayList<Form>();
+		
+		for(Form f : formsList){
+			if(f.getOrder() == Order.GuidedRoot)
+				result.add(0, f);
+			if(f.getOrder() == Order.GuidedStates)
+				result.add(1, f);
+		}
+		
+		return formsList;		
+	}
+	
+	private List<Form> getCollisionForms(){
+		List<Form> formsList = this.getQueryData().getForms();
+		return formsList;		
+	}
+	
+	private List<Form> getSpeciesForms(){
 		List<Form> formsList = this.getQueryData().getForms();
 		List<Form> result = new ArrayList<Form>();
 		
@@ -103,8 +143,9 @@ public class QueryTreeController  implements QueryTreeInterface, PersistableQuer
 				result.add(f);				
 			}
 		}		
-		return result;
+		return result;		
 	}
+	
 
 	public boolean isDone() {
 		return true;
@@ -159,6 +200,11 @@ public class QueryTreeController  implements QueryTreeInterface, PersistableQuer
 	@Override
 	public QueryLog getQueryLog() {
 		return this.queryLog;
+	}
+
+	@Override
+	public void setSelectionMode(SearchMode searchMode) {
+		this.searchMode = searchMode;
 	}
 
 	

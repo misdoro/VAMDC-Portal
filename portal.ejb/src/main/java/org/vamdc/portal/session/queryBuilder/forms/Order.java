@@ -17,9 +17,12 @@ public class Order implements Comparator<Form>{
 	public final static Integer Query = 19;
 	public static final Integer Comments = 20;
 	
-	public static final Integer GuidedRequestType = 8;
-	public static final Integer GuidedSpeciesType = 9;
-	public static final Integer GuidedRoot = 9;
+	public static final Integer GuidedRequestType =21;
+	public static final Integer GuidedSpeciesType =22;
+	public static final Integer GuidedRoot = 23;
+	public final static Integer GuidedRadiative = 24;
+	public static final Integer GuidedStates = 25;
+	
 	
 	@Override
 	public int compare(Form o1, Form o2) {
