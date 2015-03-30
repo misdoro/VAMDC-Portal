@@ -98,9 +98,7 @@ public class RadiativeForm extends AbstractForm implements FormForFields, TreeFo
 	}
 
 	public void setSelectedMode(NextForm selectedMode) {
-		//System.err.println("Set form "+selectedMode.name());
 		this.selectedMode = selectedMode;	//null if nothing selected
-
 	}
 
 	@Override
@@ -109,19 +107,16 @@ public class RadiativeForm extends AbstractForm implements FormForFields, TreeFo
 
 	@Override
 	public String getTitle() {
-		// TODO Auto-generated method stub
 		return "Define radiative configuration";
 	}
 
 	@Override
 	public Integer getOrder() {
-		// TODO Auto-generated method stub
 		return Order.GuidedRadiative;
 	}
 
 	@Override
 	public Boolean getQueryable() {
-		// TODO Auto-generated method stub
 		return this.queryable;
 	}
 	
