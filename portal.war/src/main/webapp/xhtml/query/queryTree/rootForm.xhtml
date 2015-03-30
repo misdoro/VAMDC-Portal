@@ -12,7 +12,12 @@
 	<rich:panel id="mainPanel">
 
 		<f:facet name="header">
-			<h:outputText value="Choose a request type" />
+		 <h:panelGroup>
+			<h:outputText value="Choose a request type or " />
+			<s:link id="menuQueryTreeId" view="/queryTree.xhtml" value="reset page"
+			propagation="none" />			 
+		 </h:panelGroup>
+			
 		</f:facet>
 		<a4j:form ajaxSubmit="true">		
 			<h:selectOneRadio value="#{form.selectedMode}" disabled="#{!form.queryable}"
