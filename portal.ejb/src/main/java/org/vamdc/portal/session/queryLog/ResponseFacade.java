@@ -41,5 +41,10 @@ public class ResponseFacade implements ResponseInterface {
 			result = UUID.randomUUID().toString();
 		return result;
 	}
+
+	@Override
+	public String getStatus() {
+		return response.getStatus().toString();
+	}
 	
 }

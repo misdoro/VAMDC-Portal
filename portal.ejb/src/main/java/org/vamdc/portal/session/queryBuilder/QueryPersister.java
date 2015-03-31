@@ -36,7 +36,7 @@ public class QueryPersister {
 		ArrayList<HttpHeadResponse> responses = new ArrayList<HttpHeadResponse>();
 		
 		for (HttpHeadResponse response:queryManager.getNodesResponse()){
-			if (response.getStatus()==Response.OK)
+			if (response.getStatus()==Response.OK || response.getStatus()==Response.TRUNCATED)
 				responses.add(response);
 		}
 		return responses;
