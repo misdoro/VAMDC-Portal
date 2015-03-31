@@ -60,6 +60,7 @@ public class OneStateEnergyTreeForm extends AbstractForm implements FormForField
 	@Override
 	public void validate() {
 		tree.addForm(new SpeciesSelectionForm(tree));
+		this.queryable = false;
 	}
 
 }

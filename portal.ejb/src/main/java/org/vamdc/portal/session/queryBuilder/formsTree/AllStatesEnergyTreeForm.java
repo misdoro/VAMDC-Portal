@@ -45,7 +45,6 @@ public class AllStatesEnergyTreeForm extends AbstractForm implements FormForFiel
 
 	@Override
 	public Integer getOrder() {
-		// TODO Auto-generated method stub
 		return Order.GuidedStates;
 	}
 
@@ -56,13 +55,13 @@ public class AllStatesEnergyTreeForm extends AbstractForm implements FormForFiel
 
 	@Override
 	public Boolean getQueryable() {
-		// TODO Auto-generated method stub
 		return this.queryable;
 	}
 
 	@Override
 	public void validate() {
 		tree.addForm(new SpeciesSelectionForm(tree));
+		this.queryable = false;
 	}
 
 }
