@@ -43,7 +43,6 @@ public class RootForm extends AbstractForm implements TreeFormInterface{
 	}
 
 	public void setSelectedMode(SearchMode selectedMode) {
-		System.err.println("Set form "+selectedMode.name());
 		this.selectedMode = selectedMode;
 	}
 	
@@ -51,8 +50,8 @@ public class RootForm extends AbstractForm implements TreeFormInterface{
 	public void validate(){		
 		if (this.selectedMode == null)
 			return;
+		
 		tree.setSelectionMode(selectedMode);
-		System.err.println("Adding next form "+selectedMode.name());
 		
 		switch(this.selectedMode){
 		case collision:

@@ -92,19 +92,19 @@ public class QueryTreeController  implements QueryTreeInterface, PersistableQuer
 	 */
 	public List<Form> getForms() {
 		List<Form> forms= new ArrayList<Form>();
+		forms = this.getQueryData().getOrderedGuidedForm();
+		/*
 		switch(searchMode){
 			case collision :
 				forms = this.getCollisionForms();
 				break;
 			case radiative :
 				forms = this.getQueryData().getOrderedGuidedForm();
-				//forms = this.getRadiativeForms();
 				break;
 			case species :
-				//System.out.println(this.getQueryData().getSpeciesForms());
 				forms = this.getQueryData().getOrderedGuidedForm();
 				break;		
-		}		
+		}		*/
 		//return queryData.getUnsortedForms();
 		return forms;
 	}

@@ -36,6 +36,9 @@
 								<h:outputText styleClass="headerText" value="Results" />
 							</h:column>
 							<h:column>
+								<h:outputText styleClass="headerText" value="Results Status" />
+							</h:column>
+							<h:column>
 								<h:outputText styleClass="headerText" value="Download" />
 							</h:column>
 
@@ -85,19 +88,22 @@
 							<h:selectBooleanCheckbox
 								value="#{consumers.queries[response.fullQueryURL]}"
 								id="process#{response.id}" rendered="#{response.id.length()>0}">
-								<a4j:support event="onchange" reRender="consumerLocation,consumerList,inputFilesInfo" action="#{consumers.updateNodeIds(response.nodeIVOAId)}" />
+								<a4j:support event="onchange" reRender="consumersContainer,inputFilesInfo" action="#{consumers.updateNodeIds(response.nodeIVOAId)}" />
 								<rich:toolTip value="Select for processing" styleClass="toolTip"
 									direction="bottom-right" />
 							</h:selectBooleanCheckbox>
 							<h:outputText
-								value="#{registryFacade.getResourceTitle(response.nodeIVOAId)} ( status : #{response.status})" />
-
+								value="#{registryFacade.getResourceTitle(response.nodeIVOAId)} "/>
 						</rich:column>
 
 						<rich:column>
 							<h:outputText value="#{response.statsString}" />
 						</rich:column>
 
+						<rich:column>
+							<h:outputText value="#{response.status}"/>
+						</rich:column>
+						
 						<rich:column>
 							<h:outputLink value="#{response.fullQueryURL}"
 								rendered="#{response.fullQueryURL.length()>0}">

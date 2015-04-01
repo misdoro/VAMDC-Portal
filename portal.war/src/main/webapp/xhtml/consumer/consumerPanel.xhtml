@@ -8,59 +8,78 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j">
 
-	<rich:panel id="consumers" styleClass="consumerPanel">
-	
-		<f:facet name="header">
-			<!-- titlePrefix defined in file including this one  -->
-			<h:outputText value="#{titlePrefix} Results Conversion (entries starting with ** are recommended)" />
-		</f:facet>
+	<h:panelGroup id="consumersContainer">
+		<rich:panel styleClass="consumerPanel" >
 
-		<h:panelGroup id="inputFilesInfo" layout="block">
-			<h:outputText  value="This transformation accepts #{ consumers.selectedConsumerNumberOfInput} input files(s)" rendered="#{ (not empty consumers.selectedConsumer) and (consumers.selectedNodesCount > 0)}"></h:outputText>
-			<br/>
-			<h:outputText id="inputFilesCount" value="Currently selected : #{consumers.selectedNodesCount} " rendered="#{ (not empty consumers.selectedConsumer) and (consumers.selectedNodesCount > 0) }"></h:outputText>
-		</h:panelGroup>
-		<h:panelGrid columns="2" id="consumerList">	
-		
-			<h:outputText value="No conversion service available for your current selection." rendered="#{consumers.consumersUpdatedCount == 0}"></h:outputText>
-				
-			<rich:panel bodyClass="scrollPanel consumersList" rendered="#{consumers.consumersCount > 0}">
-				<h:selectOneRadio value="#{consumers.selectedConsumer}"
-					layout="pageDirection" tabindex="20">
-					<f:selectItems value="#{consumers.consumers}" />
-					<a4j:support event="onclick" reRender="consumerInfo,inputFilesInfo"></a4j:support>
-				</h:selectOneRadio>
-			</rich:panel>
-
-			<h:panelGrid columns="1" id="consumerLocation" rendered="#{consumers.consumersCount > 0}">
-
+			<f:facet name="header">
 				<h:panelGroup>
-					<a4j:commandButton value="Process" action="#{consumers.process}"
-						disabled="#{consumers.selectedNodesCount == 0}" reRender="consumers" tabindex="25"/>
-					<a4j:region>
-						<a4j:poll id="consumerPoll" interval="1000"
-							enabled="#{consumers.processing}" reRender="consumers" />
-					</a4j:region>
-					<h:graphicImage value="/img/waitingIcon.gif" width="16" height="16"
-						rendered="#{consumers.processing}" />
-					<h:graphicImage value="/img/error.gif" id="consumerErrorImg"
-						rendered="#{consumers.errorHappened}">
-						<rich:toolTip value="#{consumers.error}" styleClass="toolTip"
-							direction="top-left" id="consumerErrorText" />
-					</h:graphicImage>
-					<h:outputLink value="#{consumers.location}" target="_blank"
-						rendered="#{consumers.ok}" tabindex="30">
-						<h:outputText value="Result" />
-					</h:outputLink>
-					<h:graphicImage value="/img/stat.png?mode=proc&amp;q=#{queryData.queryString}&amp;nodeurl=#{consumers.selectedNodes}&amp;pivoaid=#{consumers.selectedConsumer}" height="1px" width="1px" rendered="#{consumers.ok}"/>
-				</h:panelGroup>
-				<rich:panel id="consumerInfo" styleClass="consumerDescription">
+					<!-- titlePrefix defined in file including this one  -->
 					<h:outputText
-						value="#{registryFacade.getResourceDescription(consumers.selectedConsumer)}" />
+						value="#{titlePrefix} Results Conversion (entries starting with ** are recommended)" rendered="#{consumers.selectedNodesCount > 0}"/>
+					<h:outputText
+						value="#{titlePrefix} No result selected" rendered="#{consumers.selectedNodesCount ==0}"/>
+				</h:panelGroup>
+			</f:facet>
+
+			<h:panelGroup id="inputFilesInfo" layout="block">
+				<h:outputText
+					value="This transformation accepts #{ consumers.selectedConsumerNumberOfInput} input files(s)"
+					rendered="#{ (not empty consumers.selectedConsumer) and (consumers.selectedNodesCount > 0)}"></h:outputText>
+				<br />
+				<h:outputText id="inputFilesCount"
+					value="Currently selected : #{consumers.selectedNodesCount} "
+					rendered="#{ (not empty consumers.selectedConsumer) and (consumers.selectedNodesCount > 0) }"></h:outputText>
+			</h:panelGroup>
+			<h:panelGrid columns="2" id="consumerList" rendered="#{consumers.selectedNodesCount > 0}">
+
+				<h:outputText
+					value="No conversion service available for your current selection."
+					rendered="#{consumers.consumersUpdatedCount == 0}"></h:outputText>
+
+				<rich:panel bodyClass="scrollPanel consumersList"
+					rendered="#{consumers.consumersCount > 0}">
+					<h:selectOneRadio value="#{consumers.selectedConsumer}"
+						layout="pageDirection" tabindex="20">
+						<f:selectItems value="#{consumers.consumers}" />
+						<a4j:support event="onclick"
+							reRender="consumerInfo,inputFilesInfo"></a4j:support>
+					</h:selectOneRadio>
 				</rich:panel>
+
+				<h:panelGrid columns="1" id="consumerLocation"
+					rendered="#{consumers.consumersCount > 0}">
+
+					<h:panelGroup>
+						<a4j:commandButton value="Process" action="#{consumers.process}"
+							disabled="#{consumers.selectedNodesCount == 0}"
+							reRender="consumerLocation" tabindex="25" />
+						<a4j:region>
+							<a4j:poll id="consumerPoll" interval="1000"
+								enabled="#{consumers.processing}" reRender="consumerLocation" />
+						</a4j:region>
+						<h:graphicImage value="/img/waitingIcon.gif" width="16"
+							height="16" rendered="#{consumers.processing}" />
+						<h:graphicImage value="/img/error.gif" id="consumerErrorImg"
+							rendered="#{consumers.errorHappened}">
+							<rich:toolTip value="#{consumers.error}" styleClass="toolTip"
+								direction="top-left" id="consumerErrorText" />
+						</h:graphicImage>
+						<h:outputLink value="#{consumers.location}" target="_blank"
+							rendered="#{consumers.ok}" tabindex="30">
+							<h:outputText value="Result" />
+						</h:outputLink>
+						<h:graphicImage
+							value="/img/stat.png?mode=proc&amp;q=#{queryData.queryString}&amp;nodeurl=#{consumers.selectedNodes}&amp;pivoaid=#{consumers.selectedConsumer}"
+							height="1px" width="1px" rendered="#{consumers.ok}" />
+					</h:panelGroup>
+					<rich:panel id="consumerInfo" styleClass="consumerDescription">
+						<h:outputText
+							value="#{registryFacade.getResourceDescription(consumers.selectedConsumer)}" />
+					</rich:panel>
+				</h:panelGrid>
 			</h:panelGrid>
-		</h:panelGrid>
-	</rich:panel>
+		</rich:panel>
+	</h:panelGroup>
 
 
 </ui:composition>
