@@ -9,7 +9,7 @@
 	xmlns:a4j="http://richfaces.org/a4j" template="/layout/template.xhtml">
 
 	<ui:define name="body">
-
+		<h:panelGroup id="queryList">
 		<h:outputText value="There is no query to display." rendered="#{queryLog.queries.size == 0}"/>
 		<a4j:form ajaxSubmit="true" rendered="#{queryLog.queries.size > 0}">
 
@@ -64,7 +64,7 @@
 										styleClass="logActionButton" />
 									<a4j:commandButton value="Delete"
 										action="#{queryLog.deleteQuery(savedQuery.id)}"
-										styleClass="logActionButton" reRender="queryListAll" />
+										styleClass="logActionButton" reRender="queryList" />
 
 								</h:panelGrid>
 								<rich:panel styleClass="logQueryText">
@@ -119,6 +119,7 @@
 
 			</h:panelGrid>
 		</a4j:form>
+		</h:panelGroup>
 	</ui:define>
 
 </ui:composition>
