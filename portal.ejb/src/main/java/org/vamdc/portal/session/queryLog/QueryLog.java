@@ -36,7 +36,7 @@ public class QueryLog {
 		for (Query session:sessionQueryLog.getStoredQueries()){
 			queries.add(new QueryFacade(session,"s"));
 		}
-		//log.info("Loaded #0 queries to log", queries.size());
+
 		return Collections.unmodifiableList(queries);
 	}
 
