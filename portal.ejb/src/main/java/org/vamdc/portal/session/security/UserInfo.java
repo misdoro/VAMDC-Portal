@@ -22,10 +22,9 @@ public class UserInfo {
 	@In private Identity identity;
 	
 	public User getUser(){
-		if (identity!=null){
-			System.out.println("identity try login: "+identity.tryLogin());
-			
-		}
+		/*if (identity!=null){
+			System.out.println("identity try login: "+identity.tryLogin());			
+		}*/
 		
 		String user = null;
 		if (identity!=null && identity.isLoggedIn() && credentials!=null)

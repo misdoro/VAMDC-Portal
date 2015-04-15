@@ -5,5 +5,6 @@ public interface ResponseInterface {
 	public String getStatsString();
 	public String getFullQueryURL();
 	public String getId();
+	public String getStatus();
 	
 }

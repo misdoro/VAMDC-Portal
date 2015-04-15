@@ -11,15 +11,28 @@
 
 
 	<rich:panel id="radiative">
+
 		<f:facet name="header">
-			<h:outputText value="Define radiative configuration" />
+			<h:outputText value="#{form.title}" />
 		</f:facet>
-		<a4j:form ajaxSubmit="true">
+
+		<a4j:form ajaxSubmit="true">	
 			<c:forEach items="#{form.fields}" var="field">
 				<h:panelGrid columns="2" columnClasses="leftColumn,rightColumn">
 					<ui:include src="#{field.view}" />
 				</h:panelGrid>
 			</c:forEach>
 		</a4j:form>
+			<p/>
+		<a4j:form ajaxSubmit="true">	
+			<h:outputText value="Choose the transition type"></h:outputText>
+				<h:selectOneRadio value="#{form.selectedMode}" disabled="#{!form.queryable}"
+					layout="pageDirection" tabindex="10">
+				<f:selectItems value="#{form.nextOptions}" />
+			</h:selectOneRadio>
+			<a4j:commandButton value="Next ->" align="right" width="200" action="#{form.validate}"
+				styleClass="roundButton" tabindex="20" reRender="formPanel" rendered="#{form.queryable}"/>
+		</a4j:form>
+		
 	</rich:panel>
 </ui:composition>

@@ -22,4 +22,9 @@ public class EmptyResponse implements ResponseInterface{
 		return "";
 	}
 
+	@Override
+	public String getStatus() {
+		return "";
+	}
+
 }

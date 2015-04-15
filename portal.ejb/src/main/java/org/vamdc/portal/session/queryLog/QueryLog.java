@@ -36,20 +36,20 @@ public class QueryLog {
 		for (Query session:sessionQueryLog.getStoredQueries()){
 			queries.add(new QueryFacade(session,"s"));
 		}
-		log.info("Loaded #0 queries to log", queries.size());
+
 		return Collections.unmodifiableList(queries);
 	}
 
 	public void save(Query query, String queryID) {
 		if (query.getUser()!=null && (queryID==null || queryID.substring(0,1).equals("p"))){
-			log.info("Saving query to the persistent log");
+			//log.info("Saving query to the persistent log");
 			if (queryID!=null) 
 				query.setQueryID(Integer.valueOf(queryID.substring(1)));
 			persistentQueryLog.save(query);
 		}else{
 			if (queryID!=null) 
 				query.setQueryID(Integer.valueOf(queryID.substring(1)));
-			log.info("Saving query to the session log");
+			//log.info("Saving query to the session log");
 			sessionQueryLog.save(query);
 		}
 	}
@@ -64,7 +64,7 @@ public class QueryLog {
 	}
 
 	public void deleteQuery(String queryID){
-		log.info("Delete query"+queryID);
+		//log.info("Delete query"+queryID);
 		if (queryID!=null){
 			if (queryID.substring(0, 1).equals("p"))
 				persistentQueryLog.delete(Integer.valueOf(queryID.substring(1)));

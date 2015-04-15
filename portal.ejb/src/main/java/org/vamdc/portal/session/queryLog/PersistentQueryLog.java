@@ -25,7 +25,7 @@ public class PersistentQueryLog {
 	
 	@SuppressWarnings("unchecked")
 	public List<Query> getStoredQueries(){
-		log.info("Reading saved queries");
+		//log.info("Reading saved queries");
 		
 		List<Query> queries = null;
 		

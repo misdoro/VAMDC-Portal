@@ -27,6 +27,10 @@ public abstract class AbstractForm implements Form,FormForFields{
 	private final String id;
 	protected String prefix;
 	private Integer position;
+	
+	public String getObject(){
+		return this.toString();
+	}
 
 
 	public AbstractForm(){ 
@@ -48,7 +52,7 @@ public abstract class AbstractForm implements Form,FormForFields{
 			this.queryData.resetCaches();
 	}
 
-	void addField(AbstractField field){
+	protected void addField(AbstractField field){
 		field.setParentForm(this);
 		fields.add(field);
 		if (field.getKeyword()!=null)

@@ -4,37 +4,53 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.faces.model.SelectItem;
+
 import org.vamdc.dictionary.Restrictable;
 import org.vamdc.portal.session.queryBuilder.QueryTreeInterface;
 import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 import org.vamdc.portal.session.queryBuilder.fields.ProxyRangeField;
-import org.vamdc.portal.session.queryBuilder.fields.RangeField;
-import org.vamdc.portal.session.queryBuilder.fields.SimpleField;
 import org.vamdc.portal.session.queryBuilder.fields.UnitConvRangeField;
+import org.vamdc.portal.session.queryBuilder.forms.AbstractForm;
 import org.vamdc.portal.session.queryBuilder.forms.FormForFields;
+import org.vamdc.portal.session.queryBuilder.forms.Order;
 import org.vamdc.portal.session.queryBuilder.unitConv.CustomConverters;
 import org.vamdc.portal.session.queryBuilder.unitConv.EnergyUnitConverter;
 import org.vamdc.portal.session.queryBuilder.unitConv.FrequencyUnitConverter;
 import org.vamdc.portal.session.queryBuilder.unitConv.WavelengthUnitConverter;
 import org.vamdc.portal.session.queryBuilder.unitConv.WavenumberUnitConverter;
 
-public class RadiativeForm extends TreeForm implements FormForFields{
+public class RadiativeForm extends AbstractForm implements FormForFields, TreeFormInterface{
 
-	protected List<AbstractField> fields;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -621884685195400242L;
+	private Boolean queryable = true;
+	private NextForm selectedMode = null;
+	private QueryTreeInterface tree;
+	
+	private enum NextForm{
+		upperLowerEnergyRange,
+		stateEnergyRange,
+		anyEnergyRange
+	}
+	
+	private List<SelectItem> nextOptions = new ArrayList<SelectItem>(){
+		private static final long serialVersionUID = 1L;
+		{
+			add(new SelectItem(NextForm.upperLowerEnergyRange,"Transition from an energy range to another one"));
+			add(new SelectItem(NextForm.stateEnergyRange,"Transition to and from a given energy range"));
+			add(new SelectItem(NextForm.anyEnergyRange,"Any transition"));
+		}
+	};
+	
 	public RadiativeForm(QueryTreeInterface tree) {
-		super(tree);
+		//super(tree);
+		this.tree = tree;
 		this.fields = new ArrayList<AbstractField>();
-		//ProxyRangeField wlField = setupWLField();
-		//fields.add(wlField);
-		
-		//AbstractField field = new UnitConvRangeField(Restrictable.StateEnergy, "Lower state energy", new EnergyUnitConverter());
-		//field.setPrefix("lower");
-		AbstractField field=new SimpleField(Restrictable.AtomSymbol,"Test field");
-		fields.add(field);
-		field.setParentForm(this);
-		field=new SimpleField(Restrictable.AtomMass,"massatom");
-		fields.add(field);
-		field.setParentForm(this);
+		ProxyRangeField wlField = setupWLField();
+		fields.add(wlField);
 	}
 	
 	public Collection<AbstractField> getFields() { return fields; }
@@ -46,7 +62,23 @@ public class RadiativeForm extends TreeForm implements FormForFields{
 
 	@Override
 	public void validate() {
+		if (this.selectedMode == null)
+			return;
 		
+		//System.err.println("Adding next form "+selectedMode.name());
+		
+		switch(this.selectedMode){
+		case upperLowerEnergyRange:
+			tree.addForm(new AllStatesEnergyTreeForm(tree));
+			break;
+		case stateEnergyRange:
+			tree.addForm(new OneStateEnergyTreeForm(tree));
+			break;
+		case anyEnergyRange:	
+			tree.addForm(new SpeciesSelectionForm(tree));
+			break;
+		}
+		this.queryable = false;		
 	}
 
 	static ProxyRangeField setupWLField() {
@@ -56,10 +88,36 @@ public class RadiativeForm extends TreeForm implements FormForFields{
 		wlField.addProxyField(new UnitConvRangeField(Restrictable.RadTransEnergy,"Energy",new EnergyUnitConverter()), CustomConverters.WnToWl());
 		return wlField;
 	}
+	
+	public List<SelectItem> getNextOptions(){
+		return nextOptions;
+	}	
+	
+	public NextForm getSelectedMode() {
+		return selectedMode;
+	}
+
+	public void setSelectedMode(NextForm selectedMode) {
+		this.selectedMode = selectedMode;	//null if nothing selected
+	}
 
 	@Override
 	public void fieldUpdated(AbstractField field) {
-		System.out.println("Field "+field.getTitle()+" was updated!");
+	}
+
+	@Override
+	public String getTitle() {
+		return "Define radiative configuration";
+	}
+
+	@Override
+	public Integer getOrder() {
+		return Order.GuidedRadiative;
+	}
+
+	@Override
+	public Boolean getQueryable() {
+		return this.queryable;
 	}
 	
 }

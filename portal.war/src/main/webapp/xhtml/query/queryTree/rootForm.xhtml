@@ -9,17 +9,24 @@
 	xmlns:a4j="http://richfaces.org/a4j">
 
 
-	<rich:panel id="mainpanel">
+	<rich:panel id="mainPanel">
+
 		<f:facet name="header">
-			<h:outputText value="Choose a request type" />
+		 <h:panelGroup>
+			<h:outputText value="Choose a request type ( " />
+			<s:link id="menuQueryTreeId" view="/queryTree.xhtml" value="reset page"
+			propagation="none" />		
+			<h:outputText value=" ) " />	 
+		 </h:panelGroup>
+			
 		</f:facet>
-		
-		<h:outputText value="Request VAMDC"></h:outputText>
-			<h:selectOneRadio value="#{form.selectedMode}"
-					layout="pageDirection" tabindex="10">
+		<a4j:form ajaxSubmit="true">		
+			<h:selectOneRadio value="#{form.selectedMode}" disabled="#{!form.queryable}"
+				layout="pageDirection" tabindex="10">
 			<f:selectItems value="#{form.nextOptions}" />
-		</h:selectOneRadio>
-		<a4j:commandButton value="Next ->" align="right" width="200" action="#{form.validate}"
-				styleClass="roundButton" tabindex="20" reRender="formPanel"/>
+			</h:selectOneRadio>
+			<a4j:commandButton value="Next ->" align="right" width="200" action="#{form.validate}"
+				styleClass="roundButton" tabindex="20" reRender="formPanel" rendered="#{form.queryable}"/>
+		</a4j:form>
 	</rich:panel>
 </ui:composition>
