@@ -88,31 +88,25 @@ public class SpeciesSelectionForm extends AbstractForm implements FormForFields,
 
 	@Override
 	public String getTitle() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Integer getOrder() {
-		// TODO Auto-generated method stub
 		return Order.GuidedSpeciesType;
 	}	
 	
-	/*public Integer getPosition() {
-		// TODO Auto-generated method stub
-		return Order.Others;
-	}*/
-
 	@Override
 	public Boolean getQueryable() {
-		// TODO Auto-generated method stub
-		return true;
-		//return queryable;
+		return queryable;
 	}
 	
 	public void setQueryable(Boolean queryable) {
-		// TODO Auto-generated method stub
 		this.queryable = queryable;
+	}
+	
+	public void enable(){
+		this.setQueryable(true);
 	}
 
 }
