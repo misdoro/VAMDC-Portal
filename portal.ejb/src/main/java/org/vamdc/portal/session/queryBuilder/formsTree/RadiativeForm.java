@@ -27,9 +27,9 @@ public class RadiativeForm extends AbstractForm implements FormForFields, TreeFo
 	 */
 	private static final long serialVersionUID = -621884685195400242L;
 	private Boolean queryable = true;
-	private NextForm selectedMode = null;
+	private NextForm selectedMode = NextForm.anyEnergyRange;
 	private QueryTreeInterface tree;
-	
+		
 	private enum NextForm{
 		upperLowerEnergyRange,
 		stateEnergyRange,
