@@ -39,8 +39,11 @@
 					</c:forEach>
 				</h:selectOneMenu>
 				
-				<a4j:commandButton value="Validate ->" align="right" width="200" action="#{form.validate}" id="speciesNextButton"
-				styleClass="roundButton" tabindex="20" reRender="formPanel" rendered="#{form.queryable}"/>
+				<a4j:commandButton value="Next ->" align="right" width="200" action="#{form.validate}" id="speciesNextButton"
+				styleClass="roundButton" tabindex="20" reRender="formPanel" disabled="#{!form.queryable}"/>
+				
+				<a4j:commandButton value="Edit" align="right" width="200" action="#{form.enable}" id="speciesUnlockButton"
+				styleClass="roundButton" tabindex="20" reRender="formPanel" rendered="#{!form.queryable}"/>
 
 			</h:panelGrid>
 		</a4j:form>
