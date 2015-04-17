@@ -35,7 +35,7 @@
 }
 
 .rich-progress-bar-mockup{
-	border-color: #BED6F8;
+	border-color: #D4CFC7;
 	border-width: 1px;
 	border-style: solid;
     color: #000000;
@@ -61,7 +61,7 @@
 }
 
 .queryMenuButton{
-	background-color:#B5DAFF;
+	background-color:#D4CFC7;
 	border-style: none;
 	white-space: nowrap;
 	font-family: Arial,Verdana,sans-serif;
@@ -78,7 +78,7 @@
 	margin-top:5px;
 	margin-bottom:5px;
 	vertical-align: middle;
-	background-color:#B5DAFF;
+	background-color:#D4CFC7;
 }
 
 .queryForms{
@@ -139,7 +139,7 @@
 
 .collisionSpecies{
 	text-decoration:none;
-	border-bottom:1px dotted gray;
+	border-bottom:1px dotted #D4CFC7;
 }
 
 .alignCenter{
