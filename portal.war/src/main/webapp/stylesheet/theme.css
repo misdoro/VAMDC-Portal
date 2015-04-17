@@ -193,6 +193,12 @@ img.errors {
 	padding-bottom: 4px;
 }
 
+.rich-tree-node-text .rich-tool-tip{
+	text-decoration: none;
+	color : #000000;
+	
+}
+
 div.info {
 	font-size: 1.2em;
 }
