@@ -70,6 +70,11 @@
 							rendered="#{consumers.ok}" tabindex="30">
 							<h:outputText value="Result" />
 						</h:outputLink>
+						<a4j:outputPanel rendered="#{consumers.ok}">
+							<script>
+								window.open("#{consumers.location}");
+							</script>
+						</a4j:outputPanel>
 						<h:graphicImage
 							value="/img/stat.png?mode=proc&amp;q=#{queryData.queryString}&amp;nodeurl=#{consumers.selectedNodes}&amp;pivoaid=#{consumers.selectedConsumer}"
 							height="1px" width="1px" rendered="#{consumers.ok}" />
