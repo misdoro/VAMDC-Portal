@@ -1,0 +1,33 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:a4j="http://richfaces.org/a4j"
+    template="/layout/template.xhtml">
+
+    <ui:define name="body">    
+    	<!-- <h4><h:outputText value="#{registryFacade.getResourceTitle(nodespecies.ivoaId)}" escape="false"></h:outputText> species</h4>-->
+   
+		<h:form>
+        	<a4j:outputPanel id="progressPanel">
+            	<rich:progressBar value="#{asyncprogressbarbean.currentValue}"
+                	interval="1000" label="Timeout in: #{asyncprogressbarbean.maxValue - asyncprogressbarbean.currentValue} s"
+                	enabled="true" minValue="-1" maxValue="#{asyncprogressbarbean.maxValue}"
+                	reRenderAfterComplete="progressPanel">
+
+                	<f:facet name="initial">
+		                <br />
+        	            <h:outputText value="Process has not started yet" />
+	                </f:facet>
+    	            <f:facet name="complete">
+    	            	<h:outputText value="#{asyncprogressbarbean.message} " escape="false" />
+        	        </f:facet>
+	            </rich:progressBar>
+    	    </a4j:outputPanel>
+		</h:form>
+    </ui:define>
+</ui:composition>

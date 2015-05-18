@@ -17,11 +17,11 @@
 	<h:panelGroup>
 		<rich:spacer width="" />
 		<h:inputText value="#{field.userLoValue}" styleClass="narrowfield" tabindex="10">
-			<a4j:support event="onchange" reRender="nodeTree,buttonArea,conv#{field.id}"/>
+			<a4j:support event="onkeyup" reRender="nodeTree,buttonArea,conv#{field.id},asyncForm"/>
 		</h:inputText>
 		<h:outputText value="to" />
 		<h:inputText value="#{field.userHiValue}" styleClass="narrowfield" tabindex="10">
-			<a4j:support event="onchange" reRender="nodeTree,buttonArea,conv#{field.id}"/>
+			<a4j:support event="onkeyup" reRender="nodeTree,buttonArea,conv#{field.id},asyncForm"/>
 		</h:inputText>
 	
 		<h:selectOneMenu value="#{field.converter.selectedOption}" valueChangeListener="#{field.update}" id="units#{field.id}" tabindex="10">

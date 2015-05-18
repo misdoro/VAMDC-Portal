@@ -13,6 +13,9 @@
 			<rule if-outcome="home">
 				<redirect view-id="/home.xhtml" />
 			</rule>
+			<rule if-outcome="async">
+				<redirect view-id="/async.xhtml" />
+			</rule>
 			<rule if-outcome="query">
 				<redirect view-id="/query.xhtml" />
 			</rule>

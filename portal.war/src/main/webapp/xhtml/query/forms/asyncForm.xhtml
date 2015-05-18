@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+	<rich:simpleTogglePanel switchType="client">
+
+		<ui:include src="/xhtml/query/forms/formTitle.xhtml" />
+			
+		<a4j:form ajaxSubmit="true" id="asyncForm">
+		<h:message for="email"/>	
+		<h:panelGrid columns="2" columnClasses="leftColumn,rightColumn">			
+			<h:outputLabel for="email" id="emailLabel" >Email</h:outputLabel>
+			<h:inputText id="email" label="email" 
+                              value="#{asyncbean.email}" required="true">
+            	<s:validate/>
+            </h:inputText>
+            <rich:toolTip for="emailLabel" styleClass="toolTip">Launch your request asynchronously : you will receive an email telling you when computation
+		is done and how to get your data.</rich:toolTip>
+			<a4j:commandButton value="Find data" action="#{query.asyncQuery}"
+				styleClass="roundButton" disabled="#{!queryData.valid}" tabindex="21" reRender="asyncForm"/>
+			</h:panelGrid>
+		</a4j:form>
+
+	</rich:simpleTogglePanel>
+
+</ui:composition>

@@ -22,9 +22,9 @@
 				<h:outputText value="#{opt}" />
 			</h:column>
 			<a4j:support event="onselect" action="#{field.suggestion.selected}"
-				reRender="form#{form.id},nodeTree,buttonArea"/>
+				reRender="form#{form.id},nodeTree,buttonArea,asyncForm"/>
 		</rich:suggestionbox>
-		<a4j:support event="onchange" reRender="nodeTree,buttonArea"/>
+		<a4j:support event="onchange" reRender="nodeTree,buttonArea,asyncForm"/>
 	</h:inputText>
 
 
