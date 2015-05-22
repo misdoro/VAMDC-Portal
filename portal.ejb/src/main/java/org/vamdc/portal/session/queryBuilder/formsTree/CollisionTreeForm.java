@@ -33,7 +33,7 @@ public class CollisionTreeForm extends CollisionsForm implements FormForFields, 
 	 */
 	private static final long serialVersionUID = -621884685195400242L;
 	private Boolean queryable = true;
-	private SearchMode selectedMode;
+	private SearchMode selectedMode = SearchMode.withoutReaction;
 	private QueryTreeInterface tree;
 	
 		
