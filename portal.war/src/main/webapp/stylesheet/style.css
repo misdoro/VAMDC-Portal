@@ -101,14 +101,41 @@
 	width: 450px;
 }
 
-.queryProgressPanel{
-	width: 450px;
-	height: 200px;
+.showRequestPanel{
+	width: 890px;
+	height: 70px;
+	margin-left : 3px;
 }
 
+.showRequestText{
+	width: 870px;
+	height: 40px;
+}
+
+.queryProgressPanel{
+	width: 450px;
+	height: 210px;
+}
+
+.resultTable{
+	margin-left : 4px;
+}
+
+
 .consumerPanel{
-	width: 400px;
-	height: 200px;
+	width: 430px;
+	height: 210px;
+}
+
+.commentsPanel{
+	width: 98%;
+	height: 120px;
+	margin-top : 1em;
+}
+
+.commentsPanel textarea{
+	width: 98%;
+	height: 80px;
 }
 
 .consumerDescription{
@@ -121,7 +148,7 @@
 }
 
 .consumersList{
-	height: 135px;
+	height: 140px;
 	width: 100%;
 }
 

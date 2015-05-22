@@ -11,6 +11,14 @@
 
 	<ui:define name="body" >
 		<h:graphicImage value="/img/stat.png?mode=pv&amp;q=#{queryData.queryString}" height="1px" width="1px"/>
+		<h:panelGrid>
+			<rich:panel styleClass="showRequestPanel">
+	        	<f:facet name="header">
+	            	<h:outputText value="Your request"/>
+	            </f:facet>
+	            <h:inputTextarea value="#{queryData.queryString}" disabled="true" styleClass="showRequestText"/>
+	        </rich:panel>
+        </h:panelGrid>
 		<a4j:form>
 			<h:panelGrid columns="2">
 				<h:panelGrid>
@@ -49,11 +57,9 @@
                             <a4j:commandButton value="Save query"
                                 action="#{query.saveQuery()}" styleClass="roundButton"
                                 disabled="#{!preview.done}" tabindex="3"/>
-                        </h:panelGrid>
+                        </h:panelGrid>                        
 
-                        <h:outputText value="#{queryData.queryString}" />
-
-                        <rich:panel id="commentsPanel">
+                        <rich:panel id="commentsPanel" styleClass="commentsPanel">
                             <f:facet name="header">
                                 <h:outputText value="Comments"></h:outputText>
                             </f:facet>
