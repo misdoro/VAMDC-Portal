@@ -22,6 +22,8 @@ public class Order implements Comparator<Form>{
 	public static final Integer GuidedRoot = 24;
 	public final static Integer GuidedRadiative = 25;
 	public static final Integer GuidedStates = 26;
+	public final static Integer GuidedCollision = 27;
+	public final static Integer GuidedCollisionConfiguration = 28;
 	
 	static final Integer Async = 21;
 	

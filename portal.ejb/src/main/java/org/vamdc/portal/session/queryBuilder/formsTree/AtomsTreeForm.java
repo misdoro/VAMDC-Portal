@@ -19,6 +19,12 @@ public class AtomsTreeForm extends AtomsForm implements FormForFields, TreeFormI
 		position = tree.getFormCount();
 	}
 	
+	public AtomsTreeForm(QueryTreeInterface tree, String prefix) {
+		//super(tree);
+		this.tree = tree;
+		this.setPrefix(prefix);
+		position = tree.getFormCount();
+	}
 	
 	public String getObject(){
 		return this.toString();

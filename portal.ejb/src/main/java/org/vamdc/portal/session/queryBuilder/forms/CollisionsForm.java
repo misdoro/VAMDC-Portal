@@ -26,14 +26,18 @@ public class CollisionsForm extends AbstractForm implements Form{
 	public String getView() { return "/xhtml/query/forms/collisionsForm.xhtml"; }
 
 	
-	private AbstractField processName;
-	private AbstractField processDescription;
-	private AbstractField xsamsProcCode;
-	private AbstractField iaeaProcCode;
+	protected AbstractField processName;
+	protected AbstractField processDescription;
+	protected AbstractField xsamsProcCode;
+	protected AbstractField iaeaProcCode;
 	
 	public CollisionsForm() {
 		super();
-		
+		init();
+
+	}
+	
+	protected void init(){
 		processName = new SuggestionField(null,"Process name",new ProcessNameSuggest());
 		addField(processName);
 		
@@ -44,7 +48,8 @@ public class CollisionsForm extends AbstractForm implements Form{
 		addField(xsamsProcCode);
 
 		iaeaProcCode = new SuggestionField(Restrictable.CollisionIAEACode,"IAEA process code",new IaeaCodeSuggest());
-		addField(iaeaProcCode);
+		addField(iaeaProcCode);		
+		
 	}
 
 	public class XsamsCodeSuggest extends SuggestionImpl{
@@ -88,7 +93,7 @@ public class CollisionsForm extends AbstractForm implements Form{
 
 		private static final long serialVersionUID = -3692917437915852791L;
 
-		ProcessNameSuggest() { super(); }
+		public ProcessNameSuggest() { super(); }
 
 		@Override
 		protected Collection<String> loadValues() {
@@ -101,7 +106,7 @@ public class CollisionsForm extends AbstractForm implements Form{
 		@Override
 		public void selected() {
 			String process = processName.getValue();
-			
+
 			XsamsProcessCode code = getCodeFromName(process);
 			if (code!=null){
 				processDescription.setValue(code.getDescription());
@@ -141,6 +146,7 @@ public class CollisionsForm extends AbstractForm implements Form{
 			
 			if ("reactant".equals(prefix) || "product".equals(prefix))
 				prefix=prefix+index;
+			System.out.println("### set prefix : "+prefix);
 			speciesForm.setPrefix(prefix);
 		}
 		

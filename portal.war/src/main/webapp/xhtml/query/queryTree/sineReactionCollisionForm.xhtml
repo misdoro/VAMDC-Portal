@@ -1,0 +1,84 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+
+	<rich:panel id="speciesSelection">
+		<f:facet name="header">
+			<h:outputText value="#{form.title}" />
+		</f:facet>
+
+        <a4j:form ajaxSubmit="true">		
+			<h:panelGrid id="panel" columns="6" border="0" cellpadding="10"
+				cellspacing="1" columnClasses="simpleColumn,simpleColumn,simpleColumn,simpleColumn,simpleColumn,simpleColumn">
+			
+				<h:outputLabel value="Targets" style="font-weight:bold"/><h:outputLabel value="" />
+				<h:outputLabel value="" /><h:outputLabel value="" />
+				<h:outputLabel value="" /><h:outputLabel value="" />
+				
+				<h:outputLabel value="Atoms" />
+				<h:selectOneMenu value="#{form.targetAtomCount}">
+					<c:forEach var="i" begin="0" end="#{form.maxElementCount}">
+						<f:selectItem itemValue="#{i}" itemLabel="#{i}" />
+					</c:forEach>
+				</h:selectOneMenu>
+			
+				<h:outputLabel value="Molecules" />
+				<h:selectOneMenu value="#{form.targetMoleculeCount}">
+					<c:forEach var="i" begin="0" end="#{form.maxElementCount}">
+						<f:selectItem itemValue="#{i}" itemLabel="#{i}" />
+					</c:forEach>
+				</h:selectOneMenu>
+				
+				<h:outputLabel value="Particles" />
+				<h:selectOneMenu value="#{form.targetParticleCount}">
+					<c:forEach var="i" begin="0" end="#{form.maxElementCount}">
+						<f:selectItem itemValue="#{i}" itemLabel="#{i}" />
+					</c:forEach>
+				</h:selectOneMenu>
+				
+				<h:outputLabel value="Colliders" style="font-weight:bold"/><h:outputLabel value="" />
+				<h:outputLabel value="" /><h:outputLabel value="" />
+				<h:outputLabel value="" /><h:outputLabel value="" />
+				
+				<h:outputLabel value="Atoms" />
+				<h:selectOneMenu value="#{form.colliderAtomCount}">
+					<c:forEach var="i" begin="0" end="#{form.maxElementCount}">
+						<f:selectItem itemValue="#{i}" itemLabel="#{i}" />
+					</c:forEach>
+				</h:selectOneMenu>				
+
+				<h:outputLabel value="Molecules" />
+				<h:selectOneMenu value="#{form.colliderMoleculeCount}">
+					<c:forEach var="i" begin="0" end="#{form.maxElementCount}">
+						<f:selectItem itemValue="#{i}" itemLabel="#{i}" />
+					</c:forEach>
+				</h:selectOneMenu>
+
+				
+				<h:outputLabel value="Particles" />
+				<h:selectOneMenu value="#{form.colliderParticleCount}">
+					<c:forEach var="i" begin="0" end="#{form.maxElementCount}">
+						<f:selectItem itemValue="#{i}" itemLabel="#{i}" />
+					</c:forEach>
+				</h:selectOneMenu>
+							
+				<a4j:commandButton value="Next ->" align="right" width="200" action="#{form.validate}" id="speciesNextButton"
+				styleClass="roundButton" tabindex="20" reRender="formPanel" disabled="#{!form.queryable}"/>
+				
+				<a4j:commandButton value="Edit" align="right" width="200" action="#{form.enable}" id="speciesUnlockButton"
+				styleClass="roundButton" tabindex="20" reRender="formPanel" rendered="#{!form.queryable}"/>
+
+			</h:panelGrid>
+		</a4j:form>
+	
+
+	</rich:panel>
+</ui:composition>

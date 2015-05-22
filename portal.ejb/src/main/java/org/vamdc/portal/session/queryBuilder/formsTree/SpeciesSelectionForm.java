@@ -21,10 +21,17 @@ public class SpeciesSelectionForm extends AbstractForm implements FormForFields,
 	private Boolean queryable = true;
 	private Integer formsCount = 0;
 	
+	
 	public SpeciesSelectionForm(QueryTreeInterface tree){
 		this.tree = tree;
 	}
 
+	public SpeciesSelectionForm(QueryTreeInterface tree, String prefix){
+		this.tree = tree;
+		this.setPrefix(prefix);
+	}
+
+	
 	@Override
 	public String getView() {		
 		return "/xhtml/query/queryTree/speciesSelectionForm.xhtml";
@@ -88,6 +95,10 @@ public class SpeciesSelectionForm extends AbstractForm implements FormForFields,
 
 	@Override
 	public String getTitle() {
+		if (this.getPrefix() != null){
+			return this.getPrefix();
+		}
+		
 		return null;
 	}
 

@@ -22,6 +22,12 @@ public class MoleculesTreeForm extends MoleculesForm implements FormForFields, T
 		this.tree = tree;
 		position = tree.getFormCount();
 	}
+	
+	public MoleculesTreeForm(QueryTreeInterface tree, String prefix){
+		this.tree = tree;
+		this.setPrefix(prefix);
+		position = tree.getFormCount();
+	}
 
 	@Override
 	public Boolean getQueryable() {

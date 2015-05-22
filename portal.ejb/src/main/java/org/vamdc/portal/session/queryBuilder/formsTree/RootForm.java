@@ -23,7 +23,7 @@ public class RootForm extends AbstractForm implements TreeFormInterface{
 	private static final long serialVersionUID = -8406069388034760380L;
 
 	{
-		//add(new SelectItem(SearchMode.collision,"For collisional process"));
+		add(new SelectItem(SearchMode.collision,"For collisional process"));
 		add(new SelectItem(SearchMode.radiative,"For radiative process"));
 		add(new SelectItem(SearchMode.species,"By species"));
 	}
@@ -55,6 +55,7 @@ public class RootForm extends AbstractForm implements TreeFormInterface{
 		
 		switch(this.selectedMode){
 		case collision:
+			tree.addForm(new CollisionTreeForm(tree));
 			break;
 		case radiative:
 			tree.addForm(new RadiativeForm(tree));

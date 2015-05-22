@@ -17,26 +17,24 @@ public class ParticlesTreeForm extends ParticlesForm implements FormForFields, T
 		this.tree = tree;
 		position = tree.getFormCount();
 	}
+
+	public ParticlesTreeForm(QueryTreeInterface tree, String prefix){
+		this.tree = tree;
+		this.setPrefix(prefix);
+		position = tree.getFormCount();
+	}
 	
 	
 	@Override
 	public Boolean getQueryable() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public void validate() {
-		// TODO Auto-generated method stub
 		tree.addForm(this);
 	}
 	
-	/*@Override
-	public String getView() {
-		return "/xhtml/query/queryTree/particlesForm.xhtml";
-	}*/
-
-
 	@Override
 	public String getTitle() { return "Particle "; }
 }

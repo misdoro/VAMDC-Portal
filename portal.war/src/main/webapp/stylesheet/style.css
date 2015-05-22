@@ -23,6 +23,14 @@
 	font-family: none;
 }
 
+.simpleColumn {
+	width: 60px;
+	/*font-weight: bold;*/
+	font-size: 12px;
+	margin : 0px;
+	font-family: none;
+}
+
 .rightColumn {
 	width: 250px;
 	align: right;
