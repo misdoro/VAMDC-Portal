@@ -171,8 +171,12 @@ public class PreviewManager implements Serializable{
 			if (node.isOk() && node.getStatus()==Response.OK)
 				numActive++;
 		}
-		if (numActive==1 && consumers!=null)
+
+		if (numActive==1 && consumers!=null){
 			consumers.getQueries().put(results.get(0).getFullQueryURL(), true);
+			consumers.getConsumersUpdated();
+		}
+
 	}
 	
 }
