@@ -146,7 +146,7 @@ public class CollisionsForm extends AbstractForm implements Form{
 			
 			if ("reactant".equals(prefix) || "product".equals(prefix))
 				prefix=prefix+index;
-			System.out.println("### set prefix : "+prefix);
+
 			speciesForm.setPrefix(prefix);
 		}
 		
