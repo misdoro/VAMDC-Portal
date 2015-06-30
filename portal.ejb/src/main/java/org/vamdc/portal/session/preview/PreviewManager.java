@@ -47,6 +47,8 @@ public class PreviewManager implements Serializable{
 	private Collection<Future<HttpHeadResponse>> nodeFutureResponses = new ArrayList<Future<HttpHeadResponse>>();
 	private long startTime;
 	
+	private long percentDone;
+	
 	public void initiate(){
 		
 		if (nodeFutureResponses.size()>0)
@@ -114,23 +116,29 @@ public class PreviewManager implements Serializable{
 	
 
 	public boolean isDone(){
-		for (Future<HttpHeadResponse> task:nodeFutureResponses){
-			if (!task.isDone())
-				return false;
+		if(this.percentDone <= 100){
+			for (Future<HttpHeadResponse> task:nodeFutureResponses){
+				if (!task.isDone()){
+					return false;
+				}
+			}
 		}
+		
 		if (!completeEventCalled)
 			completeEvent();
+		
 		return true;
 	}
 	
 	public Long getPercentsDone(){
 		Long result=0L;
-		if (isDone())
+		if (isDone()){
 			result=101L;
-		else{
+		} else{
 			Long now = new Date().getTime();
 			result = (100L*(now-startTime)/Settings.HTTP_HEAD_TIMEOUT.getInt());
 		}
+		this.percentDone = result;
 		return result;
 	}
 
@@ -167,14 +175,15 @@ public class PreviewManager implements Serializable{
 		this.completeEventCalled=true;
 		List<HttpHeadResponse> results = getNodes();
 		int numActive=0;
+		
 		for (HttpHeadResponse node:results){
+			
 			if (node.isOk() && node.getStatus()==Response.OK)
 				numActive++;
 		}
 
-		if (numActive==1 && consumers!=null){
+		if (numActive==1){
 			consumers.getQueries().put(results.get(0).getFullQueryURL(), true);
-			consumers.getConsumersUpdated();
 		}
 
 	}

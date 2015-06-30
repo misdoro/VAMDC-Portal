@@ -30,7 +30,7 @@
                         <rich:progressBar id="previewProgress" styleClass="#{preview.done? 'rich-progress-bar-done':''}"
                             value="#{preview.percentsDone}" interval="987" minValue="0"
                             maxValue="100" 
-                            reRenderAfterComplete="previewProgress,previewTable,statusPanel,commentsPanel"
+                            reRenderAfterComplete="previewProgress,previewTable,statusPanel,commentsPanel,consumersContainer"
                             reRender="previewTable,statusPanel,commentsPanel" >
                             <f:facet name="initial">
                                 <a4j:outputPanel layout="block" styleClass="rich-progress-bar-width rich-progress-bar-mockup">
