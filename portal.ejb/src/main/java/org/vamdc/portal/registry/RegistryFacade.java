@@ -79,7 +79,6 @@ public class RegistryFacade {
 	
 	public Integer getConsumerNumberOfInputs(String consumerId){
 		Integer result=null;
-		System.out.println(getResource(consumerId).getClass());
 		net.ivoa.xml.voresource.v1.Service consumer = (net.ivoa.xml.voresource.v1.Service) getResource(consumerId);
 		for (Capability cap:consumer.getCapability()){
 			if (cap!= null && cap.getStandardID()!=null && cap.getStandardID().equalsIgnoreCase(
