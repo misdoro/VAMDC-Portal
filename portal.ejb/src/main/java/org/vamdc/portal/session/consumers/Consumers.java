@@ -59,12 +59,20 @@ public class Consumers implements Serializable{
     public Integer getConsumersUpdatedCount(){
     	return getConsumersUpdated().size();
     }
+    
+    private void clearConsumerSelection(){
+    	consumerSelected = false;
+    	consumers.clear();
+    	consumerLocation = null;
+    	selectedIvoaID = null;
+    }    
 	
     /**
      * update list of processors for the currently selected nodes
      * @return
      */
 	public List<SelectItem> getConsumersUpdated(){
+
 		List<SelectItem> result = new ArrayList<SelectItem>();
 		if(getSelectedNodesCount() > 0){	
 			//search processors for selected nodes	
@@ -88,7 +96,6 @@ public class Consumers implements Serializable{
 				}
 			}
 		}	
-		
 		this.consumers = result;
 		return this.consumers;
 	}
@@ -205,6 +212,7 @@ public class Consumers implements Serializable{
 	}
 	
 	public void updateNodeIds(String text){
+		clearConsumerSelection();
 		if(selectedNodes.containsKey(text)){
 			selectedNodes.put(text, !selectedNodes.get(text));
 		}else{

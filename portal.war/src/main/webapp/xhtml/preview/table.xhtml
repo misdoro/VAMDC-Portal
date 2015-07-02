@@ -68,7 +68,7 @@
                 <h:selectBooleanCheckbox
                     value="#{consumers.queries[node.fullQueryURL]}"
                     disabled="#{!preview.done }" rendered="#{node.isOk()}"
-                    id="process" tabindex="10" >
+                    id="process" tabindex="10">
                     <a4j:support event="onchange" reRender="consumersContainer,inputFilesInfo" action="#{consumers.updateNodeIds(node.ivoaID)}" />
                     <rich:toolTip value="Select for processing" styleClass="toolTip"
                         direction="bottom-right" />
