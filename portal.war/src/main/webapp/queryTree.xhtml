@@ -13,7 +13,7 @@
 	
 	<ui:define name="body">
 		<c:if test="#{disclaimer.value == false}">
-			 <ui:include src="/xhtml/disclaimer/disclaimer.xhtml" />
+			 <ui:include src="/xhtml/disclaimer/disclaimerValidation.xhtml" />
 		</c:if>
 		<c:if test="#{disclaimer.value == true}">
 			<a4j:outputPanel width="460" id="formPanel">

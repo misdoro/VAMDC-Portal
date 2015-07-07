@@ -12,7 +12,7 @@
 
 	<ui:define name="body">
 		<c:if test="#{disclaimer.value == false}">
-			<ui:include src="/xhtml/disclaimer/disclaimer.xhtml" />
+			<ui:include src="/xhtml/disclaimer/disclaimerValidation.xhtml" />
 		</c:if>
 		<c:if test="#{disclaimer.value == true}">
 		<h:panelGrid columns="3" columnClasses="queryMenu,queryForms,queryRight">

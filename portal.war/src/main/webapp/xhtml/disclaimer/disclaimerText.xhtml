@@ -9,10 +9,7 @@
 
 
 	<div class="disclaimer">		
-		<p>
-			You must accept the following disclaimer to use our services : 
-		</p>
-		<h2>D0: General Disclaimer</h2>
+		<h2>General Disclaimer</h2>
         <p>
 			The VAMDC Consortium and its activities are based upon a high trust model within an academic environment. 
 			In case of an (alleged) infringement of any right of third parties, the Consortium should be contacted in writing in order to discuss the issue. 
@@ -21,7 +18,7 @@
 			intellectual and industrial property rights and/or rights of confidentiality).
         </p>
         <h2>
-			D3: Disclaimer for final users accessing the data and or running online services/processing (this disclaimer should be applied to all the web services provided by VAMDC in any form (TAP services, online code, etc))
+			Disclaimer for final users accessing the data and or running online services/processing (this disclaimer should be applied to all the web services provided by VAMDC in any form (TAP services, online code, etc))
         </h2>
         <ul>
         	<li>
@@ -103,20 +100,9 @@
         		</ul>
         	</li>        	
         </ul>
-        <h2>D5: Disclaimer for users retrieving data from the e-infrastructure</h2>
+        <h2>Disclaimer for users retrieving data from the e-infrastructure</h2>
         <p>
         	The VAMDC Consortium is not liable for users of data or databases not applying our Citation Policy.
         </p>
         </div>
-		<h:form>
-			<!--   -->
-			 <input type="hidden" name="sourcePage" value="#{view.viewId}" />
-	   		<h:selectOneRadio value="#{disclaimerForm.response}">
-	   			<f:selectItems value="#{disclaimerForm.disclaimerChoices}" />
-	   		</h:selectOneRadio>
-	 
-	   		<h:commandButton value="Submit" action="#{disclaimerForm.validate}" /> 
-		</h:form>
-
-
 </ui:composition>

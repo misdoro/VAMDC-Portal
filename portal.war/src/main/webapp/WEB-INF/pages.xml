@@ -34,6 +34,9 @@
 			<rule if-outcome="species">
 				<redirect view-id="/species.xhtml"/>
 			</rule>
+			<rule if-outcome="disclaimer">
+				<redirect view-id="/disclaimer.xhtml"/>
+			</rule>
 		</navigation>
 	</page>
 
