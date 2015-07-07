@@ -11,6 +11,10 @@
 	template="/layout/template.xhtml">
 
 	<ui:define name="body">
+		<c:if test="#{disclaimer.value == false}">
+			<ui:include src="/xhtml/disclaimer/disclaimer.xhtml" />
+		</c:if>
+		<c:if test="#{disclaimer.value == true}">
 		<h:panelGrid columns="3" columnClasses="queryMenu,queryForms,queryRight">
 			<h:panelGroup>
 				<rich:spacer width="120"/>
@@ -29,6 +33,7 @@
 				<ui:include src="/xhtml/query/nodeTree.xhtml" />
 			</h:panelGroup>
 		</h:panelGrid>
+		</c:if>
 	</ui:define>
 
 

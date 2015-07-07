@@ -12,22 +12,27 @@
 	
 	
 	<ui:define name="body">
-		<a4j:outputPanel width="460" id="formPanel">
-			<h:panelGrid>
-				<c:forEach items="#{queryTree.forms}" var="form">
-					<a4j:include viewId="#{form.view}" />
-				</c:forEach>				
-				<rich:spacer width="460" />				
-			</h:panelGrid>
-			<a4j:outputPanel width="460" id="buttons">
-		<ui:include src="/xhtml/query/queryTree/actionButtons.xhtml" />
-		</a4j:outputPanel>
-		
-		</a4j:outputPanel>
-		<a4j:outputPanel id="nodeTree">
-			<rich:spacer width="460" />			
-		</a4j:outputPanel>
-		<a4j:outputPanel id="asyncForm" />
+		<c:if test="#{disclaimer.value == false}">
+			 <ui:include src="/xhtml/disclaimer/disclaimer.xhtml" />
+		</c:if>
+		<c:if test="#{disclaimer.value == true}">
+			<a4j:outputPanel width="460" id="formPanel">
+				<h:panelGrid>
+					<c:forEach items="#{queryTree.forms}" var="form">
+						<a4j:include viewId="#{form.view}" />
+					</c:forEach>				
+					<rich:spacer width="460" />				
+				</h:panelGrid>
+				<a4j:outputPanel width="460" id="buttons">
+			<ui:include src="/xhtml/query/queryTree/actionButtons.xhtml" />
+			</a4j:outputPanel>
+			
+			</a4j:outputPanel>
+			<a4j:outputPanel id="nodeTree">
+				<rich:spacer width="460" />			
+			</a4j:outputPanel>
+			<a4j:outputPanel id="asyncForm" />
+		</c:if>
 	</ui:define>
 
 </ui:composition>

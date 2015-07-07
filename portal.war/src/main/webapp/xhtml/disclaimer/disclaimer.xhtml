@@ -1,0 +1,122 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich">
+
+
+	<div class="disclaimer">		
+		<p>
+			You must accept the following disclaimer to use our services : 
+		</p>
+		<h2>D0: General Disclaimer</h2>
+        <p>
+			The VAMDC Consortium and its activities are based upon a high trust model within an academic environment. 
+			In case of an (alleged) infringement of any right of third parties, the Consortium should be contacted in writing in order to discuss the issue. 
+			In order to minimize the risks it should be clarified that the Consortium shall not provide any guarantee and/or warranty with respect to a fitness-for-purpose 
+			and furthermore that the Consortium shall not identify any party for any (alleged) infringement of any rights of third parties (including but not limited to 
+			intellectual and industrial property rights and/or rights of confidentiality).
+        </p>
+        <h2>
+			D3: Disclaimer for final users accessing the data and or running online services/processing (this disclaimer should be applied to all the web services provided by VAMDC in any form (TAP services, online code, etc))
+        </h2>
+        <ul>
+        	<li>
+				Services « AS IS »
+				<ul>
+					<li>
+						VAMDC strives to provide high quality Services, 
+						but there are certain things that we can’t guarantee. TO THE FULLEST EXTENT PERMITTED BY LAW, VAMDC MAKES NO WARRANTIES, 
+						EITHER EXPRESS OR IMPLIED, ABOUT THE SERVICES. THE SERVICES ARE PROVIDED « AS IS. » WE ALSO DISCLAIM ANY WARRANTIES OF MERCHANTABILITY, 
+						FITNESS FOR A PARTICULAR PURPOSE AND NON-­INFRINGEMENT.        	
+					</li>
+				</ul>
+        	</li>
+        	<li>
+        		Limitation of Liability
+        		<ul>
+        			<li>
+	        			TO THE FULLEST EXTENT PERMITTED BY LAW, IN NO EVENT WILL VAMDC BE LIABLE FOR ANY INDIRECT, SPECIAL, INCIDENTAL, PUNITIVE, 
+	        			EXEMPLARY OR CONSEQUENTAL DAMAGES OR ANY LOSS OF USE, DATA, BUSINESS, OR PROFITS, REGARDLESS OF LEGAL THEORY, 
+	        			WHETHER OR NOT VAMDC HAS BEEN WARNED OF THE POSSIBILITY OF SUCH DAMAGES, AND EVEN IF A REMEDY FAILS OF ITS ESSENTIAL PURPOSE.
+	        		</li>
+        		</ul>
+        	</li>
+        	<li>
+        		Termination
+        		<ul>
+        			<li>
+        				You are free to stop using our Services at any time. We also reserve the right to suspend or end the Services 
+        				at any time at our discretion and without notice. For example, we may suspend or terminate your use of the Services 
+        				if you are not complying with these Terms, or use the Services in a manner that would cause us legal liability, disrupt 
+        				the Services or disrupt others’ use of the Services.
+        			</li>
+        		</ul>
+        	</li>
+        	<li>
+        		Resolving Disputes
+        		<ul>
+        			<li>
+	        			Let’s Try To Sort Things Out First. We want to address your concerns without needing a formal legal case. 
+	        			Before filing a claim against VAMDC, you agree to try to resolve the dispute informally by contacting support@vamdc.eu. 
+	        			We’ll try to resolve the dispute informally by contacting you via email. If a dispute is not resolved within 15 days of submission, 
+	        			you or VAMDC may bring a formal proceeding.
+        			</li>
+        			<li>
+						We both agree to use mediation. You and VAMDC agree to resolve any claims relating to these Terms or the Services 
+						with mediation through the VAMDC Consortium « Legal Committee ».        			
+        			</li>
+        		</ul>
+        	</li>
+        	<li>
+        		Entire Agreement
+        		<ul>
+        			<li>
+	        			These Terms constitute the entire agreement between you and VAMDC with respect to the subject matter of these Terms, 
+	        			and supersede and replace any other prior agreements, or terms and conditions applicable to the subject matter of these Terms. 
+	        			These Terms create no third party beneficiary rights. By continuing to use or access the Services after the revisions come into effect, 
+	        			you agree to be bound by the revised Terms.
+        			</li>
+        		</ul>
+        	</li>
+        	<li>
+        		Waiver, Severability &amp; Assignment
+        		<ul>
+        			<li>
+        				VAMDC failure to enforce a provision is not a waiver of its right to do so later. 
+        				If a provision is found unenforceable, the remaining provisions of the Terms will remain in full effect and an enforceable term will be substituted 
+        				reflecting our intent as closely as possible. You may not assign any of your rights under these Terms, and any such attempt will be void. 
+        				VAMDC may assign its rights to any of its affiliates or subsidiaries, or to any successor in interest of any business associated with the Services.
+        			</li>
+        		</ul>
+        	</li>
+        	<li>
+        		Modifications
+        		<ul>
+        			<li>
+        				We may revise these Terms from time to time, and will always post the most current version on our website. 
+        				By continuing to use or access the Services after the revisions come into effect, you agree to be bound by the revised Terms.
+        			</li>
+        		</ul>
+        	</li>        	
+        </ul>
+        <h2>D5: Disclaimer for users retrieving data from the e-infrastructure</h2>
+        <p>
+        	The VAMDC Consortium is not liable for users of data or databases not applying our Citation Policy.
+        </p>
+        </div>
+		<h:form>
+			<!--   -->
+			 <input type="hidden" name="sourcePage" value="#{view.viewId}" />
+	   		<h:selectOneRadio value="#{disclaimerForm.response}">
+	   			<f:selectItems value="#{disclaimerForm.disclaimerChoices}" />
+	   		</h:selectOneRadio>
+	 
+	   		<h:commandButton value="Submit" action="#{disclaimerForm.validate}" /> 
+		</h:form>
+
+
+</ui:composition>

@@ -234,3 +234,9 @@ table.radio input[type=radio] {
    vertical-align: bottom;
 }
 
+body .disclaimer{
+	font-size : 16px;	
+	width : 85%;
+	text-align : justify;
+}
+

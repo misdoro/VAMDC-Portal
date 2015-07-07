@@ -8,4 +8,5 @@ public class RedirectPage {
 	public static final String SPECIES="species";
 	public static final String NODES="nodes";
 	public static final String ASYNC="async";
+	public static final String HOME="home";
 }
