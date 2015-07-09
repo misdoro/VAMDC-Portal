@@ -40,7 +40,7 @@ public class RadiativeForm extends AbstractForm implements FormForFields, TreeFo
 		private static final long serialVersionUID = 1L;
 		{
 			add(new SelectItem(NextForm.upperLowerEnergyRange,"Transition from an energy range to another one"));
-			add(new SelectItem(NextForm.stateEnergyRange,"Transition to and from a given energy range"));
+			//add(new SelectItem(NextForm.stateEnergyRange,"Transition to and from a given energy range"));
 			add(new SelectItem(NextForm.anyEnergyRange,"Any transition"));
 		}
 	};
