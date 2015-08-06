@@ -1,5 +1,8 @@
 package org.vamdc.portal.session.security;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.In;
@@ -38,7 +41,11 @@ public class Register
 			new RunAsOperation() {
 				@Override
 				public void execute() {
-					if (!identityManager.userExists(username)){
+					if(password.equals(verifyPassword) == false){
+						throw new IdentityManagementException("Password and verification password do not match.");
+					}else if(isValidEmail() == false){
+						throw new IdentityManagementException("Email address is not valid.");						
+					} else if (!identityManager.userExists(username)){
 						identityManager.createUser(username,password);
 					}else{
 						throw new IdentityManagementException("User #{register.username} already exists!");
@@ -52,6 +59,12 @@ public class Register
 			statusMessages.add(Severity.ERROR,e.getMessage());
 		}
 
+	}
+	
+	private Boolean isValidEmail(){
+		Pattern pattern = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+		Matcher matcher = pattern.matcher(email);
+		return matcher.find();
 	}
 
 
