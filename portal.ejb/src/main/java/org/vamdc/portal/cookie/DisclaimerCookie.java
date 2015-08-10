@@ -23,7 +23,7 @@ public class DisclaimerCookie {
 	}
 	
 	public void setValue(Boolean value){
-		// 5 years expire date
-		cookieHelper.setCookie(this.name, value.toString(), 5 * 365 * 24 * 60 * 60 );
+		// 1 year expire date
+		cookieHelper.setCookie(this.name, value.toString(),  365 * 24 * 60 * 60 );
 	}
 }
