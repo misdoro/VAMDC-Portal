@@ -175,14 +175,18 @@ public class PreviewManager implements Serializable{
 		this.completeEventCalled=true;
 		List<HttpHeadResponse> results = getNodes();
 		int numActive=0;
+		String nodeId = null;
+		
 		
 		for (HttpHeadResponse node:results){
-			
-			if (node.isOk() && node.getStatus()==Response.OK)
+			if (node.isOk() && node.getStatus()==Response.OK){
+				nodeId = node.getIvoaID();
 				numActive++;
+			}
 		}
 
 		if (numActive==1){
+			consumers.updateNodeIds(nodeId);
 			consumers.getQueries().put(results.get(0).getFullQueryURL(), true);
 		}
 
