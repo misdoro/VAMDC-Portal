@@ -3,17 +3,11 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:s="http://jboss.com/products/seam/taglib"
-	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich" styleClass="my-toolbar-header">
 
 	<h:panelGrid columns="2">
 		<h:outputLink value="http://vamdc.eu">
 			<h:graphicImage value="/img/vamdc_logo.png" alt="vamdc_logo"/>
 		</h:outputLink>
-		<a4j:region selfRendered="true">
-			<h:messages id="messages" globalOnly="true" styleClass="message"
-				errorClass="errormsg" infoClass="infomsg" warnClass="warnmsg"
-				rendered="#{showGlobalMessages != 'false'}" />
-		</a4j:region>
 	</h:panelGrid>
 </s:span>
