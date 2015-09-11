@@ -124,7 +124,7 @@ public class WithReactionCollisionForm extends AbstractForm implements FormForFi
 
 	@Override
 	public String getTitle() {
-		return "Please, enter the number of targets and colliders you wish to add";
+		return "Please, enter the number of reactants and products you wish to add";
 	}
 
 	@Override
