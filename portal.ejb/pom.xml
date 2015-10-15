@@ -57,12 +57,9 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>com.sun.xml.ws</groupId>
-			<artifactId>jaxws-rt</artifactId>
-			<version>2.1.7</version>
-			<scope>provided</scope>
-		</dependency>
+
+
+		
 		<dependency>
 			<groupId>javax.measure</groupId>
 			<artifactId>jsr-275</artifactId>
@@ -152,4 +149,18 @@
 
 		</plugins>
 	</build>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>javax.xml.bind</groupId>
+				<artifactId>jaxb-api</artifactId>
+				<version>${jaxb.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.xml.ws</groupId>
+				<artifactId>jaxws-api</artifactId>
+				<version>${jaxws.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>

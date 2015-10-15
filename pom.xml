@@ -22,11 +22,13 @@
 	
 	<properties>
 		<context>portal</context>
-		<junit.version>4.10</junit.version>
+		<junit.version>4.12</junit.version>
+		<jaxb.version>2.2.11</jaxb.version>
+		<jaxws.version>2.2.10</jaxws.version>
 		<hibernate-commons-annotations.version>3.3.0.ga</hibernate-commons-annotations.version>
-		<registry-client.version>12.07r1-SNAPSHOT</registry-client.version>
+		<registry-client.version>12.07r2-SNAPSHOT</registry-client.version>
 		<query-parser.version>12.07</query-parser.version>
-		<dictionary.version>12.07r1-SNAPSHOT</dictionary.version>
+		<dictionary.version>12.07r2-SNAPSHOT</dictionary.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 		
