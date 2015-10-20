@@ -26,11 +26,12 @@
 			<p/>
 		<a4j:form ajaxSubmit="true">	
 			<h:outputText value="Choose the transition type"></h:outputText>
-				<h:selectOneRadio value="#{form.selectedMode}" disabled="#{!form.queryable}"
-					layout="pageDirection" tabindex="10">
+				<h:selectOneRadio value="#{form.selectedMode}" disabled="#{!form.queryable}" valueChangeListener="#{form.changeTransitionType}"
+					layout="pageDirection" tabindex="10" onchange="submit()">
+					<a4j:support event="onclick" reRender="radiativeSubmitButton" />
 				<f:selectItems value="#{form.nextOptions}" />
 			</h:selectOneRadio>
-			<a4j:commandButton value="Next ->" align="right" width="200" action="#{form.validate}"
+			<a4j:commandButton id="radiativeSubmitButton" value="#{form.submitButtonValue}" align="right" width="200" action="#{form.validate}"
 				styleClass="roundButton" tabindex="20" reRender="formPanel" rendered="#{form.queryable}"/>
 		</a4j:form>
 		

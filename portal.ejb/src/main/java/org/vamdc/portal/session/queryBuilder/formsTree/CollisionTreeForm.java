@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 import org.vamdc.dictionary.Restrictable;
@@ -35,6 +36,8 @@ public class CollisionTreeForm extends CollisionsForm implements FormForFields, 
 	private Boolean queryable = true;
 	private SearchMode selectedMode = SearchMode.withoutReaction;
 	private QueryTreeInterface tree;
+	private final String defaultSubmitButtonValue = "Select target(s) and collider(s)";
+	private String submitButtonValue = defaultSubmitButtonValue;
 	
 		
 	private enum SearchMode{
@@ -122,6 +125,24 @@ public class CollisionTreeForm extends CollisionsForm implements FormForFields, 
 	@Override
 	public Boolean getQueryable() {
 		return this.queryable;
+	}
+	
+	public String getSubmitButtonValue(){
+		return this.submitButtonValue;
+	}
+	
+	public void changeCollisionType(ValueChangeEvent e){
+		final SearchMode value = (SearchMode)e.getNewValue();
+		switch(value){
+		case withoutReaction :
+			this.submitButtonValue = this.defaultSubmitButtonValue;
+			break;
+			
+		case withReaction:
+			this.submitButtonValue = "Select reactant(s) and product(s)";
+			break;				
+		}
+		
 	}
 	
 }

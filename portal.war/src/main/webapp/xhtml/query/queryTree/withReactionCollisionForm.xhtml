@@ -69,10 +69,10 @@
 					</c:forEach>
 				</h:selectOneMenu>
 				
-				<a4j:commandButton value="Next ->" align="right" width="200" action="#{form.validate}" id="speciesNextButton"
+				<a4j:commandButton value="Configure species" align="right" width="200" action="#{form.validate}" id="speciesNextButton"
 				styleClass="roundButton" tabindex="20" reRender="formPanel" disabled="#{!form.queryable}"/>
-				
-				<a4j:commandButton value="Edit" align="right" width="200" action="#{form.enable}" id="speciesUnlockButton"
+				<h:outputLabel value="" /><h:outputLabel value="" /><h:outputLabel value="" /><h:outputLabel value="" />
+				<a4j:commandButton value="Add more species" align="right" width="200" action="#{form.enable}" id="speciesUnlockButton"
 				styleClass="roundButton" tabindex="20" reRender="formPanel" rendered="#{!form.queryable}"/>
 
 			</h:panelGrid>

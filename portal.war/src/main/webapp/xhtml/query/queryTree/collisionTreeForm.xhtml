@@ -16,8 +16,9 @@
 		</f:facet>
 		
 		<a4j:form ajaxSubmit="true">		
-			<h:selectOneRadio value="#{form.selectedMode}" disabled="#{!form.queryable}"
-				layout="pageDirection" tabindex="10">
+			<h:selectOneRadio value="#{form.selectedMode}" disabled="#{!form.queryable}" valueChangeListener="#{form.changeCollisionType}"
+			onchange="submit()" layout="pageDirection" tabindex="10">
+			<a4j:support event="onclick" reRender="collisionSubmitButton" />
 			<f:selectItems value="#{form.nextOptions}" />
 			</h:selectOneRadio>
 
@@ -27,7 +28,7 @@
 				</h:panelGrid>
 			</c:forEach>
 	
-			<a4j:commandButton value="Next ->" align="right" width="200" action="#{form.validate}"
+			<a4j:commandButton id="collisionSubmitButton"  value="#{form.submitButtonValue}" align="right" width="200" action="#{form.validate}"
 				styleClass="roundButton" tabindex="20" reRender="formPanel" rendered="#{form.queryable}"/>
 		</a4j:form>
 

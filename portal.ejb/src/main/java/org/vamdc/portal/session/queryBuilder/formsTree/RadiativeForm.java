@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 import org.vamdc.dictionary.Restrictable;
@@ -29,6 +30,8 @@ public class RadiativeForm extends AbstractForm implements FormForFields, TreeFo
 	private Boolean queryable = true;
 	private NextForm selectedMode = NextForm.anyEnergyRange;
 	private QueryTreeInterface tree;
+	private final String defaultSubmitButtonValue = "Select species";
+	private String submitButtonValue = defaultSubmitButtonValue;
 		
 	private enum NextForm{
 		upperLowerEnergyRange,
@@ -118,6 +121,25 @@ public class RadiativeForm extends AbstractForm implements FormForFields, TreeFo
 	@Override
 	public Boolean getQueryable() {
 		return this.queryable;
+	}
+	
+	public String getSubmitButtonValue(){
+		return this.submitButtonValue;
+	}
+	
+	public void changeTransitionType(ValueChangeEvent e){
+		NextForm value = (NextForm)e.getNewValue();
+		switch(value){
+		case upperLowerEnergyRange:
+			this.submitButtonValue = "Configure energy range";
+			break;
+		case stateEnergyRange:
+			this.submitButtonValue = "Configure energy range";
+			break;
+		case anyEnergyRange:	
+			this.submitButtonValue = this.defaultSubmitButtonValue;
+			break;
+		}
 	}
 	
 }
