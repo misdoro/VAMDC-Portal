@@ -13,12 +13,16 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
+import javax.faces.component.UIOutput;
+
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.vamdc.portal.registry.RegistryFacade;
+
 
 
 @Name("consumers")
@@ -29,48 +33,88 @@ public class Consumers implements Serializable{
 
 	@In(create=true) RegistryFacade registryFacade;
 
-	private String selectedIvoaID = null;
-	private Boolean consumerSelected = false;
-	
+	public String selectedItem;
+
+	/**
+	 * selected consumer ivoaid
+	 */
+	private String selectedConsumer = null;
+	//private Boolean isConsumerSelected = false;
+
 	//selected nodes requests 
-	private Map<String,Boolean> queries = new HashMap<String,Boolean>();
-	
+	//private Map<String,Boolean> queries = new HashMap<String,Boolean>();
+	private String selectedNode = null;
+
 	// selected nodes ids
 	private Map<String, Boolean> selectedNodes = new HashMap<String, Boolean>();
-	
+
 	private Future<URL> consumerLocation;
-	
+
 	//list of processors
 	private List<SelectItem> consumers = new ArrayList<SelectItem>();
-	
-	
+
+	public String getSelectedItem(){
+		return this.selectedItem;
+	}
+
+	public void setSelectedItem(String selectedItem){
+		this.selectedItem = selectedItem;
+	}
+
+
 	public List<SelectItem> getConsumers(){
 		return consumers;
 	}	
-	
+
+	public String getSelectedNode(){
+		return this.selectedNode;
+	}
+
+	public void setSelectedNode(String nodeId){
+		this.selectedNode = nodeId;
+	}
+
+	/**
+	 * returns a list of all available consumers
+	 * parameters are not accepted with jsf1.2 so it is not possible to restrict to consumers related to a
+	 * given node yet
+	 * @return
+	 */
+	public List<SelectItem> getAllConsumers(){
+		List<SelectItem> result = new ArrayList<SelectItem>();
+		Collection<String> visibleConsumers = new ArrayList<String>(registryFacade.getConsumerIvoaIDs());
+		//recommended consumers
+		for (String ivoaID:visibleConsumers){
+			result.add(new SelectItem(ivoaID, registryFacade.getResourceTitle(ivoaID)));
+		}
+		return result;
+	}
+
 	public Integer getConsumersCount(){
 		return consumers.size();
 	}
-	
+
 	/**
 	 * update list of processors and returns its size
 	 * @return
 	 */
-    public Integer getConsumersUpdatedCount(){
+	/* public Integer getConsumersUpdatedCount(){
     	return getConsumersUpdated().size();
     }
-    
-    private void clearConsumerSelection(){
-    	consumerSelected = false;
-    	consumers.clear();
-    	consumerLocation = null;
-    	selectedIvoaID = null;
-    }    
-	
-    /**
-     * update list of processors for the currently selected nodes
-     * @return
-     */
+	 */
+	private void clearConsumerSelection(){
+		//isConsumerSelected = false;
+		consumers.clear();
+		consumerLocation = null;
+		selectedConsumer = null;
+		selectedNode = null;
+	}    
+
+	/**
+	 * update list of processors for the currently selected nodes
+	 * @return
+	 */
+	/*
 	public List<SelectItem> getConsumersUpdated(){
 
 		List<SelectItem> result = new ArrayList<SelectItem>();
@@ -83,12 +127,12 @@ public class Consumers implements Serializable{
 					visibleConsumers.retainAll(registryFacade.getNodeConsumers(node.getKey()));
 				}
 			}
-			
+
 			//recommended consumers
 			for (String ivoaID:visibleConsumers){
 				result.add(new SelectItem(ivoaID," ** "+registryFacade.getResourceTitle(ivoaID)));
 			}
-			
+
 			//other consumers
 			for(String ivoaID : registryFacade.getConsumerIvoaIDs()){
 				if(visibleConsumers.contains(ivoaID) == false){
@@ -98,8 +142,8 @@ public class Consumers implements Serializable{
 		}	
 		this.consumers = result;
 		return this.consumers;
-	}
-    
+	}*/
+	/*  
     public Integer getSelectedNodesCount(){
         int result = 0;
         for (Map.Entry<String, Boolean> entry : this.queries.entrySet()){
@@ -108,7 +152,7 @@ public class Consumers implements Serializable{
         }
         return result;
     }
-    
+
     public String getSelectedNodes(){
     	StringBuilder ret=new StringBuilder();
     	for (Map.Entry<String, Boolean> entry : this.queries.entrySet()){
@@ -117,25 +161,38 @@ public class Consumers implements Serializable{
         }
     	return ret.toString();
     }
-    
-    public boolean getConsumerSelected(){
-    	return this.consumerSelected;
-    }
-    
+	 */
+	public boolean getConsumerSelected(){
+		if(this.selectedConsumer == null)
+			return false;
+		return true;
+		//return this.isConsumerSelected;
+	}
+
+	public void changeConsumerSelected(ActionEvent event){
+		System.out.println("### listener");
+		if( event.getComponent().getParent() != null ){
+			UIOutput el = (UIOutput)event.getComponent().getParent();
+			this.setSelectedConsumer((String)el.getValue());
+			System.out.println("### set value : "+this.selectedConsumer);
+		}	   
+	}   
+
+
 	public void setSelectedConsumer(String ivoaID){
-		this.consumerSelected = true;
-		this.selectedIvoaID = ivoaID;
+		//this.isConsumerSelected = true;
+		this.selectedConsumer = ivoaID;
 	}
 
 	public String getSelectedConsumer(){
-		return selectedIvoaID;
-	}
-	
-	
-	public Integer getSelectedConsumerNumberOfInput(){
-		return registryFacade.getConsumerNumberOfInputs(selectedIvoaID);
+		return selectedConsumer;
 	}
 
+
+	public Integer getSelectedConsumerNumberOfInput(){
+		return registryFacade.getConsumerNumberOfInputs(selectedConsumer);
+	}
+	/*
 	public Map<String,Boolean> getQueries() {
 		return queries;
 	}
@@ -143,38 +200,38 @@ public class Consumers implements Serializable{
 	public void setQueries(Map<String,Boolean> queries) {
 		this.queries = queries;
 	}
-
-	public void process(){
+	 */
+	public void process(String value){	
+		URL consumer = registryFacade.getConsumerServiceURL(selectedConsumer);
+		
 		List<URL> nodes = new ArrayList<URL>();
-		for (String req:queries.keySet()){
-			if (queries.get(req)){
-				try {
-					nodes.add(new URL(req));
-				} catch (MalformedURLException e) {}
-			}
+
+		try {
+			nodes.add(new URL(value));
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
-		URL consumer = registryFacade.getConsumerServiceURL(selectedIvoaID);
-		
-		if (nodes.size()>0 && consumer!=null){
+		if (consumer!=null){
 			ExecutorService executor = Executors.newSingleThreadExecutor();
 			consumerLocation = executor.submit(new PostRequest(consumer,nodes));
 			executor.shutdown();
 		}
+
 	}
-	
+
 	public boolean isDone(){
 		return (consumerLocation!=null && consumerLocation.isDone() && !consumerLocation.isCancelled());
 	}
-	
-	public boolean isProcessing(){
+
+	public boolean isProcessing(){		
 		return ((consumerLocation!=null && !consumerLocation.isDone()));
 	}
-	
+
 	public boolean isOk(){
 		return (isDone() && !isErrorHappened());
 	}
-	
+
 	public boolean isErrorHappened(){
 		if (isDone()){
 			try{
@@ -185,7 +242,7 @@ public class Consumers implements Serializable{
 		}
 		return false;
 	}
-	
+
 	public String getError(){
 		if (isDone()){
 			try{
@@ -196,21 +253,23 @@ public class Consumers implements Serializable{
 		}
 		return "";
 	}
-	
+
 	public String getLocation(){
 		URL result = null;
 		if (isDone())
 			try {
 				result= consumerLocation.get();
+
 			} catch (InterruptedException e) {
 			} catch (ExecutionException e) {
 				e.printStackTrace();
 			}
+
 		if (result!=null)
 			return result.toExternalForm();
 		return "";
 	}
-	
+
 	public void updateNodeIds(String text){
 		clearConsumerSelection();
 		if(selectedNodes.containsKey(text)){
@@ -219,5 +278,5 @@ public class Consumers implements Serializable{
 			selectedNodes.put(text, true);
 		}		
 	}
-	
+
 }

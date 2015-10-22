@@ -24,13 +24,13 @@
 				<h:panelGrid>
                     <rich:panel styleClass="queryProgressPanel">
                       <f:facet name="header">
-                            <h:outputText value="1 : Query Execution"/>
+                            <h:outputText value="Query Execution"/>
                       </f:facet>
 
                         <rich:progressBar id="previewProgress" styleClass="#{preview.done? 'rich-progress-bar-done':''}"
                             value="#{preview.percentsDone}" interval="987" minValue="0"
                             maxValue="100" 
-                            reRenderAfterComplete="previewProgress,previewTable,statusPanel,commentsPanel,consumersContainer"
+                            reRenderAfterComplete="previewProgress,previewTable,statusPanel,commentsPanel"
                             reRender="previewTable,statusPanel,commentsPanel" >
                             <f:facet name="initial">
                                 <a4j:outputPanel layout="block" styleClass="rich-progress-bar-width rich-progress-bar-mockup">
@@ -73,11 +73,6 @@
 
 
 				</h:panelGrid>
-
-				<ui:include src="/xhtml/consumer/consumerPanel.xhtml" >
-					<ui:param name="titlePrefix" value="3 : " />
-				</ui:include>
-
 
 			</h:panelGrid>
 				<ui:include src="/xhtml/preview/table.xhtml" >

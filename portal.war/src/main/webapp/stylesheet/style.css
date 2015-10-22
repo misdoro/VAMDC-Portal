@@ -189,3 +189,7 @@
 .nodesTable{
 	width : 90%;	
 }
+
+.inline{
+	display : inline-block;
+}
