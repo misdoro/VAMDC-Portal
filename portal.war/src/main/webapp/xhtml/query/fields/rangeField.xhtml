@@ -16,11 +16,11 @@
 	<h:panelGroup>
 		<rich:spacer width="10" />
 		<h:inputText value="#{field.loValue}" styleClass="narrowfield" tabindex="10">
-			<a4j:support event="onkeyup" reRender="nodeTree,buttonArea,asyncForm"/>
+			<a4j:support event="onkeyup" reRender="nodeTree,buttonArea"/>
 		</h:inputText>
 		<h:outputText value="to" />
 		<h:inputText value="#{field.hiValue}" styleClass="narrowfield" tabindex="10">
-			<a4j:support event="onkeyup" reRender="nodeTree,buttonArea,asyncForm"/>
+			<a4j:support event="onkeyup" reRender="nodeTree,buttonArea"/>
 		</h:inputText>
 	
 		<h:outputText value="#{field.units}" />		
