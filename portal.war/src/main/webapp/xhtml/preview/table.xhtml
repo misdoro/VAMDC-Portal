@@ -26,7 +26,12 @@
 						<h:outputText styleClass="headerText" value="Name" />
 					</h:column>
 					<h:column>
-						<h:outputText styleClass="headerText" value="View data" />
+
+						<h:outputText value="View data" styleClass="headerText" />
+						<h:outputText value=" ( Please wait until query is complete )"
+							rendered="#{!preview.done }" />
+
+
 					</h:column>
 					<h:column>
 						<h:outputText styleClass="headerText" value="Response" />
@@ -71,18 +76,22 @@
 				<h:selectOneMenu id="somp#{node.recordID}"
 					disabled="#{!preview.done }" rendered="#{node.isOk()}">
 					<f:selectItem itemValue="-- Choose display --" />
-					<f:selectItems value="#{consumers.allConsumers}" />
+					<f:selectItems value="#{consumers.nodeConsumers[node.ivoaID]}" />
 					<a4j:support id="ajaxsomp#{node.recordID}" event="onchange"
 						action="#{consumers.process(node.fullQueryURL)}"
 						actionListener="#{consumers.changeConsumerSelected}"
 						reRender="consumerupdate#{node.recordID}"></a4j:support>
-
 				</h:selectOneMenu>
-				<h:panelGroup id="consumerupdate#{node.recordID}">
+				<h:panelGroup id="consumerupdate#{node.recordID}" layout="block">
 					<a4j:region>
 						<a4j:poll id="consumerPoll" interval="1000"
 							enabled="#{consumers.processing}" reRender="consumerupdate" />
 					</a4j:region>
+					<a4j:outputPanel rendered="#{consumers.ok}">
+						<script>
+							window.open("#{consumers.location}");
+						</script>
+					</a4j:outputPanel>
 					<h:graphicImage value="/img/waitingIcon.gif" width="16" height="16"
 						rendered="#{consumers.processing}" />
 					<h:graphicImage value="/img/error.gif" id="consumerErrorImg"

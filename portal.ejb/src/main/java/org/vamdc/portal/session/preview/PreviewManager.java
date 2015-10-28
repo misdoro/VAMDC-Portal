@@ -124,8 +124,8 @@ public class PreviewManager implements Serializable{
 			}
 		}
 		
-		if (!completeEventCalled)
-			completeEvent();
+		/*if (!completeEventCalled)
+			completeEvent();*/
 		
 		return true;
 	}
@@ -171,7 +171,7 @@ public class PreviewManager implements Serializable{
 	/**
 	 * Action that is called when the preview is complete.
 	 */
-	public void completeEvent(){
+	/*public void completeEvent(){
 		this.completeEventCalled=true;
 		List<HttpHeadResponse> results = getNodes();
 		int numActive=0;
@@ -190,6 +190,6 @@ public class PreviewManager implements Serializable{
 			consumers.getQueries().put(results.get(0).getFullQueryURL(), true);
 		}
 
-	}
+	}*/
 	
 }
