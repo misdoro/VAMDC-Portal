@@ -3,8 +3,9 @@ html {
 }
 
 body {
-	font-size: 12px;
+	font: normal 12px/1.7 "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
 	margin: 0px;
+	background : #F1F1F1 url() repeat top center;
 }
 
 a {
@@ -35,6 +36,25 @@ select {
 	font-size: 13px;
 }
 
+.bold{
+	font-weight : bold;
+}
+
+.justify{
+	text-align : justify;
+}
+
+.center{
+	text-align : center;
+}
+
+.container {
+	width : 1200px;
+	position : relative;
+	margin : auto;	
+	background : #FFFFFF url() repeat top center;
+}
+
 .tableControl, .actionButtons {
 	width: 100%;
 }
@@ -49,8 +69,15 @@ select {
 
 .footer {
 	text-align: center;
-	font-size: 11px;
-	margin-bottom: 10px;
+	padding-top: 1em;
+	padding-bottom: 1em;
+	/*font-size: 11px;*/
+	/*margin-bottom: 10px;*/
+}
+
+.header {
+	padding-top: 1em;
+	padding-bottom: 1em;
 }
 
 .rich-table {
@@ -98,13 +125,6 @@ select {
 	padding: 5px;
 	margin-top: 3px;
 	clear: left;
-}
-
-.header {
-	margin-top: 15px;
-	margin-bottom: 20px;
-	margin-left: 20px;
-	
 }
 
 .value {
@@ -234,10 +254,10 @@ table.radio input[type=radio] {
    vertical-align: bottom;
 }
 
-body .disclaimer{
-	font-size : 14px;	
-	width : 50%;
+body .textContent{
+	/*font-size : 14px;	*/
+	width : 75%;
 	text-align : justify;
-	padding-left : 2em;
+	padding-left : 1em;
 }
 

@@ -10,7 +10,7 @@ import org.vamdc.registry.client.Registry;
  * @author doronin
  *
  */
-public class VamdcNode {
+public class VamdcNode implements Comparable<VamdcNode>{
 	private final String ivoaID;
 	private Resource node;
 	private Registry registry;
@@ -53,7 +53,12 @@ public class VamdcNode {
 	}
 	
 	public String getStatus(){
-		return "OK";
+		return node.getStatus();
+	}
+
+	@Override
+	public int compareTo(VamdcNode node) {
+		return this.getName().compareTo(node.getName());
 	}
 	
 }

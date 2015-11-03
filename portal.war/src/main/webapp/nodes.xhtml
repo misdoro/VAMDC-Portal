@@ -9,9 +9,17 @@
 	xmlns:a="http://richfaces.org/a4j" template="/layout/template.xhtml">
 
 	<ui:define name="body">
-
-		<rich:dataTable id="queryListAll" value="#{nodes.nodes}" var="node" styleClass="nodesTable">
+		<h1>
+			<h:outputText value="Active databases" />
+		</h1>
+		<rich:dataTable id="queryListAll" value="#{nodes.nodes}" var="node"
+			styleClass="nodesTable" columnClasses="center,justify,center,center">
 			<f:facet name="header">
+				<rich:columnGroup>
+					<h:column colspan="4">
+						<h:outputText styleClass="headerText" value="Name" />
+					</h:column>
+				</rich:columnGroup>
 				<rich:columnGroup>
 					<h:column>
 						<h:outputText styleClass="headerText" value="Name" />
@@ -21,9 +29,6 @@
 					</h:column>
 					<h:column>
 						<h:outputText styleClass="headerText" value="Maintainer" />
-					</h:column>
-					<h:column>
-						<h:outputText styleClass="headerText" value="Status" />
 					</h:column>
 					<h:column>
 						<h:outputText styleClass="headerText" value="Availables species" />
@@ -40,21 +45,55 @@
 			<h:column>
 				<h:outputText value="#{node.description}" />
 			</h:column>
-			
+
 			<h:column>
 				<h:outputText value="#{node.maintainer}" />
-			</h:column>
-			
-			
-			<h:column>
-				<h:outputText value="#{node.status}" />
 			</h:column>
 
 			<h:column>
 				<h:form>
-					<h:commandLink action="#{nodespecies.displaySpecies(node.ivoaID)}" value="Show" target="_blank" propagation="none"/>
+					<h:commandLink action="#{nodespecies.displaySpecies(node.ivoaID)}"
+						value="Show" target="_blank" propagation="none" />
 				</h:form>
 			</h:column>
+		</rich:dataTable>
+
+		<h1>
+			<h:outputText
+				value="Inactive databases (node not yet available or under maintenance)" />
+		</h1>
+
+		<rich:dataTable id="queryListAllInactive"
+			value="#{nodes.inactiveNodes}" var="node" styleClass="nodesTable"
+			columnClasses="center,justify,center,center">
+			<f:facet name="header">
+				<rich:columnGroup>
+					<h:column>
+						<h:outputText styleClass="headerText" value="Name" />
+					</h:column>
+					<h:column>
+						<h:outputText styleClass="headerText" value="Description" />
+					</h:column>
+					<h:column>
+						<h:outputText styleClass="headerText" value="Maintainer" />
+					</h:column>
+				</rich:columnGroup>
+			</f:facet>
+
+			<h:column>
+				<h:outputLink value="#{node.site}" target="_blank">
+					<h:outputText value="#{node.name}" />
+				</h:outputLink>
+			</h:column>
+
+			<h:column>
+				<h:outputText value="#{node.description}" />
+			</h:column>
+
+			<h:column>
+				<h:outputText value="#{node.maintainer}" />
+			</h:column>
+
 		</rich:dataTable>
 
 

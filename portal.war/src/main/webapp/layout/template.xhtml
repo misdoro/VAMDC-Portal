@@ -20,18 +20,22 @@ window.history.forward();
 </script>
 </head>
 <body style="margin: 0 auto">
-	<div class="header"><ui:include src="header.xhtml"/></div>
+	<div class="header container"><ui:include src="header.xhtml"/></div>
+	<div class="container">
 	<ui:include src="menu.xhtml"/>
-	<div class="body">
+	</div>
+	<div class="container">
+		<div class="body">
 		<a:region selfRendered="true">
 			<h:messages id="messages" globalOnly="true" styleClass="message"
 				errorClass="errormsg" infoClass="infomsg" warnClass="warnmsg"
 				rendered="#{showGlobalMessages != 'false'}" />
-		</a:region>
+		</a:region>		
 		<ui:insert name="body" />
+		</div>
 	</div>
 
-	<div class="footer"><ui:include src="footer.xhtml" /></div>
+	<div class="footer container"><ui:include src="footer.xhtml" /></div>
 	</body>
 	</html>
 </f:view>

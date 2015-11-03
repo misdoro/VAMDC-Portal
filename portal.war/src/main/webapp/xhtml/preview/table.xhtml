@@ -82,7 +82,7 @@
 						actionListener="#{consumers.changeConsumerSelected}"
 						reRender="consumerupdate#{node.recordID}"></a4j:support>
 				</h:selectOneMenu>
-				<h:panelGroup id="consumerupdate#{node.recordID}" layout="block">
+				<h:panelGroup id="consumerupdate#{node.recordID}" layout="block" styleClass="consumerUpdateImg">
 					<a4j:region>
 						<a4j:poll id="consumerPoll" interval="1000"
 							enabled="#{consumers.processing}" reRender="consumerupdate" />
