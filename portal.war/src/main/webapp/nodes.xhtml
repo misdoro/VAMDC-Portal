@@ -13,7 +13,7 @@
 			<h:outputText value="Active databases" />
 		</h1>
 		<rich:dataTable id="queryListAll" value="#{nodes.nodes}" var="node"
-			styleClass="nodesTable" columnClasses="center,justify,center,center">
+			styleClass="nodesTable" columnClasses="alignCenter,alignJustify,alignCenter,alignCenter">
 			<f:facet name="header">
 				<rich:columnGroup>
 					<h:column colspan="4">
@@ -65,7 +65,7 @@
 
 		<rich:dataTable id="queryListAllInactive"
 			value="#{nodes.inactiveNodes}" var="node" styleClass="nodesTable"
-			columnClasses="center,justify,center,center">
+			columnClasses="alignCenter,alignJustify,alignCenter,alignCenter">
 			<f:facet name="header">
 				<rich:columnGroup>
 					<h:column>
