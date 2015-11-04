@@ -14,6 +14,13 @@ body .textContent{
 	padding-left : 1em;
 }
 
+.container {
+	width : 1060px;
+	position : relative;
+	margin : auto;	
+	background : #FFFFFF url() repeat top center;
+}
+
 a {
 	color : #F05A28;
 }
@@ -285,14 +292,6 @@ table.radio input[type=radio] {
 
 .alignCenter{
     text-align : center;
-}
-
-
-.container {
-	width : 1000px;
-	position : relative;
-	margin : auto;	
-	background : #FFFFFF url() repeat top center;
 }
 
 .tableControl, .actionButtons {
