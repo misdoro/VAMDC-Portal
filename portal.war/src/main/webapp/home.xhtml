@@ -15,8 +15,8 @@
 
 			<p>VAMDC aims to be an interoperable e-infrastructure that
 				provides the international research community with access to a broad
-				range of atomic and molecular (A&amp;M) data compiled within a set of
-				A&amp;M databases accessible through the provision of this portal
+				range of atomic and molecular (A&amp;M) data compiled within a set
+				of A&amp;M databases accessible through the provision of this portal
 				and of user software. Furthermore VAMDC aims to provide A&amp;M data
 				providers and compilers with a large dissemination platform for
 				their work.</p>
@@ -26,11 +26,12 @@
 				conjunction with consultations and advice from the A&amp;M user
 				community.</p>
 
-			<p class="bold">
-				<h:outputText
-					value="Currently we have #{registry.count} databases running and ready to serve you with the data."></h:outputText>
-
+			<p>
+				<s:link id="menuNodes" view="/nodes.xhtml"
+					value="Currently we have #{registry.count} databases running and ready to serve you with the data."
+					propagation="none" />
 			</p>
+
 		</div>
 	</ui:define>
 </ui:composition>
