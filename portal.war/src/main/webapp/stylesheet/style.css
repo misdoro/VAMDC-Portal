@@ -281,6 +281,10 @@ table.radio input[type=radio] {
 	margin-bottom : 2em;
 }
 
+.registerForm{
+	width : 40%;
+}
+
 
 .bold{
 	font-weight : bold;
