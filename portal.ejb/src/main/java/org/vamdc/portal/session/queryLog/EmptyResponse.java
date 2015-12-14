@@ -11,7 +11,7 @@ public class EmptyResponse implements ResponseInterface{
 
 	@Override
 	public String getStatsString() {
-		return "No nodes responded";
+		return "No node responded";
 	}
 
 	@Override
