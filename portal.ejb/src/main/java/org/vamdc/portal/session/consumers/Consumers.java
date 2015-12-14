@@ -22,6 +22,7 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.vamdc.portal.registry.RegistryFacade;
+import org.vamdc.portal.session.queryLog.EmptyResponse;
 
 @Name("consumers")
 @Scope(ScopeType.PAGE)
@@ -57,7 +58,7 @@ public class Consumers implements Serializable {
 			initNodeConsumers();
 		}
 		return this.nodeConsumers;
-	}
+	}	
 
 	public String getSelectedNode() {
 		return this.selectedNode;
@@ -75,7 +76,8 @@ public class Consumers implements Serializable {
 	private void initNodeConsumers() {
 		Collection<String> nodes = registryFacade.getTapIvoaIDs();
 		this.nodeConsumers = new HashMap<String, List<SelectItem>>();
-		for (String node : nodes) {
+		this.nodeConsumers.put(EmptyResponse.IVOA_ID, new ArrayList<SelectItem>());
+		for (String node : nodes) {			
 			List<SelectItem> consumers = new ArrayList<SelectItem>();
 
 			// search processors for selected nodes
