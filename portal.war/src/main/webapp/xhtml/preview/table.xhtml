@@ -71,19 +71,19 @@
 					value="#{registryFacade.getResourceTitle(node.ivoaID)}" />
 			</h:column>
 			<h:column>
-				<h:selectOneMenu id="somp#{node.recordID}"
+				<h:selectOneMenu id="somp"
 					disabled="#{!preview.done }" rendered="#{node.isOk()}">
 					<f:selectItem itemValue="-- Choose display --" />
 					<f:selectItems value="#{consumers.nodeConsumers[node.ivoaID]}" />
-					<a4j:support id="ajaxsomp#{node.recordID}" event="onchange"
+					<a4j:support id="ajaxsomp" event="onchange"
 						action="#{consumers.process(node.fullQueryURL)}"
 						actionListener="#{consumers.changeConsumerSelected}"
-						reRender="consumerupdate#{node.recordID}"></a4j:support>
+						reRender="consumerUpdate"></a4j:support>
 				</h:selectOneMenu>
-				<h:panelGroup id="consumerupdate#{node.recordID}" layout="block" styleClass="consumerUpdateImg">
+				<h:panelGroup id="consumerUpdate" layout="block" styleClass="consumerUpdateImg">
 					<a4j:region>
 						<a4j:poll id="consumerPoll" interval="1000"
-							enabled="#{consumers.processing}" reRender="consumerupdate" />
+							enabled="#{consumers.processing}" reRender="consumerUpdate" />
 					</a4j:region>
 					<a4j:outputPanel rendered="#{consumers.ok}">
 						<script>

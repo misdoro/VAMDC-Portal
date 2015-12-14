@@ -17,15 +17,11 @@
 				<a4j:commandLink
 					reRender="form#{form.id},nodeTree,buttonArea"
 					action="#{form.clear}"
-					value="Clear"
-					 />
-				
-				<a4j:commandLink id="form#{form.id}Remove"
-					reRender="formPanel,nodeTree,buttonArea"
-					action="#{form.delete}"
-					value="Remove form" immediate="true">
+					value="Clear">
+
 					<rich:componentControl for="form#{form.id}" attachTo="form#{form.id}Remove" operation="hide" event="onclick"/>
 				</a4j:commandLink>
+
 			</rich:toolBarGroup>
 		</rich:toolBar>
 	</f:facet>

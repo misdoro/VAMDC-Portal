@@ -5,16 +5,9 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core">
 
-	<h:panelGrid id="buttonArea">
-		<a4j:form ajaxSubmit="true">
-			<h:commandButton value="Find data" action="#{query.preview}"
-				styleClass="roundButton" disabled="#{!queryData.valid}" tabindex="20"/>			
-			<s:button value="Reset" view="/query.xhtml" propagation="none" styleClass="roundButton"/>		
-		</a4j:form>
-		
-	</h:panelGrid>
-	
+	<ui:include src="standardForm.xhtml" />
 
 </ui:composition>

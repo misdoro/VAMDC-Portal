@@ -16,7 +16,7 @@ public class ParticlesForm extends SpeciesForm implements Form{
 	@Override
 	public Integer getOrder() { return Order.Particles; }
 	@Override
-	public String getView() { return "/xhtml/query/forms/standardForm.xhtml"; }
+	public String getView() { return "/xhtml/query/forms/particlesForm.xhtml"; }
 	
 	public ParticlesForm(){
 		super();

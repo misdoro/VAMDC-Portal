@@ -19,7 +19,7 @@ public class AtomsForm extends SpeciesForm implements Form {
 	@Override
 	public Integer getOrder() { return Order.Atoms; }
 	@Override
-	public String getView() { return "/xhtml/query/forms/standardForm.xhtml"; }
+	public String getView() { return "/xhtml/query/forms/atomsForm.xhtml"; }
 	
 	public AtomsForm(){
 		super();
@@ -30,6 +30,8 @@ public class AtomsForm extends SpeciesForm implements Form {
 		addField(new TextField(Restrictable.InchiKey,"InChIKey"));
 		addField(new UnitConvRangeField(
 				Restrictable.StateEnergy, "State energy", new EnergyUnitConverter()));
+		
+
    
 	}
 	

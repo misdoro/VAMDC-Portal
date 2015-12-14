@@ -9,116 +9,141 @@
 	xmlns:a4j="http://richfaces.org/a4j" template="/layout/template.xhtml">
 
 	<ui:define name="body">
-		<h:panelGroup id="queryList">
-		<h:outputText value="There is no query to display." rendered="#{queryLog.queries.size == 0}"/>
-		<a4j:form ajaxSubmit="true" rendered="#{queryLog.queries.size > 0}">
+		<h:panelGroup id="queryList" styleClass="resultTable">
+			<h:outputText value="There is no query to display."
+				rendered="#{queryLog.queries.size == 0}" />
+			<a4j:form ajaxSubmit="true" rendered="#{queryLog.queries.size > 0}">
 
-			<ui:include src="/xhtml/consumer/consumerPanel.xhtml" />
+				<h:panelGrid id="queryListAll">
 
-			<h:panelGrid id="queryListAll">
+					<rich:dataTable value="#{queryLog.queries}" var="savedQuery" styleClass="resultTable">
+					
 
-				<rich:dataTable value="#{queryLog.queries}" var="savedQuery">
+						<f:facet name="header">
+							<rich:columnGroup>
+								<h:column>
+									<h:outputText styleClass="headerText" value="Query" />
+								</h:column>
+								<h:column>
+									<h:outputText styleClass="headerText" value="Comments" />
+								</h:column>
+								<h:column>
+									<h:outputText styleClass="headerText" value="Date" />
+								</h:column>
+								<h:column>
+									<h:outputText styleClass="headerText" value="Database" />
+								</h:column>
+								<h:column>
+									<h:outputText styleClass="headerText" value="Results" />
+								</h:column>
+								<h:column>
+									<h:outputText styleClass="headerText" value="Results Status" />
+								</h:column>
+								<h:column>
+									<h:outputText styleClass="headerText" value="Download" />
+								</h:column>
 
-					<f:facet name="header">
-						<rich:columnGroup>
-							<h:column>
-								<h:outputText styleClass="headerText" value="Query" />
-							</h:column>
-							<h:column>
-								<h:outputText styleClass="headerText" value="Comments" />
-							</h:column>
-							<h:column>
-								<h:outputText styleClass="headerText" value="Date" />
-							</h:column>
-							<h:column>
-								<h:outputText styleClass="headerText" value="Database" />
-							</h:column>
-							<h:column>
-								<h:outputText styleClass="headerText" value="Results" />
-							</h:column>
-							<h:column>
-								<h:outputText styleClass="headerText" value="Results Status" />
-							</h:column>
-							<h:column>
-								<h:outputText styleClass="headerText" value="Download" />
-							</h:column>
+							</rich:columnGroup>
+						</f:facet>
 
-						</rich:columnGroup>
-					</f:facet>
+						<rich:subTable value="#{savedQuery.responses}" var="response"
+							rowKeyVar="rowKey"
+							onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+							onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+							columnClasses=",alignCenter,alignCenter,alignCenter,alignCenter,alignCenter,alignCenter">
 
-					<rich:subTable value="#{savedQuery.responses}" var="response"
-						rowKeyVar="rowKey"
-						onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
-						onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+							<rich:column rowspan="#{savedQuery.responses.size()}"
+								rendered="#{rowKey eq 0}">
 
-						<rich:column rowspan="#{savedQuery.responses.size()}"
-							rendered="#{rowKey eq 0}">
+								<h:panelGrid columns="2">
+									<h:panelGrid columns="1">
+										<a4j:commandButton value="Edit"
+											action="#{query.edit(savedQuery.id)}"
+											styleClass="logActionButton" />
+										<a4j:commandButton value="Clone"
+											action="#{query.clone(savedQuery.id)}"
+											styleClass="logActionButton" />
+										<a4j:commandButton value="Delete"
+											action="#{queryLog.deleteQuery(savedQuery.id)}"
+											styleClass="logActionButton" reRender="queryList" />
 
-							<h:panelGrid columns="2">
-								<h:panelGrid columns="1">
-									<a4j:commandButton value="Edit"
-										action="#{query.edit(savedQuery.id)}"
-										styleClass="logActionButton" />
-									<a4j:commandButton value="Clone"
-										action="#{query.clone(savedQuery.id)}"
-										styleClass="logActionButton" />
-									<a4j:commandButton value="Delete"
-										action="#{queryLog.deleteQuery(savedQuery.id)}"
-										styleClass="logActionButton" reRender="queryList" />
-
+									</h:panelGrid>
+									<rich:panel styleClass="logQueryText">
+										<h:outputText value="#{savedQuery.queryString}" />
+									</rich:panel>
 								</h:panelGrid>
-								<rich:panel styleClass="logQueryText">
-									<h:outputText value="#{savedQuery.queryString}" />
+							</rich:column>
+
+							<rich:column rowspan="#{savedQuery.responses.size()}"
+								rendered="#{rowKey eq 0}">
+								<rich:panel styleClass="logQueryComments">
+									<h:outputText value="#{savedQuery.comments}" />
 								</rich:panel>
-							</h:panelGrid>
-						</rich:column>
+							</rich:column>
 
-						<rich:column rowspan="#{savedQuery.responses.size()}"
-							rendered="#{rowKey eq 0}">
-							<rich:panel styleClass="logQueryComments">
-								<h:outputText value="#{savedQuery.comments}" />
-							</rich:panel>
-						</rich:column>
+							<rich:column rowspan="#{savedQuery.responses.size()}"
+								rendered="#{rowKey eq 0}">
+								<h:outputText value="#{savedQuery.date}" />
+							</rich:column>
 
-						<rich:column rowspan="#{savedQuery.responses.size()}"
-							rendered="#{rowKey eq 0}">
-							<h:outputText value="#{savedQuery.date}" />
-						</rich:column>
+							<rich:column>
+								<h:outputText
+									value="#{registryFacade.getResourceTitle(response.nodeIVOAId)}" />
+								<h:selectOneMenu id="somp">
+									<f:selectItem itemValue="-- Choose display --" />
+									<f:selectItems
+										value="#{consumers.nodeConsumers[response.nodeIVOAId]}" />
+									<a4j:support event="onchange"
+										action="#{consumers.process(response.fullQueryURL)}"
+										actionListener="#{consumers.changeConsumerSelected}"
+										reRender="consumerUpdate"></a4j:support>
+								</h:selectOneMenu>
+								<h:panelGroup id="consumerUpdate" layout="block"
+									styleClass="consumerUpdateImg">
+									<a4j:region>
+										<a4j:poll id="consumerPoll" interval="1000"
+											enabled="#{consumers.processing}" reRender="consumerUpdate" />
+									</a4j:region>
+									<a4j:outputPanel rendered="#{consumers.ok}">
+										<script>
+											window.open("#{consumers.location}");
+										</script>
+									</a4j:outputPanel>
+									<h:graphicImage value="/img/waitingIcon.gif" width="16"
+										height="16" rendered="#{consumers.processing}" />
+									<h:graphicImage value="/img/error.gif" id="consumerErrorImg"
+										rendered="#{consumers.errorHappened}">
+										<rich:toolTip value="#{consumers.error}" styleClass="toolTip"
+											direction="top-left" id="consumerErrorText" />
+									</h:graphicImage>
+									<h:outputLink value="#{consumers.location}" target="_blank"
+										rendered="#{consumers.ok}" tabindex="30">
+										<h:outputText value="Display" />
+									</h:outputLink>
+								</h:panelGroup>
 
-						<rich:column>
-							<h:selectBooleanCheckbox
-								value="#{consumers.queries[response.fullQueryURL]}"
-								id="process#{response.id}" rendered="#{response.id.length()>0}">
-								<a4j:support event="onchange"
-									reRender="consumersContainer,inputFilesInfo"
-									action="#{consumers.updateNodeIds(response.nodeIVOAId)}" />
-								<rich:toolTip value="Select for processing" styleClass="toolTip"
-									direction="bottom-right" />
-							</h:selectBooleanCheckbox>
-							<h:outputText
-								value="#{registryFacade.getResourceTitle(response.nodeIVOAId)} " />
-						</rich:column>
+							</rich:column>
 
-						<rich:column>
-							<h:outputText value="#{response.statsString}" />
-						</rich:column>
+							<rich:column>
+								<h:outputText value="#{response.statsString}" />
+							</rich:column>
 
-						<rich:column>
-							<h:outputText value="#{response.status}" />
-						</rich:column>
+							<rich:column>
+								<h:outputText value="#{response.status}" />
+							</rich:column>
 
-						<rich:column>
-							<h:outputLink value="#{response.fullQueryURL}"
-								rendered="#{response.fullQueryURL.length()>0}">
-								<h:outputText value="XSAMS" />
-							</h:outputLink>
-						</rich:column>
-					</rich:subTable>
+							<rich:column>
+								<h:outputLink value="#{response.fullQueryURL}"
+									rendered="#{response.fullQueryURL.length()>0}">
+									<h:outputText value="XSAMS" />
+								</h:outputLink>
+							</rich:column>
+						</rich:subTable>
 
-				</rich:dataTable>
+					</rich:dataTable>
 
-			</h:panelGrid>
-		</a4j:form>
+				</h:panelGrid>
+			</a4j:form>
 		</h:panelGroup>
 	</ui:define>
 
