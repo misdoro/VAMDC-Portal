@@ -94,9 +94,13 @@ table.radio input[type=radio] {
 }
 
 .footer {
-	text-align: center;
+	text-align: right;
 	padding-top: 1em;
 	padding-bottom: 1em;
+}
+
+.footer img {
+	margin-right : 0.2em;
 }
 
 .content {
