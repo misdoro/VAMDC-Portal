@@ -18,37 +18,47 @@ import org.vamdc.portal.session.queryBuilder.forms.MoleculesForm.MoleculeInfo;
  */
 public class EntityFacade {
 
-	public static Collection<String> suggestStoichiometricFormula(
+	public static Collection<String> suggestMoleculeStoichiometricFormula(
 			EntityManager entityManager, String value) {
 		if (!checkValue(value) || entityManager==null)
 			return Collections.emptyList();
 
-		return EntityQuery.suggestStoichForm(entityManager, value.trim());
+		return EntityQuery.suggestMoleculeStoichForm(entityManager, value.trim());
 	}
 
 
-	public static Collection<String> suggestOrdinaryFormula(
+	public static Collection<String> suggestMoleculeOrdinaryFormula(
 			EntityManager entityManager, String value) {
 		if (!checkValue(value) || entityManager==null)
 			return Collections.emptyList();
 
-		return EntityQuery.suggestStructForm(entityManager, value);
+		return EntityQuery.suggestMoleculeStructForm(entityManager, value);
 	}
 
 
-	public static Collection<String> suggestChemicalName(
+	/*public static Collection<String> suggestChemicalName(
 			EntityManager entityManager, String value) {
 		if (!checkValue(value) || entityManager==null)
 			return Collections.emptyList();
 
-		return EntityQuery.suggestSpeciesName(entityManager, value.trim());
+		return EntityQuery.suggestMoleculeName(entityManager, value.trim());
+	}*/
+	
+	public static Collection<String> suggestMoleculeName(
+			EntityManager entityManager, String value) {
+		if (!checkValue(value) || entityManager==null)
+			return Collections.emptyList();
+
+		return EntityQuery.suggestMoleculeName(entityManager, value.trim());
 	}
 
 
 	public static List<MoleculeInfo> loadMoleculesFromName(EntityManager em,String value){
 		String query = "SELECT distinct vs FROM VamdcSpecies vs " +
 				"INNER JOIN vs.vamdcSpeciesNameses vsn " +
-				"WHERE vsn.name = :Value";
+				"INNER JOIN vs.vamdcSpeciesTypes vst " +
+				"WHERE vsn.name = :Value" +
+				"AND vst.name = 'Molecule'";
 		return loadElements(em,query,value);
 	}
 
