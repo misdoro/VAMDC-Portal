@@ -36,7 +36,7 @@ class EntityQuery{
 	private static Collection<String> suggestRestrictedSpeciesName(EntityManager em,
 			String name, Integer speciesType) {		
 		return em.createQuery("SELECT DISTINCT vsn.name from VamdcSpeciesNames vsn JOIN vsn.vamdcSpecies vsp " +
-				"WHERE vsn.name LIKE :speciesName and vsn.vamdcMarkupTypes.id=1 and vsp.speciesType=:speciesType"
+				"WHERE vsn.name LIKE :speciesName and vsn.vamdcMarkupTypes.id=1 and vsp.speciesType=:speciesType "
 				+ " order by length(vsn.name), vsn.searchPriority")
 				.setParameter("speciesName", "%"+name+"%")
 				.setParameter("speciesType", speciesType)

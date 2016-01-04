@@ -56,9 +56,8 @@ public class EntityFacade {
 	public static List<MoleculeInfo> loadMoleculesFromName(EntityManager em,String value){
 		String query = "SELECT distinct vs FROM VamdcSpecies vs " +
 				"INNER JOIN vs.vamdcSpeciesNameses vsn " +
-				"INNER JOIN vs.vamdcSpeciesTypes vst " +
-				"WHERE vsn.name = :Value" +
-				"AND vst.name = 'Molecule'";
+				"WHERE vsn.name = :Value " +
+				"AND vs.speciesType = 2 ";
 		return loadElements(em,query,value);
 	}
 
