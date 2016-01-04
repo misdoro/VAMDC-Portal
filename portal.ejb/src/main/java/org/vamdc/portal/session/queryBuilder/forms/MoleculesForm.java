@@ -175,7 +175,7 @@ public class MoleculesForm extends SpeciesForm implements Form{
 		@Override
 		public Collection<String> options(Object input) {
 			EntityManager em = (EntityManager) Component.getInstance("entityManager");
-			return EntityFacade.suggestStoichiometricFormula(em,(String)input);
+			return EntityFacade.suggestMoleculeStoichiometricFormula(em,(String)input);
 		}
 
 		@Override
@@ -199,7 +199,7 @@ public class MoleculesForm extends SpeciesForm implements Form{
 		@Override
 		public Collection<String> options(Object input) {
 			EntityManager em = (EntityManager) Component.getInstance("entityManager");
-			return EntityFacade.suggestOrdinaryFormula(em,(String)input);
+			return EntityFacade.suggestMoleculeOrdinaryFormula(em,(String)input);
 		}
 
 		@Override
