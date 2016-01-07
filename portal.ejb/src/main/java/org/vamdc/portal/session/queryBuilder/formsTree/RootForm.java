@@ -51,7 +51,7 @@ public class RootForm extends AbstractForm implements TreeFormInterface{
 		if (this.selectedMode == null)
 			return;
 		
-		tree.setSelectionMode(selectedMode);
+		//tree.setSelectionMode(selectedMode);
 		
 		switch(this.selectedMode){
 		case collision:

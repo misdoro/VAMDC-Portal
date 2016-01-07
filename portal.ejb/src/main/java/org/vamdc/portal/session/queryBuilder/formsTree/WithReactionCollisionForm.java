@@ -22,5 +22,55 @@ public class WithReactionCollisionForm extends ReactionCollisionForm implements 
 	public String getView() {		
 		return "/xhtml/query/queryTree/withReactionCollisionForm.xhtml";
 	}
+	
+	
+	public Integer getReactantAtomCount() {
+		return this.getTypeAAtomCount();
+	}
+
+	public void setReactantAtomCount(Integer reactantAtomCount) {
+		this.setTypeAAtomCount(reactantAtomCount);;
+	}
+	
+	public Integer getReactantMoleculeCount() {
+		return this.getTypeAMoleculeCount();
+	}
+
+	public void setReactantMoleculeCount(Integer reactantMoleculeCount) {
+		this.setTypeAMoleculeCount(reactantMoleculeCount);
+	}
+	
+	public Integer getReactantParticleCount() {
+		return this.getTypeAParticleCount();
+	}
+
+	public void setReactantParticleCount(Integer reactantParticleCount) {
+		this.setTypeAParticleCount(reactantParticleCount);
+	}
+
+	public Integer getProductAtomCount() {
+		return this.getTypeBAtomCount();
+	}
+
+	public void setProductAtomCount(Integer productAtomCount) {
+		this.setTypeBAtomCount(productAtomCount);
+	}
+
+	public Integer getProductMoleculeCount() {
+		return this.getTypeBMoleculeCount();
+	}
+
+	public void setProductMoleculeCount(Integer productMoleculeCount) {
+		this.setTypeBMoleculeCount(productMoleculeCount);
+	}
+	
+	public Integer getProductParticleCount() {
+		return this.getTypeBParticleCount();
+	}
+
+	public void setProductParticleCount(Integer productParticleCount) {
+		this.setTypeBParticleCount(productParticleCount);
+	}
+	
 
 }

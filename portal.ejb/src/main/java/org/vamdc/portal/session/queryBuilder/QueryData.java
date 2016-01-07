@@ -217,7 +217,7 @@ public class QueryData implements FormHolder,Serializable{
 			if(form.getOrder() == Order.GuidedSpeciesType)
 				this.speciesFormPosition = forms.size()-1;
 			
-			if (form instanceof SpeciesForm)
+			if (form instanceof SpeciesForm) //
 				speciesForms.add((SpeciesForm) form);
 			else
 				unsortedFormsList.add(form);
@@ -251,20 +251,21 @@ public class QueryData implements FormHolder,Serializable{
 			return 0;
 	}
 	
-	public void deleteForm(Form form){   
-        if(form instanceof SpeciesForm){//Decrease form positions only for species forms
-            Integer position = form.getPosition();
-            for (SpeciesForm currentForm:speciesForms) {
-                if(currentForm.getClass() == form.getClass()&&currentForm.getPosition()>position){
-                	currentForm.decreasePosition();
-                }
-            }
-        }
+	public void deleteForm(Form form){  
         formCounts.put(form.getOrder(), getFormTypeCount(form)-1);
 		forms.remove(form);
 		unsortedFormsList.remove(form);
-		if (form.getOrder()<Order.SPECIES_LIMIT)
-			speciesForms.remove(form);		
+		if (form.getOrder()<Order.SPECIES_LIMIT){
+			speciesForms.remove(form);
+	        if(form instanceof SpeciesForm){//Decrease form positions only for species forms
+	            Integer position = form.getPosition();
+	            for (SpeciesForm currentForm:speciesForms) {
+	                if(currentForm.getClass() == form.getClass() && currentForm.getPosition()>position){
+	                	currentForm.decreasePosition();
+	                }
+	            }
+	        }
+		}
 
 		rebuildLists();
 	}

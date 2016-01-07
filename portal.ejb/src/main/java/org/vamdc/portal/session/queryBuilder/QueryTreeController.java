@@ -1,8 +1,6 @@
 package org.vamdc.portal.session.queryBuilder;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import org.jboss.seam.Component;
@@ -20,13 +18,10 @@ import org.vamdc.portal.entity.query.Query;
 import org.vamdc.portal.entity.security.User;
 import org.vamdc.portal.session.preview.PersistableQueryInterface;
 import org.vamdc.portal.session.preview.PreviewManager;
-import org.vamdc.portal.session.queryBuilder.fields.AbstractField;
 import org.vamdc.portal.session.queryBuilder.forms.AbstractForm;
 import org.vamdc.portal.session.queryBuilder.forms.Form;
 import org.vamdc.portal.session.queryBuilder.forms.Order;
-import org.vamdc.portal.session.queryBuilder.formsTree.AtomsTreeForm;
 import org.vamdc.portal.session.queryBuilder.formsTree.RootForm;
-import org.vamdc.portal.session.queryBuilder.formsTree.SearchMode;
 import org.vamdc.portal.session.queryBuilder.formsTree.TreeFormInterface;
 import org.vamdc.portal.session.queryLog.QueryLog;
 import org.vamdc.portal.session.security.UserInfo;
@@ -40,10 +35,8 @@ public class QueryTreeController  implements QueryTreeInterface, PersistableQuer
 	@Logger
 	transient private Log log;	
 	@In(create=true) private PreviewManager preview;
-	@In(create=true) private QueryLog queryLog;
-	
-	private SearchMode searchMode = SearchMode.species;	
-	
+	@In(create=true) private QueryLog queryLog;	
+
 	public QueryTreeController(){
 		this.addForm(new RootForm(this));
 	}	
@@ -93,59 +86,10 @@ public class QueryTreeController  implements QueryTreeInterface, PersistableQuer
 	public List<Form> getForms() {
 		List<Form> forms= new ArrayList<Form>();
 		forms = this.getQueryData().getOrderedGuidedForm();
-		/*
-		switch(searchMode){
-			case collision :
-				forms = this.getCollisionForms();
-				break;
-			case radiative :
-				forms = this.getQueryData().getOrderedGuidedForm();
-				break;
-			case species :
-				forms = this.getQueryData().getOrderedGuidedForm();
-				break;		
-		}		*/
 		//return queryData.getUnsortedForms();
 		return forms;
 	}
-	
-	private List<Form> getRadiativeForms(){
-		List<Form> formsList = this.getQueryData().getForms();
-		List<Form> result = new ArrayList<Form>();
-		
-		for(Form f : formsList){
-			if(f.getOrder() == Order.GuidedRoot)
-				result.add(0, f);
-			if(f.getOrder() == Order.GuidedStates)
-				result.add(1, f);
-		}
-		
-		return formsList;		
-	}
-	
-	private List<Form> getCollisionForms(){
-		List<Form> formsList = this.getQueryData().getForms();
-		return formsList;		
-	}
-	
-	private List<Form> getSpeciesForms(){
-		List<Form> formsList = this.getQueryData().getForms();
-		List<Form> result = new ArrayList<Form>();
-		
-		for(Form f : formsList){
-			if(!isRequestable(f)){
-				result.add(f);
-			}
-		}
-		
-		for(Form f : formsList){
-			if(isRequestable(f)){
-				result.add(f);				
-			}
-		}		
-		return result;		
-	}
-	
+
 
 	public boolean isDone() {
 		return true;
@@ -158,21 +102,26 @@ public class QueryTreeController  implements QueryTreeInterface, PersistableQuer
 		} else
 			return RedirectPage.QUERYTREE;
 	}	
-	
-	
+		
 	@Override	
 	public <T extends AbstractForm & TreeFormInterface> void addForm(T form) {
 		this.getQueryData().addForm(form);	
 	}		
 	
+	
+	
 	public QueryData getQueryData(){
 		if(queryData == null){
-			queryData = (QueryData)Component.getInstance("queryData"); 
-			queryData.setGuidedQuery(true);
+			try{
+				queryData = (QueryData)Component.getInstance("queryData"); 
+				queryData.setGuidedQuery(true);
+			}catch(IllegalStateException e){ // 
+				queryData = new QueryData(); 
+				queryData.setGuidedQuery(true);
+			}
 		}
 		return queryData;
-	}
-	
+	}	
 
 	@Override
 	public Integer getFormCount() {
@@ -203,9 +152,8 @@ public class QueryTreeController  implements QueryTreeInterface, PersistableQuer
 	}
 
 	@Override
-	public void setSelectionMode(SearchMode searchMode) {
-		this.searchMode = searchMode;
+	public <T extends AbstractForm & TreeFormInterface> void removeForm(T form) {
+		this.queryData.deleteForm(form);		
 	}
-
 	
 }

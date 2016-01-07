@@ -7,7 +7,7 @@ import org.vamdc.dictionary.Restrictable;
 import org.vamdc.portal.session.queryBuilder.fields.SuggestionField;
 import org.vamdc.portal.session.queryBuilder.fields.SuggestionImpl;
 
-public class ParticlesForm extends SpeciesForm implements Form{
+public class ParticlesForm extends AbstractForm implements SpeciesForm{
 
 
 	private static final long serialVersionUID = 6076734404479237682L;
@@ -42,6 +42,5 @@ public class ParticlesForm extends SpeciesForm implements Form{
 			}};
 			return result;
 		}
-	}
-	
+	}	
 }

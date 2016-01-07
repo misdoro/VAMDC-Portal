@@ -14,12 +14,18 @@
 				<h:outputText value=" (#{form.prefix}) " rendered="#{form.prefix.length()>0}" />
 			</rich:toolBarGroup>
 			<rich:toolBarGroup location="right">
+				<a4j:commandLink id="form#{form.id}Remove"
+					reRender="formPanel,nodeTree,buttonArea"
+					action="#{form.delete}"
+					value="Remove form" immediate="true">
+					<rich:componentControl for="form#{form.id}" attachTo="form#{form.id}Remove" operation="hide" event="onclick"/>
+				</a4j:commandLink>
 				<a4j:commandLink
 					reRender="form#{form.id},nodeTree,buttonArea"
 					action="#{form.clear}"
 					value="Clear">
-
-					<rich:componentControl for="form#{form.id}" attachTo="form#{form.id}Remove" operation="hide" event="onclick"/>
+					<rich:componentControl for="form#{form.id}" attachTo="form#{form.id}Remove" 
+					 operation="hide" event="onclick"/>
 				</a4j:commandLink>
 
 			</rich:toolBarGroup>

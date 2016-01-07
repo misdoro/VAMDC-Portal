@@ -28,5 +28,7 @@ public interface FormHolder {
 	void setComments(String comments);
 
 	void setRequest(Collection<Requestable> requestFor);
+	
+	Integer getFormTypeCount(Form form);
 
 }

@@ -17,7 +17,7 @@ import org.vamdc.portal.session.queryBuilder.fields.SuggestionField;
 import org.vamdc.portal.session.queryBuilder.fields.SuggestionImpl;
 import org.vamdc.portal.session.queryBuilder.fields.TextField;
 
-public class MoleculesForm extends SpeciesForm implements Form{
+public class MoleculesForm extends AbstractForm implements SpeciesForm{
 
 	/**
 	 * Molecule info from species database
