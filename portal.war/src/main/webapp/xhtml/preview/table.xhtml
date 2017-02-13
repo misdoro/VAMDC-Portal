@@ -85,11 +85,6 @@
 						<a4j:poll id="consumerPoll" interval="1000"
 							enabled="#{consumers.processing}" reRender="consumerUpdate" />
 					</a4j:region>
-					<a4j:outputPanel rendered="#{consumers.ok}">
-						<script>
-							window.open("#{consumers.location}");
-						</script>
-					</a4j:outputPanel>
 					<h:graphicImage value="/img/waitingIcon.gif" width="16" height="16"
 						rendered="#{consumers.processing}" />
 					<h:graphicImage value="/img/error.gif" id="consumerErrorImg"
