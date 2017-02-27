@@ -17,8 +17,10 @@ import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
+import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
+import org.jboss.seam.log.Log;
 import org.jboss.seam.web.ServletContexts;
 import org.vamdc.portal.Settings;
 import org.vamdc.portal.entity.security.User;
@@ -45,6 +47,8 @@ public class QueryStore {
 	private Integer retryInterval = 2000; 	
 	
 	@In private UserInfo auth;
+	@Logger
+	transient private Log log;	
 	
 	/**
 	 * return result of querystore for a request
@@ -69,26 +73,26 @@ public class QueryStore {
 		// not tried yet or previous try failed
 		if(	uuids.containsKey(node) == false 
 			|| !uuids.get(node).getStatus().equals(QueryStoreResponse.STATUS_SUCCESS)){
-			while(result.equals("") && count < this.retry){
+			while(("").equals(result) && count < this.retry){
 				try {
 					result = this.doRequest(token, this.getUserEmail(), this.getIpAdress());	
 					Thread.sleep(this.retryInterval);	
 					count++;
 				} catch (ClientProtocolException e) {
 					error = "ClientProtocolException";
-					e.printStackTrace();
+					log.debug(e);
 					count = this.retry;
 				} catch (IOException e) {
 					error = "IOException";
-					e.printStackTrace();
+					log.debug(e);
 					count = this.retry;
 				} catch (InterruptedException e) {
 					error = "InterruptedException";
-					e.printStackTrace();
+					log.debug(e);
 					count = this.retry;
 				} catch (HttpException e) {
 					error = "HttpException";
-					e.printStackTrace();
+					log.debug(e);
 					count = this.retry;
 				}
 			}
@@ -136,7 +140,7 @@ public class QueryStore {
 		HttpClient httpClient = HttpClientBuilder.create().setDefaultRequestConfig(requestConfig).build();
 		HttpGet request = new HttpGet(this.getRequest(token, email, userIp));	
 		request.addHeader("User-Agent", Settings.PORTAL_USER_AGENT.get());
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 		HttpResponse response = httpClient.execute(request);
 
 		if(response.getStatusLine().getStatusCode() == 200){
@@ -180,7 +184,6 @@ public class QueryStore {
 					  	 + "&email=" + email 
 					     + "&userIp=" + userIp
 					     + "&usedClient=" + URLEncoder.encode(Settings.PORTAL_USER_AGENT.get()+"-" + Settings.PORTAL_VERSION.get(), "UTF-8");
-	   System.out.println(result);
 	   return result;
 	}
 	
