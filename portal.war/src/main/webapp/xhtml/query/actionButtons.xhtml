@@ -7,13 +7,12 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j">
 
-	<h:panelGrid id="buttonArea">
+	<h:panelGrid id="buttonArea" styleClass="buttonArea">
 		<a4j:form ajaxSubmit="true">
 			<h:commandButton value="Find data" action="#{query.preview}"
-				styleClass="roundButton" disabled="#{!queryData.valid}" tabindex="20"/>			
-			<s:button value="Reset" view="/query.xhtml" propagation="none" styleClass="roundButton"/>		
-		</a4j:form>
-		
+				styleClass="largeButton" disabled="#{!queryData.valid}" tabindex="20"/>			
+			<s:button value="Reset" view="/query.xhtml" propagation="none" styleClass="largeButton"/>		
+		</a4j:form>		
 	</h:panelGrid>
 	
 

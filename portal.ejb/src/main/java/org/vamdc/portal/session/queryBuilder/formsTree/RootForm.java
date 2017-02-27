@@ -20,17 +20,16 @@ public class RootForm extends AbstractForm implements TreeFormInterface{
 
 	
 	private List<SelectItem> nextOptions = new ArrayList<SelectItem>(){
-	private static final long serialVersionUID = -8406069388034760380L;
-
-	{
-		add(new SelectItem(SearchMode.collision,"For collisional process"));
-		add(new SelectItem(SearchMode.radiative,"For radiative process"));
-		add(new SelectItem(SearchMode.species,"By species"));
-	}
+		private static final long serialVersionUID = -8406069388034760380L;
+	
+		{
+			add(new SelectItem(SearchMode.species,"By species"));
+			add(new SelectItem(SearchMode.radiative,"For radiative process"));
+			add(new SelectItem(SearchMode.collision,"For collisional process"));
+		}
 	};
 	
 	public RootForm(QueryTreeInterface tree) {
-		//super(tree);
 		this.tree = tree;		
 	}
 
@@ -50,8 +49,6 @@ public class RootForm extends AbstractForm implements TreeFormInterface{
 	public void validate(){		
 		if (this.selectedMode == null)
 			return;
-		
-		//tree.setSelectionMode(selectedMode);
 		
 		switch(this.selectedMode){
 		case collision:
@@ -75,29 +72,25 @@ public class RootForm extends AbstractForm implements TreeFormInterface{
 
 	@Override
 	public String getTitle() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Integer getOrder() {
-		// TODO Auto-generated method stub
 		return Order.GuidedRoot;
 	}
-
+	
+	@Override
 	public Integer getPosition() {
-		// TODO Auto-generated method stub
 		return 1;
 	}
 
 	@Override
 	public Boolean getQueryable() {
-		// TODO Auto-generated method stub
 		return this.queryable;
 	}
 	
 	public void setQueryable(Boolean queryable) {
-		// TODO Auto-generated method stub
 		this.queryable = queryable;
 	}
 

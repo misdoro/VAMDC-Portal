@@ -6,7 +6,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j" template="/layout/template.xhtml">
+	xmlns:a4j="http://richfaces.org/a4j" 
+	template="/layout/template.xhtml">
 
 
 	<ui:define name="body">
@@ -49,14 +50,14 @@
 						<h:panelGrid id="statusPanel" columns="4">
 
 							<a4j:commandButton value="Modify query"
-								action="#{preview.refine()}" styleClass="roundButton"
+								action="#{preview.refine()}" styleClass="largeButton"
 								tabindex="1" />
 
 							<a4j:commandButton value="Stop waiting"
-								action="#{preview.cancel}" styleClass="roundButton"
+								action="#{preview.cancel}" styleClass="largeButton"
 								disabled="#{preview.done}" tabindex="2" />
 							<a4j:commandButton value="Save query"
-								action="#{query.saveQuery()}" styleClass="roundButton"
+								action="#{query.saveQuery()}" styleClass="largeButton"
 								disabled="#{!preview.done}" tabindex="3" />
 						</h:panelGrid>
 

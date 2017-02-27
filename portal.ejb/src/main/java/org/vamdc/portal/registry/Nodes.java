@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.TreeSet;
-
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
@@ -27,7 +25,7 @@ public class Nodes
     public Nodes(){
     	this.registry=Client.INSTANCE.get();
     }
-
+    
     public List<VamdcNode> getNodes(){
     	return this.getNodes(NodeStatus.ACTIVE);
     }

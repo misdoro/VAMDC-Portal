@@ -42,7 +42,7 @@ public class RegistryFacadeTest {
 			assertTrue(descr.length()>0);
 		}
 	}
-
+	
 	@Test
 	public void testGetNumberOfInputs() {
 		Collection<String> ivoaids=facade.getConsumerIvoaIDs();

@@ -42,6 +42,7 @@ public class HttpHeadResponse implements Serializable{
 	private Response status;
 	private Date lastmodified;
 	private Query query;
+	private String requestToken;
 
 	private Integer recordID;
 
@@ -76,6 +77,7 @@ public class HttpHeadResponse implements Serializable{
 		processes = collisions+radiative+nonRadiative;
 		truncated = getTruncatedValue(connection,"VAMDC-TRUNCATED");
 		lastmodified = extractLastModified(connection);
+		requestToken = connection.getHeaderField("VAMDC-REQUEST-TOKEN");		
 	}
 
 	private Date extractLastModified(HttpURLConnection connection) {
@@ -152,6 +154,8 @@ public class HttpHeadResponse implements Serializable{
 	public int getRadiative() { return radiative; }
 	public int getNonRadiative() { return nonRadiative; }
 	public int getCollisions() { return collisions; }
+	public String getRequestToken(){ return requestToken; }
+	
 	@Transient
 	public int getTruncated() { return truncated; }
 	
@@ -161,7 +165,7 @@ public class HttpHeadResponse implements Serializable{
 	public void setRadiative(int radiative) { this.radiative = radiative; }
 	public void setNonRadiative(int nonRadiative) { this.nonRadiative = nonRadiative; }
 	public void setCollisions(int collisions) { this.collisions = collisions; }
-
+	public void setRequestToken(String token){ this.requestToken = token; }
 	
 	@Lob 
 	public String getFullQueryURL() { return fullQueryURL; }

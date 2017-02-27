@@ -280,6 +280,15 @@ table.radio input[type=radio] {
 	border-radius: 10px;
 }
 
+.largeButton{
+	width : 100px;
+	font-weight : bold;	
+}
+
+.buttonArea .largeButton{
+	margin : 0px 5px 0px 0px;
+}
+
 .nodesTable{
 	width : 98%;	
 	margin-bottom : 2em;
