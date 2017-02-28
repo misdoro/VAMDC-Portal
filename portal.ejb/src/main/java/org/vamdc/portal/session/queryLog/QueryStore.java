@@ -147,10 +147,11 @@ public class QueryStore {
 			BufferedReader rd = new BufferedReader(
 	                       new InputStreamReader(response.getEntity().getContent()));
 
-			String uuid = "";
+			String uuid;
 			while ((uuid = rd.readLine()) != null) {
 				result.append(uuid);
 			}
+			rd.close();
 		}else{
 			// empty response
 			if(response.getStatusLine().getStatusCode() == 204){
