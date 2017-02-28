@@ -17,6 +17,8 @@ import org.vamdc.portal.session.queryBuilder.forms.MoleculesForm.MoleculeInfo;
  *
  */
 public class EntityFacade {
+	
+	private EntityFacade(){}
 
 	public static Collection<String> suggestMoleculeStoichiometricFormula(
 			EntityManager entityManager, String value) {
@@ -34,15 +36,6 @@ public class EntityFacade {
 
 		return EntityQuery.suggestMoleculeStructForm(entityManager, value);
 	}
-
-
-	/*public static Collection<String> suggestChemicalName(
-			EntityManager entityManager, String value) {
-		if (!checkValue(value) || entityManager==null)
-			return Collections.emptyList();
-
-		return EntityQuery.suggestMoleculeName(entityManager, value.trim());
-	}*/
 	
 	public static Collection<String> suggestMoleculeName(
 			EntityManager entityManager, String value) {
@@ -64,14 +57,16 @@ public class EntityFacade {
 
 	public static List<MoleculeInfo> loadMoleculesFromStoichForm(EntityManager em,String value){
 		String query = "SELECT distinct vs FROM VamdcSpecies vs " +
-				"WHERE vs.stoichiometricFormula = :Value";
+				"WHERE vs.stoichiometricFormula = :Value " +
+				"AND vs.speciesType = 2";
 		return loadElements(em,query,value);
 	}
 
 	public static List<MoleculeInfo> loadMoleculesFromOrdForm(EntityManager em, String value) {
 		String query = "SELECT distinct vs FROM VamdcSpecies vs " +
 				"INNER JOIN vs.vamdcSpeciesStructFormulaes vsf "   +
-				"WHERE vsf.formula = :Value";
+				"WHERE vsf.formula = :Value " +
+				"AND vs.speciesType = 2";
 		return loadElements(em,query,value);
 	}
 

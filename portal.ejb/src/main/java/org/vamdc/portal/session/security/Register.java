@@ -53,7 +53,6 @@ public class Register
 				}
 			}.addRole("admin").run();
 			statusMessages.add(Severity.INFO,"User #0 registered successfully. You may login now.", username);
-			log.info("Registered new user ",username);
 			registered=true;
 		} catch (IdentityManagementException e) {
 			statusMessages.add(Severity.ERROR,e.getMessage());

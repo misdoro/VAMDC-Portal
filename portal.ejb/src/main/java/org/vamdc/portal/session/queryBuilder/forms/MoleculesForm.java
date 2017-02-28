@@ -185,7 +185,7 @@ public class MoleculesForm extends AbstractForm implements SpeciesForm{
 
 		@Override
 		public void selected() {
-			EntityManager em = (EntityManager) Component.getInstance("entityManager");
+			EntityManager em = (EntityManager) Component.getInstance("entityManager");			
 			molecules = EntityFacade.loadMoleculesFromStoichForm(em, molStoichForm.getValue());
 			fillFromMolecules();
 			resetInchiKeys();
@@ -232,6 +232,7 @@ public class MoleculesForm extends AbstractForm implements SpeciesForm{
 			this.molChemName.setValue("");
 		}
 		this.molStoichForm.setValue(molecules.get(0).getFormula());
+		
 		if (molecules.size()==1)
 			this.molOrdForm.setValue(molecules.get(0).getOrdinaryFormula());
 		else

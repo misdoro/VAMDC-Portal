@@ -45,8 +45,6 @@ public class QueryTreeController  implements QueryTreeInterface, PersistableQuer
 	public String saveQuery(){
 		if (queryData.isValid()){
 			persistQuery();			
-			//conversation.endAndRedirect();
-			log.info("Save action");
 			return RedirectPage.QUERY_LOG;
 		}else{
 			return RedirectPage.QUERYTREE;

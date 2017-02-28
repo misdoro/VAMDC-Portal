@@ -9,6 +9,8 @@ import javax.persistence.EntityManager;
  *
  */
 class EntityQuery{
+	
+	private EntityQuery(){}
 
 	@SuppressWarnings("unchecked")
 	static Collection<String> suggestSpeciesName(EntityManager em,
@@ -82,16 +84,5 @@ class EntityQuery{
 				.setMaxResults(20)
 				.getResultList();
 	}
-	
-	//@SuppressWarnings("unchecked")
-	/*static Collection<String> suggestStructForm(EntityManager em, String formula){
-		return em.createQuery("SELECT distinct vssf.formula from VamdcSpeciesStructFormulae vssf JOIN vssf.vamdcSpecies vs" +
-				"WHERE vssf.formula LIKE :formula and vssf.vamdcMarkupTypes.id=1 order by length(vssf.formula), vssf.searchPriority")
-				.setParameter("formula", "%"+formula+"%")
-				.setMaxResults(20)
-				.getResultList();
-	}*/
-
-
 	
 }

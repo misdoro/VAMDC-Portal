@@ -63,7 +63,6 @@ public class QueryController implements PersistableQueryInterface{
 		if (queryData.isValid()){
 			persistQuery();			
 			conversation.endAndRedirect();
-			log.info("Save action");
 			return RedirectPage.QUERY_LOG;
 		}else{
 			return RedirectPage.QUERY;
