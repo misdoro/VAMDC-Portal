@@ -30,7 +30,6 @@ import org.vamdc.portal.session.queryBuilder.QueryData;
 @Scope(ScopeType.PAGE)
 public class PreviewManager implements Serializable{
 
-	//TODO: create meaningful test to check the serializability
 	private static final long serialVersionUID = 2029452631857959114L;
 
 	@Logger
@@ -51,12 +50,12 @@ public class PreviewManager implements Serializable{
 	
 	public void initiate(){
 		
-		if (nodeFutureResponses.size()>0)
+		if (!nodeFutureResponses.isEmpty())
 			return;
 
 		Collection<String> activeNodes = queryData.getActiveNodes();
 
-		if (activeNodes.size()==0)
+		if (activeNodes.isEmpty())
 			return;
 		
 		ExecutorService executor = Executors.newFixedThreadPool(activeNodes.size());
@@ -122,16 +121,13 @@ public class PreviewManager implements Serializable{
 					return false;
 				}
 			}
-		}
-		
-		/*if (!completeEventCalled)
-			completeEvent();*/
+		}		
 		
 		return true;
 	}
 	
 	public Long getPercentsDone(){
-		Long result=0L;
+		Long result;
 		if (isDone()){
 			result=101L;
 		} else{
@@ -168,28 +164,5 @@ public class PreviewManager implements Serializable{
 			return RedirectPage.QUERYTREE;
 	}
 
-	/**
-	 * Action that is called when the preview is complete.
-	 */
-	/*public void completeEvent(){
-		this.completeEventCalled=true;
-		List<HttpHeadResponse> results = getNodes();
-		int numActive=0;
-		String nodeId = null;
-		
-		
-		for (HttpHeadResponse node:results){
-			if (node.isOk() && node.getStatus()==Response.OK){
-				nodeId = node.getIvoaID();
-				numActive++;
-			}
-		}
-
-		if (numActive==1){
-			consumers.updateNodeIds(nodeId);
-			consumers.getQueries().put(results.get(0).getFullQueryURL(), true);
-		}
-
-	}*/
 	
 }

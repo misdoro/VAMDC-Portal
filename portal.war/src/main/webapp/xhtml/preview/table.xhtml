@@ -123,7 +123,7 @@
 
 			<h:column>
 				<h:panelGroup>
-					<h:outputLink value="#{node.fullQueryURL}" target="_blank"
+					<h:outputLink value="#{node.fullQueryURL}" 
 						rendered="#{node.isOk()}">
 						<h:outputText value="XSAMS" />
 						<a4j:support 	action="#{querystore.associateRequest(node.requestToken, node.ivoaID)}"  
