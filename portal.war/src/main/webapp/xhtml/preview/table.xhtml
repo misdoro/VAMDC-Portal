@@ -6,11 +6,17 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
-	
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a4j="http://richfaces.org/a4j">	
+
+
+	<h:panelGroup layout="block" >
+		<h:outputText id="logRequestStatus" />
+	</h:panelGroup>
 	
 	<h:panelGroup layout="block" id="nodeResults">
-
+	<h:outputText id="logRequestResult" value="#{querystore.processing}" />
+	
 	<rich:panel styleClass="resultTable">
 		<f:facet name="header">
 			<!-- titlePrefix defined in file including this one  -->
@@ -122,16 +128,16 @@
 			</h:column>
 
 			<h:column>
-				<h:panelGroup>
-					<h:outputLink value="#{node.fullQueryURL}" 
-						rendered="#{node.isOk()}">
-						<h:outputText value="XSAMS" />
-						<a4j:support 	action="#{querystore.associateRequest(node.requestToken, node.ivoaID)}"  
-										event="onmousedown" reRender="nodeResults" eventsQueue="portalQueue"/>
-
-					</h:outputLink>
+				<h:panelGroup >					
+					<a4j:commandButton value="XSAMS file" reRender="nodeResults"  
+					onclick="window.open('#{node.fullQueryURL}');document.getElementById('j_id23:logRequestResult').innerHTML = ''; \
+					document.getElementById('j_id23:logRequestStatus').innerHTML = 'Association process for #{registryFacade.getResourceTitle(node.ivoaID)} started';"
+					action="#{querystore.associateRequest(node.requestToken, node.ivoaID)}"  
+					id="button" eventsQueue="portalQueue" rendered="#{node.isOk()}" disabled="#{!preview.done }">	
+					</a4j:commandButton>
 				</h:panelGroup>
 				<br/>
+				<h:outputText value="" />
 				<h:panelGroup rendered="#{querystore.getNodeUuid(node.ivoaID).status eq 'success' }">
 					<h:outputLink value="http://cite.vamdc.eu/references.html?uuid=#{querystore.getNodeUuid(node.ivoaID).uuid}" target="_blank">
 						<h:outputText value="Citation link" />
@@ -139,7 +145,10 @@
 				</h:panelGroup >
 				<h:panelGroup rendered="#{querystore.getNodeUuid(node.ivoaID).status eq 'error' }">
 						<h:outputText value="No citation link : #{querystore.getNodeUuid(node.ivoaID).errorMessage }" />
-				</h:panelGroup >	
+				</h:panelGroup >
+				<h:panelGroup rendered="#{querystore.getNodeUuid(node.ivoaID).status eq 'empty' }">
+						<h:outputText value="No citation link : query not found in querystore" />
+				</h:panelGroup >		
 			</h:column>
 
 			<h:column>
@@ -164,3 +173,4 @@
 	</rich:panel>
 	</h:panelGroup>
 </ui:composition>
+

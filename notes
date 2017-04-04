@@ -1,0 +1,14 @@
+03/04/2017:
+Problème avec le clic sur les liens vers les fichiers xsams pour declencher l'association des requêtes dans le querystore.
+Le javascript rafraichissant la page ne fonctionnait pas sous firefox. Les liens ont été remplacés par des boutons.
+
+
+13/02/2017:
+SEAM retourne des erreurs d'exécution lorsqu'il est lancé avec java8 :
+Could not instantiate Seam component: registration
+
+Le fichier ~/.mavenrc a été édité pour que JAVA_HOME pointe sur java7
+JAVA_HOME est défini dans deploy.sh pour que jboss utilise java7
+
+Utilise JSF en version 1.x
+

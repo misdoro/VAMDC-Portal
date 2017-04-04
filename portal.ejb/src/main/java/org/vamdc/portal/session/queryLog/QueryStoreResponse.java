@@ -8,6 +8,7 @@ public class QueryStoreResponse {
 	public final static String STATUS_ERROR = "error";
 	public final static String STATUS_SUCCESS = "success";
 	public final static String STATUS_UNKNOWN = "unknown";
+	public final static String STATUS_EMPTY = "empty";
 
 	public QueryStoreResponse(String status, String uuid, String errorMessage){
 		this.status = status;
