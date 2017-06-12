@@ -21,7 +21,7 @@ public enum Settings {
 	HTTP_HEAD_TIMEOUT("HTTPHeadTimeout","60000"),
 	PDL_SERVER_URL("pdlServerURL", "http://vm-euhoutestc62.obspm.fr/vamdc/OnlineCode?"),
 	PORTAL_USER_AGENT("userAgent", "VAMDC Portal Dev"),
-	PORTAL_VERSION("version", "2017_02")
+	PORTAL_VERSION("version", "2017_06")
 	;
 	
 	

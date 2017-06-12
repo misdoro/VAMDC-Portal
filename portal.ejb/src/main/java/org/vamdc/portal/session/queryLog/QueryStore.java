@@ -5,23 +5,24 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.http.Header;
 import org.apache.http.HttpException;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
-import org.jboss.seam.annotations.async.Asynchronous;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.web.ServletContexts;
 import org.vamdc.portal.Settings;
@@ -91,10 +92,10 @@ public class QueryStore {
 		try {
 			String request = this.getRequest(token, this.getUserEmail(),
 					this.getIpAdress());
-			// not tried yet or previous try failed
+						// not tried yet or previous try failed
 			if (!uuids.containsKey(node)
 					|| !uuids.get(node).getStatus()
-							.equals(QueryStoreResponse.STATUS_SUCCESS)) {				
+							.equals(QueryStoreResponse.STATUS_SUCCESS)) {	
 				while ((result == null || QueryStoreResponse.STATUS_EMPTY.equals(result.getStatus())) && count < this.retry) {
 					result = this.doRequest(request);
 					Thread.sleep(this.retryInterval);
@@ -123,19 +124,26 @@ public class QueryStore {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 * @throws HttpException
+	 * @throws KeyStoreException 
+	 * @throws NoSuchAlgorithmException 
+	 * @throws KeyManagementException 
 	 */
 	private QueryStoreResponse doRequest(String requestString)
-			throws ClientProtocolException, IOException, HttpException {
-
+			throws IOException, HttpException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
+		
 		RequestConfig requestConfig = RequestConfig.custom()
-				.setConnectTimeout(3 * 1000).build();
+				.setConnectTimeout(3 * 1000).build();		
+		
 		HttpClient httpClient = HttpClientBuilder.create()
 				.setDefaultRequestConfig(requestConfig).build();
-		HttpGet request = new HttpGet(requestString);
+				
+		HttpGet request = new HttpGet(requestString);	
 		request.addHeader("User-Agent", Settings.PORTAL_USER_AGENT.get());
-		StringBuilder result = new StringBuilder();
-		HttpResponse response = httpClient.execute(request);			
-
+		StringBuilder result = new StringBuilder();			
+		
+		//SSLHandShakeException (IOException) if missing certificate
+		HttpResponse response = httpClient.execute(request);	
+		
 		if (response.getStatusLine().getStatusCode() == 200) {
 			BufferedReader rd = new BufferedReader(new InputStreamReader(
 					response.getEntity().getContent()));
@@ -180,7 +188,7 @@ public class QueryStore {
 	private String getRequest(String token, String email, String userIp) throws UnsupportedEncodingException {
 		String result = Settings.QUERYSTORE_ASSOCIATION_URL.get();
 		result = result + "queryToken=" + token + "&email=" + email
-				+ "&userIp=" + userIp + "&usedClient=" + URLEncoder.encode(
+				+ "&userIp=" + userIp + "&userClient=" + URLEncoder.encode(
 						Settings.PORTAL_USER_AGENT.get()+"-"+Settings.PORTAL_VERSION.get(), "UTF-8");
 		return result;
 	}
