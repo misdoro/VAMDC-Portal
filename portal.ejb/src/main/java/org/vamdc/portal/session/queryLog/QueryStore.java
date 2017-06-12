@@ -188,7 +188,7 @@ public class QueryStore {
 	private String getRequest(String token, String email, String userIp) throws UnsupportedEncodingException {
 		String result = Settings.QUERYSTORE_ASSOCIATION_URL.get();
 		result = result + "queryToken=" + token + "&email=" + email
-				+ "&userIp=" + userIp + "&userClient=" + URLEncoder.encode(
+				+ "&userIp=" + userIp + "&usedClient=" + URLEncoder.encode(
 						Settings.PORTAL_USER_AGENT.get()+"-"+Settings.PORTAL_VERSION.get(), "UTF-8");
 		return result;
 	}
