@@ -127,28 +127,30 @@
 				<h:outputText value="Not available" rendered="#{!node.lastModSet}" />
 			</h:column>
 
-			<h:column>
-				<h:panelGroup >					
-					<a4j:commandButton value="XSAMS file" reRender="nodeResults"  
-					onclick="window.open('#{node.fullQueryURL}');document.getElementById('j_id23:logRequestResult').innerHTML = ''; \
-					document.getElementById('j_id23:logRequestStatus').innerHTML = 'Association process for #{registryFacade.getResourceTitle(node.ivoaID)} started';"
-					action="#{querystore.associateRequest(node.requestToken, node.ivoaID)}"  
-					id="button" eventsQueue="portalQueue" rendered="#{node.isOk()}" disabled="#{!preview.done }">	
-					</a4j:commandButton>
-				</h:panelGroup>
-				<br/>
-				<h:outputText value="" />
-				<h:panelGroup rendered="#{querystore.getNodeUuid(node.ivoaID).status eq 'success' }">
-					<h:outputLink value="http://cite.vamdc.eu/references.html?uuid=#{querystore.getNodeUuid(node.ivoaID).uuid}" target="_blank">
-						<h:outputText value="Citation link" />
-					</h:outputLink>
-				</h:panelGroup >
-				<h:panelGroup rendered="#{querystore.getNodeUuid(node.ivoaID).status eq 'error' }">
-						<h:outputText value="No citation link : #{querystore.getNodeUuid(node.ivoaID).errorMessage }" />
-				</h:panelGroup >
-				<h:panelGroup rendered="#{querystore.getNodeUuid(node.ivoaID).status eq 'empty' }">
-						<h:outputText value="No citation link : query not found in querystore" />
-				</h:panelGroup >		
+			<h:column >
+				<h:panelGroup id="xsamsColumn">
+					<h:panelGroup >					
+						<a4j:commandButton value="XSAMS file" reRender="xsamsColumn,logRequestResult"  
+						onclick="window.open('#{node.fullQueryURL}');document.getElementById('j_id23:logRequestResult').innerHTML = ''; \
+						document.getElementById('j_id23:logRequestStatus').innerHTML = 'Association process for #{registryFacade.getResourceTitle(node.ivoaID)} started';"
+						action="#{querystore.associateRequest(node.requestToken, node.ivoaID)}"  
+						id="button" eventsQueue="portalQueue" rendered="#{node.isOk()}" disabled="#{!preview.done }">	
+						</a4j:commandButton>
+					</h:panelGroup>
+					<br/>
+					<h:outputText value="" />
+					<h:panelGroup rendered="#{querystore.getNodeUuid(node.ivoaID).status eq 'success' }">
+						<h:outputLink value="http://cite.vamdc.eu/references.html?uuid=#{querystore.getNodeUuid(node.ivoaID).uuid}" target="_blank">
+							<h:outputText value="Citation link" />
+						</h:outputLink>
+					</h:panelGroup >
+					<h:panelGroup rendered="#{querystore.getNodeUuid(node.ivoaID).status eq 'error' }">
+							<h:outputText value="No citation link : #{querystore.getNodeUuid(node.ivoaID).errorMessage }" />
+					</h:panelGroup >
+					<h:panelGroup rendered="#{querystore.getNodeUuid(node.ivoaID).status eq 'empty' }">
+							<h:outputText value="No citation link : query not found in querystore" />
+					</h:panelGroup >	
+				</h:panelGroup>	
 			</h:column>
 
 			<h:column>
