@@ -13,7 +13,6 @@ import java.util.Map;
 
 import org.apache.http.HttpException;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
@@ -23,6 +22,7 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
+import org.jboss.seam.annotations.async.Asynchronous;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.web.ServletContexts;
 import org.vamdc.portal.Settings;
@@ -38,24 +38,36 @@ public class QueryStore {
 	 */
 	private Map<String, QueryStoreResponse> uuids = new HashMap<String, QueryStoreResponse>(
 			5);
-
-	/**
-	 * number of requests sent to querystore
-	 */
-	private Integer retry = 10;		
-
-	/**
-	 * time between two request to the querystore, in milliseconds
-	 */
-	private Integer retryInterval = 3000;
-
 	@In
 	private UserInfo auth;
 	
 	@Logger
-	transient private Log log;
+	private Log log;
 	
 	private String processing = "";
+	
+	/**
+	 * parameters of request to query store 
+	 * @author nmoreau
+	 *
+	 */
+	enum Parameter{
+		
+		queryToken("queryToken"),
+		email("email"),
+		userIp("userIp"),
+		usedClient("usedClient");		
+
+		private String text;
+		
+		Parameter(String text){
+			this.text = text;
+		}
+		
+		public String getText(){
+			return this.text;
+		}
+	}
 
 	public String getProcessing() {
 		return processing;
@@ -72,7 +84,7 @@ public class QueryStore {
 	 **/	
 	public QueryStoreResponse getNodeUuid(String node) {
 		// not requested yet
-		if (this.uuids.containsKey(node) == false)
+		if (!this.uuids.containsKey(node))
 			return new QueryStoreResponse(QueryStoreResponse.STATUS_UNKNOWN,
 					"", "");
 
@@ -96,9 +108,10 @@ public class QueryStore {
 			if (!uuids.containsKey(node)
 					|| !uuids.get(node).getStatus()
 							.equals(QueryStoreResponse.STATUS_SUCCESS)) {	
-				while ((result == null || QueryStoreResponse.STATUS_EMPTY.equals(result.getStatus())) && count < this.retry) {
+				while ((result == null || QueryStoreResponse.STATUS_EMPTY.equals(result.getStatus())) 
+						&& count < Settings.QUERYSTORE_MAX_RETRY.getInt()) {
 					result = this.doRequest(request);
-					Thread.sleep(this.retryInterval);
+					Thread.sleep(Settings.QUERYSTORE_RETRY_TIMER.getInt());
 					count++;
 				}
 				this.uuids.put(node, result);
@@ -106,7 +119,8 @@ public class QueryStore {
 		} catch (Exception e) {
 			log.debug(e);
 		}
-		this.processing = "INFO : A  request was sent to the query store to get a citation link. Request status :  " + uuids.get(node).getStatus();
+		this.processing = 	"INFO : A  request was sent to the query store to get a citation link. Request status :  " 
+							+ uuids.get(node).getStatus();
 	}
 
 
@@ -114,14 +128,10 @@ public class QueryStore {
 	 * Send an HTTP request to the query store to get a UUID corresponding to a
 	 * head token
 	 * 
-	 * @param token
-	 *            token of a head request
-	 * @param email
-	 *            email of registered user
-	 * @param userIp
-	 *            ip of user asking
-	 * @return
-	 * @throws ClientProtocolException
+	 * @param requestString
+	 *            get request string
+
+	 * @return QueryStoreResponse
 	 * @throws IOException
 	 * @throws HttpException
 	 * @throws KeyStoreException 
@@ -142,9 +152,10 @@ public class QueryStore {
 		StringBuilder result = new StringBuilder();			
 		
 		//SSLHandShakeException (IOException) if missing certificate
-		HttpResponse response = httpClient.execute(request);	
+		HttpResponse response = httpClient.execute(request);
+		Integer statusCode = response.getStatusLine().getStatusCode();
 		
-		if (response.getStatusLine().getStatusCode() == 200) {
+		if ( statusCode == 200) {
 			BufferedReader rd = new BufferedReader(new InputStreamReader(
 					response.getEntity().getContent()));
 
@@ -156,19 +167,16 @@ public class QueryStore {
 			
 		} else {
 			// empty response
-			if (response.getStatusLine().getStatusCode() == 204) {
+			if (statusCode == 204) {
 				return new QueryStoreResponse(QueryStoreResponse.STATUS_EMPTY, "", "");
 			}
 			// server error
-			else if (response.getStatusLine().getStatusCode() >= 500) {
-				throw new HttpException("Server error : "
-						+ response.getStatusLine().getStatusCode());
+			else if (statusCode >= 500) {
+				throw new HttpException("Server error : " + statusCode);
 			}
 			// client error
-			else if (response.getStatusLine().getStatusCode() >= 400
-					&& response.getStatusLine().getStatusCode() < 500) {
-				throw new HttpException("Client error : "
-						+ response.getStatusLine().getStatusCode());
+			else if (statusCode >= 400 && statusCode < 500) {
+				throw new HttpException("Client error : " + statusCode);
 			}
 		}
 		
@@ -187,9 +195,13 @@ public class QueryStore {
 	 */
 	private String getRequest(String token, String email, String userIp) throws UnsupportedEncodingException {
 		String result = Settings.QUERYSTORE_ASSOCIATION_URL.get();
-		result = result + "queryToken=" + token + "&email=" + email
-				+ "&userIp=" + userIp + "&usedClient=" + URLEncoder.encode(
-						Settings.PORTAL_USER_AGENT.get()+"-"+Settings.PORTAL_VERSION.get(), "UTF-8");
+		result = result + Parameter.queryToken.getText() +"=" + token 
+				+ "&"+ Parameter.email.getText() +"=" + email
+				+ "&" + Parameter.userIp.getText() + "=" + userIp
+				+ "&" + Parameter.usedClient.getText() + "=" + 
+						URLEncoder.encode(
+						Settings.PORTAL_USER_AGENT.get()
+						+"-"+Settings.PORTAL_VERSION.get(), "UTF-8");
 		return result;
 	}
 
@@ -217,7 +229,7 @@ public class QueryStore {
 		if (u != null)
 			return u.getEmail();
 		else
-			return "unregistered@portal.vamdc.eu";
+			return Settings.DEFAULT_USER_MAIL.get();
 	}
 
 }

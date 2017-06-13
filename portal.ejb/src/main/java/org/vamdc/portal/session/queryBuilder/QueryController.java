@@ -84,38 +84,10 @@ public class QueryController implements PersistableQueryInterface{
 	
 	private void persistQuery() {
 		QueryPersister p = new QueryPersister(this);		
-		Query query = p.constructQuery();//constructQuery();
+		Query query = p.constructQuery();
 		queryLog.save(query,queryData.getEditQueryId());
 	}
-	
-	/*private Query constructQuery(){
-		Query result=null;
-		if (queryData.getEditQueryId()!=null)
-			result = queryLog.getQuery(queryData.getEditQueryId());
-		else
-			result = new Query();
-		result.setComments(queryData.getComments());
-		result.setQueryString(queryData.getQueryString());
-		result.setResponses(selectRespondedNodes());
-		result.setUser(auth.getUser());
-		result.setDate(new Date());
-		return result;
-	}
-
-
-	
-	private List<HttpHeadResponse> selectRespondedNodes() {
-		ArrayList<HttpHeadResponse> responses = new ArrayList<HttpHeadResponse>();
 		
-		for (HttpHeadResponse response:preview.getNodes()){
-			if (response.getStatus()==Response.OK)
-				responses.add(response);
-		}
-		return responses;
-	}*/
-
-	
-	
 	public String preview(){
 		
 		if (queryData.isValid()){

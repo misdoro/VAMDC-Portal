@@ -31,24 +31,11 @@ public abstract class ReactionCollisionForm extends AbstractForm implements Form
 	public ReactionCollisionForm(QueryTreeInterface tree, String typeA, String typeB){
 		this.tree = tree;
 		this.typeAName = typeA;
-		this.typeBName = typeB;
-		
-	}
-	
-	/*private void addHiddenForms(){
-		
-		if( false == this.hasHiddenForm){		
-			AtomsTreeForm f = new AtomsTreeForm(tree, typeAName);
-			f.setVisible(false);
-			tree.addForm(f);
-			 this.hasHiddenForm = true;		 
-		}
-	}*/
-	
+		this.typeBName = typeB;		
+	}	
 
 	@Override
 	public void validate() {
-		//this.addHiddenForms();
 		
 		for(int i=0;i<typeAAtomCount;i++){
 			tree.addForm(new AtomsTreeForm(tree, typeAName));
