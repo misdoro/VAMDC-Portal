@@ -84,26 +84,29 @@
 					<f:selectItem itemValue="-- Choose display --" />
 					<f:selectItems value="#{consumers.nodeConsumers[node.ivoaID]}" />
 					<a4j:support id="ajaxsomp" event="onchange"
-						action="#{consumers.process(node.fullQueryURL)}"
+						action="#{consumers.process(node.fullQueryURL, node.ivoaID)}"
 						actionListener="#{consumers.changeConsumerSelected}"
+						eventsQueue="portalQueue"
 						reRender="consumerUpdate"></a4j:support>
 				</h:selectOneMenu>
 				<h:panelGroup id="consumerUpdate" layout="block" styleClass="consumerUpdateImg">
 					<a4j:region>
 						<a4j:poll id="consumerPoll" interval="1000"
-							enabled="#{consumers.processing}" reRender="consumerUpdate" />
+							enabled="#{consumers.consumersByNode[node.ivoaID].processing}" reRender="consumerUpdate" />
 					</a4j:region>
 					<h:graphicImage value="/img/waitingIcon.gif" width="16" height="16"
-						rendered="#{consumers.processing}" />
+						rendered="#{consumers.consumersByNode[node.ivoaID].processing}" />
 					<h:graphicImage value="/img/error.gif" id="consumerErrorImg"
-						rendered="#{consumers.errorHappened}">
-						<rich:toolTip value="#{consumers.error}" styleClass="toolTip"
+						rendered="#{consumers.consumersByNode[node.ivoaID].errorHappened}">
+						<rich:toolTip value="#{consumers.consumersByNode[node.ivoaID].error}" styleClass="toolTip"
 							direction="top-left" id="consumerErrorText" />
 					</h:graphicImage>
-					<h:outputLink value="#{consumers.location}" target="_blank"
-						rendered="#{consumers.ok}" tabindex="30">
+					<h:outputLink value="#{consumers.consumersByNode[node.ivoaID].location}" target="_blank"
+						rendered="#{consumers.consumersByNode[node.ivoaID].ok}" tabindex="30">
+						<f:param name="ivoaID" value="#{node.ivoaID}" />
 						<h:outputText value="Display" />
 					</h:outputLink>
+					<h:outputText rendered="#{consumers.consumersByNode[node.ivoaID].errorHappened}" value="Error while processing data" />
 				</h:panelGroup>
 
 			</h:column>
