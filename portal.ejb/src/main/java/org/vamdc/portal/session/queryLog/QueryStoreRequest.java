@@ -8,8 +8,7 @@ import java.net.URLEncoder;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.concurrent.Callable;
 
 import org.apache.http.HttpException;
 import org.apache.http.HttpResponse;
@@ -17,110 +16,77 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Logger;
-import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Scope;
-import org.jboss.seam.annotations.async.Asynchronous;
-import org.jboss.seam.log.Log;
-import org.jboss.seam.web.ServletContexts;
+import org.jboss.seam.Component;
 import org.vamdc.portal.Settings;
 import org.vamdc.portal.entity.security.User;
 import org.vamdc.portal.session.security.UserInfo;
 
-@Name("querystore")
-@Scope(ScopeType.PAGE)
-public class QueryStore {
+public class QueryStoreRequest implements Callable<QueryStoreResponse>{
 
-	/**
-	 * Map storing last uuid for a given node key = node id
-	 */
-	private Map<String, QueryStoreResponse> uuids = new HashMap<String, QueryStoreResponse>(
-			5);
-	@In
-	private UserInfo auth;
-	
-	@Logger
-	private Log log;
-	
-	private String processing = "";
-	
+	private UserInfo auth;	
+	private String token;
+	private String userIp;		
+
 	/**
 	 * parameters of request to query store 
 	 * @author nmoreau
 	 *
 	 */
 	enum Parameter{
-		
-		queryToken("queryToken"),
-		email("email"),
-		userIp("userIp"),
-		usedClient("usedClient");		
+
+		QUERYTOKEN("queryToken"),
+		EMAIL("email"),
+		USERIP("userIp"),
+		USEDCLIENT("usedClient");		
 
 		private String text;
-		
+
 		Parameter(String text){
 			this.text = text;
 		}
-		
+
 		public String getText(){
 			return this.text;
 		}
 	}
 
-	public String getProcessing() {
-		return processing;
+
+	public QueryStoreRequest(String token,  String userIp){
+		auth = (UserInfo) Component.getInstance("auth");
+		this.token = token;
+		this.userIp = userIp;
 	}
 
-	public void setProcessing(String processing) {
-		this.processing = processing;
+	@Override
+	public QueryStoreResponse call() throws Exception {
+		return this.associateRequest(token, userIp);
 	}
-
-	/**
-	 * return result of querystore for a request
-	 * 
-	 * @return
-	 **/	
-	public QueryStoreResponse getNodeUuid(String node) {
-		// not requested yet
-		if (!this.uuids.containsKey(node))
-			return new QueryStoreResponse(QueryStoreResponse.STATUS_UNKNOWN,
-					"", "");
-
-		return this.uuids.get(node);
-	}		
 
 	/**
 	 * Ask a permanent identifier for the request identified by the token string
 	 * 
 	 * @param token  token of a head request
 	 */
-	//@Asynchronous
-	public void associateRequest(String token, String node) {
-		this.processing = "Starting process";
+	private QueryStoreResponse associateRequest(String token, String userIp) {
 		QueryStoreResponse result = null;
 		Integer count = 0;
 		try {
 			String request = this.getRequest(token, this.getUserEmail(),
-					this.getIpAdress());
-						// not tried yet or previous try failed
-			if (!uuids.containsKey(node)
-					|| !uuids.get(node).getStatus()
-							.equals(QueryStoreResponse.STATUS_SUCCESS)) {	
-				while ((result == null || QueryStoreResponse.STATUS_EMPTY.equals(result.getStatus())) 
-						&& count < Settings.QUERYSTORE_MAX_RETRY.getInt()) {
-					result = this.doRequest(request);
-					Thread.sleep(Settings.QUERYSTORE_RETRY_TIMER.getInt());
-					count++;
-				}
-				this.uuids.put(node, result);
+					this.userIp);
+
+			// send request while no result or result is empty
+			while ((result == null || QueryStoreResponse.STATUS_EMPTY.equals(result.getStatus())) 
+					&& count < Settings.QUERYSTORE_MAX_RETRY.getInt()) {
+				result = this.doRequest(request);
+				Thread.sleep(Settings.QUERYSTORE_RETRY_TIMER.getInt());
+				count++;
 			}
+
 		} catch (Exception e) {
-			log.debug(e);
-		}
-		this.processing = 	"INFO : A  request was sent to the query store to get a citation link. Request status :  " 
-							+ uuids.get(node).getStatus();
+			e.printStackTrace();
+
+		}		
+		return  result;
 	}
 
 
@@ -128,9 +94,7 @@ public class QueryStore {
 	 * Send an HTTP request to the query store to get a UUID corresponding to a
 	 * head token
 	 * 
-	 * @param requestString
-	 *            get request string
-
+	 * @param requestString  get request string
 	 * @return QueryStoreResponse
 	 * @throws IOException
 	 * @throws HttpException
@@ -140,21 +104,21 @@ public class QueryStore {
 	 */
 	private QueryStoreResponse doRequest(String requestString)
 			throws IOException, HttpException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
-		
+
 		RequestConfig requestConfig = RequestConfig.custom()
 				.setConnectTimeout(3 * 1000).build();		
-		
+
 		HttpClient httpClient = HttpClientBuilder.create()
 				.setDefaultRequestConfig(requestConfig).build();
-				
+
 		HttpGet request = new HttpGet(requestString);	
 		request.addHeader("User-Agent", Settings.PORTAL_USER_AGENT.get());
 		StringBuilder result = new StringBuilder();			
-		
-		//SSLHandShakeException (IOException) if missing certificate
+
+		//SSLHandShakeException (IOException) occurs if missing certificate
 		HttpResponse response = httpClient.execute(request);
 		Integer statusCode = response.getStatusLine().getStatusCode();
-		
+
 		if ( statusCode == 200) {
 			BufferedReader rd = new BufferedReader(new InputStreamReader(
 					response.getEntity().getContent()));
@@ -164,7 +128,7 @@ public class QueryStore {
 				result.append(uuid);
 			}
 			rd.close();
-			
+
 		} else {
 			// empty response
 			if (statusCode == 204) {
@@ -179,7 +143,7 @@ public class QueryStore {
 				throw new HttpException("Client error : " + statusCode);
 			}
 		}
-		
+
 		// extract uuid from json response
 		return QueryStoreResponseReader.parseResponse(result.toString());
 	}
@@ -195,28 +159,14 @@ public class QueryStore {
 	 */
 	private String getRequest(String token, String email, String userIp) throws UnsupportedEncodingException {
 		String result = Settings.QUERYSTORE_ASSOCIATION_URL.get();
-		result = result + Parameter.queryToken.getText() +"=" + token 
-				+ "&"+ Parameter.email.getText() +"=" + email
-				+ "&" + Parameter.userIp.getText() + "=" + userIp
-				+ "&" + Parameter.usedClient.getText() + "=" + 
-						URLEncoder.encode(
+		result = result + Parameter.QUERYTOKEN.getText() +"=" + token 
+				+ "&"+ Parameter.EMAIL.getText() +"=" + email
+				+ "&" + Parameter.USERIP.getText() + "=" + userIp
+				+ "&" + Parameter.USEDCLIENT.getText() + "=" + 
+				URLEncoder.encode(
 						Settings.PORTAL_USER_AGENT.get()
 						+"-"+Settings.PORTAL_VERSION.get(), "UTF-8");
 		return result;
-	}
-
-	/**
-	 * Get IP address of the user that is asking for the association
-	 * 
-	 * @return
-	 */
-	private String getIpAdress() {
-		String ipAddress = ServletContexts.instance().getRequest()
-				.getHeader("X-FORWARDED-FOR");
-		if (ipAddress == null) {
-			ipAddress = ServletContexts.instance().getRequest().getRemoteAddr();
-		}
-		return ipAddress;
 	}
 
 	/**
@@ -230,6 +180,5 @@ public class QueryStore {
 			return u.getEmail();
 		else
 			return Settings.DEFAULT_USER_MAIL.get();
-	}
-
+	}	
 }

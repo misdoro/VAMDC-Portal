@@ -21,7 +21,7 @@ import org.vamdc.portal.session.queryLog.EmptyResponse;
 
 @Name("consumers")
 @Scope(ScopeType.PAGE)
-public class Consumers implements Serializable {
+public class ConsumerRequestRegistry implements Serializable {
 
 	private static final long serialVersionUID = -4206391044359168710L;
 

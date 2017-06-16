@@ -23,7 +23,7 @@ import org.vamdc.portal.Settings;
 import org.vamdc.portal.entity.query.HttpHeadResponse;
 import org.vamdc.portal.entity.query.HttpHeadResponse.Response;
 import org.vamdc.portal.registry.RegistryFacade;
-import org.vamdc.portal.session.consumers.Consumers;
+import org.vamdc.portal.session.consumers.ConsumerRequestRegistry;
 import org.vamdc.portal.session.queryBuilder.QueryData;
 
 @Name("preview")
@@ -39,7 +39,7 @@ public class PreviewManager implements Serializable{
 
 	@In(create=true) transient RegistryFacade registryFacade;
 	
-	@In(create=true) transient Consumers consumers;
+	@In(create=true) transient ConsumerRequestRegistry consumers;
 	
 	private volatile boolean completeEventCalled=false;
 	
