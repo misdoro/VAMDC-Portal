@@ -17,11 +17,16 @@ import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.jboss.seam.Component;
+import org.jboss.seam.annotations.Logger;
+import org.jboss.seam.log.Log;
 import org.vamdc.portal.Settings;
 import org.vamdc.portal.entity.security.User;
 import org.vamdc.portal.session.security.UserInfo;
 
 public class QueryStoreRequest implements Callable<QueryStoreResponse>{
+	
+	@Logger
+	private Log log;
 
 	private UserInfo auth;	
 	private String token;
@@ -79,13 +84,12 @@ public class QueryStoreRequest implements Callable<QueryStoreResponse>{
 					&& count < Settings.QUERYSTORE_MAX_RETRY.getInt()) {
 				result = this.doRequest(request);
 				Thread.sleep(Settings.QUERYSTORE_RETRY_TIMER.getInt());
-				System.out.println( "### status : " + result.getStatus());
-				System.out.println( "### error" + result.getErrorMessage());
 				count++;
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception e) {		
+			log.debug(e);
+			new QueryStoreResponse(QueryStoreResponse.STATUS_ERROR, "", "Error while querying query store");
 
 		}		
 		return  result;
