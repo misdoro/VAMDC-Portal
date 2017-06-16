@@ -17,7 +17,7 @@ public class VamdcSpeciesFacade implements MoleculeInfo{
 	@Override
 	public String getName() {
 		for (VamdcSpeciesNames vsn:element.getVamdcSpeciesNameses()){
-			if (vsn.getVamdcMarkupTypes().getId() == Markup.Text.getId())
+			if (vsn.getVamdcMarkupTypes().getId() == Markup.TEXT.getId())
 				return vsn.getName();
 		}
 		return "";
@@ -29,7 +29,7 @@ public class VamdcSpeciesFacade implements MoleculeInfo{
 	@Override
 	public String getOrdinaryFormula() { 
 		for (VamdcSpeciesStructFormulae vsff:element.getVamdcSpeciesStructFormulaes()){
-			if (vsff.getVamdcMarkupTypes().getId() == Markup.Text.getId())
+			if (vsff.getVamdcMarkupTypes().getId() == Markup.TEXT.getId())
 				return vsff.getFormula();
 		}
 		return "";
@@ -47,7 +47,7 @@ public class VamdcSpeciesFacade implements MoleculeInfo{
 		String result = "";
 		for(VamdcSpeciesStructFormulae vsff: element.getVamdcSpeciesStructFormulaes()){
 			result=vsff.getFormula();
-			if (vsff.getVamdcMarkupTypes().getId() == Markup.Html.getId())
+			if (vsff.getVamdcMarkupTypes().getId() == Markup.HTML.getId())
 				break;
 		}
 		return appendName(result);

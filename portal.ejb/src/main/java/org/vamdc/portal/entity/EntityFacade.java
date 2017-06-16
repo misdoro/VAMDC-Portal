@@ -51,7 +51,7 @@ public class EntityFacade {
 		String query = "SELECT distinct vs FROM VamdcSpecies vs " +
 				"INNER JOIN vs.vamdcSpeciesNameses vsn " +
 				"WHERE vsn.name = :Value " +
-				"AND vs.speciesType =  " + Species.Molecule.getId();
+				"AND vs.speciesType =  " + Species.MOLECULE.getId();
 		return loadElements(em,query,value);
 	}
 
@@ -59,7 +59,7 @@ public class EntityFacade {
 	public static List<MoleculeInfo> loadMoleculesFromStoichForm(EntityManager em,String value){
 		String query = "SELECT distinct vs FROM VamdcSpecies vs " +
 				"WHERE vs.stoichiometricFormula = :Value " +
-				"AND vs.speciesType = "+ Species.Molecule.getId();
+				"AND vs.speciesType = "+ Species.MOLECULE.getId();
 		return loadElements(em,query,value);
 	}
 
@@ -67,7 +67,7 @@ public class EntityFacade {
 		String query = "SELECT distinct vs FROM VamdcSpecies vs " +
 				"INNER JOIN vs.vamdcSpeciesStructFormulaes vsf "   +
 				"WHERE vsf.formula = :Value " +
-				"AND vs.speciesType = " + Species.Molecule.getId();
+				"AND vs.speciesType = " + Species.MOLECULE.getId();
 		return loadElements(em,query,value);
 	}
 

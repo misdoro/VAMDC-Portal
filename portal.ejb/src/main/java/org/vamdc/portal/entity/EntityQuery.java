@@ -28,13 +28,13 @@ class EntityQuery{
 	
 	static Collection<String> suggestAtomName(EntityManager em,
 			String name) {
-		return suggestRestrictedSpeciesName(em, name, Species.Atom.getId());	
+		return suggestRestrictedSpeciesName(em, name, Species.ATOM.getId());	
 	
 	}
 	
 	static Collection<String> suggestMoleculeName(EntityManager em,
 			String name) {
-		return suggestRestrictedSpeciesName(em, name, Species.Molecule.getId());	
+		return suggestRestrictedSpeciesName(em, name, Species.MOLECULE.getId());	
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -61,7 +61,7 @@ class EntityQuery{
 
 
 	static Collection<String> suggestMoleculeStoichForm(EntityManager em, String formula){
-		return suggestRestrictedStoichForm(em, formula, Species.Molecule.getId());
+		return suggestRestrictedStoichForm(em, formula, Species.MOLECULE.getId());
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -75,7 +75,7 @@ class EntityQuery{
 	}
 
 	static Collection<String> suggestMoleculeStructForm(EntityManager em, String formula){
-		return suggestRestrictedStructForm(em, formula, Species.Molecule.getId());
+		return suggestRestrictedStructForm(em, formula, Species.MOLECULE.getId());
 	}
 	
 	@SuppressWarnings("unchecked")
