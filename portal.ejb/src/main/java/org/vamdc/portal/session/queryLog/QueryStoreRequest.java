@@ -79,6 +79,8 @@ public class QueryStoreRequest implements Callable<QueryStoreResponse>{
 					&& count < Settings.QUERYSTORE_MAX_RETRY.getInt()) {
 				result = this.doRequest(request);
 				Thread.sleep(Settings.QUERYSTORE_RETRY_TIMER.getInt());
+				System.out.println( "### status : " + result.getStatus());
+				System.out.println( "### error" + result.getErrorMessage());
 				count++;
 			}
 
@@ -118,7 +120,7 @@ public class QueryStoreRequest implements Callable<QueryStoreResponse>{
 		//SSLHandShakeException (IOException) occurs if missing certificate
 		HttpResponse response = httpClient.execute(request);
 		Integer statusCode = response.getStatusLine().getStatusCode();
-
+		
 		if ( statusCode == 200) {
 			BufferedReader rd = new BufferedReader(new InputStreamReader(
 					response.getEntity().getContent()));
@@ -136,11 +138,11 @@ public class QueryStoreRequest implements Callable<QueryStoreResponse>{
 			}
 			// server error
 			else if (statusCode >= 500) {
-				throw new HttpException("Server error : " + statusCode);
+				return new QueryStoreResponse(QueryStoreResponse.STATUS_ERROR, "", response.getStatusLine().getReasonPhrase());
 			}
 			// client error
 			else if (statusCode >= 400 && statusCode < 500) {
-				throw new HttpException("Client error : " + statusCode);
+				return new QueryStoreResponse(QueryStoreResponse.STATUS_ERROR, "",  response.getStatusLine().getReasonPhrase());
 			}
 		}
 
