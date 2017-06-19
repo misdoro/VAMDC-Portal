@@ -9,6 +9,8 @@
 	xmlns:a4j="http://richfaces.org/a4j" template="/layout/template.xhtml">
 
 	<ui:define name="body">
+		<h:outputText styleClass="important" 
+		value="Please be aware that results of a saved request can change if the database content is updated " />
 		<h:panelGroup id="queryList" styleClass="resultTable">
 			<h:outputText value="There is no query to display."
 				rendered="#{queryLog.queries.size == 0}" />
@@ -16,8 +18,7 @@
 
 				<h:panelGrid id="queryListAll">
 
-					<rich:dataTable value="#{queryLog.queries}" var="savedQuery" styleClass="resultTable">
-					
+					<rich:dataTable value="#{queryLog.queries}" var="savedQuery" styleClass="resultTable">				
 
 						<f:facet name="header">
 							<rich:columnGroup>
@@ -31,13 +32,7 @@
 									<h:outputText styleClass="headerText" value="Date" />
 								</h:column>
 								<h:column>
-									<h:outputText styleClass="headerText" value="Database" />
-								</h:column>
-								<h:column>
-									<h:outputText styleClass="headerText" value="Results" />
-								</h:column>
-								<h:column>
-									<h:outputText styleClass="headerText" value="Results Status" />
+									<h:outputText styleClass="headerText" value="View data" />
 								</h:column>
 								<h:column>
 									<h:outputText styleClass="headerText" value="Download" />
@@ -86,15 +81,16 @@
 								<h:outputText value="#{savedQuery.date}" />
 							</rich:column>
 
-							<rich:column>
+							<rich:column>							
 								<h:outputText
 									value="#{registryFacade.getResourceTitle(response.nodeIVOAId)}" />
+								<br/>							
 								<h:selectOneMenu id="somp">
 									<f:selectItem itemValue="-- Choose display --" />
 									<f:selectItems
 										value="#{consumers.nodeConsumers[response.nodeIVOAId]}" />
 									<a4j:support event="onchange"
-										action="#{consumers.process(response.fullQueryURL)}"
+										action="#{consumers.process(response.fullQueryURL, response.nodeIVOAId)}"
 										actionListener="#{consumers.changeConsumerSelected}"
 										reRender="consumerUpdate"></a4j:support>
 								</h:selectOneMenu>
@@ -102,36 +98,27 @@
 									styleClass="consumerUpdateImg">
 									<a4j:region>
 										<a4j:poll id="consumerPoll" interval="1000"
-											enabled="#{consumers.processing}" reRender="consumerUpdate" />
+											enabled="#{consumers.consumersByNode[response.nodeIVOAId].processing}" reRender="consumerUpdate" />
 									</a4j:region>
-									<a4j:outputPanel rendered="#{consumers.ok}">
+									<a4j:outputPanel rendered="#{consumers.consumersByNode[response.nodeIVOAId].ok}">
 										<script>
-											window.open("#{consumers.location}");
+											window.open("#{consumers.consumersByNode[response.nodeIVOAId].location}");
 										</script>
 									</a4j:outputPanel>
 									<h:graphicImage value="/img/waitingIcon.gif" width="16"
-										height="16" rendered="#{consumers.processing}" />
+										height="16" rendered="#{consumers.consumersByNode[response.nodeIVOAId].processing}" />
 									<h:graphicImage value="/img/error.gif" id="consumerErrorImg"
-										rendered="#{consumers.errorHappened}">
-										<rich:toolTip value="#{consumers.error}" styleClass="toolTip"
+										rendered="#{consumers.consumersByNode[response.nodeIVOAId].errorHappened}">
+										<rich:toolTip value="#{consumers.consumersByNode[response.nodeIVOAId].error}" styleClass="toolTip"
 											direction="top-left" id="consumerErrorText" />
 									</h:graphicImage>
-									<h:outputLink value="#{consumers.location}" target="_blank"
-										rendered="#{consumers.ok}" tabindex="30">
+									<h:outputLink value="#{consumers.consumersByNode[response.nodeIVOAId].location}" target="_blank"
+										rendered="#{consumers.consumersByNode[response.nodeIVOAId].ok}" tabindex="30">
 										<h:outputText value="Display" />
 									</h:outputLink>
 								</h:panelGroup>
 
 							</rich:column>
-
-							<rich:column>
-								<h:outputText value="#{response.statsString}" />
-							</rich:column>
-
-							<rich:column>
-								<h:outputText value="#{response.status}" />
-							</rich:column>
-
 							<rich:column>
 								<h:outputLink value="#{response.fullQueryURL}"
 									rendered="#{response.fullQueryURL.length()>0}">

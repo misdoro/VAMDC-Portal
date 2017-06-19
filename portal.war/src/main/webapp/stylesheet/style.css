@@ -407,3 +407,8 @@ table.radio input[type=radio] {
 	color: #FF0000;
 	padding-left: 2px;
 }
+
+.important{
+	text-decoration : underline;
+	font-weight : bold;
+}
