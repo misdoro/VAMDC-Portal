@@ -9,16 +9,19 @@
 	xmlns:a4j="http://richfaces.org/a4j" template="/layout/template.xhtml">
 
 	<ui:define name="body">
-		<h:outputText styleClass="important" 
-		value="Please be aware that results of a saved request can change if the database content is updated " />
 		<h:panelGroup id="queryList" styleClass="resultTable">
 			<h:outputText value="There is no query to display."
 				rendered="#{queryLog.queries.size == 0}" />
 			<a4j:form ajaxSubmit="true" rendered="#{queryLog.queries.size > 0}">
+				<h:panelGroup>
+					<h:outputText styleClass="important"
+						value="Please be aware that results of a saved request can change if the database content is updated " />
+				</h:panelGroup>
 
 				<h:panelGrid id="queryListAll">
 
-					<rich:dataTable value="#{queryLog.queries}" var="savedQuery" styleClass="resultTable">				
+					<rich:dataTable value="#{queryLog.queries}" var="savedQuery"
+						styleClass="resultTable">
 
 						<f:facet name="header">
 							<rich:columnGroup>
@@ -81,10 +84,10 @@
 								<h:outputText value="#{savedQuery.date}" />
 							</rich:column>
 
-							<rich:column>							
+							<rich:column>
 								<h:outputText
 									value="#{registryFacade.getResourceTitle(response.nodeIVOAId)}" />
-								<br/>							
+								<br />
 								<h:selectOneMenu id="somp">
 									<f:selectItem itemValue="-- Choose display --" />
 									<f:selectItems
@@ -98,22 +101,31 @@
 									styleClass="consumerUpdateImg">
 									<a4j:region>
 										<a4j:poll id="consumerPoll" interval="1000"
-											enabled="#{consumers.consumersByNode[response.nodeIVOAId].processing}" reRender="consumerUpdate" />
+											enabled="#{consumers.consumersByNode[response.nodeIVOAId].processing}"
+											reRender="consumerUpdate" />
 									</a4j:region>
-									<a4j:outputPanel rendered="#{consumers.consumersByNode[response.nodeIVOAId].ok}">
+									<a4j:outputPanel
+										rendered="#{consumers.consumersByNode[response.nodeIVOAId].ok}">
 										<script>
-											window.open("#{consumers.consumersByNode[response.nodeIVOAId].location}");
+											window
+													.open("#{consumers.consumersByNode[response.nodeIVOAId].location}");
 										</script>
 									</a4j:outputPanel>
 									<h:graphicImage value="/img/waitingIcon.gif" width="16"
-										height="16" rendered="#{consumers.consumersByNode[response.nodeIVOAId].processing}" />
+										height="16"
+										rendered="#{consumers.consumersByNode[response.nodeIVOAId].processing}" />
 									<h:graphicImage value="/img/error.gif" id="consumerErrorImg"
 										rendered="#{consumers.consumersByNode[response.nodeIVOAId].errorHappened}">
-										<rich:toolTip value="#{consumers.consumersByNode[response.nodeIVOAId].error}" styleClass="toolTip"
-											direction="top-left" id="consumerErrorText" />
+										<rich:toolTip
+											value="#{consumers.consumersByNode[response.nodeIVOAId].error}"
+											styleClass="toolTip" direction="top-left"
+											id="consumerErrorText" />
 									</h:graphicImage>
-									<h:outputLink value="#{consumers.consumersByNode[response.nodeIVOAId].location}" target="_blank"
-										rendered="#{consumers.consumersByNode[response.nodeIVOAId].ok}" tabindex="30">
+									<h:outputLink
+										value="#{consumers.consumersByNode[response.nodeIVOAId].location}"
+										target="_blank"
+										rendered="#{consumers.consumersByNode[response.nodeIVOAId].ok}"
+										tabindex="30">
 										<h:outputText value="Display" />
 									</h:outputLink>
 								</h:panelGroup>
