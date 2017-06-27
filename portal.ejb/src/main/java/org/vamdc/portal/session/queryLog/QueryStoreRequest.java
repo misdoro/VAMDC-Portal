@@ -19,6 +19,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.jboss.seam.Component;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.log.Log;
+import org.jboss.seam.log.Logging;
 import org.vamdc.portal.Settings;
 import org.vamdc.portal.entity.security.User;
 import org.vamdc.portal.session.security.UserInfo;
@@ -26,7 +27,7 @@ import org.vamdc.portal.session.security.UserInfo;
 public class QueryStoreRequest implements Callable<QueryStoreResponse>{
 	
 	@Logger
-	private Log log;
+	private Log log = Logging.getLog(QueryStoreRequest.class);
 
 	private UserInfo auth;	
 	private String token;

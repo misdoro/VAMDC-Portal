@@ -8,6 +8,7 @@ import java.util.concurrent.Future;
 import org.jboss.seam.Component;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.log.Log;
+import org.jboss.seam.log.Logging;
 import org.vamdc.portal.async.FutureTask;
 
 public class QueryStoreProcessor implements FutureTask{	
@@ -15,7 +16,7 @@ public class QueryStoreProcessor implements FutureTask{
 	private Future<QueryStoreResponse> response;
 	
 	@Logger
-	private Log log;
+	private Log log = Logging.getLog(QueryStoreProcessor.class);;
 	
 	private String token;	
 	
@@ -45,7 +46,12 @@ public class QueryStoreProcessor implements FutureTask{
 		} catch (InterruptedException e) {
 			log.debug(e);
 			result = new QueryStoreResponse(QueryStoreResponse.STATUS_ERROR, "", e.getMessage());
-		} catch (ExecutionException e) {
+		} catch (ExecutionException e) {			
+			System.out.println("### test");
+			e.printStackTrace();
+			log.debug(e);
+			result = new QueryStoreResponse(QueryStoreResponse.STATUS_ERROR, "", e.getMessage());
+		}catch (NullPointerException e) {
 			log.debug(e);
 			result = new QueryStoreResponse(QueryStoreResponse.STATUS_ERROR, "", e.getMessage());
 		}
