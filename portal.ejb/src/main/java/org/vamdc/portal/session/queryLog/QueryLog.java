@@ -73,7 +73,7 @@ public class QueryLog {
 	public Query getQuery(String queryID){
 		if (queryID!=null){
 			List<Query> queries = null;
-			int intQueryID = Integer.valueOf(queryID.substring(1));
+			int intQueryID = Integer.parseInt(queryID.substring(1));
 			if (queryID.substring(0, 1).equals("p"))
 				queries = persistentQueryLog.getStoredQueries();
 			else 

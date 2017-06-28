@@ -18,9 +18,7 @@ public class SpeciesSelectionForm extends AbstractForm implements FormForFields,
 	protected Integer particleCount;
 	protected Integer maxElementCount = 5;
 	private QueryTreeInterface tree;
-	private Boolean queryable = true;
-	//private Integer formsCount = 0;
-	
+	private Boolean queryable = true;	
 	
 	public SpeciesSelectionForm(QueryTreeInterface tree){
 		this.tree = tree;

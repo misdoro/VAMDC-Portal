@@ -1,21 +1,16 @@
 package org.vamdc.portal.session.consumers;
 
 import java.io.Serializable;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.ConcurrentHashMap;
 
+import javax.faces.component.UIOutput;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
-import javax.faces.component.UIOutput;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
@@ -26,28 +21,27 @@ import org.vamdc.portal.session.queryLog.EmptyResponse;
 
 @Name("consumers")
 @Scope(ScopeType.PAGE)
-public class Consumers implements Serializable {
+public class ConsumerRequestRegistry implements Serializable {
 
 	private static final long serialVersionUID = -4206391044359168710L;
 
 	@In(create = true)
 	RegistryFacade registryFacade;
 
+	/**
+	 * map of consumers for each node	
+	 */
 	private Map<String, List<SelectItem>> nodeConsumers;
 
+	/**
+	 * Map of the last called consumer for each node
+	 */
+	private Map<String, Consumer> processedConsumers = new ConcurrentHashMap<String, Consumer>();
+	
 	/**
 	 * selected consumer ivoaid
 	 */
 	private String selectedConsumer = null;
-
-	/**
-	 * selected node ivoaid
-	 */
-	private String selectedNode = null;
-
-
-	private Future<URL> consumerLocation;
-
 
 	/**
 	 * Returns map of all consumers for each node
@@ -60,16 +54,8 @@ public class Consumers implements Serializable {
 		return this.nodeConsumers;
 	}	
 
-	public String getSelectedNode() {
-		return this.selectedNode;
-	}
-
-	public void setSelectedNode(String nodeId) {
-		this.selectedNode = nodeId;
-	}
-
 	/**
-	 * populates Map
+	 * populates nodeConsumers Map
 	 * 
 	 * @return
 	 */
@@ -104,13 +90,6 @@ public class Consumers implements Serializable {
 		}
 	}
 
-
-	public boolean getConsumerSelected() {
-		if (this.selectedConsumer == null)
-			return false;
-		return true;
-	}
-
 	/**
 	 * changes the currently selected consumer when user change selection in list
 	 * @param event
@@ -122,6 +101,7 @@ public class Consumers implements Serializable {
 		}
 	}
 
+	
 	public void setSelectedConsumer(String ivoaID) {
 		this.selectedConsumer = ivoaID;
 	}
@@ -130,74 +110,19 @@ public class Consumers implements Serializable {
 		return selectedConsumer;
 	}
 
-	public void process(String value) {
-		URL consumer = registryFacade.getConsumerServiceURL(selectedConsumer);
-
-		List<URL> nodes = new ArrayList<URL>();
-
-		try {
-			nodes.add(new URL(value));
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if (consumer != null) {
-			ExecutorService executor = Executors.newSingleThreadExecutor();
-			consumerLocation = executor
-					.submit(new PostRequest(consumer, nodes));
-			executor.shutdown();
-		}
+	/**
+	 * ask consumer execution for nodeIvoaID on data at nodeQueryUrl
+	 * @param nodeQueryUrl
+	 * @param nodeIvoaID
+	 */
+	public void process(String nodeQueryUrl, String nodeIvoaID) {
+		Consumer consumer = new ConsumerProcessor(selectedConsumer, nodeQueryUrl);
+		this.processedConsumers.put(nodeIvoaID,  consumer);
+		this.processedConsumers.get(nodeIvoaID).process();
 
 	}
-
-	public boolean isDone() {
-		return (consumerLocation != null && consumerLocation.isDone() && !consumerLocation
-				.isCancelled());
-	}
-
-	public boolean isProcessing() {
-		return ((consumerLocation != null && !consumerLocation.isDone()));
-	}
-
-	public boolean isOk() {
-		return (isDone() && !isErrorHappened());
-	}
-
-	public boolean isErrorHappened() {
-		if (isDone()) {
-			try {
-				consumerLocation.get();
-			} catch (Exception e) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public String getError() {
-		if (isDone()) {
-			try {
-				consumerLocation.get();
-			} catch (Exception e) {
-				return e.getMessage();
-			}
-		}
-		return "";
-	}
-
-	public String getLocation() {
-		URL result = null;
-		if (isDone())
-			try {
-				result = consumerLocation.get();
-
-			} catch (InterruptedException e) {
-			} catch (ExecutionException e) {
-				e.printStackTrace();
-			}
-
-		if (result != null)
-			return result.toExternalForm();
-		return "";
+	
+	public Map<String, Consumer> getConsumersByNode(){
+		return this.processedConsumers;				
 	}
 }

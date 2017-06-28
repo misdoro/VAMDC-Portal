@@ -5,10 +5,10 @@ public class QueryStoreResponse {
 	private String status;
 	private String uuid;
 	private String errorMessage;
-	public final static String STATUS_ERROR = "error";
-	public final static String STATUS_SUCCESS = "success";
-	public final static String STATUS_UNKNOWN = "unknown";
-	public final static String STATUS_EMPTY = "empty";
+	public static final String STATUS_ERROR = "error";
+	public static final String STATUS_SUCCESS = "success";
+	public static final String STATUS_UNKNOWN = "unknown";
+	public static final String STATUS_EMPTY = "empty";
 
 	public QueryStoreResponse(String status, String uuid, String errorMessage){
 		this.status = status;

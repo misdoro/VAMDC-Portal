@@ -33,7 +33,7 @@ public class QueryTreeController  implements QueryTreeInterface, PersistableQuer
 	@In(create=true) @Out QueryData queryData;
 	@In(create=true) UserInfo auth;
 	@Logger
-	transient private Log log;	
+    private Log log;	
 	@In(create=true) private PreviewManager preview;
 	@In(create=true) private QueryLog queryLog;	
 

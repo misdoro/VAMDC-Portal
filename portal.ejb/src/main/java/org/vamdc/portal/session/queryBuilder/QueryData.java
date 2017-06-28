@@ -106,13 +106,13 @@ public class QueryData implements FormHolder,Serializable{
 		
 
 		Collection<Restrictable> activeKeywords = getActiveKeywords();
-		if (activeKeywords.size()==0 && request!=null && request.size()>0){
+		if (activeKeywords.isEmpty() && request!=null && request.size() > 0){
 			result=ivoaIDs;
 			return result;
 		}
 		
 		for (String ivoaID:ivoaIDs){
-			if (activeKeywords.size()>0 && registryFacade.getRestrictables(ivoaID).containsAll(activeKeywords))
+			if (activeKeywords.size() > 0 && registryFacade.getRestrictables(ivoaID).containsAll(activeKeywords))
 				result.add(ivoaID);
 		}
 		return result;

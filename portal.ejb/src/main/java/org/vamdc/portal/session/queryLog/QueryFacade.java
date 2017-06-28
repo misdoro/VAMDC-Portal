@@ -15,8 +15,7 @@ public class QueryFacade {
 	private final String idPrefix;
 	
 	public QueryFacade(Query query, String idPrefix){
-		this.query = query;
-		
+		this.query = query;		
 		this.idPrefix = idPrefix;
 	}
 	
@@ -40,7 +39,7 @@ public class QueryFacade {
 		for (HttpHeadResponse node:query.getResponses()){	
 			respondedNodes.add(new ResponseFacade(node));
 		}
-		if (respondedNodes.size()==0)
+		if (respondedNodes.isEmpty())
 			respondedNodes.add(new EmptyResponse());
 		return respondedNodes;
 	}

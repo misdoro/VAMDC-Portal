@@ -1,7 +1,10 @@
 package org.vamdc.portal.entity;
 
 import java.util.Collection;
+
 import javax.persistence.EntityManager;
+
+import org.vamdc.portal.entity.constant.Species;
 
 /**
  * Collection of static methods to get some species objects
@@ -25,13 +28,13 @@ class EntityQuery{
 	
 	static Collection<String> suggestAtomName(EntityManager em,
 			String name) {
-		return suggestRestrictedSpeciesName(em, name, 1);	
+		return suggestRestrictedSpeciesName(em, name, Species.ATOM.getId());	
 	
 	}
 	
 	static Collection<String> suggestMoleculeName(EntityManager em,
 			String name) {
-		return suggestRestrictedSpeciesName(em, name, 2);	
+		return suggestRestrictedSpeciesName(em, name, Species.MOLECULE.getId());	
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -58,7 +61,7 @@ class EntityQuery{
 
 
 	static Collection<String> suggestMoleculeStoichForm(EntityManager em, String formula){
-		return suggestRestrictedStoichForm(em, formula, 2);
+		return suggestRestrictedStoichForm(em, formula, Species.MOLECULE.getId());
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -72,7 +75,7 @@ class EntityQuery{
 	}
 
 	static Collection<String> suggestMoleculeStructForm(EntityManager em, String formula){
-		return suggestRestrictedStructForm(em, formula, 2);
+		return suggestRestrictedStructForm(em, formula, Species.MOLECULE.getId());
 	}
 	
 	@SuppressWarnings("unchecked")
