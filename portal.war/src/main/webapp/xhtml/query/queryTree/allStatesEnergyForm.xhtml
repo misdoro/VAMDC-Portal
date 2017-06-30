@@ -17,8 +17,8 @@
 					<ui:include src="#{field.view}" />
 				</h:panelGrid>
 			</c:forEach>
-			<a4j:commandButton value="Select species ->" align="right" width="200" action="#{form.validate}"
-				styleClass="roundButton" tabindex="20" reRender="formPanel" rendered="#{form.queryable}"/>
+			<a4j:commandButton value="Select species" action="#{form.validate}"
+				styleClass="largeButton" tabindex="20" reRender="formPanel" rendered="#{form.queryable}"/>
 		</a4j:form>
 	</rich:panel>
 </ui:composition>

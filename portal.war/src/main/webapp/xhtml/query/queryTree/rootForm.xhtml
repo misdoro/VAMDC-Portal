@@ -9,7 +9,7 @@
 	xmlns:a4j="http://richfaces.org/a4j">
 
 
-	<rich:panel id="mainPanel">
+	<rich:simpleTogglePanel switchType="client" id="mainPanel">
 
 		<f:facet name="header">
 		 <h:panelGroup>
@@ -25,8 +25,8 @@
 				layout="pageDirection" tabindex="10">
 			<f:selectItems value="#{form.nextOptions}" />
 			</h:selectOneRadio>
-			<a4j:commandButton value="Next ->" align="right" width="200" action="#{form.validate}"
-				styleClass="roundButton" tabindex="20" reRender="formPanel" rendered="#{form.queryable}"/>
+			<a4j:commandButton value="Validate" align="right" width="200" action="#{form.validate}"
+				styleClass="largeButton" tabindex="20" reRender="formPanel" rendered="#{form.queryable}"/>
 		</a4j:form>
-	</rich:panel>
+	</rich:simpleTogglePanel>
 </ui:composition>

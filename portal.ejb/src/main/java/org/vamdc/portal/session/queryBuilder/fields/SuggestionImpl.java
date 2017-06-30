@@ -11,8 +11,8 @@ public abstract class SuggestionImpl implements SuggestionField.Suggestion{
 	 * @return a collection that will be used for suggestion lookup
 	 */
 	protected abstract Collection<String> loadValues();
-
-	protected final Collection<String> values;
+	protected Collection<String> values;
+	
 	public SuggestionImpl(){
 		this.values= loadValues();
 	}

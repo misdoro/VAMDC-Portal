@@ -43,7 +43,6 @@ public class RadiativeForm extends AbstractForm implements FormForFields, TreeFo
 		private static final long serialVersionUID = 1L;
 		{
 			add(new SelectItem(NextForm.upperLowerEnergyRange,"Transition from an energy range to another one"));
-			//add(new SelectItem(NextForm.stateEnergyRange,"Transition to and from a given energy range"));
 			add(new SelectItem(NextForm.anyEnergyRange,"Any transition"));
 		}
 	};
@@ -67,9 +66,7 @@ public class RadiativeForm extends AbstractForm implements FormForFields, TreeFo
 	public void validate() {
 		if (this.selectedMode == null)
 			return;
-		
-		//System.err.println("Adding next form "+selectedMode.name());
-		
+			
 		switch(this.selectedMode){
 		case upperLowerEnergyRange:
 			tree.addForm(new AllStatesEnergyTreeForm(tree));
@@ -129,12 +126,13 @@ public class RadiativeForm extends AbstractForm implements FormForFields, TreeFo
 	
 	public void changeTransitionType(ValueChangeEvent e){
 		NextForm value = (NextForm)e.getNewValue();
+		String submitButton = "Select range";
 		switch(value){
 		case upperLowerEnergyRange:
-			this.submitButtonValue = "Configure energy range";
+			this.submitButtonValue = submitButton;
 			break;
 		case stateEnergyRange:
-			this.submitButtonValue = "Configure energy range";
+			this.submitButtonValue = submitButton;
 			break;
 		case anyEnergyRange:	
 			this.submitButtonValue = this.defaultSubmitButtonValue;

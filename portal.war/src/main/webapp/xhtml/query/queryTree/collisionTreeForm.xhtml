@@ -10,16 +10,18 @@
 	xmlns:c="http://java.sun.com/jstl/core">
 
 
-<rich:panel id="form#{form.id}">
+	<rich:simpleTogglePanel id="form#{form.id}" switchType="client">
 		<f:facet name="header">
 			<h:outputText value="#{form.title}" />
 		</f:facet>
-		
-		<a4j:form ajaxSubmit="true">		
-			<h:selectOneRadio value="#{form.selectedMode}" disabled="#{!form.queryable}" valueChangeListener="#{form.changeCollisionType}"
-			onchange="submit()" layout="pageDirection" tabindex="10">
-			<a4j:support event="onclick" reRender="collisionSubmitButton" />
-			<f:selectItems value="#{form.nextOptions}" />
+
+		<a4j:form ajaxSubmit="true">
+			<h:selectOneRadio value="#{form.selectedMode}"
+				disabled="#{!form.queryable}"
+				valueChangeListener="#{form.changeCollisionType}"
+				onchange="submit()" layout="pageDirection" tabindex="10">
+				<a4j:support event="onclick" reRender="collisionSubmitButton" />
+				<f:selectItems value="#{form.nextOptions}" />
 			</h:selectOneRadio>
 
 			<c:forEach items="#{form.fields}" var="field">
@@ -27,11 +29,13 @@
 					<ui:include src="#{field.view}" />
 				</h:panelGrid>
 			</c:forEach>
-	
-			<a4j:commandButton id="collisionSubmitButton"  value="#{form.submitButtonValue}" align="right" width="200" action="#{form.validate}"
-				styleClass="roundButton" tabindex="20" reRender="formPanel" rendered="#{form.queryable}"/>
+
+			<a4j:commandButton id="collisionSubmitButton"
+				value="#{form.submitButtonValue}" align="right" width="200"
+				action="#{form.validate}" styleClass="largerButton" tabindex="20"
+				reRender="formPanel" rendered="#{form.queryable}" />
 		</a4j:form>
 
-	</rich:panel>
+	</rich:simpleTogglePanel>
 
 </ui:composition>

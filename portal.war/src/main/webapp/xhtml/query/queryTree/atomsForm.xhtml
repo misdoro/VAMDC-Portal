@@ -12,7 +12,9 @@
 
 	<rich:simpleTogglePanel id="form#{form.id}" switchType="client" >
 		<h:outputText value="position : #{form.position}" />
-		<ui:include src="/xhtml/query/forms/formTitle.xhtml" />
+		<f:facet name="header">
+			<h:outputText value="#{form.title}" />
+		</f:facet>
 		
 			<c:forEach items="#{form.fields}" var="field">	
 				<h:panelGrid columns="2" columnClasses="leftColumn,rightColumn">

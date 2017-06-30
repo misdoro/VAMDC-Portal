@@ -12,7 +12,7 @@ import org.vamdc.portal.session.queryBuilder.unitConv.CustomConverters;
 import org.vamdc.portal.session.queryBuilder.unitConv.UnitConverter;
 
 /**
- * Field that proxies several range fields and does intercorversion into the primary one
+ * Field that proxies several range fields and does interconversion into the primary one
  * @author doronin
  *
  */
