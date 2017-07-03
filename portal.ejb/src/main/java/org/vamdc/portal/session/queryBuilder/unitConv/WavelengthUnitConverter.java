@@ -47,7 +47,6 @@ public class WavelengthUnitConverter extends AbstractUnitConverter{
 		@Override
 		public EnumConverter[] getValues() { return WavelengthConvert.values(); }
 		
-		
 	}
 	
 }
