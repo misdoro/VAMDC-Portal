@@ -36,7 +36,7 @@ public class CollisionTreeForm extends CollisionsForm implements FormForFields, 
 	private Boolean queryable = true;
 	private SearchMode selectedMode = SearchMode.withoutReaction;
 	private QueryTreeInterface tree;
-	private final String defaultSubmitButtonValue = "Select target(s) and collider(s)";
+	private String defaultSubmitButtonValue = "Select targets and colliders";
 	private String submitButtonValue = defaultSubmitButtonValue;
 	
 		
@@ -139,7 +139,7 @@ public class CollisionTreeForm extends CollisionsForm implements FormForFields, 
 			break;
 			
 		case withReaction:
-			this.submitButtonValue = "Select reactant(s) and product(s)";
+			this.submitButtonValue = "Select reactants and products";
 			break;				
 		}
 		

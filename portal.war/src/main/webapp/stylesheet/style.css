@@ -104,7 +104,7 @@ table.radio input[type=radio] {
 }
 
 .content {
-	padding: 1%;
+	padding: 0.5em;
 	width : 100%;
 }
 
@@ -116,7 +116,7 @@ table.radio input[type=radio] {
 	margin-left:5px;
 }
 .narrowfield{
-	width: 70px;
+	width: 60px;
 	margin-top:0px;
 	margin-bottom:0px;
 	margin-right:5px;
@@ -140,10 +140,10 @@ table.radio input[type=radio] {
 }
 
 .rightColumn {
-	width: 250px;
-	align: right;
+	width: 270px;
+	/*align: right;
 	text-align: right;
-	float: right;
+	float: right;*/
 }
 
 .queryMenuPanel{
@@ -180,7 +180,7 @@ table.radio input[type=radio] {
 .queryForms{
 	height: 100%;
 	vertical-align: top;
-	width : 410px;
+	width : 460px;
 	/*max-width : 410px;*/
 }
 
@@ -270,10 +270,17 @@ table.radio input[type=radio] {
 	background-color: inherit;
 }
 
-.collisionSpecies{
+.collisionSpeciesText{
 	text-decoration:none;
 	border-bottom:1px dotted #D4CFC7;
 }
+
+
+.collisionSpeciesSelectionForm{
+	width : 49%;
+	float : left;
+}
+
 
 .roundButton {
 	-moz-border-radius: 10px;
@@ -281,8 +288,15 @@ table.radio input[type=radio] {
 }
 
 .largeButton{
-	width : 100px;
+	width : 110px;
 	font-weight : bold;	
+	padding : 1px;
+}
+
+.largerButton{
+	width : 220px;
+	font-weight : bold;	
+	padding : 1px;
 }
 
 .buttonArea .largeButton{

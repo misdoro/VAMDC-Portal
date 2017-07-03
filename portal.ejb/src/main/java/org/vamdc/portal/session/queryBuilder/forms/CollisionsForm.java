@@ -98,8 +98,9 @@ public class CollisionsForm extends AbstractForm implements Form{
 		@Override
 		protected Collection<String> loadValues() {
 			Collection<String> result = new ArrayList<String>();
-			for (XsamsProcessCode code:XsamsProcessCode.values())
+			for (XsamsProcessCode code:XsamsProcessCode.values()){;
 				result.add(code.getProcessName());
+			}
 			return result;
 		}
 		

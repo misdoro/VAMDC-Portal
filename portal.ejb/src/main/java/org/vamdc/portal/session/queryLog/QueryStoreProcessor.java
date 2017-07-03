@@ -46,7 +46,7 @@ public class QueryStoreProcessor implements FutureTask{
 		} catch (InterruptedException e) {
 			log.debug(e);
 			result = new QueryStoreResponse(QueryStoreResponse.STATUS_ERROR, "", e.getMessage());
-		} catch (ExecutionException e) {			
+		} catch (ExecutionException e) {		
 			log.debug(e);
 			result = new QueryStoreResponse(QueryStoreResponse.STATUS_ERROR, "", e.getMessage());
 		}catch (NullPointerException e) {

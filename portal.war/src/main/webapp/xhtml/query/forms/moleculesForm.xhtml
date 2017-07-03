@@ -13,11 +13,11 @@
 		<ui:include src="/xhtml/query/forms/formTitle.xhtml" />
 		
 		<a4j:form ajaxSubmit="true">
-			<c:forEach items="#{form.fields}" var="field">
-				<h:panelGrid columns="2" columnClasses="leftColumn,rightColumn">
-					<ui:include src="#{field.view}" />
-				</h:panelGrid>
-			</c:forEach>
+			<h:panelGrid columns="2" columnClasses="leftColumn,rightColumn">
+				<c:forEach items="#{form.fields}" var="field">				
+						<ui:include src="#{field.view}" />				
+				</c:forEach>
+			</h:panelGrid>
 		</a4j:form>
 
 		<a4j:form ajaxSubmit="true" rendered="#{! form.molecules.isEmpty()}">

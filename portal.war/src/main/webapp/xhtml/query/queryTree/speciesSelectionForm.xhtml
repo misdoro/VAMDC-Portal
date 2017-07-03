@@ -10,12 +10,12 @@
 	xmlns:c="http://java.sun.com/jstl/core">
 
 
-	<rich:panel id="speciesSelection">
+	<rich:simpleTogglePanel switchType="client" id="speciesSelection">
 		<f:facet name="header">
 			<h:outputText
-				value="Please, enter the number of species you wish to add" />
+				value="Please, enter the number of species you wish to query" />
 		</f:facet>
-        <a4j:form ajaxSubmit="true">		
+		<a4j:form ajaxSubmit="true">
 			<h:panelGrid id="panel" columns="2" border="0" cellpadding="10"
 				cellspacing="1" columnClasses="leftColumn,rightColumn">
 
@@ -38,16 +38,14 @@
 						<f:selectItem itemValue="#{i}" itemLabel="#{i}" />
 					</c:forEach>
 				</h:selectOneMenu>
-				
-				<a4j:commandButton value="Configure species ->" align="right" width="200" action="#{form.validate}" id="speciesNextButton"
-				styleClass="roundButton" tabindex="20" reRender="formPanel" disabled="#{!form.queryable}"/>
-				
-				<a4j:commandButton value="Add more species" align="right" width="200" action="#{form.enable}" id="speciesUnlockButton"
-				styleClass="roundButton" tabindex="20" reRender="formPanel" rendered="#{!form.queryable}"/>
-
 			</h:panelGrid>
-		</a4j:form>
-	
+			<a4j:commandButton value="Validate" action="#{form.validate}"
+				id="speciesNextButton" styleClass="largeButton" tabindex="20"
+				reRender="formPanel" disabled="#{!form.queryable}" />
 
-	</rich:panel>
+			<a4j:commandButton value="Add more" action="#{form.enable}"
+				id="speciesUnlockButton" styleClass="largeButton" tabindex="21"
+				reRender="formPanel" rendered="#{!form.queryable}" />
+		</a4j:form>
+	</rich:simpleTogglePanel>
 </ui:composition>

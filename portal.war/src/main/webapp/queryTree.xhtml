@@ -5,33 +5,29 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:rich="http://richfaces.org/rich"
 	template="/layout/template.xhtml">
-	
-	
+
+
 	<ui:define name="body">
 		<c:if test="#{disclaimer.value == false}">
-			 <ui:include src="/xhtml/disclaimer/disclaimerValidation.xhtml" />
+			<ui:include src="/xhtml/disclaimer/disclaimerValidation.xhtml" />
 		</c:if>
 		<c:if test="#{disclaimer.value == true}">
-			<a4j:outputPanel width="460" id="formPanel">
-				<h:panelGrid>
+			<a4j:outputPanel id="formPanel">
+				<h:panelGrid width="50%">
 					<c:forEach items="#{queryTree.forms}" var="form">
 						<a4j:include viewId="#{form.view}" />
-					</c:forEach>				
-					<rich:spacer width="460" />				
+					</c:forEach>
+					
 				</h:panelGrid>
-				<a4j:outputPanel width="460" id="buttons">
-			<ui:include src="/xhtml/query/queryTree/actionButtons.xhtml" />
+				<a4j:outputPanel id="buttons">
+					<ui:include src="/xhtml/query/queryTree/actionButtons.xhtml" />
+				</a4j:outputPanel>
+
 			</a4j:outputPanel>
-			
-			</a4j:outputPanel>
-			<a4j:outputPanel id="nodeTree">
-				<rich:spacer width="460" />			
-			</a4j:outputPanel>
-			<a4j:outputPanel id="asyncForm" />
 		</c:if>
 	</ui:define>
 

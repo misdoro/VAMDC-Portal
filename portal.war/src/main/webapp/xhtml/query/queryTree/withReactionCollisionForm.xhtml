@@ -10,74 +10,79 @@
 	xmlns:c="http://java.sun.com/jstl/core">
 
 
-	<rich:panel id="speciesSelection">
+	<rich:simpleTogglePanel switchType="client" id="speciesSelection">
 		<f:facet name="header">
 			<h:outputText value="#{form.title}" />
 		</f:facet>
 
-        <a4j:form ajaxSubmit="true">		
-			<h:panelGrid id="panel" columns="6" border="0" cellpadding="10"
-				cellspacing="1" columnClasses="simpleColumn,simpleColumn,simpleColumn,simpleColumn,simpleColumn,simpleColumn">
-			
-				<h:outputLabel value="Reactants" style="font-weight:bold"/><h:outputLabel value="" />
-				<h:outputLabel value="" /><h:outputLabel value="" />
-				<h:outputLabel value="" /><h:outputLabel value="" />
-				
+		<a4j:form ajaxSubmit="true">
+			<h:panelGrid id="leftPanel" columns="2" border="0" cellpadding="10"
+				cellspacing="1"
+				styleClass="collisionSpeciesSelectionForm"
+				columnClasses="simpleColumn,simpleColumn">
+				<h:outputLabel value="Reactants" style="font-weight:bold" />
+				<h:outputLabel value="" />
+
 				<h:outputLabel value="Atoms" />
 				<h:selectOneMenu value="#{form.reactantAtomCount}">
 					<c:forEach var="i" begin="0" end="#{form.maxElementCount}">
 						<f:selectItem itemValue="#{i}" itemLabel="#{i}" />
 					</c:forEach>
-				</h:selectOneMenu>				
-				
+				</h:selectOneMenu>
+
 				<h:outputLabel value="Molecules" />
 				<h:selectOneMenu value="#{form.reactantMoleculeCount}">
 					<c:forEach var="i" begin="0" end="#{form.maxElementCount}">
 						<f:selectItem itemValue="#{i}" itemLabel="#{i}" />
 					</c:forEach>
 				</h:selectOneMenu>
-				
+
 				<h:outputLabel value="Particles" />
 				<h:selectOneMenu value="#{form.reactantParticleCount}">
 					<c:forEach var="i" begin="0" end="#{form.maxElementCount}">
 						<f:selectItem itemValue="#{i}" itemLabel="#{i}" />
 					</c:forEach>
 				</h:selectOneMenu>
-				
-				<h:outputLabel value="Products" style="font-weight:bold"/><h:outputLabel value="" />
-				<h:outputLabel value="" /><h:outputLabel value="" />
-				<h:outputLabel value="" /><h:outputLabel value="" />
-				
-				<h:outputLabel value="Atoms" />				
+			</h:panelGrid>
+			<h:panelGrid id="rightPanel" columns="2" border="0" cellpadding="10"
+				cellspacing="1"
+				styleClass="collisionSpeciesSelectionForm"
+				columnClasses="simpleColumn,simpleColumn">
+
+				<h:outputLabel value="Products" style="font-weight:bold" />
+				<h:outputLabel value="" />
+
+				<h:outputLabel value="Atoms" />
 				<h:selectOneMenu value="#{form.productAtomCount}">
 					<c:forEach var="i" begin="0" end="#{form.maxElementCount}">
 						<f:selectItem itemValue="#{i}" itemLabel="#{i}" />
 					</c:forEach>
-				</h:selectOneMenu>				
-				
+				</h:selectOneMenu>
+
 				<h:outputLabel value="Molecules" />
 				<h:selectOneMenu value="#{form.productMoleculeCount}">
 					<c:forEach var="i" begin="0" end="#{form.maxElementCount}">
 						<f:selectItem itemValue="#{i}" itemLabel="#{i}" />
 					</c:forEach>
 				</h:selectOneMenu>
-				
+
 				<h:outputLabel value="Particles" />
 				<h:selectOneMenu value="#{form.productParticleCount}">
 					<c:forEach var="i" begin="0" end="#{form.maxElementCount}">
 						<f:selectItem itemValue="#{i}" itemLabel="#{i}" />
 					</c:forEach>
 				</h:selectOneMenu>
-				
-				<a4j:commandButton value="Configure species" align="right" width="200" action="#{form.validate}" id="speciesNextButton"
-				styleClass="roundButton" tabindex="20" reRender="formPanel" disabled="#{!form.queryable}"/>
-				<h:outputLabel value="" /><h:outputLabel value="" /><h:outputLabel value="" /><h:outputLabel value="" />
-				<a4j:commandButton value="Add more species" align="right" width="200" action="#{form.enable}" id="speciesUnlockButton"
-				styleClass="roundButton" tabindex="20" reRender="formPanel" rendered="#{!form.queryable}"/>
-
 			</h:panelGrid>
+			<a4j:commandButton value="Validate"
+				action="#{form.validate}" id="speciesNextButton"
+				styleClass="largeButton" tabindex="20" reRender="formPanel"
+				disabled="#{!form.queryable}" />
+			<a4j:commandButton value="Add more"
+				action="#{form.enable}" id="speciesUnlockButton"
+				styleClass="largeButton" tabindex="21" reRender="formPanel"
+				rendered="#{!form.queryable}" />
 		</a4j:form>
-	
 
-	</rich:panel>
+
+	</rich:simpleTogglePanel>
 </ui:composition>
