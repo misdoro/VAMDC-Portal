@@ -28,10 +28,6 @@ public class AtomsTreeForm extends AtomsForm implements FormForFields, TreeFormI
 		return this.toString();
 	}
 
-	/*@Override
-	public String getView() {
-		return "/xhtml/query/queryTree/atomsForm.xhtml";
-	}*/
 
 	@Override
 	public void validate() {

@@ -270,10 +270,17 @@ table.radio input[type=radio] {
 	background-color: inherit;
 }
 
-.collisionSpecies{
+.collisionSpeciesText{
 	text-decoration:none;
 	border-bottom:1px dotted #D4CFC7;
 }
+
+
+.collisionSpeciesSelectionForm{
+	width : 49%;
+	float : left;
+}
+
 
 .roundButton {
 	-moz-border-radius: 10px;

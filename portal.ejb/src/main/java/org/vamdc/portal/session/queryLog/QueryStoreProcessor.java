@@ -47,7 +47,6 @@ public class QueryStoreProcessor implements FutureTask{
 			log.debug(e);
 			result = new QueryStoreResponse(QueryStoreResponse.STATUS_ERROR, "", e.getMessage());
 		} catch (ExecutionException e) {			
-			System.out.println("### test");
 			e.printStackTrace();
 			log.debug(e);
 			result = new QueryStoreResponse(QueryStoreResponse.STATUS_ERROR, "", e.getMessage());

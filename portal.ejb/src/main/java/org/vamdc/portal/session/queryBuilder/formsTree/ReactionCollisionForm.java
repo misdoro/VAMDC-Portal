@@ -23,7 +23,6 @@ public abstract class ReactionCollisionForm extends AbstractForm implements Form
 	private QueryTreeInterface tree;
 	private Boolean queryable = true;
 		
-	//private Boolean hasHiddenForm = false;
 	
 	private String typeAName;
 	private String typeBName;

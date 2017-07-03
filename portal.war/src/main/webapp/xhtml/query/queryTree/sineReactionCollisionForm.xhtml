@@ -16,15 +16,12 @@
 		</f:facet>
 
 		<a4j:form ajaxSubmit="true">
-			<h:panelGrid id="panel" columns="6" border="0" cellpadding="10"
+			<h:panelGrid id="leftPanel" columns="2" border="0" cellpadding="10"
 				cellspacing="1"
-				columnClasses="simpleColumn,simpleColumn,simpleColumn,simpleColumn,simpleColumn,simpleColumn">
+				styleClass="collisionSpeciesSelectionForm"
+				columnClasses="simpleColumn,simpleColumn">
 
 				<h:outputLabel value="Targets" style="font-weight:bold" />
-				<h:outputLabel value="" />
-				<h:outputLabel value="" />
-				<h:outputLabel value="" />
-				<h:outputLabel value="" />
 				<h:outputLabel value="" />
 
 				<h:outputLabel value="Atoms" />
@@ -47,12 +44,13 @@
 						<f:selectItem itemValue="#{i}" itemLabel="#{i}" />
 					</c:forEach>
 				</h:selectOneMenu>
+			</h:panelGrid>
+			<h:panelGrid id="rightPanel" columns="2" border="0" cellpadding="10"
+				cellspacing="1"
+				styleClass="collisionSpeciesSelectionForm"
+				columnClasses="simpleColumn,simpleColumn">
 
 				<h:outputLabel value="Colliders" style="font-weight:bold" />
-				<h:outputLabel value="" />
-				<h:outputLabel value="" />
-				<h:outputLabel value="" />
-				<h:outputLabel value="" />
 				<h:outputLabel value="" />
 
 				<h:outputLabel value="Atoms" />
@@ -77,6 +75,7 @@
 					</c:forEach>
 				</h:selectOneMenu>
 			</h:panelGrid>
+
 			<a4j:commandButton value="Validate" 
 				action="#{form.validate}" id="speciesNextButton"
 				styleClass="largeButton" tabindex="20" reRender="formPanel"

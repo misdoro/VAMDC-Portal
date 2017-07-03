@@ -84,7 +84,6 @@ public class QueryTreeController  implements QueryTreeInterface, PersistableQuer
 	public List<Form> getForms() {
 		List<Form> forms= new ArrayList<Form>();
 		forms = this.getQueryData().getOrderedGuidedForm();
-		//return queryData.getUnsortedForms();
 		return forms;
 	}
 
