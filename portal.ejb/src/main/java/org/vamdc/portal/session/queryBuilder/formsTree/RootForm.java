@@ -14,7 +14,7 @@ public class RootForm extends AbstractForm implements TreeFormInterface{
 	 * 
 	 */
 	private static final long serialVersionUID = 48058013878512872L;
-	private SearchMode selectedMode;
+	private SearchMode selectedMode = SearchMode.species;
 	private QueryTreeInterface tree;
 	private Boolean queryable=true;
 
