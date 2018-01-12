@@ -49,13 +49,18 @@ public class QueryStoreRequestRegistry {
 	 * @return
 	 */
 	public String getIpAdress() {		
-		String ipAddress = ServletContexts.instance().getRequest()
+		// client and proxies IP are concatenated in this header field : client, proxy1, proxy2 ...
+		String ipAddresses = ServletContexts.instance().getRequest()
 				.getHeader("X-FORWARDED-FOR");
+		String clientAddress = "";
 		
-		if (ipAddress == null) {
-			ipAddress = ServletContexts.instance().getRequest().getRemoteAddr();
+		if (ipAddresses == null) {
+			clientAddress = ServletContexts.instance().getRequest().getRemoteAddr();
+		}else{
+			// keep only original client ip
+			clientAddress = ipAddresses.split(",")[0];			
 		}
-		return ipAddress;
+		return clientAddress;
 	}
 
 }
