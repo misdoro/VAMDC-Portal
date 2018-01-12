@@ -79,20 +79,18 @@ public class QueryStoreRequest implements Callable<QueryStoreResponse>{
 		try {
 			String request = this.getRequest(token, this.getUserEmail(),
 					this.userIp);
-
 			// send request while no result or result is empty
 			while ((result == null || QueryStoreResponse.STATUS_EMPTY.equals(result.getStatus())) 
 					&& count < Settings.QUERYSTORE_MAX_RETRY.getInt()) {
 				result = this.doRequest(request);
+				//if(result != null)
 				Thread.sleep(Settings.QUERYSTORE_RETRY_TIMER.getInt());
 				count++;
 			}
-
 		} catch (Exception e) {		
 			log.debug(e);
-			new QueryStoreResponse(QueryStoreResponse.STATUS_ERROR, "", "Error while querying query store");
-
-		}		
+			result = new QueryStoreResponse(QueryStoreResponse.STATUS_ERROR, "", "Error while querying query store");
+		}	
 		return  result;
 	}
 
@@ -125,17 +123,14 @@ public class QueryStoreRequest implements Callable<QueryStoreResponse>{
 		//SSLHandShakeException (IOException) occurs if missing certificate
 		HttpResponse response = httpClient.execute(request);
 		Integer statusCode = response.getStatusLine().getStatusCode();
-		
 		if ( statusCode == 200) {
 			BufferedReader rd = new BufferedReader(new InputStreamReader(
 					response.getEntity().getContent()));
-
 			String uuid;
 			while ((uuid = rd.readLine()) != null) {
 				result.append(uuid);
 			}
 			rd.close();
-
 		} else {
 			// empty response
 			if (statusCode == 204) {
@@ -150,7 +145,6 @@ public class QueryStoreRequest implements Callable<QueryStoreResponse>{
 				return new QueryStoreResponse(QueryStoreResponse.STATUS_ERROR, "",  response.getStatusLine().getReasonPhrase());
 			}
 		}
-
 		// extract uuid from json response
 		return QueryStoreResponseReader.parseResponse(result.toString());
 	}
