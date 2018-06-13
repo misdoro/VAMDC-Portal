@@ -61,7 +61,7 @@ public class HttpHeadResponse implements Serializable{
 	public HttpHeadResponse(String ivoaID, HttpURLConnection connection) {
 		this.ivoaID = ivoaID;
 		this.fullQueryURL = connection.getURL().toString();
-		this.status = retrieveStatus(connection);
+		this.status = retrieveStatus(connection);		
 		retrieveHeaders(connection);
 		if (truncated>0 && truncated<100)
 			this.status=Response.TRUNCATED;
