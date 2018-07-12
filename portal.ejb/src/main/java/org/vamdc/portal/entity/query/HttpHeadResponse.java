@@ -30,11 +30,11 @@ public class HttpHeadResponse implements Serializable{
 		Response(String description){
 			this.description = description;
 		}
-		
+
 		public String getDescription(){
 			return this.description;
 		}
-		
+
 	}
 
 	private String ivoaID;
@@ -59,10 +59,10 @@ public class HttpHeadResponse implements Serializable{
 	}
 
 	public HttpHeadResponse(String ivoaID, HttpURLConnection connection) {
+		retrieveHeaders(connection);
 		this.ivoaID = ivoaID;
 		this.fullQueryURL = connection.getURL().toString();
-		this.status = retrieveStatus(connection);		
-		retrieveHeaders(connection);
+		this.status = retrieveStatus(connection);				
 		if (truncated>0 && truncated<100)
 			this.status=Response.TRUNCATED;
 	}
@@ -94,7 +94,7 @@ public class HttpHeadResponse implements Serializable{
 			return 0;
 		}
 	}
-	
+
 	private int getTruncatedValue( HttpURLConnection connection,String headerName ){
 		try{
 			String val = connection.getHeaderField(headerName);
@@ -131,11 +131,32 @@ public class HttpHeadResponse implements Serializable{
 	@Id @GeneratedValue
 	public Integer getRecordID() { return recordID; }
 	public void setRecordID(Integer recordID) { this.recordID = recordID; }
-	
+
 	public String getIvoaID() { return ivoaID; }
 	public void setIvoaID(String ivoaID) { this.ivoaID = ivoaID; }
-	
-	public Response getStatus() { return status; }
+
+	/**
+	 * if a node answers a HEAD request, there is no content and the
+	 * response code can be 204
+	 * In that case, if data have been found (  processes + species + states > 0 )
+	 * we return a OK status instead of EMPTY
+	 * @return
+	 */
+	public Response getStatus() { 	
+		try {
+			int total = processes + species + states;
+			if(total > 0) {
+				return Response.OK;			
+			}else {
+				return status;
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			return status;
+		}
+	}
+
+
 	public void setStatus(Response status) { this.status = status; }
 	@Transient
 	public String getStatusDescription() {return status.getDescription();}
@@ -155,10 +176,10 @@ public class HttpHeadResponse implements Serializable{
 	public int getNonRadiative() { return nonRadiative; }
 	public int getCollisions() { return collisions; }
 	public String getRequestToken(){ return requestToken; }
-	
+
 	@Transient
 	public int getTruncated() { return truncated; }
-	
+
 	public void setSpecies(int species) { this.species = species; }
 	public void setStates(int states) { this.states = states; }
 	public void setProcesses(int processes) { this.processes = processes; }
@@ -166,7 +187,7 @@ public class HttpHeadResponse implements Serializable{
 	public void setNonRadiative(int nonRadiative) { this.nonRadiative = nonRadiative; }
 	public void setCollisions(int collisions) { this.collisions = collisions; }
 	public void setRequestToken(String token){ this.requestToken = token; }
-	
+
 	@Lob 
 	public String getFullQueryURL() { return fullQueryURL; }
 	public void setFullQueryURL(String fullQueryURL) { this.fullQueryURL = fullQueryURL; }
@@ -179,6 +200,6 @@ public class HttpHeadResponse implements Serializable{
 
 	@Transient
 	public boolean isOk(){
-		return this.status==Response.OK || this.status == Response.TRUNCATED;
+		return this.getStatus()==Response.OK || this.getStatus() == Response.TRUNCATED;
 	}
 }
