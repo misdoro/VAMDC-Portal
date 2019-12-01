@@ -25,8 +25,6 @@ public class PersistentQueryLog {
 	
 	@SuppressWarnings("unchecked")
 	public List<Query> getStoredQueries(){
-		//log.info("Reading saved queries");
-		
 		List<Query> queries = null;
 		
 		User user = auth.getUser();
@@ -36,7 +34,6 @@ public class PersistentQueryLog {
 		}
 		
 		if (queries!=null && queries.size()>0){
-			log.info("Read #0 queries",queries.size());
 			return Collections.unmodifiableList(queries);
 		}
 		return new ArrayList<Query>();

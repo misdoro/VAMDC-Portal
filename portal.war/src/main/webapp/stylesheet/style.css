@@ -1,3 +1,114 @@
+html {
+	overflow-y: scroll;
+}
+
+body {
+	font: normal 12px/1.7 "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+	margin: 0px;
+	background : #F1F1F1 url() repeat top center;
+}
+
+body .textContent{
+	width : 75%;
+	text-align : justify;
+	padding-left : 1em;
+}
+
+.container {
+	width : 1060px;
+	position : relative;
+	margin : auto;	
+	background : #FFFFFF url() repeat top center;
+}
+
+a {
+	color : #F05A28;
+}
+
+a img {
+	border: none;
+}
+
+h1 {
+	font-size: 1.6em;
+	margin-top: 0;
+}
+
+input[type=submit], input[type=button] {
+	font-size: 11px;
+	margin: 5px 5px 5px 0;
+	cursor: pointer;
+}
+
+input[type=text], input[type=password], textarea {
+	font-size: 12px;
+	padding-left: 1px;
+}
+
+select {
+	font-size: 13px;
+}
+
+img.errors {
+	padding-right: 5px;
+}
+
+div.info {
+	font-size: 1.2em;
+}
+
+ul.bullets {
+	list-style: square;
+}
+
+ul.bullets li {
+	padding-bottom: 2px;
+}
+
+td.action {
+	text-align: center;
+	width: 8em;
+	white-space: nowrap;
+}
+
+td.action a {
+	padding-left: 1px;
+	padding-right: 1px;
+}
+
+table.radio {
+   border: 0;
+}
+
+table.radio td {
+   padding: 0 2px;
+}
+
+table.radio input[type=radio] {
+   vertical-align: bottom;
+}
+
+.header {
+	padding-top: 1em;
+	padding-bottom: 1em;
+}
+
+.footer {
+	text-align: right;
+	padding-top: 1em;
+	padding-bottom: 1em;
+}
+
+.footer img {
+	margin-right : 0.2em;
+}
+
+.content {
+	padding: 0.5em;
+	width : 100%;
+}
+
+
 .field{
 	margin-top:0px;
 	margin-bottom:0px;
@@ -5,7 +116,7 @@
 	margin-left:5px;
 }
 .narrowfield{
-	width: 70px;
+	width: 60px;
 	margin-top:0px;
 	margin-bottom:0px;
 	margin-right:5px;
@@ -19,53 +130,31 @@
 .leftColumn {
 	width: 170px;
 	font-weight: bold;
-	font-size: 12px;
 	font-family: none;
 }
 
 .simpleColumn {
 	width: 60px;
-	/*font-weight: bold;*/
-	font-size: 12px;
 	margin : 0px;
 	font-family: none;
 }
 
 .rightColumn {
-	width: 250px;
-	align: right;
+	width: 270px;
+	/*align: right;
 	text-align: right;
-	float: right;
-}
-
-.rich-progress-bar-done{
-	background-image: url("../img/progressBarComplete.png");
-}
-
-.rich-progress-bar-mockup{
-	border-color: #D4CFC7;
-	border-width: 1px;
-	border-style: solid;
-    color: #000000;
-    font-family: Arial,Verdana,sans-serif;
-    font-size: 11px;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 2px;	
-}
-
-.rich-panel-body{
-	padding: 3px;
+	float: right;*/
 }
 
 .queryMenuPanel{
 	position: fixed;
-	top: 195px;
+	top: 140px;
+	width : 120px;
 }
 
 .queryMenu{
-	width: 120px;
 	height: 100%;
+	width : 130px;
 }
 
 .queryMenuButton{
@@ -74,7 +163,6 @@
 	white-space: nowrap;
 	font-family: Arial,Verdana,sans-serif;
 	font-weight: bold;
-    font-size: 11px;
 	margin: 3px;
 	line-height: 20px;
 	text-decoration: none;
@@ -92,35 +180,41 @@
 .queryForms{
 	height: 100%;
 	vertical-align: top;
-	width: 460px;
+	width : 460px;
+	/*max-width : 410px;*/
 }
 
 .queryRight{
 	height: 100%;
 	vertical-align: top;
-	width: 450px;
+	max-width : 370px;
 }
 
 .showRequestPanel{
-	width: 890px;
-	height: 70px;
+	width: 400px;
+	height: 210px;
 	margin-left : 3px;
 }
 
 .showRequestText{
-	width: 870px;
-	height: 40px;
+	width: 98%;
+	height: 170px;
 }
 
 .queryProgressPanel{
-	width: 450px;
+	width: 400px;
 	height: 210px;
 }
 
 .resultTable{
-	margin-left : 4px;
+	margin-left : 0.2em;
+	margin-top : 0.5em;
+	width : 97%;
 }
 
+.resultTable select{
+	width : 200px;
+}
 
 .consumerPanel{
 	width: 430px;
@@ -129,18 +223,22 @@
 
 .commentsPanel{
 	width: 98%;
-	height: 120px;
+	height: 110px;
 	margin-top : 1em;
 }
 
 .commentsPanel textarea{
 	width: 98%;
-	height: 80px;
+	height: 70px;
 }
 
 .consumerDescription{
 	width: 200px;
 	height: 115px;
+}
+
+.consumerUpdateImg{
+	margin-top : 5px;
 }
 
 .scrollPanel{
@@ -172,20 +270,159 @@
 	background-color: inherit;
 }
 
-.collisionSpecies{
+.collisionSpeciesText{
 	text-decoration:none;
 	border-bottom:1px dotted #D4CFC7;
 }
 
-.alignCenter{
-    text-align : center;
+
+.collisionSpeciesSelectionForm{
+	width : 49%;
+	float : left;
 }
+
 
 .roundButton {
 	-moz-border-radius: 10px;
 	border-radius: 10px;
 }
 
+.largeButton{
+	width : 110px;
+	font-weight : bold;	
+	padding : 1px;
+}
+
+.largerButton{
+	width : 220px;
+	font-weight : bold;	
+	padding : 1px;
+}
+
+.buttonArea .largeButton{
+	margin : 0px 5px 0px 0px;
+}
+
 .nodesTable{
-	width : 90%;	
+	width : 98%;	
+	margin-bottom : 2em;
+}
+
+.registerForm{
+	width : 40%;
+}
+
+
+.bold{
+	font-weight : bold;
+}
+
+.alignJustify{
+	text-align : justify;
+}
+
+.alignCenter{
+    text-align : center;
+}
+
+.tableControl, .actionButtons, .isotopologue {
+	width: 100%;
+}
+
+.tableControl a {
+	padding-left: 10px;
+}
+
+.tableControl {
+	text-align: right;
+}
+
+
+.tableControl input[type=submit], .tableControl input[type=button], .tableControl select {
+	margin: 5px 0 5px 5px;
+}
+
+/* I don't know why this is necessary, but the select is off by a pixel on the top and is padding too much on the left */
+.tableControl select {
+	margin-left: 2px;
+	position: relative;
+	top: 1px;
+}
+
+.actionButtons {
+	padding-left: 1px;
+}
+
+.actionButtons select {
+	margin: 5px 5px 5px 0;
+	vertical-align: bottom;
+}
+
+.message {
+	padding: 5px;
+	list-style: none;
+	border: 0;
+	background: none;
+	padding: 0;
+	color: #000000;
+	margin: 5px 0 8px 0;
+	font-size: 12px;
+}
+
+.message li {
+	background: no-repeat left center;
+	padding-top: 1px;
+	padding-left: 20px;
+	margin-left: 3px;
+}
+
+.message li.infomsg {
+	background-image: url(../img/msginfo.png);
+}
+
+.message li.errormsg {
+	background-image: url(../img/msgerror.png);
+}
+
+.message li.warnmsg {
+	background-image: url(../img/msgwarn.png);
+}
+
+.name {
+	vertical-align: top;
+	font-weight: bold;
+	width: 115px;
+	float: left;
+	padding: 5px;
+	margin-top: 3px;
+	clear: left;
+}
+
+.value {
+	float: left;
+	padding: 5px;
+}
+
+.error {
+	float: left;
+	padding: 5px;
+}
+
+.errors {
+	color: #FF0000;
+	vertical-align: middle;
+}
+
+.errors input, .errors textarea, .errors select {
+	border: 1px solid red !important;
+}
+
+.required {
+	color: #FF0000;
+	padding-left: 2px;
+}
+
+.important{
+	text-decoration : underline;
+	font-weight : bold;
 }

@@ -12,7 +12,7 @@ public class UtilForm extends AbstractForm{
 	public String getTitle() { return "Misc."; }
 
 	@Override
-	public String getView() { return "/xhtml/query/forms/standardForm.xhtml"; }
+	public String getView() { return "/xhtml/query/forms/utilForm.xhtml"; }
 
 	@Override
 	public Integer getOrder() {	return Order.Util; }

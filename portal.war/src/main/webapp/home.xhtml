@@ -1,19 +1,37 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:s="http://jboss.com/products/seam/taglib"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:rich="http://richfaces.org/rich"
-    template="/layout/template.xhtml">
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/layout/template.xhtml">
 
-    <ui:define name="body">
+	<ui:define name="body">
+		<h1>Welcome to the VAMDC portal!</h1>
 
-        <h1>Welcome to the VAMDC portal!</h1>
-        <rich:panel>
-           <h:outputText value="Currently we have #{registry.count} databases running and ready to serve you with the data."></h:outputText>
-        </rich:panel>
+		<div class="textContent">
 
-    </ui:define>
+			<p>VAMDC aims to be an interoperable e-infrastructure that
+				provides the international research community with access to a broad
+				range of atomic and molecular (A&amp;M) data compiled within a set
+				of A&amp;M databases accessible through the provision of this portal
+				and of user software. Furthermore VAMDC aims to provide A&amp;M data
+				providers and compilers with a large dissemination platform for
+				their work.</p>
+
+			<p>VAMDC infrastructure was established to provide a service to
+				a wide international research community and has been developed in
+				conjunction with consultations and advice from the A&amp;M user
+				community.</p>
+
+			<p>
+				<s:link id="menuNodes" view="/nodes.xhtml"
+					value="Currently we have #{registry.count} databases running and ready to serve you with the data."
+					propagation="none" />
+			</p>
+
+		</div>
+	</ui:define>
 </ui:composition>

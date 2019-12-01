@@ -29,7 +29,6 @@ public interface Form extends Serializable{
 	 */
 	public void setQueryData(QueryData data);
 
-	
 	public void clear();
 	public void delete();
 	public void setPrefix(String prefix);
@@ -37,6 +36,7 @@ public interface Form extends Serializable{
 	
 	public Integer getOrder();
 	public Integer getPosition();
+	public void decreasePosition();
 	public void setPrefixIndex(Integer integer);
 	
 	public int loadFromQuery(LogicNode branch);

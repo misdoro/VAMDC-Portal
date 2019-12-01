@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.vamdc.portal.entity.constant.Species;
 import org.vamdc.portal.entity.species.VamdcSpecies;
 import org.vamdc.portal.session.queryBuilder.forms.MoleculesForm.MoleculeInfo;
 
@@ -17,52 +18,56 @@ import org.vamdc.portal.session.queryBuilder.forms.MoleculesForm.MoleculeInfo;
  *
  */
 public class EntityFacade {
+	
+	private EntityFacade(){}
 
-	public static Collection<String> suggestStoichiometricFormula(
+	public static Collection<String> suggestMoleculeStoichiometricFormula(
 			EntityManager entityManager, String value) {
 		if (!checkValue(value) || entityManager==null)
 			return Collections.emptyList();
 
-		return EntityQuery.suggestStoichForm(entityManager, value.trim());
+		return EntityQuery.suggestMoleculeStoichForm(entityManager, value.trim());
 	}
 
 
-	public static Collection<String> suggestOrdinaryFormula(
+	public static Collection<String> suggestMoleculeOrdinaryFormula(
 			EntityManager entityManager, String value) {
 		if (!checkValue(value) || entityManager==null)
 			return Collections.emptyList();
 
-		return EntityQuery.suggestStructForm(entityManager, value);
+		return EntityQuery.suggestMoleculeStructForm(entityManager, value);
 	}
-
-
-	public static Collection<String> suggestChemicalName(
+	
+	public static Collection<String> suggestMoleculeName(
 			EntityManager entityManager, String value) {
 		if (!checkValue(value) || entityManager==null)
 			return Collections.emptyList();
 
-		return EntityQuery.suggestSpeciesName(entityManager, value.trim());
+		return EntityQuery.suggestMoleculeName(entityManager, value.trim());
 	}
 
 
 	public static List<MoleculeInfo> loadMoleculesFromName(EntityManager em,String value){
 		String query = "SELECT distinct vs FROM VamdcSpecies vs " +
 				"INNER JOIN vs.vamdcSpeciesNameses vsn " +
-				"WHERE vsn.name = :Value";
+				"WHERE vsn.name = :Value " +
+				"AND vs.speciesType =  " + Species.MOLECULE.getId();
 		return loadElements(em,query,value);
 	}
 
 
 	public static List<MoleculeInfo> loadMoleculesFromStoichForm(EntityManager em,String value){
 		String query = "SELECT distinct vs FROM VamdcSpecies vs " +
-				"WHERE vs.stoichiometricFormula = :Value";
+				"WHERE vs.stoichiometricFormula = :Value " +
+				"AND vs.speciesType = "+ Species.MOLECULE.getId();
 		return loadElements(em,query,value);
 	}
 
 	public static List<MoleculeInfo> loadMoleculesFromOrdForm(EntityManager em, String value) {
 		String query = "SELECT distinct vs FROM VamdcSpecies vs " +
 				"INNER JOIN vs.vamdcSpeciesStructFormulaes vsf "   +
-				"WHERE vsf.formula = :Value";
+				"WHERE vsf.formula = :Value " +
+				"AND vs.speciesType = " + Species.MOLECULE.getId();
 		return loadElements(em,query,value);
 	}
 

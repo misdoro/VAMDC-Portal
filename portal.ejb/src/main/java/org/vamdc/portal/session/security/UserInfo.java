@@ -21,11 +21,7 @@ public class UserInfo {
 	@In private Credentials credentials;
 	@In private Identity identity;
 	
-	public User getUser(){
-		/*if (identity!=null){
-			System.out.println("identity try login: "+identity.tryLogin());			
-		}*/
-		
+	public User getUser(){		
 		String user = null;
 		if (identity!=null && identity.isLoggedIn() && credentials!=null)
 			user=credentials.getUsername();

@@ -1,5 +1,6 @@
 package org.vamdc.portal.entity;
 
+import org.vamdc.portal.entity.constant.Markup;
 import org.vamdc.portal.entity.species.VamdcSpecies;
 import org.vamdc.portal.entity.species.VamdcSpeciesNames;
 import org.vamdc.portal.entity.species.VamdcSpeciesStructFormulae;
@@ -16,7 +17,7 @@ public class VamdcSpeciesFacade implements MoleculeInfo{
 	@Override
 	public String getName() {
 		for (VamdcSpeciesNames vsn:element.getVamdcSpeciesNameses()){
-			if (vsn.getVamdcMarkupTypes().getId()==1)
+			if (vsn.getVamdcMarkupTypes().getId() == Markup.TEXT.getId())
 				return vsn.getName();
 		}
 		return "";
@@ -28,7 +29,7 @@ public class VamdcSpeciesFacade implements MoleculeInfo{
 	@Override
 	public String getOrdinaryFormula() { 
 		for (VamdcSpeciesStructFormulae vsff:element.getVamdcSpeciesStructFormulaes()){
-			if (vsff.getVamdcMarkupTypes().getId()==1)
+			if (vsff.getVamdcMarkupTypes().getId() == Markup.TEXT.getId())
 				return vsff.getFormula();
 		}
 		return "";
@@ -46,7 +47,7 @@ public class VamdcSpeciesFacade implements MoleculeInfo{
 		String result = "";
 		for(VamdcSpeciesStructFormulae vsff: element.getVamdcSpeciesStructFormulaes()){
 			result=vsff.getFormula();
-			if (vsff.getVamdcMarkupTypes().getId()==2)
+			if (vsff.getVamdcMarkupTypes().getId() == Markup.HTML.getId())
 				break;
 		}
 		return appendName(result);

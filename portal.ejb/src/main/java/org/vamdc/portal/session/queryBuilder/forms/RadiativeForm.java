@@ -19,7 +19,7 @@ public class RadiativeForm extends AbstractForm implements Form{
 	@Override
 	public Integer getOrder() { return Order.Process; }
 	@Override
-	public String getView() { return "/xhtml/query/forms/standardForm.xhtml"; }
+	public String getView() { return "/xhtml/query/forms/radiativeForm.xhtml"; }
 	
 	public RadiativeForm(){
 		super();

@@ -42,14 +42,12 @@ public class QueryLog {
 
 	public void save(Query query, String queryID) {
 		if (query.getUser()!=null && (queryID==null || queryID.substring(0,1).equals("p"))){
-			//log.info("Saving query to the persistent log");
 			if (queryID!=null) 
 				query.setQueryID(Integer.valueOf(queryID.substring(1)));
 			persistentQueryLog.save(query);
 		}else{
 			if (queryID!=null) 
 				query.setQueryID(Integer.valueOf(queryID.substring(1)));
-			//log.info("Saving query to the session log");
 			sessionQueryLog.save(query);
 		}
 	}
@@ -64,7 +62,6 @@ public class QueryLog {
 	}
 
 	public void deleteQuery(String queryID){
-		//log.info("Delete query"+queryID);
 		if (queryID!=null){
 			if (queryID.substring(0, 1).equals("p"))
 				persistentQueryLog.delete(Integer.valueOf(queryID.substring(1)));
@@ -76,7 +73,7 @@ public class QueryLog {
 	public Query getQuery(String queryID){
 		if (queryID!=null){
 			List<Query> queries = null;
-			int intQueryID = Integer.valueOf(queryID.substring(1));
+			int intQueryID = Integer.parseInt(queryID.substring(1));
 			if (queryID.substring(0, 1).equals("p"))
 				queries = persistentQueryLog.getStoredQueries();
 			else 

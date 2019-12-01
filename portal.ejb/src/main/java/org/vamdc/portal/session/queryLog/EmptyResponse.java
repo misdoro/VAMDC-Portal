@@ -2,14 +2,16 @@ package org.vamdc.portal.session.queryLog;
 
 public class EmptyResponse implements ResponseInterface{
 
+	public final static String IVOA_ID = "ivo://vamdc/none";
+	
 	@Override
 	public String getNodeIVOAId() {
-		return "ivo://vamdc/none";
+		return IVOA_ID;
 	}
 
 	@Override
 	public String getStatsString() {
-		return "No nodes responded";
+		return "No node responded";
 	}
 
 	@Override

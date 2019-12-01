@@ -6,120 +6,172 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
-    
-    <rich:panel styleClass="resultTable">
-        <f:facet name="header">
-        	<!-- titlePrefix defined in file including this one  -->
-        	<h:outputText value="#{titlePrefix} Results by node"/>
-        </f:facet>
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a4j="http://richfaces.org/a4j">	
 
-        <rich:dataTable id="previewTable" value="#{preview.nodes}" var="node"
-            onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
-            onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
-            columnClasses=",alignCenter,alignCenter,alignCenter,alignCenter,alignCenter,alignCenter,alignCenter,alignCenter,alignCenter,alignCenter,alignCenter" >
-            <f:facet name="header">
-                <rich:columnGroup>
-                    <h:column>
-                        <h:outputText styleClass="headerText" value="Name" />
-                    </h:column>                
-                    <h:column>
-                        <h:outputText styleClass="headerText" value="Convert" />
-                    </h:column>
-                    <h:column>
-                        <h:outputText styleClass="headerText" value="Response" />
-                    </h:column>
-                    <h:column>
-                        <h:outputLink styleClass="headerText" target="_blank" 
-                        	value="https://github.com/VAMDC/Standards/blob/master/doc/source/dataAccessProtocol/vamdctap.rst#data-modifcation-time" >
+
+	<h:panelGroup layout="block" >
+		<h:outputText id="logRequestStatus" />
+	</h:panelGroup>	
+	 <h:panelGroup layout="block" id="nodeResults">
+	<rich:panel styleClass="resultTable">
+		<f:facet name="header">
+			<!-- titlePrefix defined in file including this one  -->
+			<h:outputText value="Results by node" />
+		</f:facet>
+
+
+		<rich:dataTable id="previewTable" value="#{preview.nodes}" var="node"
+			onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+			onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+			columnClasses=",alignCenter,alignCenter,alignCenter,alignCenter,alignCenter,alignCenter,alignCenter,alignCenter,alignCenter,alignCenter,alignCenter">
+			<f:facet name="header">
+				<rich:columnGroup>
+					<h:column>
+						<h:outputText styleClass="headerText" value="Name" />	
+					</h:column>
+					<h:column>
+						<h:outputText value="View data" styleClass="headerText" />
+						<h:outputText value=" ( Please wait until query is complete )"
+							rendered="#{!preview.done }" />
+
+					</h:column>
+					<h:column>
+						<h:outputText styleClass="headerText" value="Response" />
+					</h:column>
+					<h:column>
+						<h:outputLink styleClass="headerText" target="_blank"
+							value="https://github.com/VAMDC/Standards/blob/master/doc/source/dataAccessProtocol/vamdctap.rst#data-modifcation-time">
                         Last database update
                         </h:outputLink>
-                    </h:column>             
-                    <h:column>
-                        <h:outputText styleClass="headerText" value="Download" />
-                    </h:column>
+					</h:column>
+					<h:column>
+						<h:outputText styleClass="headerText" value="Download" />
+					</h:column>
 
-                    <h:column>
-                        <h:outputText styleClass="headerText" value="Species" />
-                    </h:column>
-                    <h:column>
-                        <h:outputText styleClass="headerText" value="States" />
-                    </h:column>
-                    <h:column>
-                        <h:outputText styleClass="headerText" value="Processes" />
-                    </h:column>
-                    <h:column>
-                        <h:outputText styleClass="headerText" value="Radiative" />
-                    </h:column>
-                    <h:column>
-                        <h:outputText styleClass="headerText" value="Collisions" />
-                    </h:column>
-                    <h:column>
-                        <h:outputText styleClass="headerText" value="Non Radiative" />
-                    </h:column>
+					<h:column>
+						<h:outputText styleClass="headerText" value="Species" />
+					</h:column>
+					<h:column>
+						<h:outputText styleClass="headerText" value="States" />
+					</h:column>
+					<h:column>
+						<h:outputText styleClass="headerText" value="Processes" />
+					</h:column>
+					<h:column>
+						<h:outputText styleClass="headerText" value="Radiative" />
+					</h:column>
+					<h:column>
+						<h:outputText styleClass="headerText" value="Collisions" />
+					</h:column>
+					<h:column>
+						<h:outputText styleClass="headerText" value="Non Radiative" />
+					</h:column>
 
-                </rich:columnGroup>
-            </f:facet>
-            
-            <h:column>
-                <h:outputText value="#{registryFacade.getResourceTitle(node.ivoaID)}" />
-            </h:column>
-            <h:column>
-                <h:selectBooleanCheckbox
-                    value="#{consumers.queries[node.fullQueryURL]}"
-                    disabled="#{!preview.done }" rendered="#{node.isOk()}"
-                    id="process" tabindex="10">
-                    <a4j:support event="onchange" reRender="consumersContainer,inputFilesInfo" action="#{consumers.updateNodeIds(node.ivoaID)}" />
-                    <rich:toolTip value="Select for processing" styleClass="toolTip"
-                        direction="bottom-right" />
-                </h:selectBooleanCheckbox>
-            </h:column>
+				</rich:columnGroup>
+			</f:facet>
 
-            <h:column>
-                <h:outputText value="#{node.status}" id="st#{node.recordID}">
-                    <rich:toolTip value="#{node.statusDescription}" styleClass="toolTip"
-                        direction="bottom-right" />
-                </h:outputText>
-                
-                <h:outputText value=" (#{node.truncated}% of data returned)"
-                    rendered="#{node.status=='TRUNCATED'}" />
+			<h:column>
+				<h:outputText
+					value="#{registryFacade.getResourceTitle(node.ivoaID)}" />				
+			</h:column>
+			<h:column>
+				<h:selectOneMenu id="somp"
+					disabled="#{!preview.done }" rendered="#{node.isOk()}">
+					<f:selectItem itemValue="-- Choose display --" />
+					<f:selectItems value="#{consumers.nodeConsumers[node.ivoaID]}" />
+					<a4j:support id="ajaxsomp" event="onchange"
+						action="#{consumers.process(node.fullQueryURL, node.ivoaID)}"
+						actionListener="#{consumers.changeConsumerSelected}"
+						eventsQueue="portalQueue"
+						reRender="consumerUpdate"></a4j:support>
+				</h:selectOneMenu>
+				<h:panelGroup id="consumerUpdate" layout="block" styleClass="consumerUpdateImg">
+					<a4j:region>
+						<a4j:poll id="consumerPoll" interval="1000"
+							enabled="#{consumers.consumersByNode[node.ivoaID].processing}" reRender="consumerUpdate" />
+					</a4j:region>
+					<h:graphicImage value="/img/waitingIcon.gif" width="16" height="16"
+						rendered="#{consumers.consumersByNode[node.ivoaID].processing}" />
+					<h:graphicImage value="/img/error.gif" id="consumerErrorImg"
+						rendered="#{consumers.consumersByNode[node.ivoaID].errorHappened}">
+						<rich:toolTip value="#{consumers.consumersByNode[node.ivoaID].error}" styleClass="toolTip"
+							direction="top-left" id="consumerErrorText" />
+					</h:graphicImage>
+					<h:outputLink value="#{consumers.consumersByNode[node.ivoaID].location}" target="_blank"
+						rendered="#{consumers.consumersByNode[node.ivoaID].ok}" tabindex="30">
+						<f:param name="ivoaID" value="#{node.ivoaID}" />
+						<h:outputText value="Display" />
+					</h:outputLink>
+					<h:outputText rendered="#{consumers.consumersByNode[node.ivoaID].errorHappened}" value="Error while processing data" />
+				</h:panelGroup>
 
-            </h:column>
-            
-            <h:column>
-	           <h:outputText value="#{node.modifyDate}" rendered="#{node.lastModSet}">
-	               <s:convertDateTime type="both" pattern=" dd/MM/yyyy HH:mm " />
-	           </h:outputText>      
-	           <h:outputText value="Not available" rendered="#{!node.lastModSet}" />                
-            </h:column>
+			</h:column>
 
-            <h:column>
-                <h:outputLink value="#{node.fullQueryURL}" target="_blank"
-                    rendered="#{node.isOk()}">
-                    <h:outputText value="XSAMS" />
-                </h:outputLink>
-            </h:column>
+			<h:column>
+				<h:outputText value="#{node.status}" id="st#{node.recordID}">
+					<rich:toolTip value="#{node.statusDescription}"
+						styleClass="toolTip" direction="bottom-right" />
+				</h:outputText>
 
-            <h:column>
-                <h:outputText value="#{node.species}" />
-            </h:column>
-            <h:column>
-                <h:outputText value="#{node.states}" />
-            </h:column>
-            <h:column>
-                <h:outputText value="#{node.processes}" />
-            </h:column>
-            <h:column>
-                <h:outputText value="#{node.radiative}" />
-            </h:column>
-            <h:column>
-                <h:outputText value="#{node.collisions}" />
-            </h:column>
-            <h:column>
-                <h:outputText value="#{node.nonRadiative}" />
-            </h:column>
+				<h:outputText value=" (#{node.truncated}% of data returned)"
+					rendered="#{node.status=='TRUNCATED'}" />
 
-        </rich:dataTable>
-    </rich:panel>
+			</h:column>
 
+			<h:column>
+				<h:outputText value="#{node.modifyDate}"
+					rendered="#{node.lastModSet}">
+					<s:convertDateTime type="both" pattern=" dd/MM/yyyy HH:mm " />
+				</h:outputText>
+				<h:outputText value="Not available" rendered="#{!node.lastModSet}" />
+			</h:column>
+
+			<h:column >
+				<h:panelGroup id="xsamsColumn">    
+					<h:panelGroup >					
+						<a4j:commandButton value="XSAMS file" reRender="xsamsColumn"  
+						onclick="window.open('#{node.fullQueryURL}');"
+						action="#{querystore.launchQueryStoreProcessor(node.requestToken, node.ivoaID)}"  
+						id="button" eventsQueue="portalQueue" rendered="#{node.isOk()}" disabled="#{!preview.done }">	
+						</a4j:commandButton>
+						
+					</h:panelGroup>
+					<br/>
+					<h:panelGroup rendered="#{querystore.querystoreProcessors[node.ivoaID] != null and querystore.querystoreProcessors[node.ivoaID].response.status eq 'success' }">
+						<h:outputLink value="http://cite.vamdc.eu/references.html?uuid=#{querystore.querystoreProcessors[node.ivoaID].response.uuid}" target="_blank">
+							<h:outputText value="Citation link" />
+						</h:outputLink>
+					</h:panelGroup >
+					<h:panelGroup rendered="#{querystore.querystoreProcessors[node.ivoaID] != null and querystore.querystoreProcessors[node.ivoaID].response.status eq 'error' }">
+							<h:outputText value="No citation link : #{querystore.querystoreProcessors[node.ivoaID].response.errorMessage }" />
+					</h:panelGroup >
+					<h:panelGroup rendered="#{querystore.querystoreProcessors[node.ivoaID] != null and querystore.querystoreProcessors[node.ivoaID].response.status eq 'empty' }">
+							<h:outputText value="No citation link : query not found in querystore" />
+					</h:panelGroup >
+				</h:panelGroup>	
+			</h:column>
+
+			<h:column>
+				<h:outputText value="#{node.species}" />
+			</h:column>
+			<h:column>
+				<h:outputText value="#{node.states}" />
+			</h:column>
+			<h:column>
+				<h:outputText value="#{node.processes}" />
+			</h:column>
+			<h:column>
+				<h:outputText value="#{node.radiative}" />
+			</h:column>
+			<h:column>
+				<h:outputText value="#{node.collisions}" />
+			</h:column>
+			<h:column>
+				<h:outputText value="#{node.nonRadiative}" />
+			</h:column>
+		</rich:dataTable>
+	</rich:panel>
+	</h:panelGroup>
 </ui:composition>
+

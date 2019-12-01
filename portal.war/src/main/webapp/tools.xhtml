@@ -1,0 +1,33 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/layout/template.xhtml">
+
+	<ui:define name="body">
+		<h3>The VAMDC species database</h3>
+        <p>
+            <h:outputLink value="https://species.vamdc.eu" target="_blank">Discover the content of each database in the VAMDC infrastructure</h:outputLink>
+        </p>
+        <p>
+            <h:outputText
+                value="This website centralizes the list of species of all the databases in the VAMDC infrastructure. It provides search features to quickly
+                discover where a given species can be found and the type of provided data." />	
+        </p>
+        <h3>Hitran file display and comparison</h3>
+        <p>
+            <h:outputLink value="http://www.vamdc.org/hitran-display/" target="_blank">Plot data exported in HITRAN format</h:outputLink>
+        </p>
+        <p>
+            <h:outputText
+                value="The VAMDC Portal provides a web service to convert a XSAMS file containing spectroscopic molecular data into a file in HITRAN format.
+                The output of this web service can be visualized thanks to the web page above." />	
+		</p>
+
+
+	</ui:define>
+</ui:composition>

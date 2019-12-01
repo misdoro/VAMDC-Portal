@@ -68,14 +68,20 @@ public class NodeSpecies {
         	resultBean.setReady(true);
         	return;
     	}
-    	
+    	System.out.println("### test ");
     	resultBean.setMirrorCount(mirrors.size());
     	for(URL node:mirrors){
     		resultBean.setMessage("Timeout : query execution was too long.");
     		resultBean.nextMirror();
     		URL queryUrl=node;
+			System.out.println("query");
+			System.out.println(query);
+    		System.out.println(queryUrl);
     		try {
     			queryUrl = new URL(node.toExternalForm()+query);
+
+    			System.out.print("queryUrl");
+    			System.out.print(queryUrl);
     			resultBean.setFormattedResult( formatRequestResult(queryUrl));
     			resultBean.setMessage("");
     			resultBean.setReady(true);
@@ -85,6 +91,8 @@ public class NodeSpecies {
     			resultBean.setMessage("Incorrect service URL "+queryUrl);
     		} catch (IOException e) {
     			// TODO Auto-generated catch block
+    			
+    			e.printStackTrace();
     			resultBean.setMessage("Error while proceeding request");
     		} catch (TransformerException e) {
     			// TODO Auto-generated catch block
@@ -110,7 +118,10 @@ public class NodeSpecies {
      * @throws TransformerException
      */
     private static String formatRequestResult(URL url) throws IOException, TransformerException, PortalHttpException{
+    	System.out.print("###");
+    	System.out.print(url);
     	HttpURLConnection c = (HttpURLConnection)url.openConnection();
+    	
     	if(c.getResponseCode() == 200){
 			c.setConnectTimeout(Settings.HTTP_CONNECT_TIMEOUT.getInt());
 			c.setReadTimeout(Settings.HTTP_DATA_TIMEOUT.getInt());

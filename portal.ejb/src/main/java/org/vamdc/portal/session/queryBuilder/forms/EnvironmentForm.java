@@ -15,7 +15,7 @@ public class EnvironmentForm extends AbstractForm implements Form{
 	@Override
 	public Integer getOrder() { return Order.Environment; }
 	@Override
-	public String getView() { return "/xhtml/query/forms/standardForm.xhtml"; }
+	public String getView() { return "/xhtml/query/forms/environmentForm.xhtml"; }
 	
 	public EnvironmentForm(){
 		addField(

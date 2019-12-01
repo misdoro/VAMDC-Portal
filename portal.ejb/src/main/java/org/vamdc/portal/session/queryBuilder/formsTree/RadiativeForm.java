@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 import org.vamdc.dictionary.Restrictable;
@@ -29,6 +30,8 @@ public class RadiativeForm extends AbstractForm implements FormForFields, TreeFo
 	private Boolean queryable = true;
 	private NextForm selectedMode = NextForm.anyEnergyRange;
 	private QueryTreeInterface tree;
+	private final String defaultSubmitButtonValue = "Select species";
+	private String submitButtonValue = defaultSubmitButtonValue;
 		
 	private enum NextForm{
 		upperLowerEnergyRange,
@@ -40,7 +43,6 @@ public class RadiativeForm extends AbstractForm implements FormForFields, TreeFo
 		private static final long serialVersionUID = 1L;
 		{
 			add(new SelectItem(NextForm.upperLowerEnergyRange,"Transition from an energy range to another one"));
-			//add(new SelectItem(NextForm.stateEnergyRange,"Transition to and from a given energy range"));
 			add(new SelectItem(NextForm.anyEnergyRange,"Any transition"));
 		}
 	};
@@ -64,9 +66,7 @@ public class RadiativeForm extends AbstractForm implements FormForFields, TreeFo
 	public void validate() {
 		if (this.selectedMode == null)
 			return;
-		
-		//System.err.println("Adding next form "+selectedMode.name());
-		
+			
 		switch(this.selectedMode){
 		case upperLowerEnergyRange:
 			tree.addForm(new AllStatesEnergyTreeForm(tree));
@@ -118,6 +118,26 @@ public class RadiativeForm extends AbstractForm implements FormForFields, TreeFo
 	@Override
 	public Boolean getQueryable() {
 		return this.queryable;
+	}
+	
+	public String getSubmitButtonValue(){
+		return this.submitButtonValue;
+	}
+	
+	public void changeTransitionType(ValueChangeEvent e){
+		NextForm value = (NextForm)e.getNewValue();
+		String submitButton = "Select range";
+		switch(value){
+		case upperLowerEnergyRange:
+			this.submitButtonValue = submitButton;
+			break;
+		case stateEnergyRange:
+			this.submitButtonValue = submitButton;
+			break;
+		case anyEnergyRange:	
+			this.submitButtonValue = this.defaultSubmitButtonValue;
+			break;
+		}
 	}
 	
 }

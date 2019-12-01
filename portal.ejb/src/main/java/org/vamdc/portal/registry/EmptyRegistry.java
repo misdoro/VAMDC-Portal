@@ -59,4 +59,10 @@ public class EmptyRegistry implements Registry{
 		return null;
 	}
 
+	@Override
+	public Collection<String> getInactiveIVOAIDs(Service standard) {
+		// TODO Auto-generated method stub
+		return null;
+	} 
+
 }

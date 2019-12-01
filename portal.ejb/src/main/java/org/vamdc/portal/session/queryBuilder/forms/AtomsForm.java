@@ -10,7 +10,7 @@ import org.vamdc.portal.session.queryBuilder.unitConv.EnergyUnitConverter;
 import java.lang.Integer;
 import java.util.List;
 
-public class AtomsForm extends SpeciesForm implements Form {
+public class AtomsForm extends AbstractForm implements SpeciesForm {
 
 
 	private static final long serialVersionUID = -795296288400049729L;
@@ -19,18 +19,16 @@ public class AtomsForm extends SpeciesForm implements Form {
 	@Override
 	public Integer getOrder() { return Order.Atoms; }
 	@Override
-	public String getView() { return "/xhtml/query/forms/standardForm.xhtml"; }
+	public String getView() { return "/xhtml/query/forms/atomsForm.xhtml"; }
 	
 	public AtomsForm(){
-		super();
 		addField(new SimpleField(Restrictable.AtomSymbol,"Atom symbol"));
 		addField(new RangeField(Restrictable.AtomMassNumber,"Mass number"));
 		addField(new RangeField(Restrictable.AtomNuclearCharge,"Nuclear charge"));
 		addField(new RangeField(Restrictable.IonCharge,"Ion charge"));
 		addField(new TextField(Restrictable.InchiKey,"InChIKey"));
 		addField(new UnitConvRangeField(
-				Restrictable.StateEnergy, "State energy", new EnergyUnitConverter()));
-   
+				Restrictable.StateEnergy, "State energy", new EnergyUnitConverter()));   
 	}
 	
 	public List<AbstractField> getFields(){

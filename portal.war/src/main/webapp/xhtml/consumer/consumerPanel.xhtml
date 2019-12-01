@@ -56,15 +56,15 @@
 							disabled="#{consumers.selectedNodesCount == 0}"
 							reRender="consumerLocation" tabindex="25" />
 						<a4j:region>
-							<a4j:poll id="consumerPoll" interval="1000"
+							<a4j:poll id="consumerPol" interval="1000"
 								enabled="#{consumers.processing}" reRender="consumerLocation" />
 						</a4j:region>
 						<h:graphicImage value="/img/waitingIcon.gif" width="16"
 							height="16" rendered="#{consumers.processing}" />
-						<h:graphicImage value="/img/error.gif" id="consumerErrorImg"
+						<h:graphicImage value="/img/error.gif" id="consumerErrorIm"
 							rendered="#{consumers.errorHappened}">
 							<rich:toolTip value="#{consumers.error}" styleClass="toolTip"
-								direction="top-left" id="consumerErrorText" />
+								direction="top-left" id="consumerErrorTex" />
 						</h:graphicImage>
 						<h:outputLink value="#{consumers.location}" target="_blank"
 							rendered="#{consumers.ok}" tabindex="30">

@@ -9,8 +9,11 @@
 	xmlns:c="http://java.sun.com/jstl/core">
 
 
-	<rich:simpleTogglePanel id="form#{form.id}" switchType="client">
-		<ui:include src="/xhtml/query/forms/formTitle.xhtml" />
+	<rich:simpleTogglePanel id="form#{form.id}" switchType="client">	
+	
+		<f:facet name="header">
+			<h:outputText value="#{form.title}" />
+		</f:facet>
 		
 		<c:forEach items="#{form.fields}" var="field">
 			<h:panelGrid columns="2" columnClasses="leftColumn,rightColumn">
