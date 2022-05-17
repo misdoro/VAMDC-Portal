@@ -74,14 +74,13 @@ public class ConsumerRequestRegistry implements Serializable {
 
 			// recommended consumers
 			for (String ivoaID : visibleConsumers) {
-				consumers.add(new SelectItem(ivoaID, " ** "
-						+ registryFacade.getResourceTitle(ivoaID)));
+				consumers.add(new SelectItem(ivoaID, registryFacade.getResourceTitle(ivoaID)));
 			}
 
 			// other consumers
 			for (String ivoaID : registryFacade.getConsumerIvoaIDs()) {
-				if (visibleConsumers.contains(ivoaID) == false) {
-					consumers.add(new SelectItem(ivoaID, registryFacade
+				if (!visibleConsumers.contains(ivoaID)) {
+					consumers.add(new SelectItem(ivoaID, "<Not recommended> " + registryFacade
 							.getResourceTitle(ivoaID)));
 				}
 			}
