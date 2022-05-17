@@ -1,5 +1,6 @@
 package org.vamdc.portal.session.preview;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -45,6 +46,22 @@ public class PreviewThread implements Callable<HttpHeadResponse> {
 
 		return result;
 	}
+	
+	private HttpURLConnection getHttpURLConnection(URL url) throws IOException {
+		HttpURLConnection connection = null;
+
+		
+		//http request
+		if (!url.getProtocol().equals("https")) {
+			connection = (HttpURLConnection) url.openConnection();
+		} 
+		//https request
+		else {
+			connection = (HttpsURLConnection) url.openConnection();
+		}		
+		
+		return connection;
+	}
 
 	/**
 	 * Send a HEAD request to a node by testing its mirrors
@@ -54,21 +71,19 @@ public class PreviewThread implements Callable<HttpHeadResponse> {
 		HttpHeadResponse response = null;
 		for (URL mirror : mirrors) {
 			HttpURLConnection connection = null;
-			URL queryURL = getQuery(mirror);
-			
-			//http request
-			if (!mirror.getProtocol().equals("https")) {
-				connection = (HttpURLConnection) queryURL.openConnection();
-			} 
-			//https request
-			else {
-				connection = (HttpsURLConnection) queryURL.openConnection();
-			}
-
+			connection = this.getHttpURLConnection(getQuery(mirror));
 			connection.setRequestMethod("HEAD");
 			connection.setReadTimeout(Settings.HTTP_HEAD_TIMEOUT.getInt());
-
+			/*if(connection.getResponseCode() == 301 || connection.getResponseCode() == 302) {
+				connection.disconnect();
+				String newUrl = connection.getHeaderField("Location");  	
+				System.out.println("### try new url : " + newUrl);
+				connection = this.getHttpURLConnection(new URL(newUrl));
+				connection.setRequestMethod("HEAD");
+				connection.setReadTimeout(Settings.HTTP_HEAD_TIMEOUT.getInt());
+			}*/
 			response = new HttpHeadResponse(ivoaID, connection);
+			
 			if (response.isOk())
 				return response;
 		}
