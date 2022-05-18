@@ -68,7 +68,6 @@ public class NodeSpecies {
         	resultBean.setReady(true);
         	return;
     	}
-    	System.out.println("### test ");
     	resultBean.setMirrorCount(mirrors.size());
     	for(URL node:mirrors){
     		resultBean.setMessage("Timeout : query execution was too long.");

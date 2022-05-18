@@ -3,6 +3,7 @@ package org.vamdc.portal.entity;
 import java.util.Collection;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import org.vamdc.portal.entity.constant.Species;
 
@@ -40,13 +41,14 @@ class EntityQuery{
 	@SuppressWarnings("unchecked")
 	private static Collection<String> suggestRestrictedSpeciesName(EntityManager em,
 			String name, Integer speciesType) {		
-		return em.createQuery("SELECT DISTINCT vsn.name from VamdcSpeciesNames vsn JOIN vsn.vamdcSpecies vsp " +
+		Query q = em.createQuery("SELECT DISTINCT vsn.name from VamdcSpeciesNames vsn JOIN vsn.vamdcSpecies vsp " +
 				"WHERE vsn.name LIKE :speciesName and vsn.vamdcMarkupTypes.id=1 and vsp.speciesType=:speciesType "
 				+ " order by length(vsn.name), vsn.searchPriority")
 				.setParameter("speciesName", "%"+name+"%")
 				.setParameter("speciesType", speciesType)
-				.setMaxResults(20)
-				.getResultList();		
+				.setMaxResults(20);	
+		return q.getResultList();
+
 
 	}
 	

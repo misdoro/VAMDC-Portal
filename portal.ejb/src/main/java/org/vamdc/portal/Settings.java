@@ -11,6 +11,7 @@ import org.jboss.seam.contexts.ServletLifecycle;
  */
 public enum Settings {
 
+	//superseded by values in server/default/deploy/properties-service.xml of jboss server
 	HTTP_CONNECT_TIMEOUT("HTTPConnTimeout", "2000"),
 	HTTP_DATA_TIMEOUT("HTTPDataTimeout","30000"),
 	REGISTRY_URL("registryURL","http://registry.vamdc.eu/registry-12.07/services/RegistryQueryv1_0"),

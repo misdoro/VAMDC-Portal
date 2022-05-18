@@ -36,6 +36,7 @@
 		<dependency>
 			<groupId>org.drools</groupId>
 			<artifactId>drools-compiler</artifactId>
+			<version>6.0.1.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>com.sun.xml.ws</groupId>
@@ -48,6 +49,21 @@
 			<artifactId>el-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
+<!-- https://mvnrepository.com/artifact/org.drools/drools-core -->
+<dependency>
+    <groupId>org.drools</groupId>
+    <artifactId>drools-core</artifactId>
+    <version>5.4.0.Final</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.drools/drools-compiler -->
+<dependency>
+    <groupId>org.drools</groupId>
+    <artifactId>drools-compiler</artifactId>
+    <version>5.4.0.Final</version>
+</dependency>
+
+
 	</dependencies>
 	<build>
 		<plugins>

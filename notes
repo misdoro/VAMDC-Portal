@@ -10,5 +10,8 @@ Could not instantiate Seam component: registration
 Le fichier ~/.mavenrc a été édité pour que JAVA_HOME pointe sur java7
 JAVA_HOME est défini dans deploy.sh pour que jboss utilise java7
 
+Autre solution : export JAVA_HOME=~/Applications/jdk1.8.0_152/
+
+
 Utilise JSF en version 1.x
 
